@@ -47,7 +47,12 @@ const LessentabellenApp = {
     const klas = this.klassen.find(k => k.klascode === klascode);
     if (!klas) return;
 
-    const bijhorendeLessen = this.lessentabel.filter(l => l.klascode === klascode);
+    // ❗ Nieuw: alle lessen van dezelfde richting ophalen
+    const bijhorendeLessen = this.lessentabel.filter(
+      l => this.klassen.find(k => k.klascode === l.klascode)?.richting === klas.richting
+    );
+
+    // Voetnoten blijven beperkt tot deze klas (tenzij je dat ook wil uitbreiden)
     const bijhorendeVoetnoten = this.footnotes.filter(f => f.klascode === klascode);
 
     renderSlidein(klas, bijhorendeLessen, bijhorendeVoetnoten);
