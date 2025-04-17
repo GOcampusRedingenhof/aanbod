@@ -1,0 +1,424 @@
+/**
+ * Dynamische Lessentabellen v3.3.3 - Finale versie
+ * Met originele huistijlkleuren en gradiënten
+ */
+
+/* Pagina container voor de volledige module */
+.lessentabellen-container {
+  padding: 0 !important;
+  margin: 0 auto !important;
+  max-width: 1440px;
+  position: relative;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+}
+
+/* Grid container met premium uitstraling */
+.lessentabellen-root #domains-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.75rem;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  max-width: 1400px;
+  margin: 0 auto !important;
+  border-radius: 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+/* Subtle pattern overlay voor texture */
+.lessentabellen-root #domains-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.4;
+  z-index: 0;
+}
+
+/* Aangepaste container voor domeinen */
+.lessentabellen-root .domain-block {
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  border: none;
+  background: white;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Premium hover effect */
+.lessentabellen-root .domain-block:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 35px rgba(0,0,0,0.2);
+}
+
+/* Geavanceerde domeintitel met gradient (algemeen) */
+.lessentabellen-root .domain-block h2 {
+  margin: 0 !important;
+  padding: 1.25rem 1.5rem !important;
+  color: white;
+  font-size: 1.3rem;
+  background: linear-gradient(to right, var(--app-domain-base), var(--app-domain-mid));
+  text-align: left;
+  width: 100%;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtiel accent pattern voor titels */
+.lessentabellen-root .domain-block h2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(135deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%, transparent);
+  background-size: 10px 10px;
+  opacity: 0.3;
+}
+
+/* Geen onderstreping nodig */
+.lessentabellen-root .domain-block h2::after {
+  display: none;
+}
+
+/* EXACTE HUISSTIJLKLEUREN PER DOMEIN MET GRADIENTS */
+/* STEM */
+.lessentabellen-root .domain-block[data-domain="stem"] h2 {
+  background: linear-gradient(to right, #0C8464, #48A787);
+}
+
+.lessentabellen-root .domain-block[data-domain="stem"] .finaliteit-blok li a {
+  background: #0C8464;
+}
+
+.lessentabellen-root .domain-block[data-domain="stem"] .finaliteit-blok h4 {
+  color: #0C8464;
+  border-color: #0C8464;
+}
+
+/* EERSTE GRAAD */
+.lessentabellen-root .domain-block[data-domain="eerste-graad"] h2 {
+  background: linear-gradient(to right, #ED4E13, #F3764A);
+}
+
+.lessentabellen-root .domain-block[data-domain="eerste-graad"] .finaliteit-blok li a {
+  background: #ED4E13;
+}
+
+.lessentabellen-root .domain-block[data-domain="eerste-graad"] .finaliteit-blok h4 {
+  color: #ED4E13;
+  border-color: #ED4E13;
+}
+
+/* SPORT & TOPSPORT - verbeterd contrast met originele tinten */
+.lessentabellen-root .domain-block[data-domain="sport-topsport"] h2,
+.lessentabellen-root .domain-block[data-domain="topsport"] h2 {
+  background: linear-gradient(to right, #6ABCD6, #A2E4FF);
+  color: #1f2937; /* Donkere tekst voor beter contrast op lichtblauwe achtergrond */
+  text-shadow: none;
+}
+
+.lessentabellen-root .domain-block[data-domain="sport-topsport"] .finaliteit-blok li a,
+.lessentabellen-root .domain-block[data-domain="topsport"] .finaliteit-blok li a {
+  background: #6ABCD6;
+}
+
+.lessentabellen-root .domain-block[data-domain="sport-topsport"] .finaliteit-blok h4,
+.lessentabellen-root .domain-block[data-domain="topsport"] .finaliteit-blok h4 {
+  color: #6ABCD6;
+  border-color: #6ABCD6;
+}
+
+/* MAATSCHAPPIJ & WELZIJN - Originele huisstijlkleuren */
+.lessentabellen-root .domain-block[data-domain="maatschappij-welzijn"] h2 {
+  background: linear-gradient(to right, #E399BB, #EFBACD);
+  color: #1f2937; /* Donkere tekst voor beter contrast op roze achtergrond */
+  text-shadow: none;
+}
+
+.lessentabellen-root .domain-block[data-domain="maatschappij-welzijn"] .finaliteit-blok li a {
+  background: #E399BB;
+  color: #1f2937 !important; /* Donkere tekst voor beter contrast */
+}
+
+.lessentabellen-root .domain-block[data-domain="maatschappij-welzijn"] .finaliteit-blok h4 {
+  color: #E399BB;
+  border-color: #E399BB;
+}
+
+/* ECONOMIE & ORGANISATIE */
+.lessentabellen-root .domain-block[data-domain="economie-organisatie"] h2 {
+  background: linear-gradient(to right, #2B2243, #254a87);
+}
+
+.lessentabellen-root .domain-block[data-domain="economie-organisatie"] .finaliteit-blok li a {
+  background: #2B2243;
+}
+
+.lessentabellen-root .domain-block[data-domain="economie-organisatie"] .finaliteit-blok h4 {
+  color: #2B2243;
+  border-color: #2B2243;
+}
+
+/* OKAN */
+.lessentabellen-root .domain-block[data-domain="okan"] h2 {
+  background: linear-gradient(to right, #E5A021, #F0B94E);
+}
+
+.lessentabellen-root .domain-block[data-domain="okan"] .finaliteit-blok li a {
+  background: #E5A021;
+}
+
+.lessentabellen-root .domain-block[data-domain="okan"] .finaliteit-blok h4 {
+  color: #E5A021;
+  border-color: #E5A021;
+}
+
+/* SCHAKELJAAR (gebruikt economie kleur) */
+.lessentabellen-root .domain-block[data-domain="schakeljaar"] h2 {
+  background: linear-gradient(to right, #2B2243, #254a87);
+}
+
+.lessentabellen-root .domain-block[data-domain="schakeljaar"] .finaliteit-blok li a {
+  background: #2B2243;
+}
+
+.lessentabellen-root .domain-block[data-domain="schakeljaar"] .finaliteit-blok h4 {
+  color: #2B2243;
+  border-color: #2B2243;
+}
+
+/* Premium stijl voor graad headers */
+.lessentabellen-root .tweede-graad-title,
+.lessentabellen-root .derde-graad-title {
+  display: flex;
+  align-items: center;
+  margin: 0 !important;
+  padding: 1rem 1.5rem !important;
+  border-left: 4px solid var(--app-domain-base);
+  background: rgba(0,0,0,0.03);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+
+.lessentabellen-root .tweede-graad-title h3,
+.lessentabellen-root .derde-graad-title h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-left: none;
+}
+
+/* Graad containers - verbeterde stijl */
+.lessentabellen-root .graad-container {
+  padding: 1.25rem 1.5rem !important;
+  background: white;
+  border-left: none;
+  margin: 0 !important;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  position: relative;
+}
+
+/* Laatste graad container zonder border */
+.lessentabellen-root .graad-container:last-child {
+  border-bottom: none;
+}
+
+/* Categorielabels met icoon look */
+.lessentabellen-root .graad-container > div:not(.finaliteit-blok):not(h3):not(.graad-title-container) {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #1f2937;
+  background: rgba(0,0,0,0.04);
+  margin: 0 0 0.75rem 0 !important;
+  padding: 0.4rem 0.75rem !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  border-left: 3px solid var(--app-domain-mid);
+}
+
+/* Verbeterde finaliteit containers */
+.lessentabellen-root .finaliteit-blok {
+  background: #f9f9f9;
+  margin: 0.75rem 0 1rem !important;
+  border-radius: 0;
+  padding: 0.75rem 1.25rem !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s;
+}
+
+.lessentabellen-root .finaliteit-blok:hover {
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+/* Finaliteit titels in kapitaal en groter */
+.lessentabellen-root .finaliteit-blok h4 {
+  margin: 0.25rem 0 0.75rem !important;
+  color: var(--app-domain-base);
+  font-size: 1.05rem; /* Groter */
+  font-weight: 600; /* Iets zwaarder */
+  text-align: left;
+  position: relative;
+  padding-left: 0.6rem !important;
+  border-left: 3px solid var(--app-domain-base);
+  text-transform: uppercase; /* Kapitaal */
+  letter-spacing: 0.5px;
+}
+
+/* Definitieve fix voor bullets */
+.lessentabellen-root .finaliteit-blok ul {
+  list-style: none !important;
+  list-style-type: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+.lessentabellen-root .finaliteit-blok li {
+  list-style: none !important;
+  list-style-type: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.lessentabellen-root .finaliteit-blok li::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Premium knoppen met subtiele hover effecten */
+.lessentabellen-root .finaliteit-blok li a {
+  background: var(--app-domain-base);
+  color: white !important;
+  padding: 0.6rem 1rem !important;
+  border-radius: 0;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  font-size: 0.9rem;
+  display: inline-block;
+  line-height: 1.3;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtiel highlight effect */
+.lessentabellen-root .finaliteit-blok li a::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+  transform: translateX(-100%) skewX(-25deg);
+  transition: transform 0.6s;
+}
+
+/* Hover effecten */
+.lessentabellen-root .finaliteit-blok li a:hover {
+  transform: translateY(-2px);
+  filter: brightness(90%);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.lessentabellen-root .finaliteit-blok li a:hover::after {
+  transform: translateX(100%) skewX(-25deg);
+}
+
+/* Verbeterde titelstijlen */
+.lessentabellen-title {
+  position: relative;
+  text-align: center;
+  color: #1f2937;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.5rem;
+  padding-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.lessentabellen-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(to right, #1f2937, #4b5563);
+}
+
+/* Premium intro tekst */
+.lessentabellen-intro {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+  color: #4b5563;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+/* Responsive aanpassingen voor premium layout */
+@media (min-width: 1200px) {
+  .lessentabellen-root #domains-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .lessentabellen-root #domains-container {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+  
+  .lessentabellen-title {
+    font-size: 1.75rem;
+  }
+  
+  .lessentabellen-intro {
+    font-size: 1rem;
+    padding: 0 1.25rem;
+  }
+}
+
+/* Verbeterde print styling */
+@media print {
+  .lessentabellen-title, 
+  .lessentabellen-intro {
+    color: black !important;
+  }
+  
+  /* Zorg dat de knoppen zichtbaar zijn in print, ook bij lichte achtergronden */
+  .lessentabellen-root .domain-block[data-domain="maatschappij-welzijn"] .finaliteit-blok li a,
+  .lessentabellen-root .domain-block[data-domain="sport-topsport"] .finaliteit-blok li a,
+  .lessentabellen-root .domain-block[data-domain="topsport"] .finaliteit-blok li a {
+    border: 1px solid #000;
+  }
+}
