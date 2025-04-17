@@ -4,25 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lessentabellen App – Versie 3.4.0</title>
-  <!-- Basis CSS -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/detail-view.css">
-  <!-- Config module -->
-  <script src="js/config-module.js"></script>
-  <!-- PapaParse -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
 </head>
 <body>
   <div id="lessentabellen-container" class="lessentabellen-container">
     <h1 class="lessentabellen-title">Lessentabellen GO Campus Redingenhof</h1>
     <p class="lessentabellen-intro">Ontdek hieronder ons uitgebreide studieaanbod. Klik op een richting voor meer details en het volledige uurrooster.</p>
     <div class="lessentabellen-root">
-
-      <!-- Domains container met grid class -->
       <div id="domains-container" class="domains-grid"></div>
 
-      <!-- Slide-in paneel voor details -->
       <div id="slidein" class="lessentabellen-wrapper" tabindex="-1">
         <div class="detail-header">
           <button class="close-btn" aria-label="Sluiten" onclick="LessentabellenApp.closeSlidein()">×</button>
@@ -42,15 +34,11 @@
         <div class="quote">SAMEN VER!</div>
       </div>
 
-      <!-- Overlay voor achtergrond -->
       <div id="overlay"></div>
     </div>
   </div>
 
-  <!-- Modules laden als ES modules -->
-  <script type="module" src="js/loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   <script type="module" src="js/app.js"></script>
-  <!-- Detail view blijft klassiek -->
-  <script src="js/detail-view.js"></script>
 </body>
 </html>
