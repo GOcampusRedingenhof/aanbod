@@ -1,19 +1,22 @@
-// detail-view.js (volledig herwerkt met klas-opsplitsing en styling)
+// detail-view.js - finale herwerking (kleur via window.ConfigModule, structuur per klas)
 
-import { mapDomein, getDomeinMeta } from './config-module.js';
+import { mapDomein } from './config-module.js';
 
 export function renderDetailView(klas, lessentabel, footnotes) {
   const container = document.getElementById("slidein");
   const overlay = document.getElementById("overlay");
 
   const domeinKey = mapDomein(klas.domein);
-  const kleuren = getDomeinMeta(domeinKey);
+  const kleuren = (window.ConfigModule?.domainColors || {})[domeinKey] || {};
 
+  // Domeinkleuren injecteren als CSS variabelen op container
   container.className = "open";
   container.dataset.domain = domeinKey;
+  container.style.setProperty('--app-domain-base', kleuren.base || '#1f2937');
+  container.style.setProperty('--app-domain-mid', kleuren.mid || '#374151');
   overlay.classList.add("active");
 
-  // Titel + knoppen
+  // Header met titel en knoppen
   const header = `
     <div class="detail-header">
       <h2>${klas.richting}</h2>
@@ -23,13 +26,13 @@ export function renderDetailView(klas, lessentabel, footnotes) {
       </div>
     </div>`;
 
-  // Vind alle klassen met dezelfde richtingcode
+  // Verzamel alle klassen en data met dezelfde richtingcode
   const klassen = window.LessentabellenApp.klassen.filter(k => k.richtingcode === klas.richtingcode);
-  const alleLessen = lessentabel.filter(l => l.richtingcode === klas.richtingcode);
-  const alleVoetnoten = footnotes.filter(f => f.richtingcode === klas.richtingcode);
+  const alleLessen = window.LessentabellenApp.lessentabel.filter(l => l.richtingcode === klas.richtingcode);
+  const alleVoetnoten = window.LessentabellenApp.footnotes.filter(f => f.richtingcode === klas.richtingcode);
 
-  // Lessentabellen per klas
-  let lessenHTML = klassen.map(k => {
+  // Tabellen per klas
+  const lessenHTML = klassen.map(k => {
     const lessen = alleLessen.filter(l => l.klascode === k.klascode);
     if (!lessen.length) return '';
     const rows = lessen.map(l => `
@@ -48,7 +51,7 @@ export function renderDetailView(klas, lessentabel, footnotes) {
       </div>`;
   }).join('');
 
-  // Stageweken per klas
+  // Stage-info
   const stageHTML = klassen.map(k => {
     const lessen = alleLessen.filter(l => l.klascode === k.klascode);
     const totaal = lessen.reduce((sum, l) => sum + (parseFloat(l.stage_weken) || 0), 0);
