@@ -4,16 +4,13 @@
  * @copyright 2025 GO Campus Redingenhof
  */
 
-const ConfigModule = {
-  /**
-   * URL van de CSV met lessentabellen data
-   */
-  csvUrl: "https://raw.githubusercontent.com/GOcampusRedingenhof/lessenrooster/refs/heads/main/lessentabellen_tabel.csv",
-  
-  /**
-   * Cache vervaltijd in milliseconden (1 uur)
-   */
-  cacheExpiry: 1000 * 60 * 60,
+ window.ConfigModule = {
+-  csvUrl:        "https://raw.githubusercontent.com/.../lessentabellen_tabel.csv",
++  csvUrl:        "data/lessentabel.csv",         // jouw bestaande CSV in data/
+   footnotesUrl:  "data/footnotes.csv",         // je nieuwe voetnoten‑CSV
+   cacheExpiry:   1000 * 60 * 60,
+   domainColors:  { /* … onveranderd … */ }
+ };
   
   /**
    * Kleuren per domein
