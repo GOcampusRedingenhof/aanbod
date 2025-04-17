@@ -9,7 +9,6 @@
 +  csvUrl:        "data/lessentabel.csv",         // jouw bestaande CSV in data/
    footnotesUrl:  "data/footnotes.csv",         // je nieuwe voetnoten‑CSV
    cacheExpiry:   1000 * 60 * 60,
-   domainColors:  { /* … onveranderd … */ }
  };
   
   /**
