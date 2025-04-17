@@ -1,4 +1,4 @@
-// detail-view.js (refactor versie aangepast aan nieuwe structuur)
+// detail-view.js (volledig herwerkt met klas-opsplitsing en styling)
 
 import { mapDomein, getDomeinMeta } from './config-module.js';
 
@@ -23,51 +23,49 @@ export function renderDetailView(klas, lessentabel, footnotes) {
       </div>
     </div>`;
 
-  // Lessentabel per graad
-  const lessenPerGraad = {};
-  lessentabel.filter(l => l.klascode === klas.klascode).forEach(item => {
-    const graad = (item.graad || 'ONBEKEND').toUpperCase();
-    if (!lessenPerGraad[graad]) lessenPerGraad[graad] = [];
-    lessenPerGraad[graad].push(item);
-  });
+  // Vind alle klassen met dezelfde richtingcode
+  const klassen = window.LessentabellenApp.klassen.filter(k => k.richtingcode === klas.richtingcode);
+  const alleLessen = lessentabel.filter(l => l.richtingcode === klas.richtingcode);
+  const alleVoetnoten = footnotes.filter(f => f.richtingcode === klas.richtingcode);
 
-  let lessenHTML = '';
-  Object.entries(lessenPerGraad).forEach(([graad, vakken]) => {
-    const rows = vakken.map(v => `
+  // Lessentabellen per klas
+  let lessenHTML = klassen.map(k => {
+    const lessen = alleLessen.filter(l => l.klascode === k.klascode);
+    if (!lessen.length) return '';
+    const rows = lessen.map(l => `
       <tr>
-        <td>${v.vak}</td>
-        <td>${v.uren}</td>
-        <td>${v.stage_weken || ''}</td>
+        <td>${l.vak}</td>
+        <td>${l.uren}</td>
       </tr>`).join('');
 
-    lessenHTML += `
+    return `
       <div class="graad-detail">
-        <h3>${graad}</h3>
+        <h3>${k.klascode}</h3>
         <table class="lessentabel">
-          <thead><tr><th>Vak</th><th>Uren</th><th>Stage (weken)</th></tr></thead>
+          <thead><tr><th>Vak</th><th>Uren</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>`;
-  });
+  }).join('');
 
-  // Stage-informatie samenvatten
-  const stageSamenvatting = Object.entries(lessenPerGraad).map(([graad, vakken]) => {
-    const totaal = vakken.reduce((som, l) => som + (parseFloat(l.stage_weken) || 0), 0);
-    return totaal > 0 ? `<li>${graad}: ${totaal} weken stage</li>` : '';
+  // Stageweken per klas
+  const stageHTML = klassen.map(k => {
+    const lessen = alleLessen.filter(l => l.klascode === k.klascode);
+    const totaal = lessen.reduce((sum, l) => sum + (parseFloat(l.stage_weken) || 0), 0);
+    return totaal > 0 ? `<li>${k.klascode}: ${totaal} weken stage</li>` : '';
   }).filter(Boolean).join('');
 
-  const stageHTML = stageSamenvatting ? `<div class="stage-info"><h4>Stageoverzicht</h4><ul>${stageSamenvatting}</ul></div>` : '';
+  const stageInfoHTML = stageHTML ? `<div class="stage-info"><h4>Stageoverzicht</h4><ul>${stageHTML}</ul></div>` : '';
 
   // Voetnoten
-  const voetnoten = footnotes.filter(f => f.klascode === klas.klascode);
-  const voetHTML = voetnoten.length
-    ? `<div class="footnotes"><h4>Opmerkingen</h4><ul>${voetnoten.map(f => `<li>${f.tekst}</li>`).join('')}</ul></div>`
+  const voetHTML = alleVoetnoten.length
+    ? `<div class="footnotes"><h4>Opmerkingen</h4><ul>${alleVoetnoten.map(f => `<li>${f.tekst}</li>`).join('')}</ul></div>`
     : '';
 
   container.innerHTML = `
     ${header}
     ${lessenHTML}
-    ${stageHTML}
+    ${stageInfoHTML}
     ${voetHTML}
   `;
 }
