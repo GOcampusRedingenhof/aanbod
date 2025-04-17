@@ -3,8 +3,8 @@
 /**
  * Genereert en toont de slide-in infokader voor een geselecteerde klas.
  * @param {Object} klas - Het klasobject met richting, beschrijving, domein...
- * @param {Array} lessen - Alle lesitems voor deze klas.
- * @param {Array} voetnoten - Alle voetnoten die bij deze klas horen.
+ * @param {Array} lessen - Alle lesitems voor deze richting (meerdere klassen mogelijk).
+ * @param {Array} voetnoten - Alle voetnoten die bij deze richting horen.
  */
 export function renderSlidein(klas, lessen, voetnoten) {
   const domeinKey = window.ConfigModule?.domeinMap?.[klas.domein.toLowerCase()] || 'onbekend';
@@ -24,7 +24,7 @@ export function renderSlidein(klas, lessen, voetnoten) {
 }
 
 /**
- * Groepeert lessen per klas en genereert een dubbele kolomtabel (of enkele kolom bij fallback)
+ * Groepeert lessen per klas en genereert een dynamische kolomtabel per klas
  */
 function generateTabelPerGraad(lessen) {
   const perKlas = {};
@@ -34,36 +34,29 @@ function generateTabelPerGraad(lessen) {
   });
 
   const klassen = Object.keys(perKlas).sort();
-  if (klassen.length < 1) return '<p>Geen lessentabel beschikbaar.</p>';
+  if (!klassen.length) return '<p>Geen lessentabel beschikbaar.</p>';
 
-  if (klassen.length === 1) {
-    const entries = perKlas[klassen[0]];
-    let rows = entries.map(l => `<tr><td>${l.vak}</td><td>${l.uren || ''}</td></tr>`).join('');
-    rows += `<tr><td><strong>Stage weken</strong></td><td><strong>${entries.find(l => l.stage_weken)?.stage_weken || ''}</strong></td></tr>`;
-    return `
-      <table class="lessentabel">
-        <thead><tr><th>Vak</th><th>${klassen[0]}</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>`;
-  }
-
-  const left = perKlas[klassen[0]];
-  const right = perKlas[klassen[1]];
-  const alleVakken = Array.from(new Set([...left.map(l => l.vak), ...right.map(l => l.vak)]));
+  const alleVakken = Array.from(new Set(lessen.map(l => l.vak)));
 
   let rows = alleVakken.map(vak => {
-    const l = left.find(l => l.vak === vak);
-    const r = right.find(r => r.vak === vak);
-    return `<tr><td>${vak}</td><td>${l?.uren || ''}</td><td>${r?.uren || ''}</td></tr>`;
+    const cols = klassen.map(k => {
+      const les = perKlas[k].find(l => l.vak === vak);
+      return `<td>${les?.uren || ''}</td>`;
+    }).join('');
+    return `<tr><td>${vak}</td>${cols}</tr>`;
   }).join('');
 
-  const stageLeft = left.find(l => l.stage_weken)?.stage_weken;
-  const stageRight = right.find(l => l.stage_weken)?.stage_weken;
-  rows += `<tr><td><strong>Stage weken</strong></td><td><strong>${stageLeft || ''}</strong></td><td><strong>${stageRight || ''}</strong></td></tr>`;
+  // Extra rijen: lestijden + stage
+  const rijen = ['lestijden', 'stage_weken'];
+  rijen.forEach(label => {
+    const labelTekst = label === 'lestijden' ? 'Lestijden per week' : 'Stage weken';
+    const cells = klassen.map(k => {
+      const match = perKlas[k].find(l => l[label]);
+      return `<td><strong>${match?.[label] || ''}</strong></td>`;
+    }).join('');
+    rows += `<tr><td><strong>${labelTekst}</strong></td>${cells}</tr>`;
+  });
 
-  return `
-    <table class="lessentabel">
-      <thead><tr><th>Vak</th><th>${klassen[0]}</th><th>${klassen[1]}</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>`;
+  const thead = `<thead><tr><th>Vak</th>${klassen.map(k => `<th>${k}</th>`).join('')}</tr></thead>`;
+  return `<table class="lessentabel">${thead}<tbody>${rows}</tbody></table>`;
 }
