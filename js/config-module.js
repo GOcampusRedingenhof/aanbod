@@ -10,7 +10,7 @@ window.ConfigModule = {
       light1: "#89CCB2",
       hover: "#d7f5ea"
     },
-    topsport: {
+    "sport-topsport": {
       base: "#A2E4FF",
       mid: "#C6F0FF",
       light1: "#E4F9FF",
@@ -55,8 +55,11 @@ export const domeinMap = {
   'stem': 'stem',
   'eerste graad': 'eerste-graad',
   'maatschappij & welzijn': 'maatschappij-welzijn',
+  'maatschappij en welzijn': 'maatschappij-welzijn',
   'economie & organisatie': 'economie-organisatie',
+  'economie en organisatie': 'economie-organisatie',
   'sport & topsport': 'sport-topsport',
+  'sport en topsport': 'sport-topsport',
   'topsport': 'sport-topsport',
   'okan': 'okan',
   'schakeljaar': 'schakeljaar'
@@ -67,3 +70,11 @@ export function mapDomein(raw) {
   return domeinMap[key] || 'onbekend';
 }
 
+export function getDomeinMeta(domeinKey) {
+  return window.ConfigModule.domainColors[domeinKey] || {
+    base: '#cccccc',
+    mid: '#cccccc',
+    light1: '#e0e0e0',
+    hover: '#dddddd'
+  };
+}
