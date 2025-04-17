@@ -1,31 +1,44 @@
 // grid-builder.js
 
-import { mapDomein } from './config-module.js';
-
 /**
  * Bouwt de volledige gridstructuur op volgens het premium grid.css-systeem.
- * Groepeert per domein > graad > finaliteit, en dedupliceert richtingen per graad op richtingcode.
+ * Groepeert per domein > graad > finaliteit, en dedupliceert richtingen per graad.
  */
 export function buildGrid(data, target) {
   const structuur = {};
+
+  // Domeinnaam normaliseren
+  const normalizeDomein = (value) => {
+    return value
+      ?.toString()
+      .trim()
+      .toLowerCase()
+      .replace(/\s*&\s*/g, '-')
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '')
+      || 'onbekend';
+  };
+
   const graadVolgorde = ['TWEEDE GRAAD', 'DERDE GRAAD'];
 
-  // Structuur opbouwen per domein > graad > finaliteit met deduplicatie op richtingcode
+  // Unieke richtingen per graad groeperen
   data.forEach(item => {
-    const domein = mapDomein(item.domein);
+    const domein = normalizeDomein(item.domein);
     const graad = (item.graad ?? 'ONBEKEND').toString().trim().toUpperCase();
-    const finaliteit = (item.finaliteit ?? 'ONBEKEND').toString().trim().toUpperCase();
+    const finaliteit = (item.finaliteit ?? 'ONBEKEND').toString().trim();
     const richtcode = item.richtingcode;
 
     if (!structuur[domein]) structuur[domein] = {};
     if (!structuur[domein][graad]) structuur[domein][graad] = {};
-    if (!structuur[domein][graad][finaliteit]) structuur[domein][graad][finaliteit] = [];
+    if (!structuur[domein][graad][finaliteit]) structuur[domein][graad][finaliteit] = new Map();
 
-    const bestaatAl = structuur[domein][graad][finaliteit].some(i => i.richtingcode === richtcode);
-    if (!bestaatAl) structuur[domein][graad][finaliteit].push(item);
+    // Als de richting nog niet in deze finaliteit zit, voeg toe
+    if (!structuur[domein][graad][finaliteit].has(richtcode)) {
+      structuur[domein][graad][finaliteit].set(richtcode, item);
+    }
   });
 
-  // Render per domein
+  // Renderen per domein
   Object.entries(structuur).forEach(([domein, graden]) => {
     const domainBlock = document.createElement('div');
     domainBlock.className = 'domain-block';
@@ -46,7 +59,7 @@ export function buildGrid(data, target) {
         graadLabel.textContent = graad;
         graadContainer.appendChild(graadLabel);
 
-        Object.entries(finaliteiten).forEach(([finaliteit, richtingen]) => {
+        Object.entries(finaliteiten).forEach(([finaliteit, richtingMap]) => {
           const finaliteitBlok = document.createElement('div');
           finaliteitBlok.className = 'finaliteit-blok';
 
@@ -55,7 +68,7 @@ export function buildGrid(data, target) {
           finaliteitBlok.appendChild(h4);
 
           const ul = document.createElement('ul');
-          richtingen.forEach(richting => {
+          richtingMap.forEach(richting => {
             const li = document.createElement('li');
             const a = document.createElement('a');
             a.href = '#';
