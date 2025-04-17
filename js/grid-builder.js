@@ -2,27 +2,38 @@
 
 /**
  * Bouwt de volledige gridstructuur op volgens het premium grid.css-systeem.
- * Groepeert per domein > graad > finaliteit, en dedupliceert richtingen per graad.
+ * Groepeert per domein > graad > finaliteit, en dedupliceert richtingen per klascode.
  */
-
-import { mapDomein } from './config-module.js';
 
 export function buildGrid(data, target) {
   const structuur = {};
+
+  // Herschrijf domeinnaam naar CSS-conforme notatie
+  const normalizeDomein = (value) => {
+    return value
+      ?.toString()
+      .trim()
+      .toLowerCase()
+      .replace(/\s*&\s*/g, '-')
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '')
+      || 'onbekend';
+  };
+
   const graadVolgorde = ['TWEEDE GRAAD', 'DERDE GRAAD'];
 
-  // Structuur opbouwen per domein > graad > finaliteit met deduplicatie op richtingcode
+  // Structuur opbouwen per domein > graad > finaliteit met deduplicatie op klascode
   data.forEach(item => {
-    const domein = mapDomein(item.domein);
+    const domein = normalizeDomein(item.domein);
     const graad = (item.graad ?? 'ONBEKEND').toString().trim().toUpperCase();
     const finaliteit = (item.finaliteit ?? 'ONBEKEND').toString().trim();
-    const richtcode = item.richtingcode;
+    const klascode = item.klascode;
 
     if (!structuur[domein]) structuur[domein] = {};
     if (!structuur[domein][graad]) structuur[domein][graad] = {};
     if (!structuur[domein][graad][finaliteit]) structuur[domein][graad][finaliteit] = [];
 
-    const bestaatAl = structuur[domein][graad][finaliteit].some(i => i.richtingcode === richtcode);
+    const bestaatAl = structuur[domein][graad][finaliteit].some(i => i.klascode === klascode);
     if (!bestaatAl) structuur[domein][graad][finaliteit].push(item);
   });
 
@@ -75,4 +86,4 @@ export function buildGrid(data, target) {
 
     target.appendChild(domainBlock);
   });
-}
+} 
