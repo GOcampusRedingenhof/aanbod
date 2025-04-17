@@ -3,18 +3,17 @@
 /**
  * Genereert en toont de slide-in infokader voor een geselecteerde klas.
  * @param {Object} klas - Het klasobject met richting, beschrijving, domein...
- * @param {Array} alleKlassen - Alle klasobjecten van dezelfde richting (zelfde richtingcode).
- * @param {Array} lessen - Alle lesitems voor deze richting.
- * @param {Array} voetnoten - Alle voetnoten die bij deze klas horen.
+ * @param {Array} lessen - Alle lesitems voor deze richting (alle klassen)
+ * @param {Array} voetnoten - Alle voetnoten die bij deze richting horen
  */
-export function renderSlidein(klas, alleKlassen, lessen, voetnoten) {
+export function renderSlidein(klas, lessen, voetnoten) {
   const domeinKey = window.ConfigModule?.domeinMap?.[klas.domein.toLowerCase()] || 'onbekend';
   document.getElementById("slidein").dataset.domain = domeinKey;
 
   document.getElementById("opleiding-titel").textContent = klas.richting;
   document.getElementById("opleiding-beschrijving").textContent = klas.beschrijving || '';
 
-  const lesHTML = generateTabelPerGraad(alleKlassen, lessen);
+  const lesHTML = generateTabelPerKlas(lessen);
   document.getElementById("lessentabel-container").innerHTML = lesHTML;
 
   const voetHTML = voetnoten.map(f => `<li>${f.tekst}</li>`).join('');
@@ -25,39 +24,43 @@ export function renderSlidein(klas, alleKlassen, lessen, voetnoten) {
 }
 
 /**
- * Genereert een lesrooster per klas in één tabel, gesorteerd per klas.
- * @param {Array} klassen - Alle klasobjecten (met klascode, richting, graad, enz.).
- * @param {Array} lessen - Alle lessen van de richting (alle bijhorende klascodes).
- * @returns {string} HTML-tabel
+ * Groepeert lessen per klas en genereert een dubbele kolomtabel (of enkele kolom bij fallback)
  */
-function generateTabelPerGraad(klassen, lessen) {
+function generateTabelPerKlas(lessen) {
   const perKlas = {};
-  klassen.forEach(k => perKlas[k.klascode] = { naam: k.klas, stage: k.stage_weken });
-
-  const perVak = {};
   lessen.forEach(l => {
-    if (!perVak[l.vak]) perVak[l.vak] = {};
-    perVak[l.vak][l.klascode] = l.uren;
+    if (!perKlas[l.klas]) perKlas[l.klas] = [];
+    perKlas[l.klas].push(l);
   });
 
-  const kolommen = Object.keys(perKlas);
-  if (!kolommen.length) return '<p>Geen lessentabel beschikbaar.</p>';
+  const klassen = Object.keys(perKlas).sort();
+  if (klassen.length === 0) return '<p>Geen lessentabel beschikbaar.</p>';
 
-  let thead = `<tr><th>Vak</th>${kolommen.map(k => `<th>${perKlas[k].naam}</th>`).join('')}</tr>`;
+  // Verzamel alle unieke vakken uit beide klassen
+  const alleVakken = Array.from(new Set(
+    klassen.flatMap(k => perKlas[k].map(l => l.vak))
+  ));
 
-  const vakken = Object.keys(perVak);
-  let rows = vakken.map(vak => {
-    const cellen = kolommen.map(k => `<td>${perVak[vak]?.[k] ?? ''}</td>`).join('');
-    return `<tr><td>${vak}</td>${cellen}</tr>`;
+  let rows = alleVakken.map(vak => {
+    const kolommen = klassen.map(klasnaam => {
+      const match = perKlas[klasnaam].find(l => l.vak === vak);
+      return `<td>${match?.uren || ''}</td>`;
+    }).join('');
+    return `<tr><td>${vak}</td>${kolommen}</tr>`;
   }).join('');
 
-  // Toevoegen van stageweken onderaan
-  const stageRow = kolommen.map(k => `<td><strong>${perKlas[k].stage ?? ''}</strong></td>`).join('');
+  // Voeg rij toe voor stageweken
+  const stageRow = klassen.map(klasnaam => {
+    const entry = perKlas[klasnaam].find(l => l.stage_weken);
+    return `<td><strong>${entry?.stage_weken || ''}</strong></td>`;
+  }).join('');
   rows += `<tr><td><strong>Stage weken</strong></td>${stageRow}</tr>`;
+
+  const headerCols = klassen.map(k => `<th>${k}</th>`).join('');
 
   return `
     <table class="lessentabel">
-      <thead>${thead}</thead>
+      <thead><tr><th>Vak</th>${headerCols}</tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
 }
