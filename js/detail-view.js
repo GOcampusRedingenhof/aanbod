@@ -1,68 +1,59 @@
 // detail-view.js
-import { mapDomein, getDomeinMeta } from './config-module.js';
 
+/**
+ * Genereert en toont de slide-in infokader voor een geselecteerde klas.
+ * @param {Object} klas - Het klasobject met richting, beschrijving, domein...
+ * @param {Array} lessen - Alle lesitems voor deze klas.
+ * @param {Array} voetnoten - Alle voetnoten die bij deze klas horen.
+ */
 export function renderSlidein(klas, lessen, voetnoten) {
-  if (!klas) return;
-
-  const domeinKey = mapDomein(klas.domein);
-  const kleuren = getDomeinMeta(domeinKey);
-  const slidein = document.getElementById("slidein");
-  slidein.dataset.domain = domeinKey;
+  const domeinKey = window.ConfigModule?.domeinMap?.[klas.domein.toLowerCase()] || 'onbekend';
+  document.getElementById("slidein").dataset.domain = domeinKey;
 
   document.getElementById("opleiding-titel").textContent = klas.richting;
   document.getElementById("opleiding-beschrijving").textContent = klas.beschrijving || '';
 
-  const tabelHTML = generateLessentabel(lessen);
-  document.getElementById("lessentabel-container").innerHTML = tabelHTML;
+  const lesHTML = generateTabelPerGraad(lessen);
+  document.getElementById("lessentabel-container").innerHTML = lesHTML;
 
   const voetHTML = voetnoten.map(f => `<li>${f.tekst}</li>`).join('');
   document.getElementById("footnotes").innerHTML = voetHTML ? `<ul class="footnotes">${voetHTML}</ul>` : '';
 
-  slidein.classList.add("open");
+  document.getElementById("slidein").classList.add("open");
   document.getElementById("overlay").classList.add("active");
 }
 
-function generateLessentabel(lessen) {
-  if (!lessen.length) return '<p>Geen lessentabel beschikbaar.</p>';
-
-  // Groepeer lessen per klas
+/**
+ * Groepeert lessen per klas en genereert een dubbele kolomtabel
+ */
+function generateTabelPerGraad(lessen) {
   const perKlas = {};
   lessen.forEach(l => {
     if (!perKlas[l.klas]) perKlas[l.klas] = [];
     perKlas[l.klas].push(l);
   });
 
-  // Unieke lijst van vakken
-  const alleVakken = [...new Set(lessen.map(l => l.vak))];
-  const klassen = Object.keys(perKlas);
+  const klassen = Object.keys(perKlas).sort();
+  if (klassen.length < 2) return '<p>Geen volledige lessentabel beschikbaar.</p>';
 
-  let header = `<thead><tr><th>Vak</th>` +
-    klassen.map(k => `<th>${k}</th>`).join('') +
-    `</tr></thead>`;
+  const left = perKlas[klassen[0]];
+  const right = perKlas[klassen[1]];
+  const alleVakken = Array.from(new Set([...left.map(l => l.vak), ...right.map(l => l.vak)]));
 
-  let body = alleVakken.map(vak => {
-    const row = [`<td>${vak}</td>`];
-    klassen.forEach(k => {
-      const item = perKlas[k].find(l => l.vak === vak);
-      row.push(`<td>${item?.uren || ''}</td>`);
-    });
-    return `<tr>${row.join('')}</tr>`;
+  let rows = alleVakken.map(vak => {
+    const l = left.find(l => l.vak === vak);
+    const r = right.find(r => r.vak === vak);
+    return `<tr><td>${vak}</td><td>${l?.uren || ''}</td><td>${r?.uren || ''}</td></tr>`;
   }).join('');
 
-  // Voeg rijen toe voor lestijden per week en stage weken
-  const extraRijen = ['Lestijden per week', 'Stage weken'].map(label => {
-    const row = [`<td><strong>${label}</strong></td>`];
-    klassen.forEach(k => {
-      const item = perKlas[k].find(l => l.vak.toLowerCase().includes(label.toLowerCase()));
-      row.push(`<td>${item?.uren || ''}</td>`);
-    });
-    return `<tr>${row.join('')}</tr>`;
-  }).join('');
+  const stageLeft = left.find(l => l.stage_weken)?.stage_weken;
+  const stageRight = right.find(l => l.stage_weken)?.stage_weken;
 
-  return `<table class="lessentabel">${header}<tbody>${body}${extraRijen}</tbody></table>`;
-}
+  rows += `<tr><td><strong>Stage weken</strong></td><td><strong>${stageLeft || ''}</strong></td><td><strong>${stageRight || ''}</strong></td></tr>`;
 
-export function closeSlidein() {
-  document.getElementById("slidein").classList.remove("open");
-  document.getElementById("overlay").classList.remove("active");
+  return `
+    <table class="lessentabel">
+      <thead><tr><th>Vak</th><th>${klassen[0]}</th><th>${klassen[1]}</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
 }
