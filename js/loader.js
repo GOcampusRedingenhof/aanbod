@@ -1,30 +1,38 @@
 // loader.js
 
 /**
- * Haalt een CSV op via fetch() en parse met de globale Papa.parse()
+ * Laadt CSV-bestanden vanaf GitHub Pages of een andere publieke bron.
+ * Verwacht:
+ * - klassen.csv
+ * - lessentabel.csv
+ * - voetnoten.csv
  */
+
+const CSV_BASE_URL = 'https://gocampusredingenhof.github.io/aanbod/data/';
+
 async function fetchCsv(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Kan CSV niet laden: ${res.status}`);
-  const text = await res.text();
-  const { data, errors } = Papa.parse(text, {
-    header: true,
-    delimiter: ';'
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Kan CSV niet laden: ${response.status}`);
+
+  const text = await response.text();
+  return new Promise((resolve, reject) => {
+    Papa.parse(text, {
+      header: true,
+      skipEmptyLines: true,
+      complete: results => resolve(results.data),
+      error: err => reject(err)
+    });
   });
-  if (errors.length) console.warn('CSV parse errors:', errors);
-  return data;
 }
 
-/**
- * Returnt een array van lessendata
- */
-export function getLessons() {
-  return fetchCsv(window.ConfigModule.csvUrl);
+export async function getKlassen() {
+  return await fetchCsv(CSV_BASE_URL + 'klassen.csv');
 }
 
-/**
- * Returnt een array van voetnoten
- */
-export function getFootnotes() {
-  return fetchCsv(window.ConfigModule.footnotesUrl);
+export async function getLessentabel() {
+  return await fetchCsv(CSV_BASE_URL + 'lessentabel.csv');
+}
+
+export async function getFootnotes() {
+  return await fetchCsv(CSV_BASE_URL + 'voetnoten.csv');
 }
