@@ -3,8 +3,8 @@
 /**
  * Genereert en toont de slide-in infokader voor een geselecteerde klas.
  * @param {Object} klas - Het klasobject met richting, beschrijving, domein...
- * @param {Array} lessen - Alle lesitems (alle klassen) voor deze richting.
- * @param {Array} voetnoten - Alle voetnoten die bij deze richting horen.
+ * @param {Array} lessen - Alle lesitems voor deze klas.
+ * @param {Array} voetnoten - Alle voetnoten die bij deze klas horen.
  */
 export function renderSlidein(klas, lessen, voetnoten) {
   const domeinKey = window.ConfigModule?.domeinMap?.[klas.domein.toLowerCase()] || 'onbekend';
@@ -13,7 +13,7 @@ export function renderSlidein(klas, lessen, voetnoten) {
   document.getElementById("opleiding-titel").textContent = klas.richting;
   document.getElementById("opleiding-beschrijving").textContent = klas.beschrijving || '';
 
-  const lesHTML = generateTabelPerRichting(lessen);
+  const lesHTML = generateTabelPerGraad(lessen);
   document.getElementById("lessentabel-container").innerHTML = lesHTML;
 
   const voetHTML = voetnoten.map(f => `<li>${f.tekst}</li>`).join('');
@@ -24,9 +24,9 @@ export function renderSlidein(klas, lessen, voetnoten) {
 }
 
 /**
- * Groepeert lessen per klas en genereert een dubbele kolomtabel
+ * Groepeert lessen per klas en genereert een dubbele kolomtabel (of enkele kolom bij fallback)
  */
-function generateTabelPerRichting(lessen) {
+function generateTabelPerGraad(lessen) {
   const perKlas = {};
   lessen.forEach(l => {
     if (!perKlas[l.klas]) perKlas[l.klas] = [];
@@ -34,33 +34,36 @@ function generateTabelPerRichting(lessen) {
   });
 
   const klassen = Object.keys(perKlas).sort();
-  if (klassen.length === 0) return '<p>Geen lessentabel beschikbaar.</p>';
+  if (klassen.length < 1) return '<p>Geen lessentabel beschikbaar.</p>';
 
-  const alleVakken = new Set();
-  klassen.forEach(klas => {
-    perKlas[klas].forEach(l => alleVakken.add(l.vak));
-  });
+  if (klassen.length === 1) {
+    const entries = perKlas[klassen[0]];
+    let rows = entries.map(l => `<tr><td>${l.vak}</td><td>${l.uren || ''}</td></tr>`).join('');
+    rows += `<tr><td><strong>Stage weken</strong></td><td><strong>${entries.find(l => l.stage_weken)?.stage_weken || ''}</strong></td></tr>`;
+    return `
+      <table class="lessentabel">
+        <thead><tr><th>Vak</th><th>${klassen[0]}</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+  }
 
-  const vakken = Array.from(alleVakken);
-  const header = `<tr><th>Vak</th>${klassen.map(k => `<th>${k}</th>`).join('')}</tr>`;
+  const left = perKlas[klassen[0]];
+  const right = perKlas[klassen[1]];
+  const alleVakken = Array.from(new Set([...left.map(l => l.vak), ...right.map(l => l.vak)]));
 
-  const rows = vakken.map(vak => {
-    const cols = klassen.map(klas => {
-      const entry = perKlas[klas].find(l => l.vak === vak);
-      return `<td>${entry?.uren || ''}</td>`;
-    }).join('');
-    return `<tr><td>${vak}</td>${cols}</tr>`;
+  let rows = alleVakken.map(vak => {
+    const l = left.find(l => l.vak === vak);
+    const r = right.find(r => r.vak === vak);
+    return `<tr><td>${vak}</td><td>${l?.uren || ''}</td><td>${r?.uren || ''}</td></tr>`;
   }).join('');
 
-  // Voeg rij toe voor stageweken
-  const stageRow = `<tr><td><strong>Stage weken</strong></td>${klassen.map(klas => {
-    const l = perKlas[klas].find(l => l.stage_weken);
-    return `<td><strong>${l?.stage_weken || ''}</strong></td>`;
-  }).join('')}</tr>`;
+  const stageLeft = left.find(l => l.stage_weken)?.stage_weken;
+  const stageRight = right.find(l => l.stage_weken)?.stage_weken;
+  rows += `<tr><td><strong>Stage weken</strong></td><td><strong>${stageLeft || ''}</strong></td><td><strong>${stageRight || ''}</strong></td></tr>`;
 
   return `
     <table class="lessentabel">
-      <thead>${header}</thead>
-      <tbody>${rows}${stageRow}</tbody>
+      <thead><tr><th>Vak</th><th>${klassen[0]}</th><th>${klassen[1]}</th></tr></thead>
+      <tbody>${rows}</tbody>
     </table>`;
 }
