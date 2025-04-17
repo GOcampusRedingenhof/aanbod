@@ -5,26 +5,15 @@
  * Groepeert per domein > graad > finaliteit, en dedupliceert richtingen per graad.
  */
 
+import { mapDomein } from './config-module.js';
+
 export function buildGrid(data, target) {
   const structuur = {};
-
-  // Herschrijf domeinnaam naar CSS-conforme notatie
-  const normalizeDomein = (value) => {
-    return value
-      ?.toString()
-      .trim()
-      .toLowerCase()
-      .replace(/\s*&\s*/g, '-')
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '')
-      || 'onbekend';
-  };
-
   const graadVolgorde = ['TWEEDE GRAAD', 'DERDE GRAAD'];
 
   // Structuur opbouwen per domein > graad > finaliteit met deduplicatie op richtingcode
   data.forEach(item => {
-    const domein = normalizeDomein(item.domein);
+    const domein = mapDomein(item.domein);
     const graad = (item.graad ?? 'ONBEKEND').toString().trim().toUpperCase();
     const finaliteit = (item.finaliteit ?? 'ONBEKEND').toString().trim();
     const richtcode = item.richtingcode;
