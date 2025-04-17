@@ -192,7 +192,8 @@ function generateTabelPerKlas(lessen, hoofdKlas) {
   const heeftStageWeken = klasCodes.some(code => {
     // Zoek klas bij de code
     const gevondenKlas = window.LessentabellenApp.klassen.find(k => k.klascode === code);
-    return gevondenKlas && gevondenKlas.stage_weken;
+    // Verbeterde controle: check explicieter op waarde
+    return gevondenKlas && gevondenKlas.stage_weken !== undefined && gevondenKlas.stage_weken !== null;
   });
 
   // Voeg rij toe voor stageweken wanneer die beschikbaar zijn
@@ -203,7 +204,10 @@ function generateTabelPerKlas(lessen, hoofdKlas) {
         ${klasCodes.map(code => {
           // Zoek de juiste klas-info voor deze klascode
           const klasMetCode = window.LessentabellenApp.klassen.find(k => k.klascode === code);
-          const stageWeken = klasMetCode && klasMetCode.stage_weken ? klasMetCode.stage_weken : '';
+          // Verbeterde check: niet afhankelijk van truthy/falsy evaluatie
+          const stageWeken = (klasMetCode && klasMetCode.stage_weken !== undefined && klasMetCode.stage_weken !== null) 
+            ? klasMetCode.stage_weken 
+            : '';
           return `<td>${stageWeken}</td>`;
         }).join('')}
       </tr>
