@@ -1,0 +1,928 @@
+klascode,vak,categorie,type,subvak,optie,uren
+5APDA,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+5APDA,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5APDA,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+5APDA,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+5APDA,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5APDA,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+5APDA,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5APDA,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+5APDA,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+5APDA,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,
+5APDA,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,
+5APDA,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5APDA,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
+5APDA,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+5APDA,Informaticawetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+5APDA,Digitaal ondersteuner,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+5APDA,- Applicatie- en datatechnieken,specifiek gedeelte,vak,WAAR,ONWAAR,7
+5APDA,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
+6APDA,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+6APDA,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6APDA,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+6APDA,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+6APDA,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6APDA,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+6APDA,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6APDA,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+6APDA,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+6APDA,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+6APDA,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+6APDA,Economie,basisvorming,vak,ONWAAR,ONWAAR,
+6APDA,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
+6APDA,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6APDA,Informaticawetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+6APDA,Digitaal ondersteuner,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+6APDA,- Applicatie- en datatechnieken,specifiek gedeelte,vak,WAAR,ONWAAR,7
+6APDA,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
+5ASWW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+5ASWW,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,2
+5ASWW,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,4
+5ASWW,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,4
+5ASWW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+5ASWW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+5ASWW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5ASWW,Basiszorg en ondersteuning (20u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
+5ASWW,- Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,4
+5ASWW,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,6
+5ASWW,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,4
+5ASWW,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
+5ASWW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+5BZO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+5BZO,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,2
+5BZO,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,4
+5BZO,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,4
+5BZO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+5BZO,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+5BZO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5BZO,Basiszorg en ondersteuning (20u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
+5BZO,- Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,4
+5BZO,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,4
+5BZO,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,5
+5BZO,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,4
+5BZO,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+6BZO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+6BZO,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,2
+6BZO,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,4
+6BZO,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,5
+6BZO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+6BZO,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+6BZO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6BZO,Basiszorg en ondersteuning (20u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
+6BZO,- Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,3
+6BZO,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,4
+6BZO,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
+6BZO,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
+6BZO,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+5BO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+5BO,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5BO,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+5BO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5BO,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+5BO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+5BO,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+5BO,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+5BO,Economische en Bedrijfswetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+5BO,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+5BO,Bedrijfsorganisatie (15u),specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+5BO,Engels (wisseluur),specifiek gedeelte,vak,ONWAAR,ONWAAR,"0,5"
+5BO,Frans (wisseluur),specifiek gedeelte,vak,ONWAAR,ONWAAR,"0,5"
+5BO,Financiële algebra (wiskunde),specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+5BO,Economie (algemeen),specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+5BO,Bedrijfswetenschappen incl. mini-onderneming,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+5BO,Toegepaste economie/toegepaste informatica incl. mini-onderneming,specifiek gedeelte,vak,ONWAAR,ONWAAR,8
+5BO,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+6BO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+6BO,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6BO,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+6BO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6BO,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+6BO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+6BO,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+6BO,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+6BO,Economische en Bedrijfswetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+6BO,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+6BO,Bedrijfsorganisatie (15u),specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+6BO,Engels (wisseluur),specifiek gedeelte,vak,ONWAAR,ONWAAR,"0,5"
+6BO,Frans (wisseluur),specifiek gedeelte,vak,ONWAAR,ONWAAR,"0,5"
+6BO,Financiële algebra (wiskunde),specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+6BO,Economie (algemeen),specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6BO,Bedrijfswetenschappen incl. mini-onderneming,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+6BO,Toegepaste economie/toegepaste informatica incl. mini-onderneming,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+6BO,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
+3BW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+3BW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+3BW,Engels,basisvorming,vak,ONWAAR,ONWAAR,3
+3BW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+3BW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+3BW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,4
+3BW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3BW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+3BW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+3BW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+3BW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+3BW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+3BW,Economie,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+3BW,Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+3BW,Informatica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3BW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+4BW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+4BW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+4BW,Engels,basisvorming,vak,ONWAAR,ONWAAR,3
+4BW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+4BW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+4BW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,4
+4BW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4BW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+4BW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+4BW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+4BW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+4BW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+4BW,Economie,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+4BW,Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+4BW,Informatica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+4BW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+5BIN,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+5BIN,PAV,basisvorming,vak,ONWAAR,ONWAAR,4
+5BIN,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+5BIN,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+5BIN,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+5BIN,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5BIN,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5BIN,Binnenschrijnwerk en interieur,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
+5BIN,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+6BIN,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+6BIN,PAV,basisvorming,vak,ONWAAR,ONWAAR,4
+6BIN,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+6BIN,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+6BIN,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+6BIN,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6BIN,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6BIN,Binnenschrijnwerk en interieur,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
+6BIN,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+5CO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+5CO,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5CO,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+5CO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5CO,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+5CO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+5CO,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+5CO,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+5CO,Economische Wetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+5CO,Bedrijfsorganisatie (15u),specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+5CO,Engels (wisseluur),specifiek gedeelte,vak,ONWAAR,ONWAAR,"0,5"
+5CO,Frans (wisseluur),specifiek gedeelte,vak,ONWAAR,ONWAAR,"0,5"
+5CO,Financiële algebra (wiskunde),specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+5CO,Economie (algemeen),specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+5CO,Bedrijfswetenschappen incl. mini-onderneming,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+5CO,Toegepaste economie/toegepaste informatica incl. mini-onderneming,specifiek gedeelte,vak,ONWAAR,ONWAAR,8
+5CO,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+3ELEK,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+3ELEK,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
+3ELEK,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+3ELEK,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+3ELEK,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3ELEK,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
+3ELEK,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3ELEK,STEM Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+3ELEK,* Basis,specifiek gedeelte,vak,WAAR,ONWAAR,8
+3ELEK,* Auto,specifiek gedeelte,vak,WAAR,ONWAAR,5
+3ELEK,* Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,6
+3ELEK,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+4ELEK,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+4ELEK,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
+4ELEK,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+4ELEK,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+4ELEK,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4ELEK,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
+4ELEK,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4ELEK,STEM Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+4ELEK,* Basis,specifiek gedeelte,vak,WAAR,ONWAAR,8
+4ELEK,* Auto,specifiek gedeelte,vak,WAAR,ONWAAR,5
+4ELEK,* Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,6
+4ELEK,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+5ELINS,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+5ELINS,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,4
+5ELINS,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+5ELINS,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+5ELINS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+5ELINS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5ELINS,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5ELINS,Elektrische installaties,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
+5ELINS,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+6ELINS,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+6ELINS,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,4
+6ELINS,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+6ELINS,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+6ELINS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+6ELINS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6ELINS,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6ELINS,Elektrische installaties,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
+6ELINS,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+5EMT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+5EMT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5EMT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+5EMT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5EMT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+5EMT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5EMT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+5EMT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+5EMT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+5EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,
+5EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,
+5EMT,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5EMT,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
+5EMT,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5EMT,- Mechanica,specifiek gedeelte,vak,WAAR,ONWAAR,2
+5EMT,- Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
+5EMT,- STEM Engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5EMT,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+5EMT,- Elektromechanische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,7
+5EMT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
+6EMT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+6EMT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6EMT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+6EMT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6EMT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+6EMT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6EMT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+6EMT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+6EMT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+6EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,
+6EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,
+6EMT,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+6EMT,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
+6EMT,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6EMT,- Mechanica,specifiek gedeelte,vak,WAAR,ONWAAR,2
+6EMT,- Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
+6EMT,- STEM Engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6EMT,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+6EMT,- Elektromechanische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,7
+6EMT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
+3GRATECH,Godsdienst en zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+3GRATECH,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+3GRATECH,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+3GRATECH,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+3GRATECH,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+3GRATECH,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+3GRATECH,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+3GRATECH,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3GRATECH,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+3GRATECH,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+3GRATECH,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+3GRATECH,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+3GRATECH,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,11
+3GRATECH,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+3GRATECH,- STEM-engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
+3GRATECH,- Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
+3GRATECH,- Grafische technieken,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+3GRATECH,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+4GRATECH,Godsdienst en zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+4GRATECH,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+4GRATECH,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+4GRATECH,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+4GRATECH,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+4GRATECH,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+4GRATECH,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,4
+4GRATECH,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4GRATECH,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+4GRATECH,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+4GRATECH,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+4GRATECH,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+4GRATECH,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
+4GRATECH,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+4GRATECH,- STEM-engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
+4GRATECH,- Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
+4GRATECH,- Grafische technieken,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+4GRATECH,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+5GRAFI,GGodsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+5GRAFI,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5GRAFI,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+5GRAFI,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5GRAFI,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+5GRAFI,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5GRAFI,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+5GRAFI,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+5GRAFI,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+5GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,
+5GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,
+5GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5GRAFI,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
+5GRAFI,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5GRAFI,- Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5GRAFI,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+5GRAFI,- Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,11
+5GRAFI,- Vrije ruimte,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+5GRAFI,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
+6GRAFI,GGodsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+6GRAFI,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6GRAFI,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+6GRAFI,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6GRAFI,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+6GRAFI,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6GRAFI,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+6GRAFI,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+6GRAFI,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+6GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+6GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+6GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+6GRAFI,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
+6GRAFI,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6GRAFI,- Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6GRAFI,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+6GRAFI,- Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,11
+6GRAFI,- Vrije ruimte,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+6GRAFI,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
+3HSZ,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+3HSZ,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
+3HSZ,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+3HSZ,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+3HSZ,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3HSZ,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
+3HSZ,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3HSZ,Haar- en schoonheidsverzorging (19u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
+3HSZ,- Haarverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,14
+3HSZ,- Schoonheidsverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,5
+3HSZ,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+4HSZ,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+4HSZ,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
+4HSZ,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+4HSZ,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+4HSZ,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4HSZ,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
+4HSZ,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4HSZ,Haar- en schoonheidsverzorging (19u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
+4HSZ,- Haarverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,14
+4HSZ,- Schoonheidsverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,5
+4HSZ,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+5HZ,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+5HZ,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,2
+5HZ,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,4
+5HZ,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,4
+5HZ,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+5HZ,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5HZ,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5HZ,Haarverzorging (20u),specifiek gedeelte,header,ONWAAR,ONWAAR,
+5HZ,- Haarverzorging incl. Frans/Engels,specifiek gedeelte,vak,WAAR,ONWAAR,17
+5HZ,- Schoonheidsverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5HZ,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+6HZ,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+6HZ,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,2
+6HZ,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,4
+6HZ,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,4
+6HZ,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+6HZ,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6HZ,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6HZ,Haarverzorging (20u),specifiek gedeelte,header,ONWAAR,ONWAAR,
+6HZ,- Haarverzorging incl. Frans/Engels,specifiek gedeelte,vak,WAAR,ONWAAR,17
+6HZ,- Schoonheidsverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6HZ,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+3HOUT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+3HOUT,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
+3HOUT,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+3HOUT,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+3HOUT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3HOUT,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
+3HOUT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3HOUT,Hout,specifiek gedeelte,vak,ONWAAR,ONWAAR,19
+3HOUT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+4HOUT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+4HOUT,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
+4HOUT,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+4HOUT,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+4HOUT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4HOUT,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
+4HOUT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4HOUT,Hout,specifiek gedeelte,vak,ONWAAR,ONWAAR,19
+4HOUT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+5ICW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+5ICW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5ICW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+5ICW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+5ICW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+5ICW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+5ICW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5ICW,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
+5ICW,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+5ICW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+5ICW,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5ICW,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
+5ICW,Nederlands,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+5ICW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+5ICW,Informatica- en communicatiewetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+5ICW,- Elektronica,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5ICW,- Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
+5ICW,- Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,8
+5ICW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+6ICW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+6ICW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6ICW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+6ICW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+6ICW,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6ICW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+6ICW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6ICW,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
+6ICW,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+6ICW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+6ICW,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+6ICW,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
+6ICW,Nederlands,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+6ICW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6ICW,Informatica- en communicatiewetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+6ICW,- Elektronica,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6ICW,- Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
+6ICW,- Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,8
+6ICW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+5KW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+5KW,PAV,basisvorming,vak,ONWAAR,ONWAAR,4
+5KW,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+5KW,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+5KW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+5KW,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5KW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5KW,Koetswerk,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
+5KW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+6KW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+6KW,PAV,basisvorming,vak,ONWAAR,ONWAAR,4
+6KW,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+6KW,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+6KW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+6KW,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6KW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6KW,Koetswerk,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
+6KW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+3MECH,Godsdienst en zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+3MECH,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
+3MECH,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+3MECH,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+3MECH,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3MECH,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
+3MECH,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3MECH,STEM Mechanica,specifiek gedeelte,vak,ONWAAR,ONWAAR,19
+3MECH,* Lassen,specifiek gedeelte,vak,WAAR,ONWAAR,6
+3MECH,* Machines,specifiek gedeelte,vak,WAAR,ONWAAR,6
+3MECH,* Plaatwerk,specifiek gedeelte,vak,WAAR,ONWAAR,6
+3MECH,* Montage/Demontage,specifiek gedeelte,vak,WAAR,ONWAAR,1
+3MECH,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+4MECH,Godsdienst en zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+4MECH,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
+4MECH,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+4MECH,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+4MECH,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4MECH,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
+4MECH,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4MECH,STEM Mechanica,specifiek gedeelte,vak,ONWAAR,ONWAAR,19
+4MECH,* Lassen,specifiek gedeelte,vak,WAAR,ONWAAR,6
+4MECH,* Machines,specifiek gedeelte,vak,WAAR,ONWAAR,6
+4MECH,* Plaatwerk,specifiek gedeelte,vak,WAAR,ONWAAR,6
+4MECH,* Montage/Demontage,specifiek gedeelte,vak,WAAR,ONWAAR,1
+4MECH,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+3MW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+3MW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,0
+3MW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+3MW,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+3MW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+3MW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+3MW,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+3MW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3MW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+3MW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+3MW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+3MW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,0
+3MW,Toegepaste biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+3MW,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3MW,Maatschappij en Welzijn (11u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
+3MW,- Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,3
+3MW,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,2
+3MW,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,2
+3MW,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,4
+3MW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+4MW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+4MW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+4MW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+4MW,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+4MW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+4MW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+4MW,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+4MW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4MW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+4MW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+4MW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+4MW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,0
+4MW,Toegepaste biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+4MW,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+4MW,Maatschappij en Welzijn (11u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
+4MW,- Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,2
+4MW,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,3
+4MW,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,3
+4MW,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
+4MW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+3MWW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+3MWW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+3MWW,Engels,basisvorming,vak,ONWAAR,ONWAAR,3
+3MWW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+3MWW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+3MWW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,4
+3MWW,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,4
+3MWW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3MWW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+3MWW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+3MWW,Maatschappij en welzijn,specifiek gedeelte,header,ONWAAR,ONWAAR,
+3MWW,- Filosofie,specifiek gedeelte,vak,WAAR,ONWAAR,1
+3MWW,- Gedragswetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,4
+3MWW,- Cultuurwetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,3
+3MWW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+4MWW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+4MWW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+4MWW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+4MWW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+4MWW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+4MWW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,4
+4MWW,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,4
+4MWW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4MWW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+4MWW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+4MWW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+4MWW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+4MWW,Maatschappij en welzijn,specifiek gedeelte,header,ONWAAR,ONWAAR,
+4MWW,- Filosofie,specifiek gedeelte,vak,WAAR,ONWAAR,2
+4MWW,- Gedragswetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,4
+4MWW,- Cultuurwetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,3
+4MWW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+3OOS,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+3OOS,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,4
+3OOS,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,0
+3OOS,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,0
+3OOS,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3OOS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+3OOS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3OOS,"Onthaal, organisatie en sales",specifiek gedeelte,vak,ONWAAR,ONWAAR,10
+3OOS,Toegepaste Economie/Toeg. Inform.,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+3OOS,Frans,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3OOS,Engels,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3OOS,Duits,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3OOS,Nederlands,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3OOS,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+6OOS,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+6OOS,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,4
+6OOS,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,0
+6OOS,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,0
+6OOS,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6OOS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6OOS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+6OOS,"Onthaal, organisatie en sales",specifiek gedeelte,vak,ONWAAR,ONWAAR,10
+6OOS,Toegepaste Economie/Toeg. Inform.,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+6OOS,Frans,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6OOS,Engels,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6OOS,Duits,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6OOS,Nederlands,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6OOS,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+5OB,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+5OB,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5OB,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+5OB,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5OB,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+5OB,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5OB,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+5OB,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+5OB,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+5OB,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,
+5OB,Economie,basisvorming,vak,ONWAAR,ONWAAR,
+5OB,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,
+5OB,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+5OB,Pedagogiek,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+5OB,Opvoeding en begeleiding (12u),specifiek gedeelte,header,ONWAAR,ONWAAR,
+5OB,- Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5OB,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5OB,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,7
+5OB,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5OB,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
+6OB,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+6OB,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6OB,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+6OB,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6OB,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+6OB,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6OB,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+6OB,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+6OB,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+6OB,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+6OB,Economie,basisvorming,vak,ONWAAR,ONWAAR,
+6OB,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,
+6OB,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6OB,Pedagogiek,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6OB,Opvoeding en begeleiding (12u),specifiek gedeelte,header,ONWAAR,ONWAAR,
+6OB,- Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6OB,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6OB,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
+6OB,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6OB,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
+3OL,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+3OL,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
+3OL,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,0
+3OL,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,0
+3OL,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3OL,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+3OL,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3OL,Toegepaste Economie,specifiek gedeelte,header,ONWAAR,ONWAAR,
+3OL,TEC_Economie_logistiek,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
+3OL,TEC_Economie_organisatie/Toeg. Inform.,specifiek gedeelte,vak,ONWAAR,ONWAAR,9
+3OL,Frans,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3OL,Engels,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3OL,Nederlands,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3OL,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+4OL,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+4OL,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
+4OL,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,0
+4OL,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,0
+4OL,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4OL,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+4OL,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4OL,Toegepaste Economie,specifiek gedeelte,header,ONWAAR,ONWAAR,
+4OL,TEC_Economie_logistiek,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+4OL,TEC_Economie_organisatie/Toeg. Inform.,specifiek gedeelte,vak,ONWAAR,ONWAAR,8
+4OL,Frans,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+4OL,Engels,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+4OL,Nederlands,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+4OL,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+5PRO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+5PRO,PAV,basisvorming,vak,ONWAAR,ONWAAR,4
+5PRO,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+5PRO,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+5PRO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+5PRO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5PRO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5PRO,Preventief onderhoud machines en installaties,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
+5PRO,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+6PRO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+6PRO,PAV,basisvorming,vak,ONWAAR,ONWAAR,4
+6PRO,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+6PRO,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+6PRO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+6PRO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6PRO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6PRO,Preventief onderhoud machines en installaties,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
+6PRO,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+7SCHAKEL,Nederlands,basisvorming,vak,ONWAAR,WAAR,6
+7SCHAKEL,Engels,basisvorming,vak,ONWAAR,WAAR,3
+7SCHAKEL,Frans,basisvorming,vak,ONWAAR,WAAR,4
+7SCHAKEL,Wiskunde,basisvorming,vak,ONWAAR,WAAR,7
+7SCHAKEL,Natuurwetenschappen,basisvorming,vak,ONWAAR,WAAR,4
+7SCHAKEL,Economische vakken,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+7SCHAKEL,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+7SCHAKEL,Gedragswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+7SCHAKEL,Bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+7SCHAKEL,Vrije ruimte,vrije ruimte,vak,ONWAAR,ONWAAR,4
+7SCHAKEL,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+3SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+3SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,0
+3SPORT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+3SPORT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+3SPORT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+3SPORT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+3SPORT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+3SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+3SPORT,Toegepaste Informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+3SPORT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+3SPORT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,0
+3SPORT,Bewegingswetenschappen Toepassingen,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3SPORT,Bewegingswetenschappen theorie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3SPORT,Individuele sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+3SPORT,Interactieve sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3SPORT,Recreatiesport en microteaching,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+3SPORT,Optie,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+3SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+3SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3SPORT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+4SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+4SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+4SPORT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+4SPORT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+4SPORT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+4SPORT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+4SPORT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+4SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,
+4SPORT,Toegepaste Informatica,basisvorming,vak,ONWAAR,ONWAAR,
+4SPORT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+4SPORT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+4SPORT,Bewegingswetenschappen Toepassingen,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+4SPORT,Bewegingswetenschappen theorie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+4SPORT,Individuele sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+4SPORT,Interactieve sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+4SPORT,Recreatiesport en microteaching,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+4SPORT,Optie,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+4SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+4SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+4SPORT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+5SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+5SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5SPORT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+5SPORT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5SPORT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+5SPORT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+5SPORT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+5SPORT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+5SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,0
+5SPORT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,0
+5SPORT,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5SPORT,Bewegingswetenschappen Toepassingen,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+5SPORT,Bewegingswetenschappen theorie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+5SPORT,Individuele sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+5SPORT,Interactieve sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+5SPORT,Optie - inclusief stage,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+5SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+5SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+5SPORT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+6SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+6SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6SPORT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+6SPORT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6SPORT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+6SPORT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+6SPORT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+6SPORT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+6SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+6SPORT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+6SPORT,Economie,basisvorming,vak,ONWAAR,ONWAAR,0
+6SPORT,Bewegingswetenschappen Toepassingen,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+6SPORT,Bewegingswetenschappen theorie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6SPORT,Individuele sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+6SPORT,Interactieve sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6SPORT,Optie - inclusief stage,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+6SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+6SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+6SPORT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+5SPW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+5SPW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5SPW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+5SPW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+5SPW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+5SPW,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
+5SPW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,0
+5SPW,Economie,basisvorming,vak,ONWAAR,ONWAAR,0
+5SPW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
+5SPW,Chemie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+5SPW,Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+5SPW,Fysica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+5SPW,Bewegingswetenschappen,specifiek gedeelte,header,ONWAAR,ONWAAR,
+5SPW,- Optie,specifiek gedeelte,vak,WAAR,ONWAAR,4
+5SPW,- Algemene LO (*),specifiek gedeelte,vak,WAAR,ONWAAR,2
+5SPW,- Theorie,specifiek gedeelte,vak,WAAR,ONWAAR,2
+5SPW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+6SPW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+6SPW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6SPW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+6SPW,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6SPW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+6SPW,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,4
+6SPW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+6SPW,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+6SPW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+6SPW,Chemie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6SPW,Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6SPW,Fysica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6SPW,Bewegingswetenschappen,specifiek gedeelte,header,ONWAAR,ONWAAR,
+6SPW,- Optie,specifiek gedeelte,vak,WAAR,ONWAAR,4
+6SPW,- Algemene LO (*),specifiek gedeelte,vak,WAAR,ONWAAR,2
+6SPW,- Theorie,specifiek gedeelte,vak,WAAR,ONWAAR,2
+6SPW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+5TOE,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+5TOE,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOE,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+5TOE,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5TOE,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOE,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5TOE,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOE,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+5TOE,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+5TOE,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOE,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOE,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOE,Toerisme (15u),specifiek gedeelte,header,ONWAAR,ONWAAR,
+5TOE,Engels,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+5TOE,Frans,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+5TOE,Toeristische geografie,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+5TOE,Toerisme,specifiek gedeelte,vak,ONWAAR,ONWAAR,8
+5TOE,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+6TOE,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+6TOE,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6TOE,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+6TOE,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6TOE,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+6TOE,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6TOE,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+6TOE,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
+6TOE,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+6TOE,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+6TOE,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+6TOE,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+6TOE,Toerisme (15u),specifiek gedeelte,header,ONWAAR,ONWAAR,
+6TOE,Engels,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6TOE,Frans,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+6TOE,Toeristische geografie,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+6TOE,Toerisme,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+6TOE,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,28
+5TOPEC,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+5TOPEC,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOPEC,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
+5TOPEC,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
+5TOPEC,Geschiedenis (incl. burgerschap) (*),basisvorming,vak,ONWAAR,ONWAAR,1
+5TOPEC,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
+5TOPEC,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+5TOPEC,"Project (STEM, economisch financiële competenties, artistieke expressie, OC)",basisvorming,vak,ONWAAR,ONWAAR,0
+5TOPEC,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
+5TOPEC,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+5TOPEC,Economie en Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+5TOPEC,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+5TOPEC,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+6TOPEC,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+6TOPEC,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6TOPEC,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
+6TOPEC,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
+6TOPEC,Geschiedenis (incl. burgerschap) (*),basisvorming,vak,ONWAAR,ONWAAR,2
+6TOPEC,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
+6TOPEC,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+6TOPEC,"Project (STEM, economisch financiële competenties, artistieke expressie, OC)",basisvorming,vak,ONWAAR,ONWAAR,0
+6TOPEC,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
+6TOPEC,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+6TOPEC,Economie en Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+6TOPEC,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+6TOPEC,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+3TOPNW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+3TOPNW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+3TOPNW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,0
+3TOPNW,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
+3TOPNW,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
+3TOPNW,Geschiedenis (incl. burgerschap),basisvorming,vak,ONWAAR,ONWAAR,1
+3TOPNW,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
+3TOPNW,"Project (STEM, toegepaste informatica, artistieke expressie)",basisvorming,vak,ONWAAR,ONWAAR,1
+3TOPNW,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
+3TOPNW,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
+3TOPNW,Economie en bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+3TOPNW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+3TOPNW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+4TOPNW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+4TOPNW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+4TOPNW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,0
+4TOPNW,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
+4TOPNW,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
+4TOPNW,Geschiedenis (incl. burgerschap),basisvorming,vak,ONWAAR,ONWAAR,2
+4TOPNW,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
+4TOPNW,"Project (STEM, toegepaste informatica, artistieke expressie)",basisvorming,vak,ONWAAR,ONWAAR,0
+4TOPNW,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
+4TOPNW,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
+4TOPNW,Economie en bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+4TOPNW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+4TOPNW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+5TOPWET,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+5TOPWET,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOPWET,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
+5TOPWET,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
+5TOPWET,Geschiedenis (incl. burgerschap) (*),basisvorming,vak,ONWAAR,ONWAAR,1
+5TOPWET,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
+5TOPWET,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+5TOPWET,"Project (STEM, economisch financiële competenties, artistieke expressie, OC)",basisvorming,vak,ONWAAR,ONWAAR,0
+5TOPWET,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
+5TOPWET,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
+5TOPWET,Economie en Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+5TOPWET,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
+5TOPWET,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+6TOPWET,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+6TOPWET,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6TOPWET,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
+6TOPWET,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
+6TOPWET,Geschiedenis (incl. burgerschap) (*),basisvorming,vak,ONWAAR,ONWAAR,1
+6TOPWET,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
+6TOPWET,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+6TOPWET,"Project (STEM, economisch financiële competenties, artistieke expressie, OC)",basisvorming,vak,ONWAAR,ONWAAR,0
+6TOPWET,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
+6TOPWET,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
+6TOPWET,Economie en Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
+6TOPWET,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+6TOPWET,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+3ZW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+3ZW,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
+3ZW,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+3ZW,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+3ZW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3ZW,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
+3ZW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3ZW,Zorg en welzijn (19u),specifiek gedeelte,header,ONWAAR,ONWAAR,
+3ZW,- Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,5
+3ZW,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,5
+3ZW,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
+3ZW,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
+3ZW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+4ZW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+4ZW,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
+4ZW,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
+4ZW,MTC (**),basisvorming,vak,ONWAAR,ONWAAR,
+4ZW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4ZW,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
+4ZW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4ZW,Zorg en welzijn (19u),specifiek gedeelte,header,ONWAAR,ONWAAR,
+4ZW,- Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,5
+4ZW,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,5
+4ZW,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
+4ZW,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
+4ZW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
