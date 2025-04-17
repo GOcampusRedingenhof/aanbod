@@ -1,17 +1,19 @@
 // app.js
-import { getLessons, getFootnotes } from './loader.js';
+import { getKlassen, getLessentabel, getFootnotes } from './loader.js';
 import { buildGrid } from './grid-builder.js';
 
 const LessentabellenApp = {
   async init() {
     try {
-      const [lessenData, footnotes] = await Promise.all([
-        getLessons(),
+      const [klassenData, lessentabelData, footnotesData] = await Promise.all([
+        getKlassen(),
+        getLessentabel(),
         getFootnotes()
       ]);
 
-      this.lessingen = lessenData;
-      this.footnotes = footnotes;
+      this.klassen = klassenData;
+      this.lessentabel = lessentabelData;
+      this.footnotes = footnotesData;
 
       this.renderGrid();
       this.setupPrintDate();
@@ -25,12 +27,12 @@ const LessentabellenApp = {
   renderGrid() {
     const container = document.getElementById('domains-container');
     container.innerHTML = '';
-    buildGrid(this.lessingen, container);
+    buildGrid(this.klassen, container);
     this.bindButtons();
   },
 
   bindButtons() {
-    const buttons = document.querySelectorAll(".richting-button");
+    const buttons = document.querySelectorAll("[data-code]");
     buttons.forEach(btn => {
       btn.addEventListener("click", () => {
         const code = btn.getAttribute("data-code");
@@ -39,34 +41,38 @@ const LessentabellenApp = {
     });
   },
 
-  openSlidein(code) {
-    const detail = this.lessingen.find(d => d.code === code);
-    if (!detail) return;
+  openSlidein(klascode) {
+    const klas = this.klassen.find(k => k.klascode === klascode);
+    if (!klas) return;
 
-    document.getElementById("opleiding-titel").textContent = detail.naam;
-    document.getElementById("opleiding-beschrijving").textContent = detail.beschrijving || '';
+    document.getElementById("opleiding-titel").textContent = klas.richting;
+    document.getElementById("opleiding-beschrijving").textContent = klas.beschrijving || '';
 
-    // toon lesuren
-    const container = document.getElementById("lessentabel-container");
-    container.innerHTML = detail.lessen || '<p>Geen gegevens beschikbaar.</p>';
+    const bijhorendeLessen = this.lessentabel.filter(l => l.klascode === klascode);
+    const tabelHTML = this.generateLessentabel(bijhorendeLessen);
+    document.getElementById("lessentabel-container").innerHTML = tabelHTML;
 
-    // toon voetnoten
-    const voetnotenEl = document.getElementById("footnotes");
-    const codeFootnotes = this.footnotes.filter(f => f.richtingcode === code);
-    voetnotenEl.innerHTML = '';
-    if (codeFootnotes.length) {
-      const ul = document.createElement("ul");
-      ul.className = "footnotes";
-      codeFootnotes.forEach(f => {
-        const li = document.createElement("li");
-        li.textContent = f.tekst;
-        ul.appendChild(li);
-      });
-      voetnotenEl.appendChild(ul);
-    }
+    const bijhorendeVoetnoten = this.footnotes.filter(f => f.klascode === klascode);
+    const voetHTML = bijhorendeVoetnoten.map(f => `<li>${f.tekst}</li>`).join('');
+    document.getElementById("footnotes").innerHTML = voetHTML ? `<ul class="footnotes">${voetHTML}</ul>` : '';
 
     document.getElementById("slidein").classList.add("open");
     document.getElementById("overlay").classList.add("active");
+  },
+
+  generateLessentabel(lessen) {
+    if (!lessen.length) return '<p>Geen lessentabel beschikbaar.</p>';
+    let rows = lessen.map(l => `
+      <tr>
+        <td>${l.vak}</td>
+        <td>${l.uren}</td>
+        <td>${l.stage_weken || ''}</td>
+      </tr>`).join('');
+    return `
+      <table class="lessentabel">
+        <thead><tr><th>Vak</th><th>Uren</th><th>Stage (weken)</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
   },
 
   closeSlidein() {
