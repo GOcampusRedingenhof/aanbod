@@ -1,7 +1,7 @@
 window.ConfigModule = {
   csvUrl: 'data/lessentabel.csv',
   footnotesUrl: 'data/footnotes.csv',
-  cacheExpiry: 1000 * 60 * 60, // 1 uur caching in localStorage
+  cacheExpiry: 1000 * 60 * 60,
 
   domainColors: {
     stem: {
