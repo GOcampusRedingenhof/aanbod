@@ -1,4 +1,4 @@
-/* detail-view.css - opmaak slide-in paneel */
+/* detail-view.css - herwerkt voor compatibiliteit met grid.css en domeinkleuren */
 
 #slidein {
   position: fixed;
@@ -36,6 +36,41 @@
   display: block;
 }
 
+#slidein[data-domain] {
+  --app-domain-base: var(--kleur-base);
+  --app-domain-mid: var(--kleur-mid);
+}
+
+/* Dynamisch kleuren via JS: domeinkleuren overschrijven inline */
+#slidein[data-domain="stem"] {
+  --app-domain-base: #0C8464;
+  --app-domain-mid: #48A787;
+}
+#slidein[data-domain="maatschappij-welzijn"] {
+  --app-domain-base: #E399BB;
+  --app-domain-mid: #EFBACD;
+}
+#slidein[data-domain="economie-organisatie"] {
+  --app-domain-base: #2B2243;
+  --app-domain-mid: #254a87;
+}
+#slidein[data-domain="sport-topsport"] {
+  --app-domain-base: #6ABCD6;
+  --app-domain-mid: #A2E4FF;
+}
+#slidein[data-domain="eerste-graad"] {
+  --app-domain-base: #ED4E13;
+  --app-domain-mid: #F3764A;
+}
+#slidein[data-domain="okan"] {
+  --app-domain-base: #E5A021;
+  --app-domain-mid: #F0B94E;
+}
+#slidein[data-domain="schakeljaar"] {
+  --app-domain-base: #2B2243;
+  --app-domain-mid: #254a87;
+}
+
 .detail-header {
   display: flex;
   justify-content: space-between;
@@ -46,7 +81,7 @@
 .detail-header h2 {
   font-size: 2rem;
   margin: 0;
-  color: var(--app-domain-base, #1f2937);
+  color: var(--app-domain-base);
 }
 
 .detail-buttons {
@@ -59,7 +94,7 @@
   padding: 0.6rem 1rem;
   font-size: 0.9rem;
   border: none;
-  background: var(--app-domain-base, #1f2937);
+  background: var(--app-domain-base);
   color: white;
   cursor: pointer;
   text-decoration: none;
@@ -68,7 +103,7 @@
 
 .detail-buttons button:hover,
 .detail-buttons a:hover {
-  background: var(--app-domain-mid, #374151);
+  background: var(--app-domain-mid);
 }
 
 .graad-detail {
@@ -76,11 +111,13 @@
 }
 
 .graad-detail h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.75rem;
-  color: var(--app-domain-base, #1f2937);
-  border-left: 4px solid var(--app-domain-mid, #ccc);
-  padding-left: 0.75rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.6rem;
+  border-left: 4px solid var(--app-domain-mid);
+  color: var(--app-domain-base);
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .lessentabel {
@@ -106,7 +143,7 @@
 .footnotes h4 {
   font-size: 1rem;
   margin-top: 1.5rem;
-  color: var(--app-domain-base, #1f2937);
+  color: var(--app-domain-base);
 }
 
 .stage-info ul,
