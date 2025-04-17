@@ -1,459 +1,140 @@
-/**
- * Dynamische Lessentabellen - Detail View CSS
- * Geïsoleerde styling voor het slidein detail paneel en lessentabellen
- * BELANGRIJK: Alle selectors zijn specifiek voor #slidein om geen invloed te hebben op het grid
- */
+/* detail-view.css - opmaak slide-in paneel */
 
-/* Basis voor het slidein paneel */
-.lessentabellen-root #slidein {
+#slidein {
   position: fixed;
-  top: var(--dynamic-top, 120px);
+  top: 0;
   right: 0;
-  width: 90%;
-  max-width: 860px;
-  height: calc(100% - var(--dynamic-top, 120px));
-  background: #fff;
-  color: #333;
-  padding: 0 !important; /* Verwijderd standaard padding */
-  border-radius: 0;
-  box-shadow: -4px 0 30px rgba(0,0,0,0.25);
-  overflow-y: auto;
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
+  background: white;
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.2);
   transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 99999;
-  overscroll-behavior: contain;
-  display: flex;
-  flex-direction: column;
+  transition: transform 0.4s ease;
+  overflow-y: auto;
+  z-index: 1001;
+  padding: 2rem;
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* Geopend paneel */
-.lessentabellen-root #slidein.open {
-  transform: translateX(0) !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+#slidein.open {
+  transform: translateX(0);
 }
 
-/* Header sectie van het paneel */
-.lessentabellen-root #slidein .detail-header {
-  background: var(--app-domain-base);
-  color: white;
-  padding: 2rem 2.5rem 1.5rem !important;
-  position: relative;
-}
-
-/* Speciale styling voor Sport & Topsport en Maatschappij & Welzijn headers */
-.lessentabellen-root #slidein[data-domain="sport-topsport"] .detail-header,
-.lessentabellen-root #slidein[data-domain="topsport"] .detail-header {
-  color: #1f2937;
-}
-
-.lessentabellen-root #slidein[data-domain="maatschappij-welzijn"] .detail-header {
-  color: #1f2937;
-}
-
-/* Titel in het detail paneel */
-.lessentabellen-root #slidein #opleiding-titel {
-  text-align: left;
-  margin: 0 0 1rem !important;
-  font-size: 2.25rem;
-  font-weight: 700;
-  position: relative;
-  padding: 0 !important;
-  line-height: 1.2;
-}
-
-/* Verwijder standaard onderstreep */
-.lessentabellen-root #slidein #opleiding-titel::after {
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
   display: none;
+  z-index: 1000;
 }
 
-/* Beschrijving in het detail paneel */
-.lessentabellen-root #slidein #opleiding-beschrijving {
-  text-align: left;
-  line-height: 1.6;
-  margin: 0 0 1.5rem !important;
-  font-size: 1.05rem;
-  max-width: none;
+#overlay.active {
+  display: block;
 }
 
-/* Inhoud sectie */
-.lessentabellen-root #slidein .detail-content {
-  padding: 2rem 2.5rem !important;
-  flex: 1;
+.detail-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
-/* Actie-knoppen */
-.lessentabellen-root #slidein .action-buttons {
+.detail-header h2 {
+  font-size: 2rem;
+  margin: 0;
+  color: var(--app-domain-base, #1f2937);
+}
+
+.detail-buttons {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin: 0 0 2rem !important;
 }
 
-.lessentabellen-root #slidein .action-buttons a,
-.lessentabellen-root #slidein .action-buttons button {
-  background: var(--app-domain-mid);
-  color: #fff;
-  padding: 0.75rem 1.25rem !important;
-  border-radius: 0;
+.detail-buttons button,
+.detail-buttons a {
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
   border: none;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-weight: 500;
-  font-size: 1rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* Speciale styling voor Sport & Topsport en Maatschappij & Welzijn knoppen */
-.lessentabellen-root #slidein[data-domain="sport-topsport"] .action-buttons a,
-.lessentabellen-root #slidein[data-domain="sport-topsport"] .action-buttons button,
-.lessentabellen-root #slidein[data-domain="topsport"] .action-buttons a,
-.lessentabellen-root #slidein[data-domain="topsport"] .action-buttons button {
-  color: #1f2937;
-}
-
-.lessentabellen-root #slidein[data-domain="maatschappij-welzijn"] .action-buttons a,
-.lessentabellen-root #slidein[data-domain="maatschappij-welzijn"] .action-buttons button {
-  color: #1f2937;
-}
-
-.lessentabellen-root #slidein .action-buttons a svg,
-.lessentabellen-root #slidein .action-buttons button svg {
-  width: 18px;
-  height: 18px;
-}
-
-.lessentabellen-root #slidein .action-buttons a:hover,
-.lessentabellen-root #slidein .action-buttons button:hover {
-  transform: translateY(-2px);
-  filter: brightness(90%);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-/* Close knop */
-.lessentabellen-root #slidein .close-btn {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  font-size: 1.75rem;
-  background: rgba(255,255,255,0.2);
-  color: inherit;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s;
-  z-index: 10;
-}
-
-.lessentabellen-root #slidein .close-btn:hover {
-  background: rgba(255,255,255,0.3);
-  transform: scale(1.05);
-}
-
-/* Lessentabel container */
-.lessentabellen-root #slidein #lessentabel-container {
-  position: relative;
-  overflow-x: auto;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 1px solid rgba(0,0,0,0.08);
-  flex: 1;
-}
-
-/* Tabel styling */
-.lessentabellen-root #slidein #lessentabel-container table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-size: 0.95rem;
-  margin: 0 !important;
-  border-radius: 0;
-  overflow: hidden;
-  box-shadow: none;
-}
-
-/* Header cellen */
-.lessentabellen-root #slidein #lessentabel-container th {
-  background: var(--app-domain-base);
+  background: var(--app-domain-base, #1f2937);
   color: white;
-  padding: 1rem !important;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  text-align: center;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s;
 }
 
-/* Speciale styling voor Sport & Topsport en Maatschappij & Welzijn headers */
-.lessentabellen-root #slidein[data-domain="sport-topsport"] #lessentabel-container th,
-.lessentabellen-root #slidein[data-domain="topsport"] #lessentabel-container th {
-  color: #1f2937;
+.detail-buttons button:hover,
+.detail-buttons a:hover {
+  background: var(--app-domain-mid, #374151);
 }
 
-.lessentabellen-root #slidein[data-domain="maatschappij-welzijn"] #lessentabel-container th {
-  color: #1f2937;
+.graad-detail {
+  margin-bottom: 2.5rem;
 }
 
-/* Data cellen */
-.lessentabellen-root #slidein #lessentabel-container td {
-  padding: 0.85rem 1rem !important;
-  border-bottom: 1px solid #e5e5e5;
-  text-align: center;
-  line-height: 1.4;
+.graad-detail h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  color: var(--app-domain-base, #1f2937);
+  border-left: 4px solid var(--app-domain-mid, #ccc);
+  padding-left: 0.75rem;
 }
 
-/* Eerste kolom uitlijning */
-.lessentabellen-root #slidein #lessentabel-container th:first-child,
-.lessentabellen-root #slidein #lessentabel-container td:first-child {
+.lessentabel {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.lessentabel th,
+.lessentabel td {
+  border: 1px solid #e5e7eb;
+  padding: 0.6rem 0.75rem;
   text-align: left;
-  font-weight: 500;
+  font-size: 0.95rem;
 }
 
-/* Zebra-strepen */
-.lessentabellen-root #slidein #lessentabel-container tbody tr:nth-child(even) {
-  background-color: rgba(0,0,0,0.02);
+.lessentabel thead th {
+  background-color: #f9fafb;
+  color: #1f2937;
 }
 
-/* Rij hover effect */
-.lessentabellen-root #slidein #lessentabel-container tbody tr:hover {
-  background-color: rgba(var(--app-domain-base-rgb, 0,0,0), 0.05) !important;
+.stage-info h4,
+.footnotes h4 {
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  color: var(--app-domain-base, #1f2937);
 }
 
-/* Stage rij speciale styling */
-.lessentabellen-root #slidein #lessentabel-container .stage-row {
-  font-weight: 600;
-  border-top: 2px solid var(--app-domain-light1);
-  background-color: rgba(var(--app-domain-base-rgb, 0,0,0), 0.03);
+.stage-info ul,
+.footnotes ul {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0 0 0;
 }
 
-/* Voetnoten */
-.lessentabellen-root #slidein .footnotes {
-  margin-top: 1.5rem !important;
-  font-size: 0.85rem;
-  font-style: italic;
-  color: var(--app-domain-base);
-  line-height: 1.6;
-  padding: 1rem !important;
-  background: var(--app-domain-light1);
-  border-radius: 0;
-  opacity: 0.9;
+.footnotes li,
+.stage-info li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
-/* Backdrop overlay */
-.lessentabellen-root #overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(2px);
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-  z-index: 99998;
-}
-
-.lessentabellen-root #overlay.show {
-  opacity: 1 !important;
-  pointer-events: all !important;
-  visibility: visible !important;
-}
-
-/* Print styling voor lessentabel */
+/* Printoptimalisatie */
 @media print {
-  body * {
-    visibility: hidden;
+  #overlay,
+  #slidein button,
+  #slidein a {
+    display: none;
   }
-  
-  .lessentabellen-wrapper,
-  .lessentabellen-wrapper * {
-    visibility: visible;
-  }
-  
-  .lessentabellen-wrapper {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    max-width: none !important;
-    margin: 0 !important;
-    height: auto !important;
-    padding: 0;
-    line-height: 1.4;
-    font-size: 12pt;
-    color: #000 !important;
-    background: #fff !important;
-    box-shadow: none !important;
-  }
-  
-  /* Logo */
-  .lessentabellen-root #slidein .logo-print {
-    display: block !important;
-    max-width: 150px !important;
-    height: auto;
-    margin: 0 0 2rem 0 !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  
-  /* Titel */
-  .lessentabellen-root #slidein #opleiding-titel {
-    text-align: center;
-    margin: 5rem 0 1rem 0 !important;
-    font-size: 18pt;
-    padding-top: 1rem;
-    color: #000 !important;
-  }
-  
-  /* Beschrijving */
-  .lessentabellen-root #slidein #opleiding-beschrijving {
-    text-align: center;
-    font-size: 11pt;
-    margin-bottom: 2rem !important;
-    color: #000 !important;
-  }
-  
-  /* Datum en quote */
-  .lessentabellen-root #slidein .datum {
-    display: block !important;
-    text-align: right;
-    font-weight: normal;
-    font-size: 9pt;
-    position: absolute;
-    bottom: 1rem;
-    right: 0;
-    margin: 0 !important;
-  }
-  
-  .lessentabellen-root #slidein .quote {
-    display: block !important;
-    text-align: center;
-    font-style: italic;
-    font-size: 11pt;
-    position: absolute;
-    bottom: 1rem;
-    left: 0;
-    font-weight: bold;
-    margin: 0 !important;
-  }
-  
-  /* Verberg knoppen */
-  .lessentabellen-root #slidein .close-btn,
-  .lessentabellen-root #slidein .action-buttons {
-    display: none !important;
-  }
-  
-  /* Tabel print styling */
-  .lessentabellen-root #slidein #lessentabel-container {
-    border: none;
-    margin-top: 2rem !important;
-  }
-  
-  .lessentabellen-root #slidein #lessentabel-container table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .lessentabellen-root #slidein #lessentabel-container th {
-    background: #f0f0f0 !important;
-    color: #000 !important;
-    border: 1px solid #ddd;
-    font-weight: bold;
-    padding: 0.5rem !important;
-  }
-  
-  .lessentabellen-root #slidein #lessentabel-container td {
-    border: 1px solid #ddd;
-    padding: 0.5rem !important;
-  }
-  
-  .lessentabellen-root #slidein .footnotes {
-    font-size: 9pt;
-    background: none !important;
-    border-top: 1px solid #ddd;
-    padding-top: 0.5rem !important;
-    margin-top: 2rem !important;
-    color: #000 !important;
-  }
-}
 
-/* Responsive styling voor mobiel */
-@media (max-width: 768px) {
-  .lessentabellen-root #slidein {
-    width: 100%;
-    border-radius: 0;
+  #slidein {
+    position: static;
+    transform: none;
+    box-shadow: none;
     max-width: none;
-    position: fixed;
-    bottom: 0;
-    top: auto !important; 
-    height: 85% !important;
-    max-height: 85vh;
-    transform: translateY(100%);
-    z-index: 999999;
+    height: auto;
+    padding: 0;
   }
-  
-  .lessentabellen-root #slidein.open {
-    transform: translateY(0) !important;
-  }
-  
-  .lessentabellen-root #slidein .detail-header {
-    padding: 1.5rem 1.25rem 1rem !important;
-  }
-  
-  .lessentabellen-root #slidein #opleiding-titel {
-    font-size: 1.75rem;
-    padding-right: 2rem !important;
-  }
-  
-  .lessentabellen-root #slidein .detail-content {
-    padding: 1.25rem !important;
-  }
-  
-  .lessentabellen-root #slidein .action-buttons {
-    flex-direction: column;
-  }
-
-  .lessentabellen-root #slidein .close-btn {
-    top: 1rem;
-    right: 1rem;
-  }
-  
-  .lessentabellen-root #slidein #lessentabel-container th,
-  .lessentabellen-root #slidein #lessentabel-container td {
-    padding: 0.75rem 0.5rem !important;
-  }
-}
-
-/* Verberg print-elementen normaal */
-.lessentabellen-root #slidein .logo-print {
-  display: none;
-}
-
-.lessentabellen-root #slidein .datum {
-  display: none;
-}
-
-.lessentabellen-root #slidein .quote {
-  display: none;
-}
-
-/* Toegankelijkheid */
-.lessentabellen-root #slidein :focus-visible {
-  outline: 3px solid var(--app-domain-base);
-  outline-offset: 3px;
 }
