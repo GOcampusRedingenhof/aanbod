@@ -1,52 +1,38 @@
 // loader.js
 
-import { csvUrl, footnotesUrl } from './config-module.js';
-
-const KLASSEN_URL = 'data/klassen.csv';
-const LESSEN_URL = 'data/lessentabel.csv';
-const FOOTNOTES_URL = 'data/voetnoten.csv'; // aangepast van 'footnotes.csv'
+import { csvUrls } from './config-module.js';
 
 /**
- * Haalt een CSV-bestand op en zet het om naar een array van objecten
+ * Laadt een CSV-bestand en zet het om naar een array van objecten.
+ * @param {string} url - URL naar het CSV-bestand.
+ * @returns {Promise<Array<Object>>} - Geparste data.
  */
 async function fetchCSV(url) {
   const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Fout bij ophalen van ${url}: ${response.status}`);
-  }
-  const text = await response.text();
-  return parseCSV(text);
-}
+  if (!response.ok) throw new Error(`Fout bij laden: ${url}`);
 
-/**
- * Parser voor CSV-bestanden, verwacht komma-gescheiden en header op eerste lijn
- */
-function parseCSV(text) {
+  const text = await response.text();
   const [headerLine, ...lines] = text.trim().split('\n');
   const headers = headerLine.split(',').map(h => h.trim());
+
   return lines.map(line => {
-    const values = line.split(',').map(v => v.trim());
-    return Object.fromEntries(headers.map((h, i) => [h, values[i] ?? '']));
+    const values = line.split(',');
+    const obj = {};
+    headers.forEach((h, i) => {
+      obj[h] = values[i]?.trim();
+    });
+    return obj;
   });
 }
 
-/**
- * Haalt alle klasitems op
- */
 export async function getKlassen() {
-  return await fetchCSV(KLASSEN_URL);
+  return fetchCSV(csvUrls.klassen);
 }
 
-/**
- * Haalt de lessentabel op
- */
 export async function getLessentabel() {
-  return await fetchCSV(LESSEN_URL);
+  return fetchCSV(csvUrls.lessentabel);
 }
 
-/**
- * Haalt de voetnoten op
- */
 export async function getFootnotes() {
-  return await fetchCSV(FOOTNOTES_URL);
+  return fetchCSV(csvUrls.voetnoten);
 }
