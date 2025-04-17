@@ -1,42 +1,52 @@
 // loader.js
-import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+import { csvUrl, footnotesUrl } from './config-module.js';
+
+const KLASSEN_URL = 'data/klassen.csv';
+const LESSEN_URL = 'data/lessentabel.csv';
+const FOOTNOTES_URL = 'data/voetnoten.csv'; // aangepast van 'footnotes.csv'
 
 /**
- * Laadt klassen.csv met info over klascode, richting, domein, beschrijving...
+ * Haalt een CSV-bestand op en zet het om naar een array van objecten
+ */
+async function fetchCSV(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Fout bij ophalen van ${url}: ${response.status}`);
+  }
+  const text = await response.text();
+  return parseCSV(text);
+}
+
+/**
+ * Parser voor CSV-bestanden, verwacht komma-gescheiden en header op eerste lijn
+ */
+function parseCSV(text) {
+  const [headerLine, ...lines] = text.trim().split('\n');
+  const headers = headerLine.split(',').map(h => h.trim());
+  return lines.map(line => {
+    const values = line.split(',').map(v => v.trim());
+    return Object.fromEntries(headers.map((h, i) => [h, values[i] ?? '']));
+  });
+}
+
+/**
+ * Haalt alle klasitems op
  */
 export async function getKlassen() {
-  const data = await d3.csv("data/klassen.csv", d => ({
-    klascode: d.klascode?.trim(),
-    klas: d.klas?.trim(),
-    richting: d.richting?.trim(),
-    domein: d.domein?.trim().toLowerCase(),
-    beschrijving: d.beschrijving?.trim()
-  }));
-  return data.filter(d => d.klascode); // Filter rijen zonder klascode
+  return await fetchCSV(KLASSEN_URL);
 }
 
 /**
- * Laadt lessentabel.csv met vakken per klas
+ * Haalt de lessentabel op
  */
 export async function getLessentabel() {
-  const data = await d3.csv("data/lessentabel.csv", d => ({
-    klascode: d.klascode?.trim(),
-    klas: d.klas?.trim(),
-    vak: d.vak?.trim(),
-    uren: +d.uren || 0,
-    lestijden: +d.lestijden || null,
-    stage_weken: +d.stage_weken || null
-  }));
-  return data.filter(d => d.klascode && d.vak); // Alleen geldige rijen
+  return await fetchCSV(LESSEN_URL);
 }
 
 /**
- * Laadt footnotes.csv met optionele opmerkingen per klas
+ * Haalt de voetnoten op
  */
 export async function getFootnotes() {
-  const data = await d3.csv("data/voetnoten.csv", d => ({
-    klascode: d.klascode?.trim(),
-    tekst: d.tekst?.trim()
-  }));
-  return data.filter(d => d.klascode && d.tekst);
+  return await fetchCSV(FOOTNOTES_URL);
 }
