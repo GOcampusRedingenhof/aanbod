@@ -4,13 +4,13 @@ klascode,richtingcode,richting,graad,domein,finaliteit,stage_weken
 5ASWW,ASWW,"Assistentie in wonen, zorg en welzijn",DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,6.0
 5BZO,BZO,Basiszorg en ondersteuning,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,6.0
 6BZO,BZO,Basiszorg en ondersteuning,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,10.0
-5BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,Doorstroom,2.0
-6BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,Doorstroom,2.0
-3BW,BW,Bedrijfswetenschappen,TWEEDE GRAAD,Economie & Organisatie,Doorstroom,
-4BW,BW,Bedrijfswetenschappen,TWEEDE GRAAD,Economie & Organisatie,Doorstroom,
+5BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,doorstroom,2.0
+6BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,doorstroom,2.0
+3BW,BW,Bedrijfswetenschappen,TWEEDE GRAAD,Economie & Organisatie,doorstroom,
+4BW,BW,Bedrijfswetenschappen,TWEEDE GRAAD,Economie & Organisatie,doorstroom,
 5BIN,BIN,Binnenschrijnwerk en interieur,DERDE GRAAD,STEM,arbeidsmarkt,4.0
 6BIN,BIN,Binnenschrijnwerk en interieur,DERDE GRAAD,STEM,arbeidsmarkt,4.0
-5CO,CO,Commerciële Organisatie,DERDE GRAAD,Economie & Organisatie,Doorstroom,2.0
+5CO,CO,Commerciële Organisatie,DERDE GRAAD,Economie & Organisatie,doorstroom,2.0
 3ELEK,ELEK,Elektriciteit,TWEEDE GRAAD,STEM,arbeidsmarkt,
 4ELEK,ELEK,Elektriciteit,TWEEDE GRAAD,STEM,arbeidsmarkt,
 5ELINS,ELINS,Elektrische installaties,DERDE GRAAD,STEM,arbeidsmarkt,4.0
@@ -52,13 +52,13 @@ klascode,richtingcode,richting,graad,domein,finaliteit,stage_weken
 6SPORT,SPORT,Sportbegeleiding,DERDE GRAAD,Sport & Topsport,dubbele finaliteit,
 5SPW,SPW,Sportwetenschappen,DERDE GRAAD,Sport & Topsport,doorstroom,
 6SPW,SPW,Sportwetenschappen,DERDE GRAAD,Sport & Topsport,doorstroom,
-5TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,Doorstroom,
-6TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,Doorstroom,
-5TOPEC,TOPEC,Topsport economie,DERDE GRAAD,Sport & Topsport,Doorstroom,
-6TOPEC,TOPEC,Topsport economie,DERDE GRAAD,Sport & Topsport,Doorstroom,
-3TOPNW,TOPNW,Topsport Natuurwetenschappen,TWEEDE GRAAD,Sport & Topsport,Doorstroom,
-4TOPNW,TOPNW,Topsport Natuurwetenschappen,TWEEDE GRAAD,Sport & Topsport,Doorstroom,
-5TOPWET,TOPWET,Topsport-Wetenschappen,DERDE GRAAD,Sport & Topsport,Doorstroom,
-6TOPWET,TOPWET,Topsport-Wetenschappen,DERDE GRAAD,Sport & Topsport,Doorstroom,
+5TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,doorstroom,
+6TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,doorstroom,
+5TOPEC,TOPEC,Topsport economie,DERDE GRAAD,Sport & Topsport,doorstroom,
+6TOPEC,TOPEC,Topsport economie,DERDE GRAAD,Sport & Topsport,doorstroom,
+3TOPNW,TOPNW,Topsport Natuurwetenschappen,TWEEDE GRAAD,Sport & Topsport,doorstroom,
+4TOPNW,TOPNW,Topsport Natuurwetenschappen,TWEEDE GRAAD,Sport & Topsport,doorstroom,
+5TOPWET,TOPWET,Topsport-Wetenschappen,DERDE GRAAD,Sport & Topsport,doorstroom,
+6TOPWET,TOPWET,Topsport-Wetenschappen,DERDE GRAAD,Sport & Topsport,doorstroom,
 3ZW,ZW,Zorg en welzijn,TWEEDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,
 4ZW,ZW,Zorg en welzijn,TWEEDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,
