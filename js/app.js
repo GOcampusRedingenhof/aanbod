@@ -1,6 +1,7 @@
 // app.js
 import { getKlassen, getLessentabel, getFootnotes } from './loader.js';
 import { buildGrid } from './grid-builder.js';
+import { mapDomein, getDomeinMeta } from './config-module.js';
 
 const LessentabellenApp = {
   async init() {
@@ -44,6 +45,10 @@ const LessentabellenApp = {
   openSlidein(klascode) {
     const klas = this.klassen.find(k => k.klascode === klascode);
     if (!klas) return;
+
+    const domeinKey = mapDomein(klas.domein);
+    const kleuren = getDomeinMeta(domeinKey);
+    document.getElementById("slidein").dataset.domain = domeinKey;
 
     document.getElementById("opleiding-titel").textContent = klas.richting;
     document.getElementById("opleiding-beschrijving").textContent = klas.beschrijving || '';
