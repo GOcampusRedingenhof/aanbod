@@ -48,3 +48,22 @@ window.ConfigModule = {
     }
   }
 };
+
+// config-module.js
+
+export const domeinMap = {
+  'stem': 'stem',
+  'eerste graad': 'eerste-graad',
+  'maatschappij & welzijn': 'maatschappij-welzijn',
+  'economie & organisatie': 'economie-organisatie',
+  'sport & topsport': 'sport-topsport',
+  'topsport': 'sport-topsport',
+  'okan': 'okan',
+  'schakeljaar': 'schakeljaar'
+};
+
+export function mapDomein(raw) {
+  const key = raw?.toString().trim().toLowerCase();
+  return domeinMap[key] || 'onbekend';
+}
+
