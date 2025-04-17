@@ -16,9 +16,10 @@ export function buildGrid(data, target) {
 
   // 1. Structuur opbouwen per domein > graad > finaliteit
   data.forEach(item => {
-    const domein = (item.domein || '').trim().toLowerCase().replace(/\s+/g, '-');
-    const graad = (item.graad || '').trim();
-    const finaliteit = (item.finaliteit || 'onbekend').trim();
+const domein = (item.domein ?? 'onbekend').toString().trim().toLowerCase().replace(/\s+/g, '-');
+const graad = (item.graad ?? 'onbekend').toString().trim();
+const finaliteit = (item.finaliteit ?? 'onbekend').toString().trim();
+
 
     if (!structuur[domein]) structuur[domein] = {};
     if (!structuur[domein][graad]) structuur[domein][graad] = {};
