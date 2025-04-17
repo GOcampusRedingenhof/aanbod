@@ -1,36 +1,77 @@
 // grid-builder.js
 
 /**
- * Genereert de klassieke grid-HTML op basis van de domeinen en richtingen.
- * @param {Array} data - Lijst van richtingen met domein- en graadinformatie
- * @param {HTMLElement} target - DOM-element waarin de grid moet verschijnen
+ * Bouwt de volledige gridstructuur op volgens het premium grid.css-systeem.
+ * Groepeert per domein > graad > finaliteit.
+ *
+ * Vereist datastructuur:
+ * - item.domein
+ * - item.graad
+ * - item.finaliteit
+ * - item.code
+ * - item.naam
  */
 export function buildGrid(data, target) {
-  const domeinen = {};
+  const structuur = {};
 
-  // groepeer per domein
-  for (const item of data) {
-    const domein = item.domein.trim().toLowerCase().replace(/\s+/g, "-");
-    if (!domeinen[domein]) domeinen[domein] = [];
-    domeinen[domein].push(item);
-  }
+  // 1. Structuur opbouwen per domein > graad > finaliteit
+  data.forEach(item => {
+    const domein = (item.domein || '').trim().toLowerCase().replace(/\s+/g, '-');
+    const graad = (item.graad || '').trim();
+    const finaliteit = (item.finaliteit || 'onbekend').trim();
 
-  for (const [domeinKey, richtingen] of Object.entries(domeinen)) {
-    const ul = document.createElement("ul");
-    ul.className = "domains-grid " + domeinKey;
+    if (!structuur[domein]) structuur[domein] = {};
+    if (!structuur[domein][graad]) structuur[domein][graad] = {};
+    if (!structuur[domein][graad][finaliteit]) structuur[domein][graad][finaliteit] = [];
 
-    for (const richting of richtingen) {
-      const li = document.createElement("li");
-      li.className = "richting";
-      li.innerHTML = `
-        <button data-code="${richting.code}" class="richting-button">
-          <h3>${richting.naam}</h3>
-          <span class="graad">${richting.graad}</span>
-        </button>
-      `;
-      ul.appendChild(li);
-    }
+    structuur[domein][graad][finaliteit].push(item);
+  });
 
-    target.appendChild(ul);
-  }
+  // 2. Render per domein
+  Object.entries(structuur).forEach(([domein, graden]) => {
+    const domainBlock = document.createElement('div');
+    domainBlock.className = 'domain-block';
+    domainBlock.dataset.domain = domein;
+
+    const title = document.createElement('h2');
+    title.textContent = domein.replace(/-/g, ' ').toUpperCase();
+    domainBlock.appendChild(title);
+
+    Object.entries(graden).forEach(([graad, finaliteiten]) => {
+      const graadContainer = document.createElement('div');
+      graadContainer.className = 'graad-container';
+
+      const graadLabel = document.createElement('div');
+      graadLabel.className = 'graad-label';
+      graadLabel.textContent = graad;
+      graadContainer.appendChild(graadLabel);
+
+      Object.entries(finaliteiten).forEach(([finaliteit, richtingen]) => {
+        const finaliteitBlok = document.createElement('div');
+        finaliteitBlok.className = 'finaliteit-blok';
+
+        const h4 = document.createElement('h4');
+        h4.textContent = finaliteit;
+        finaliteitBlok.appendChild(h4);
+
+        const ul = document.createElement('ul');
+        richtingen.forEach(richting => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = '#';
+          a.dataset.code = richting.code;
+          a.textContent = richting.naam;
+          li.appendChild(a);
+          ul.appendChild(li);
+        });
+
+        finaliteitBlok.appendChild(ul);
+        graadContainer.appendChild(finaliteitBlok);
+      });
+
+      domainBlock.appendChild(graadContainer);
+    });
+
+    target.appendChild(domainBlock);
+  });
 }
