@@ -1,38 +1,42 @@
 // loader.js
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
 /**
- * Laadt CSV-bestanden vanaf GitHub Pages of een andere publieke bron.
- * Verwacht:
- * - klassen.csv
- * - lessentabel.csv
- * - voetnoten.csv
+ * Laadt klassen.csv met info over klascode, richting, domein, beschrijving...
  */
-
-const CSV_BASE_URL = 'https://gocampusredingenhof.github.io/aanbod/data/';
-
-async function fetchCsv(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Kan CSV niet laden: ${response.status}`);
-
-  const text = await response.text();
-  return new Promise((resolve, reject) => {
-    Papa.parse(text, {
-      header: true,
-      skipEmptyLines: true,
-      complete: results => resolve(results.data),
-      error: err => reject(err)
-    });
-  });
-}
-
 export async function getKlassen() {
-  return await fetchCsv(CSV_BASE_URL + 'klassen.csv');
+  const data = await d3.csv("data/klassen.csv", d => ({
+    klascode: d.klascode?.trim(),
+    klas: d.klas?.trim(),
+    richting: d.richting?.trim(),
+    domein: d.domein?.trim().toLowerCase(),
+    beschrijving: d.beschrijving?.trim()
+  }));
+  return data.filter(d => d.klascode); // Filter rijen zonder klascode
 }
 
+/**
+ * Laadt lessentabel.csv met vakken per klas
+ */
 export async function getLessentabel() {
-  return await fetchCsv(CSV_BASE_URL + 'lessentabel.csv');
+  const data = await d3.csv("data/lessentabel.csv", d => ({
+    klascode: d.klascode?.trim(),
+    klas: d.klas?.trim(),
+    vak: d.vak?.trim(),
+    uren: +d.uren || 0,
+    lestijden: +d.lestijden || null,
+    stage_weken: +d.stage_weken || null
+  }));
+  return data.filter(d => d.klascode && d.vak); // Alleen geldige rijen
 }
 
+/**
+ * Laadt footnotes.csv met optionele opmerkingen per klas
+ */
 export async function getFootnotes() {
-  return await fetchCsv(CSV_BASE_URL + 'voetnoten.csv');
+  const data = await d3.csv("data/footnotes.csv", d => ({
+    klascode: d.klascode?.trim(),
+    tekst: d.tekst?.trim()
+  }));
+  return data.filter(d => d.klascode && d.tekst);
 }
