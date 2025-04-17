@@ -1,20 +1,14 @@
 // grid-builder.js
 
 /**
- * Bouwt de volledige gridstructuur op volgens het premium grid.css-systeem.
- * Groepeert per domein > graad > finaliteit.
- *
- * Vereist datastructuur:
- * - item.klascode
- * - item.richting
- * - item.domein
- * - item.graad
- * - item.finaliteit
+ * Bouwt de gridstructuur volgens de grid.css stijl.
+ * Vereist klassen-data met domein, graad, finaliteit, richting, klascode.
  */
+
 export function buildGrid(data, target) {
   const structuur = {};
 
-  // 1. Structuur opbouwen per domein > graad > finaliteit
+  // Structuur opbouwen per domein > graad > finaliteit
   data.forEach(item => {
     const domein = (item.domein ?? 'onbekend').toString().trim().toLowerCase().replace(/\s+/g, '-');
     const graad = (item.graad ?? 'onbekend').toString().trim();
@@ -27,7 +21,7 @@ export function buildGrid(data, target) {
     structuur[domein][graad][finaliteit].push(item);
   });
 
-  // 2. Render per domein
+  // HTML genereren per domein
   Object.entries(structuur).forEach(([domein, graden]) => {
     const domainBlock = document.createElement('div');
     domainBlock.className = 'domain-block';
