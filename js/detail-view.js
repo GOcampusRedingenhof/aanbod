@@ -95,6 +95,24 @@ function generateTabelPerKlas(lessen, hoofdKlas) {
     });
   });
 
+  // Bereken totalen per klascode
+  const totalen = {};
+  klasCodes.forEach(code => {
+    totalen[code] = 0;
+    
+    // Som alle numerieke uurwaarden op
+    Object.keys(perCategorie).forEach(categorie => {
+      if (categorie !== 'totaal') {
+        perCategorie[categorie].forEach(vak => {
+          const uren = vak.uren[code];
+          if (uren && !isNaN(parseFloat(uren.toString().replace(',', '.')))) {
+            totalen[code] += parseFloat(uren.toString().replace(',', '.'));
+          }
+        });
+      }
+    });
+  });
+
   // Bouw de HTML op voor de tabel
   let html = '';
   
@@ -154,6 +172,16 @@ function generateTabelPerKlas(lessen, hoofdKlas) {
     });
   });
 
+  // Voeg totaalrij toe als die nog niet bestaat uit de categorieën
+  if (!perCategorie['totaal']) {
+    html += `
+      <tr class="totaal-row">
+        <td>Lestijden per week</td>
+        ${klasCodes.map(code => `<td>${totalen[code]}</td>`).join('')}
+      </tr>
+    `;
+  }
+
   // Voeg rij toe voor stageweken wanneer die beschikbaar zijn
   if (hoofdKlas.stage_weken) {
     html += `
@@ -181,12 +209,5 @@ function generateTabelPerKlas(lessen, hoofdKlas) {
         ${html}
       </tbody>
     </table>
-    
-    ${hoofdKlas.stage_weken ? `
-      <div class="stage-info">
-        <h4>Stage</h4>
-        <p>Deze richting bevat ${hoofdKlas.stage_weken} weken stage.</p>
-      </div>
-    ` : ''}
   `;
 }
