@@ -1,5 +1,8 @@
-import Papa from 'papaparse';
+// loader.js
 
+/**
+ * Haalt een CSV op via fetch() en parse met de globale Papa.parse()
+ */
 async function fetchCsv(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Kan CSV niet laden: ${res.status}`);
@@ -8,16 +11,20 @@ async function fetchCsv(url) {
     header: true,
     delimiter: ';'
   });
-  if (errors.length) console.warn('CSV‑parse‑fouten:', errors);
+  if (errors.length) console.warn('CSV parse errors:', errors);
   return data;
 }
 
-// Wordt aangeroepen in app.js
+/**
+ * Returnt een array van lessendata
+ */
 export function getLessons() {
   return fetchCsv(window.ConfigModule.csvUrl);
 }
 
-// Later kun je hier ook je voetnoten-URL uit ConfigModule ophalen
+/**
+ * Returnt een array van voetnoten
+ */
 export function getFootnotes() {
   return fetchCsv(window.ConfigModule.footnotesUrl);
 }
