@@ -1,11 +1,6 @@
 // config-module.js
 
-export const csvUrl = 'data/lessentabel.csv';
-export const footnotesUrl = 'data/voetnoten.csv';
-export const klassenUrl = 'data/klassen.csv';
-
-export const cacheExpiry = 1000 * 60 * 60;
-
+// 1. Kleuren per domein
 export const domainColors = {
   stem: {
     base: "#0C8464",
@@ -13,7 +8,7 @@ export const domainColors = {
     light1: "#89CCB2",
     hover: "#d7f5ea"
   },
-  topsport: {
+  "sport-topsport": {
     base: "#A2E4FF",
     mid: "#C6F0FF",
     light1: "#E4F9FF",
@@ -51,6 +46,7 @@ export const domainColors = {
   }
 };
 
+// 2. Mapping van ruwe domeinnamen naar CSS-conforme identifiers
 export const domeinMap = {
   'stem': 'stem',
   'eerste graad': 'eerste-graad',
@@ -62,16 +58,20 @@ export const domeinMap = {
   'schakeljaar': 'schakeljaar'
 };
 
+// 3. Normaliseer domeinnaam uit CSV naar CSS-selector
 export function mapDomein(raw) {
   const key = raw?.toString().trim().toLowerCase();
   return domeinMap[key] || 'onbekend';
 }
 
-export function getDomeinMeta(key) {
-  return domainColors[key] || {
-    base: '#ccc',
-    mid: '#ddd',
-    light1: '#eee',
-    hover: '#bbb'
-  };
+// 4. Metadata ophalen per domein
+export function getDomeinMeta(domeinKey) {
+  return domainColors[domeinKey] || domainColors['eerste-graad'];
 }
+
+// 5. CSV-paden (voor loader.js)
+export const csvUrls = {
+  klassen: 'data/klassen.csv',
+  lessentabel: 'data/lessentabel.csv',
+  voetnoten: 'data/voetnoten.csv'
+};
