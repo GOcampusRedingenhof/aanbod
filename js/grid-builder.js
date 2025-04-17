@@ -1,78 +1,95 @@
-// grid-builder.js
+// app.js
+import { getKlassen, getLessentabel, getFootnotes } from './loader.js';
+import { buildGrid } from './grid-builder.js';
 
-/**
- * Bouwt de volledige gridstructuur op volgens het premium grid.css-systeem.
- * Groepeert per domein > graad > finaliteit.
- *
- * Vereist datastructuur:
- * - item.domein
- * - item.graad
- * - item.finaliteit
- * - item.code
- * - item.naam
- */
-export function buildGrid(data, target) {
-  const structuur = {};
+const LessentabellenApp = {
+  async init() {
+    try {
+      const [klassenData, lessentabelData, footnotesData] = await Promise.all([
+        getKlassen(),
+        getLessentabel(),
+        getFootnotes()
+      ]);
 
-  // 1. Structuur opbouwen per domein > graad > finaliteit
-  data.forEach(item => {
-const domein = (item.domein ?? 'onbekend').toString().trim().toLowerCase().replace(/\s+/g, '-');
-const graad = (item.graad ?? 'onbekend').toString().trim();
-const finaliteit = (item.finaliteit ?? 'onbekend').toString().trim();
+      this.klassen = klassenData;
+      this.lessentabel = lessentabelData;
+      this.footnotes = footnotesData;
 
+      this.renderGrid();
+      this.setupPrintDate();
+    } catch (error) {
+      console.error('Fout bij laden data:', error);
+      document.getElementById("lessentabellen-container").innerHTML =
+        '<p class="error">Er is een probleem opgetreden bij het laden van de lessentabellen.</p>';
+    }
+  },
 
-    if (!structuur[domein]) structuur[domein] = {};
-    if (!structuur[domein][graad]) structuur[domein][graad] = {};
-    if (!structuur[domein][graad][finaliteit]) structuur[domein][graad][finaliteit] = [];
+  renderGrid() {
+    const container = document.getElementById('domains-container');
+    container.innerHTML = '';
+    buildGrid(this.klassen, container);
+    this.bindButtons();
+  },
 
-    structuur[domein][graad][finaliteit].push(item);
-  });
-
-  // 2. Render per domein
-  Object.entries(structuur).forEach(([domein, graden]) => {
-    const domainBlock = document.createElement('div');
-    domainBlock.className = 'domain-block';
-    domainBlock.dataset.domain = domein;
-
-    const title = document.createElement('h2');
-    title.textContent = domein.replace(/-/g, ' ').toUpperCase();
-    domainBlock.appendChild(title);
-
-    Object.entries(graden).forEach(([graad, finaliteiten]) => {
-      const graadContainer = document.createElement('div');
-      graadContainer.className = 'graad-container';
-
-      const graadLabel = document.createElement('div');
-      graadLabel.className = 'graad-label';
-      graadLabel.textContent = graad;
-      graadContainer.appendChild(graadLabel);
-
-      Object.entries(finaliteiten).forEach(([finaliteit, richtingen]) => {
-        const finaliteitBlok = document.createElement('div');
-        finaliteitBlok.className = 'finaliteit-blok';
-
-        const h4 = document.createElement('h4');
-        h4.textContent = finaliteit;
-        finaliteitBlok.appendChild(h4);
-
-        const ul = document.createElement('ul');
-        richtingen.forEach(richting => {
-          const li = document.createElement('li');
-          const a = document.createElement('a');
-          a.href = '#';
-          a.dataset.code = richting.code;
-          a.textContent = richting.naam;
-          li.appendChild(a);
-          ul.appendChild(li);
-        });
-
-        finaliteitBlok.appendChild(ul);
-        graadContainer.appendChild(finaliteitBlok);
+  bindButtons() {
+    const buttons = document.querySelectorAll("[data-code]");
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const code = btn.getAttribute("data-code");
+        this.openSlidein(code);
       });
-
-      domainBlock.appendChild(graadContainer);
     });
+  },
 
-    target.appendChild(domainBlock);
-  });
-}
+  openSlidein(klascode) {
+    const klas = this.klassen.find(k => k.klascode === klascode);
+    if (!klas) return;
+
+    document.getElementById("opleiding-titel").textContent = klas.richting;
+    document.getElementById("opleiding-beschrijving").textContent = klas.beschrijving || '';
+
+    const bijhorendeLessen = this.lessentabel.filter(l => l.klascode === klascode);
+    const tabelHTML = this.generateLessentabel(bijhorendeLessen);
+    document.getElementById("lessentabel-container").innerHTML = tabelHTML;
+
+    const bijhorendeVoetnoten = this.footnotes.filter(f => f.klascode === klascode);
+    const voetHTML = bijhorendeVoetnoten.map(f => `<li>${f.tekst}</li>`).join('');
+    document.getElementById("footnotes").innerHTML = voetHTML ? `<ul class="footnotes">${voetHTML}</ul>` : '';
+
+    document.getElementById("slidein").classList.add("open");
+    document.getElementById("overlay").classList.add("active");
+  },
+
+  generateLessentabel(lessen) {
+    if (!lessen.length) return '<p>Geen lessentabel beschikbaar.</p>';
+    let rows = lessen.map(l => `
+      <tr>
+        <td>${l.vak}</td>
+        <td>${l.uren}</td>
+        <td>${l.stage_weken || ''}</td>
+      </tr>`).join('');
+    return `
+      <table class="lessentabel">
+        <thead><tr><th>Vak</th><th>Uren</th><th>Stage (weken)</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+  },
+
+  closeSlidein() {
+    document.getElementById("slidein").classList.remove("open");
+    document.getElementById("overlay").classList.remove("active");
+  },
+
+  setupPrintDate() {
+    const span = document.getElementById("datum-print");
+    const today = new Date();
+    span.textContent = today.toLocaleDateString("nl-BE", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    });
+  }
+};
+
+window.LessentabellenApp = LessentabellenApp;
+LessentabellenApp.init();
