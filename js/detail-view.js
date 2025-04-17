@@ -1,5 +1,5 @@
 // detail-view.js
-import { mapDomein } from './config-module.js';
+import { mapDomein, getDomeinMeta } from './config-module.js';
 
 /**
  * Genereert en toont de slide-in infokader voor een geselecteerde klas.
@@ -34,6 +34,12 @@ export function renderSlidein(klas, lessen, voetnoten) {
   // Toon het slidein paneel
   slideinEl.classList.add("open");
   document.getElementById("overlay").classList.add("active");
+  
+  // Zorg ervoor dat de sluitknop werkt
+  document.querySelector('.close-btn').addEventListener('click', () => {
+    document.getElementById("slidein").classList.remove("open");
+    document.getElementById("overlay").classList.remove("active");
+  });
 }
 
 /**
@@ -182,14 +188,22 @@ function generateTabelPerKlas(lessen, hoofdKlas) {
     `;
   }
 
+  // Controleer of er überhaupt stage weken zijn in enige klas
+  const heeftStageWeken = klasCodes.some(code => {
+    // Zoek klas bij de code
+    const gevondenKlas = window.LessentabellenApp.klassen.find(k => k.klascode === code);
+    return gevondenKlas && gevondenKlas.stage_weken;
+  });
+
   // Voeg rij toe voor stageweken wanneer die beschikbaar zijn
-  if (hoofdKlas.stage_weken) {
+  if (heeftStageWeken) {
     html += `
       <tr class="stage-row">
         <td>Stage weken</td>
         ${klasCodes.map(code => {
-          // Probeer stage_weken te vinden voor deze klascode
-          const stageWeken = hoofdKlas.klascode === code ? hoofdKlas.stage_weken : '';
+          // Zoek de juiste klas-info voor deze klascode
+          const klasMetCode = window.LessentabellenApp.klassen.find(k => k.klascode === code);
+          const stageWeken = klasMetCode && klasMetCode.stage_weken ? klasMetCode.stage_weken : '';
           return `<td>${stageWeken}</td>`;
         }).join('')}
       </tr>
