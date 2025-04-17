@@ -1,4 +1,4 @@
-/* detail-view.css - herwerkt voor compatibiliteit met grid.css en domeinkleuren */
+/* detail-view.css - verbeterde versie met betere lessentabel styling */
 
 #slidein {
   position: fixed;
@@ -28,12 +28,15 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.3);
-  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
   z-index: 1000;
+  pointer-events: none;
 }
 
 #overlay.active {
-  display: block;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 #slidein[data-domain] {
@@ -73,20 +76,45 @@
 
 .detail-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .detail-header h2 {
   font-size: 2rem;
-  margin: 0;
+  margin: 0 0 1rem 0;
   color: var(--app-domain-base);
+  padding-bottom: 0.75rem;
+  position: relative;
+  text-align: center;
+}
+
+.detail-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--app-domain-base);
+}
+
+.detail-header p {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto !important;
+  color: #4b5563;
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .detail-buttons {
   display: flex;
   gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: center;
 }
 
 .detail-buttons button,
@@ -98,80 +126,36 @@
   color: white;
   cursor: pointer;
   text-decoration: none;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .detail-buttons button:hover,
 .detail-buttons a:hover {
   background: var(--app-domain-mid);
+  transform: translateY(-2px);
 }
 
-.graad-detail {
-  margin-bottom: 2.5rem;
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
 }
 
-.graad-detail h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  padding-left: 0.6rem;
-  border-left: 4px solid var(--app-domain-mid);
-  color: var(--app-domain-base);
-  text-transform: uppercase;
-  font-weight: 600;
+.action-buttons a,
+.action-buttons button {
+  padding: 0.75rem 1.5rem;
+  background: var(--app-domain-base);
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+  font-weight: 500;
 }
 
-.lessentabel {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1rem;
-}
-
-.lessentabel th,
-.lessentabel td {
-  border: 1px solid #e5e7eb;
-  padding: 0.6rem 0.75rem;
-  text-align: left;
-  font-size: 0.95rem;
-}
-
-.lessentabel thead th {
-  background-color: #f9fafb;
-  color: #1f2937;
-}
-
-.stage-info h4,
-.footnotes h4 {
-  font-size: 1rem;
-  margin-top: 1.5rem;
-  color: var(--app-domain-base);
-}
-
-.stage-info ul,
-.footnotes ul {
-  padding-left: 1.25rem;
-  margin: 0.5rem 0 0 0;
-}
-
-.footnotes li,
-.stage-info li {
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-}
-
-/* Printoptimalisatie */
-@media print {
-  #overlay,
-  #slidein button,
-  #slidein a {
-    display: none;
-  }
-
-  #slidein {
-    position: static;
-    transform: none;
-    box-shadow: none;
-    max-width: none;
-    height: auto;
-    padding: 0;
-  }
-}
+.action-buttons a:hover,
+.action-buttons button:hover {
