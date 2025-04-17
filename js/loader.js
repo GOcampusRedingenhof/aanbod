@@ -34,7 +34,7 @@ export async function getLessentabel() {
  * Laadt footnotes.csv met optionele opmerkingen per klas
  */
 export async function getFootnotes() {
-  const data = await d3.csv("data/footnotes.csv", d => ({
+  const data = await d3.csv("data/voetnoten.csv", d => ({
     klascode: d.klascode?.trim(),
     tekst: d.tekst?.trim()
   }));
