@@ -1,5 +1,5 @@
 // print-handler.js
-// Verbeterde module voor printfunctionaliteit met bestandsnaamgeneratie
+// Volledig verbeterde versie die lege pagina's voorkomt en professionele afdrukken levert
 
 /**
  * Initialiseert de printfunctionaliteit
@@ -50,7 +50,7 @@ function handlePrint(e, klas) {
         restoreFromPrint();
       }
     }, 2000);
-  }, 100);
+  }, 200); // Iets langere timeout voor betere DOM-verwerking
 }
 
 /**
@@ -103,38 +103,8 @@ function setFilename(klas) {
       // Stel de nieuwe titel in (wordt in sommige browsers gebruikt als bestandsnaam)
       titleElement.textContent = `${filename}.pdf`;
     }
-    
-    // Voeg data-attributes toe voor debug en toekomstige functionaliteit
-    const slideinEl = document.getElementById('slidein');
-    if (slideinEl) {
-      slideinEl.dataset.printFilename = filename;
-    }
-    
-    // Voor Chrome: probeer de bestandsnaam in te stellen via script (alleen in Chrome)
-    try {
-      if (window.chrome) {
-        const style = document.createElement('style');
-        style.id = 'print-filename-style';
-        style.textContent = `
-          @page {
-            size: A4;
-            margin: 1cm;
-            marks: none;
-          }
-          @page :first {
-            margin-top: 1cm;
-          }
-        `;
-        document.head.appendChild(style);
-      }
-    } catch (err) {
-      console.log('Chrome-specifieke aanpassingen niet toegepast:', err);
-    }
-    
-    return filename;
   } catch (error) {
     console.error('Fout bij genereren bestandsnaam:', error);
-    return 'Lessentabel';
   }
 }
 
@@ -158,55 +128,29 @@ function setupPrintDate() {
  * @param {Object} klas - Het klasobject met richting, graad, etc.
  */
 function optimizeForPrint(klas) {
+  // Verwijder evt. oude footer-container om duplicatie te voorkomen
+  removeExistingFooter();
+  
   // Voeg een klasse toe aan de body voor print-specifieke styling
   document.body.classList.add('print-mode');
   
-  // Configureer proefessionele print-layout
-  configurePageForPrint();
-  
-  // Bereken en pas relatieve hoogtes aan om op één pagina te passen
-  adjustTableSizesForPrint();
-  
   // Maak een profesionele printfooter
   createProfessionalFooter();
+  
+  // Zorg dat de tabel goed wordt weergegeven
+  optimizeTable();
+  
+  // Fix overige elementen in de DOM die kunnen leiden tot lege pagina's
+  cleanupDomForPrinting();
 }
 
 /**
- * Configureert de pagina voor professionele afdruk
+ * Verwijdert bestaande footer (om duplicatie te voorkomen)
  */
-function configurePageForPrint() {
-  // Toon het logo
-  const logoElement = document.querySelector('.logo-print');
-  if (logoElement) {
-    logoElement.style.display = 'block';
-  }
-  
-  // Optimaliseer titel en beschrijving
-  const titleElement = document.getElementById('opleiding-titel');
-  if (titleElement) {
-    titleElement.style.fontSize = '16pt';
-    titleElement.style.marginBottom = '6pt';
-    titleElement.style.textAlign = 'left';
-  }
-  
-  const descriptionElement = document.getElementById('opleiding-beschrijving');
-  if (descriptionElement) {
-    descriptionElement.style.fontSize = '9pt';
-    descriptionElement.style.marginBottom = '10pt';
-    descriptionElement.style.textAlign = 'left';
-  }
-  
-  // Verberg UI-elementen
-  const actionButtons = document.querySelector('.action-buttons');
-  if (actionButtons) {
-    actionButtons.style.display = 'none';
-  }
-  
-  // Voorkom pagebreaks
-  const contentContainer = document.querySelector('.detail-content');
-  if (contentContainer) {
-    contentContainer.style.pageBreakInside = 'avoid';
-    contentContainer.style.breakInside = 'avoid';
+function removeExistingFooter() {
+  const existingFooter = document.getElementById('print-footer-container');
+  if (existingFooter) {
+    existingFooter.remove();
   }
 }
 
@@ -218,101 +162,103 @@ function createProfessionalFooter() {
   const quoteElement = document.querySelector('.quote');
   
   if (datumElement && quoteElement) {
-    // Controleer of er al een footer container bestaat
-    let footerContainer = document.getElementById('print-footer-container');
+    // Maak een nieuwe footer container
+    const footerContainer = document.createElement('div');
+    footerContainer.id = 'print-footer-container';
     
-    if (!footerContainer) {
-      // Maak een nieuwe footer container
-      footerContainer = document.createElement('div');
-      footerContainer.id = 'print-footer-container';
-      
-      // Zet de juiste styling
-      footerContainer.style.position = 'fixed';
-      footerContainer.style.bottom = '0.5cm';
-      footerContainer.style.left = '1cm';
-      footerContainer.style.right = '1cm';
-      footerContainer.style.display = 'flex';
-      footerContainer.style.justifyContent = 'space-between';
-      footerContainer.style.alignItems = 'center';
-      footerContainer.style.borderTop = '1pt solid #000';
-      footerContainer.style.paddingTop = '5pt';
-      footerContainer.style.fontSize = '8pt';
-      
-      // Kloon de elementen om de originelen intact te houden
-      const quoteClone = quoteElement.cloneNode(true);
-      const datumClone = datumElement.cloneNode(true);
-      
-      // Voeg de pagina nummer toe als midden element
-      const pageInfo = document.createElement('div');
-      pageInfo.className = 'page-info';
-      pageInfo.style.textAlign = 'center';
-      pageInfo.innerHTML = 'Pagina <span class="pageNumber"></span>';
-      
-      // Voeg elementen toe aan de footer container
-      footerContainer.appendChild(quoteClone);
-      footerContainer.appendChild(pageInfo);
-      footerContainer.appendChild(datumClone);
-      
-      // Voeg de footer toe aan het document
-      const slidein = document.getElementById('slidein');
-      if (slidein) {
-        slidein.appendChild(footerContainer);
-        
-        // Verberg de originele elementen
-        datumElement.style.display = 'none';
-        quoteElement.style.display = 'none';
-      }
+    // Kloon de elementen om de originelen intact te houden
+    const quoteClone = quoteElement.cloneNode(true);
+    const datumClone = datumElement.cloneNode(true);
+    
+    // Voeg de pagina nummer toe als midden element
+    const pageInfo = document.createElement('div');
+    pageInfo.className = 'page-info';
+    pageInfo.innerHTML = 'GO Campus Redingenhof';
+    
+    // Voeg elementen toe aan de footer container
+    footerContainer.appendChild(quoteClone);
+    footerContainer.appendChild(pageInfo);
+    footerContainer.appendChild(datumClone);
+    
+    // Voeg de footer toe aan het document
+    const slidein = document.getElementById('slidein');
+    if (slidein) {
+      slidein.appendChild(footerContainer);
     }
   }
 }
 
 /**
- * Past tabel groottes aan voor optimale printweergave
+ * Optimaliseert tabel groottes en opmaak voor printing
  */
-function adjustTableSizesForPrint() {
+function optimizeTable() {
   const table = document.querySelector('.lessentabel');
   if (!table) return;
   
-  // Zet de basis table styling
-  table.style.borderCollapse = 'collapse';
-  table.style.width = '100%';
-  table.style.pageBreakInside = 'avoid';
-  table.style.breakInside = 'avoid';
-  
-  // Detecteer de grootte van de tabel
+  // Bereken de optimale cell-breedte relatief aan de tabel
   const columnCount = table.querySelectorAll('thead th').length;
-  const rowCount = table.querySelectorAll('tbody tr').length;
   
-  // Pas lettergroottes aan op basis van tabelgrootte
+  // Bereken de optimale font-grootte gebaseerd op aantal kolommen
   let fontSize = '9pt';
-  if (columnCount > 3 || rowCount > 30) {
+  if (columnCount > 4) {
     fontSize = '8pt';
-  } else if (columnCount > 4 || rowCount > 40) {
+  } else if (columnCount > 6) {
     fontSize = '7pt';
   }
   
+  // Pas de tabel aan
   table.style.fontSize = fontSize;
+  table.style.tableLayout = 'fixed';
+  table.style.width = '100%';
   
-  // Geef de vaknamen kolom meer ruimte
-  const firstColumnCells = table.querySelectorAll('tr td:first-child, tr th:first-child');
-  firstColumnCells.forEach(cell => {
-    cell.style.width = '40%';
-    cell.style.textAlign = 'left';
+  // Zorg dat categorie headers duidelijk zijn
+  const categorieHeaders = table.querySelectorAll('.categorie-header th');
+  categorieHeaders.forEach(header => {
+    header.style.backgroundColor = '#eee';
+    header.style.textAlign = 'left';
   });
   
-  // Zet de overige kolommen equal width
-  const otherColumnWidth = `${60 / (columnCount - 1)}%`;
-  const otherColumns = table.querySelectorAll('tr td:not(:first-child), tr th:not(:first-child)');
-  otherColumns.forEach(cell => {
-    cell.style.width = otherColumnWidth;
-    cell.style.textAlign = 'center';
+  // Voorkom page-breaks binnen belangrijke rijen
+  const importantRows = table.querySelectorAll('thead tr, .categorie-header, .totaal-row, .stage-row');
+  importantRows.forEach(row => {
+    row.style.pageBreakInside = 'avoid';
+    row.style.breakInside = 'avoid';
+  });
+}
+
+/**
+ * Schoont de DOM op om problemen met lege pagina's te voorkomen
+ */
+function cleanupDomForPrinting() {
+  // Verberg tijdelijk alle andere elementen buiten het slidein
+  document.querySelectorAll('body > *:not(#slidein):not(script)').forEach(el => {
+    if (!el.dataset.printHidden) {
+      el.dataset.printHidden = 'true';
+      el.style.display = 'none';
+    }
   });
   
-  // Voeg ruimte onderaan toe voor de footer
-  const tableContainer = document.getElementById('lessentabel-container');
-  if (tableContainer) {
-    tableContainer.style.marginBottom = '2cm';
+  // Fix voor overflowing content die lege pagina's kan veroorzaken
+  const detailContent = document.querySelector('.detail-content');
+  if (detailContent) {
+    detailContent.style.overflow = 'visible';
   }
+  
+  // Zorg dat de slidein correct wordt gepositioneerd
+  const slidein = document.getElementById('slidein');
+  if (slidein) {
+    slidein.style.position = 'absolute';
+    slidein.style.top = '0';
+    slidein.style.left = '0';
+    slidein.style.transform = 'none';
+  }
+  
+  // Verwijder evt. lege of onnodige elementen
+  document.querySelectorAll('div:empty, p:empty').forEach(emptyEl => {
+    if (!emptyEl.hasAttribute('id') && emptyEl.children.length === 0) {
+      emptyEl.style.display = 'none';
+    }
+  });
 }
 
 /**
@@ -329,62 +275,49 @@ function restoreFromPrint() {
     delete titleElement.dataset.originalTitle;
   }
   
-  // Verwijder de print-style tag als die bestaat
-  const printStyle = document.getElementById('print-filename-style');
-  if (printStyle) {
-    printStyle.remove();
-  }
-  
   // Verwijder de print footer container
   const footerContainer = document.getElementById('print-footer-container');
   if (footerContainer) {
     footerContainer.remove();
   }
   
-  // Herstel zichtbaarheid van originele elementen
-  const datumElement = document.querySelector('.datum');
-  const quoteElement = document.querySelector('.quote');
-  if (datumElement) datumElement.style.display = '';
-  if (quoteElement) quoteElement.style.display = '';
+  // Herstel eerder verborgen elementen
+  document.querySelectorAll('[data-print-hidden="true"]').forEach(el => {
+    el.style.display = '';
+    delete el.dataset.printHidden;
+  });
   
-  // Herstel logo zichtbaarheid
-  const logoElement = document.querySelector('.logo-print');
-  if (logoElement) {
-    logoElement.style.display = '';
+  // Herstel de instellingen voor sliding paneel
+  const slidein = document.getElementById('slidein');
+  if (slidein) {
+    slidein.style.position = '';
+    slidein.style.top = '';
+    slidein.style.left = '';
+    slidein.style.transform = '';
   }
   
-  // Herstel actieknoppen
-  const actionButtons = document.querySelector('.action-buttons');
-  if (actionButtons) {
-    actionButtons.style.display = '';
+  // Herstel flow van content
+  const detailContent = document.querySelector('.detail-content');
+  if (detailContent) {
+    detailContent.style.overflow = '';
   }
   
-  // Herstel inline styles van tabel
+  // Herstel tabelstijlen
+  resetTableStyles();
+}
+
+/**
+ * Reset tabelstijlen na printen
+ */
+function resetTableStyles() {
   const table = document.querySelector('.lessentabel');
-  if (table) {
-    table.style = '';
-    
-    // Reset alle cell styles
-    const cells = table.querySelectorAll('th, td');
-    cells.forEach(cell => {
-      cell.style = '';
-    });
-  }
+  if (!table) return;
   
-  // Herstel container styles
-  const contentContainer = document.querySelector('.detail-content');
-  if (contentContainer) {
-    contentContainer.style = '';
-  }
+  // Reset tabel stijlen
+  table.style = '';
   
-  const tableContainer = document.getElementById('lessentabel-container');
-  if (tableContainer) {
-    tableContainer.style = '';
-  }
-  
-  // Herstel titel en beschrijving
-  const titleHeader = document.getElementById('opleiding-titel');
-  const descriptionElement = document.getElementById('opleiding-beschrijving');
-  if (titleHeader) titleHeader.style = '';
-  if (descriptionElement) descriptionElement.style = '';
+  // Reset alle rijen en cellen
+  table.querySelectorAll('tr, th, td').forEach(el => {
+    el.style = '';
+  });
 }
