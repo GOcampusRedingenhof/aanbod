@@ -27,19 +27,76 @@ export function generateLessentabel(lessen, hoofdKlas) {
   }
   
   // Maak tabelinhoud
-  return buildTabelMetOrigineleVolgorde(hoofdKlasLessen, lessen, klasCodes, hoofdKlas);
+  return buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, lessen, klasCodes, hoofdKlas);
 }
 
 /**
- * Bouwt een complete lessentabel met behoud van de oorspronkelijke volgorde
+ * Bouwt een complete lessentabel met alle vakken gegroepeerd per categorie
+ * en waarbij iedere categorie slechts één keer voorkomt
  * @param {Array} hoofdKlasLessen - Lessen van de hoofdklas in originele volgorde
  * @param {Array} alleLessen - Alle lessen voor alle relevante klassen
  * @param {Array} klasCodes - Array van relevante klascode
- * @param {Object} hoofdKlas - Het klasobject van de geselecteerde klas
+ * @param {Object} hoofdKlas - Het klasobject van de geselecteerde klas 
  * @returns {string} HTML voor de lessentabel
  */
-function buildTabelMetOrigineleVolgorde(hoofdKlasLessen, alleLessen, klasCodes, hoofdKlas) {
-  // Bouw de HTML voor de tabel
+function buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, alleLessen, klasCodes, hoofdKlas) {
+  // Object om gecombineerde vakken per categorie op te slaan
+  const categorieMap = new Map();
+  
+  // Set om bij te houden welke vak-categorie combinaties we al hebben gezien
+  const verwerkteCombinaties = new Set();
+  
+  // Loop door hoofdklaslessen en bouw categorieën op
+  hoofdKlasLessen.forEach(les => {
+    const categorieNaam = les.categorie || 'onbekend';
+    const vakNaam = les.vak;
+    
+    // Unieke identificatie voor deze vak-categorie combinatie
+    const comboKey = `${categorieNaam}:${vakNaam}`;
+    
+    // Als we deze combinatie al hebben gezien, sla over
+    if (verwerkteCombinaties.has(comboKey)) {
+      return;
+    }
+    
+    // Markeer deze combinatie als verwerkt
+    verwerkteCombinaties.add(comboKey);
+    
+    // Als deze categorie nog niet bestaat, maak het aan
+    if (!categorieMap.has(categorieNaam)) {
+      categorieMap.set(categorieNaam, []);
+    }
+    
+    // Voeg het vak toe aan de lijst voor deze categorie
+    categorieMap.get(categorieNaam).push({
+      vak: vakNaam,
+      type: les.type,
+      subvak: les.subvak === true || les.subvak === 'WAAR',
+      uren: {} // Dit wordt later ingevuld
+    });
+  });
+  
+  // Vul de uren in per klascode voor elk vak
+  klasCodes.forEach(klasCode => {
+    const lessenVoorKlas = alleLessen.filter(les => les.klascode === klasCode);
+    
+    lessenVoorKlas.forEach(les => {
+      const categorieNaam = les.categorie || 'onbekend';
+      const vakNaam = les.vak;
+      
+      // Zoek de categorie en het vak
+      if (categorieMap.has(categorieNaam)) {
+        const vakken = categorieMap.get(categorieNaam);
+        const vak = vakken.find(v => v.vak === vakNaam);
+        
+        if (vak) {
+          vak.uren[klasCode] = les.uren;
+        }
+      }
+    });
+  });
+  
+  // Begin met het bouwen van de HTML
   let tabelHTML = `
     <table class="lessentabel" border="1" cellspacing="0" cellpadding="4">
       <thead>
@@ -51,82 +108,39 @@ function buildTabelMetOrigineleVolgorde(hoofdKlasLessen, alleLessen, klasCodes, 
       <tbody>
   `;
   
-  // Bereken totalen alvast
+  // Bereken totalen voor onderaan de tabel
   const totalen = berekenTotalen(alleLessen, klasCodes);
   
-  // Verzamel alle vakken, gegroepeerd per categorie (zonder duplicaten)
-  const vakkenPerCategorie = {};
-  
-  // Eerste loop: verzamel alle unieke categorie/vak combinaties in originele volgorde
-  hoofdKlasLessen.forEach(les => {
-    const categorie = les.categorie || 'onbekend';
-    
-    if (!vakkenPerCategorie[categorie]) {
-      vakkenPerCategorie[categorie] = {
-        vakken: [],
-        vakIndex: {}
-      };
-    }
-    
-    // Sla elk vak maar één keer op
-    if (vakkenPerCategorie[categorie].vakIndex[les.vak] === undefined) {
-      const index = vakkenPerCategorie[categorie].vakken.length;
-      vakkenPerCategorie[categorie].vakIndex[les.vak] = index;
-      
-      vakkenPerCategorie[categorie].vakken.push({
-        vak: les.vak,
-        type: les.type,
-        subvak: les.subvak === true || les.subvak === 'WAAR',
-        uren: {}
-      });
-    }
-  });
-  
-  // Tweede loop: vul uren in per klas per vak
-  klasCodes.forEach(code => {
-    const lessenVoorKlas = alleLessen.filter(les => les.klascode === code);
-    
-    lessenVoorKlas.forEach(les => {
-      const categorie = les.categorie || 'onbekend';
-      
-      // Controleer of deze categorie en dit vak bestaan in onze structuur
-      if (vakkenPerCategorie[categorie] && 
-          vakkenPerCategorie[categorie].vakIndex[les.vak] !== undefined) {
-        
-        const vakIndex = vakkenPerCategorie[categorie].vakIndex[les.vak];
-        vakkenPerCategorie[categorie].vakken[vakIndex].uren[code] = les.uren;
-      }
-    });
-  });
-  
-  // Nu kunnen we de tabel opbouwen met unieke categorieën
-  // Sorteer categorieën in logische volgorde
+  // Sorteer de categorieën in een logische volgorde
   const categorieVolgorde = ['basisvorming', 'specifiek gedeelte', 'vrije ruimte', 'totaal'];
   
-  const gesorteerdeCategorieen = Object.keys(vakkenPerCategorie).sort((a, b) => {
+  // Bepaal volgorde van categorieën
+  const categorieKeys = Array.from(categorieMap.keys()).sort((a, b) => {
     const indexA = categorieVolgorde.indexOf(a.toLowerCase());
     const indexB = categorieVolgorde.indexOf(b.toLowerCase());
     return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
   });
   
-  // Bouw nu de tabel op per categorie
-  gesorteerdeCategorieen.forEach(categorie => {
-    // Voeg categorie header toe (behalve voor totaal)
-    if (categorie.toLowerCase() !== 'totaal') {
+  // Genereer tabelrijen voor elke categorie
+  categorieKeys.forEach(categorieNaam => {
+    // Voeg categorie header toe, behalve voor totaal
+    if (categorieNaam.toLowerCase() !== 'totaal') {
       tabelHTML += `
         <tr class="categorie-header">
-          <th colspan="${klasCodes.length + 1}" scope="colgroup">${categorie.toUpperCase()}</th>
+          <th colspan="${klasCodes.length + 1}" scope="colgroup">${categorieNaam.toUpperCase()}</th>
         </tr>
       `;
     }
     
-    // Voeg alle vakken toe in de oorspronkelijke volgorde
-    vakkenPerCategorie[categorie].vakken.forEach(vak => {
-      // CSS class voor deze rij
+    // Voeg alle vakken toe voor deze categorie
+    const vakken = categorieMap.get(categorieNaam);
+    
+    vakken.forEach(vak => {
+      // Bepaal CSS class voor deze rij
       let rowClass = '';
       if (vak.type === 'header') rowClass = 'vak-header';
       else if (vak.subvak) rowClass = 'subvak';
-      else if (categorie.toLowerCase() === 'totaal') rowClass = 'totaal-row';
+      else if (categorieNaam.toLowerCase() === 'totaal') rowClass = 'totaal-row';
       
       // Begin rij
       tabelHTML += `<tr class="${rowClass}">`;
@@ -134,19 +148,19 @@ function buildTabelMetOrigineleVolgorde(hoofdKlasLessen, alleLessen, klasCodes, 
       // Vaknaam kolom
       tabelHTML += `<td>${vak.vak}</td>`;
       
-      // Kolommen voor uren per klas
-      klasCodes.forEach(code => {
-        const uren = vak.uren[code] || '';
+      // Uren per klas
+      klasCodes.forEach(klasCode => {
+        const uren = vak.uren[klasCode] || '';
         tabelHTML += `<td>${uren}</td>`;
       });
       
-      // Sluit rij
-      tabelHTML += '</tr>';
+      // Einde rij
+      tabelHTML += `</tr>`;
     });
   });
   
-  // Voeg totaalrij toe als die niet al bestond
-  if (!gesorteerdeCategorieen.find(cat => cat.toLowerCase() === 'totaal')) {
+  // Voeg totaalrij toe als die nog niet bestaat
+  if (!categorieKeys.find(cat => cat.toLowerCase() === 'totaal')) {
     tabelHTML += `
       <tr class="totaal-row" style="font-weight: bold; border-top: 2px solid #000;">
         <td>Lestijden per week</td>
@@ -155,7 +169,7 @@ function buildTabelMetOrigineleVolgorde(hoofdKlasLessen, alleLessen, klasCodes, 
     `;
   }
   
-  // Voeg stageweken rij toe indien beschikbaar
+  // Voeg stageweken toe indien van toepassing
   const stageRow = buildStageRow(klasCodes);
   if (stageRow) {
     tabelHTML += stageRow;
