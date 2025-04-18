@@ -201,7 +201,9 @@
 
 /* Premium stijl voor graad headers */
 .lessentabellen-root .tweede-graad-title,
-.lessentabellen-root .derde-graad-title {
+.lessentabellen-root .derde-graad-title,
+.lessentabellen-root .zevende-jaar-title,
+.lessentabellen-root .eerste-graad-title {
   display: flex;
   align-items: center;
   margin: 0 !important;
@@ -211,14 +213,19 @@
   border-bottom: 1px solid rgba(0,0,0,0.07);
 }
 
+/* Alle graadtitels - consistent in kapitalen */
 .lessentabellen-root .tweede-graad-title h3,
-.lessentabellen-root .derde-graad-title h3 {
+.lessentabellen-root .derde-graad-title h3,
+.lessentabellen-root .zevende-jaar-title h3,
+.lessentabellen-root .eerste-graad-title h3,
+.lessentabellen-root .okan-title h3,
+.lessentabellen-root .schakeljaar-title h3 {
   font-size: 1rem;
   font-weight: 600;
   color: #1f2937;
   margin: 0 !important;
   padding: 0 !important;
-  text-transform: uppercase;
+  text-transform: uppercase; /* Zorgt ervoor dat alles in hoofdletters wordt weergegeven */
   letter-spacing: 0.5px;
   border-left: none;
 }
