@@ -78,54 +78,26 @@ function buildTabelMetOrigineleVolgorde(hoofdKlasLessen, alleLessen, klasCodes, 
       `;
     }
     
-    // Verzamel de unieke vakken binnen deze categorie in originele volgorde
+    // Filter lessen van deze categorie in originele volgorde,
+    // zonder aparte groepering voor headers/normale vakken/subvakken
+    const lessenInCategorie = hoofdKlasLessen.filter(les => les.categorie === categorie);
+    
+    // Verzamel unieke vakken in deze categorie
     const vakkenInCategorie = [];
     const vakkenIndex = {};
     
-    // Verzamel eerst header rijen
-    hoofdKlasLessen
-      .filter(les => les.categorie === categorie && les.type === 'header')
-      .forEach(les => {
-        if (!vakkenIndex[les.vak]) {
-          vakkenIndex[les.vak] = vakkenInCategorie.length;
-          vakkenInCategorie.push({
-            vak: les.vak,
-            type: les.type,
-            subvak: les.subvak === true || les.subvak === 'WAAR',
-            uren: {}
-          });
-        }
-      });
-      
-    // Dan normale rijen (geen header, geen subvak)
-    hoofdKlasLessen
-      .filter(les => les.categorie === categorie && les.type !== 'header' && !(les.subvak === true || les.subvak === 'WAAR'))
-      .forEach(les => {
-        if (!vakkenIndex[les.vak]) {
-          vakkenIndex[les.vak] = vakkenInCategorie.length;
-          vakkenInCategorie.push({
-            vak: les.vak,
-            type: les.type,
-            subvak: les.subvak === true || les.subvak === 'WAAR',
-            uren: {}
-          });
-        }
-      });
-      
-    // Dan subvakken
-    hoofdKlasLessen
-      .filter(les => les.categorie === categorie && (les.subvak === true || les.subvak === 'WAAR'))
-      .forEach(les => {
-        if (!vakkenIndex[les.vak]) {
-          vakkenIndex[les.vak] = vakkenInCategorie.length;
-          vakkenInCategorie.push({
-            vak: les.vak,
-            type: les.type,
-            subvak: les.subvak === true || les.subvak === 'WAAR',
-            uren: {}
-          });
-        }
-      });
+    // Bewaar alle vakken in oorspronkelijke volgorde uit CSV
+    lessenInCategorie.forEach(les => {
+      if (vakkenIndex[les.vak] === undefined) {
+        vakkenIndex[les.vak] = vakkenInCategorie.length;
+        vakkenInCategorie.push({
+          vak: les.vak,
+          type: les.type,
+          subvak: les.subvak === true || les.subvak === 'WAAR',
+          uren: {}
+        });
+      }
+    });
     
     // Vul uren in voor alle klascodes
     klasCodes.forEach(code => {
