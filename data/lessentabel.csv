@@ -715,10 +715,10 @@ klascode,vak,categorie,type,subvak,optie,uren
 7SCHAKEL,Frans,basisvorming,vak,ONWAAR,WAAR,4
 7SCHAKEL,Wiskunde,basisvorming,vak,ONWAAR,WAAR,7
 7SCHAKEL,Natuurwetenschappen,basisvorming,vak,ONWAAR,WAAR,4
-7SCHAKEL,Economische vakken,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
-7SCHAKEL,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
-7SCHAKEL,Gedragswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
-7SCHAKEL,Bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+7SCHAKEL,Economie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+7SCHAKEL,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+7SCHAKEL,Gedragswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+7SCHAKEL,Bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 7SCHAKEL,Vrije ruimte,vrije ruimte,vak,ONWAAR,ONWAAR,4
 3SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 3SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
