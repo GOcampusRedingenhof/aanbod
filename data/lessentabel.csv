@@ -952,7 +952,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 3TS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 3TS,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
 3TS,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-3TS,Project (STEM, toegepaste informatica, artistieke expressie),basisvorming,vak,ONWAAR,ONWAAR,1
+3TS,"Project (STEM, toegepaste informatica, artistieke expressie),basisvorming",vak,ONWAAR,ONWAAR,1
 3TS,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 3TS,Toegepaste biologie en bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 3TS,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -964,7 +964,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 4TS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 4TS,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
 4TS,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-4TS,Project (STEM, toegepaste informatica, artistieke expressie),basisvorming,vak,ONWAAR,ONWAAR,1
+4TS,"Project (STEM, toegepaste informatica, artistieke expressie)",basisvorming,vak,ONWAAR,ONWAAR,1
 4TS,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 4TS,Toegepaste biologie en bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 4TS,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
