@@ -179,8 +179,8 @@ function createGraadTitle(graad, domein, isGraadHetzelfdeAlsDomein) {
     displayGraad = '';
     graadTitleContainer.dataset.leeg = 'true'; // Markeer voor CSS
   } else {
-    // Normale graad formatting (Eerste Graad, Tweede Graad, etc.)
-    displayGraad = graad.charAt(0) + graad.slice(1).toLowerCase();
+    // ALLES IN HOOFDLETTERS weergeven (zoals DERDE GRAAD, TWEEDE GRAAD, etc.)
+    displayGraad = graad; // Gebruik de graad in kapitalen zoals het is
   }
   
   const graadTitle = document.createElement('h3');
@@ -210,7 +210,8 @@ function createFinaliteitBlok(finaliteit, domein, heeftEchteFinaliteit) {
   
   // Alleen toon finaliteitslabel als er een echte finaliteit is
   if (heeftEchteFinaliteit) {
-    h4.textContent = finaliteit.charAt(0).toUpperCase() + finaliteit.slice(1);
+    // ALLES IN HOOFDLETTERS weergeven
+    h4.textContent = finaliteit.toUpperCase();
   } else {
     // Laat h4 leeg voor structuur, maar markeer voor CSS
     h4.dataset.leeg = 'true';
