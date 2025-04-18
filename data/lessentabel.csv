@@ -11,7 +11,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5APDA,Burgerschap,basisvorming,vak,ONWAAR,ONWAAæR,-
 5APDA,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 5APDA,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
-5APDA,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 5APDA,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5APDA,Informaticawetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 5APDA,Digitaal ondersteuner,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -28,7 +27,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 6APDA,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
 6APDA,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 6APDA,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
-6APDA,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 6APDA,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 6APDA,Informaticawetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 6APDA,Digitaal ondersteuner,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -280,7 +278,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 3EMT,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
 3EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 3EMT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-3EMT,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 3EMT,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 3EMT,Mechanica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 3EMT,Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -297,9 +294,8 @@ klascode,vak,categorie,type,subvak,optie,uren
 4EMT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 4EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
 4EMT,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,-
-4EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR, het 1
+4EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 4EMT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-4EMT,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 4EMT,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,-
 4EMT,Mechanica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 4EMT,Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -318,7 +314,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
 5EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 5EMT,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
-5EMT,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 5EMT,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 5EMT,Mechanica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5EMT,Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -337,7 +332,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 6EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
 6EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 6EMT,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
-6EMT,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 6EMT,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 6EMT,Mechanica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 6EMT,Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -390,7 +384,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
 5GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 5GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
-5GRAFI,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 5GRAFI,Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5GRAFI,Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5GRAFI,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -407,7 +400,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 6GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
 6GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 6GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
-6GRAFI,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 6GRAFI,Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6GRAFI,Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6GRAFI,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -483,7 +475,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5ICW,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
 5ICW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
 5ICW,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
-5ICW,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 5ICW,Nederlands,specifiek gedeelte,vak,ONWAAR,ONWAAR,-
 5ICW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5ICW,Informatica- en communicatiewetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -501,7 +492,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 6ICW,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 6ICW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
 6ICW,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
-6ICW,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 6ICW,Nederlands,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 6ICW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 6ICW,Informatica- en communicatiewetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -977,7 +967,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 3TS,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
 3TS,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 3TS,Project (STEM, toegepaste informatica, artistieke expressie),basisvorming,vak,ONWAAR,ONWAAR,1
-3TS,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 3TS,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 3TS,Toegepaste biologie en bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 3TS,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -990,7 +979,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 4TS,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
 4TS,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 4TS,Project (STEM, toegepaste informatica, artistieke expressie),basisvorming,vak,ONWAAR,ONWAAR,1
-4TS,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 4TS,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 4TS,Toegepaste biologie en bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 4TS,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -1003,7 +991,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5TS,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 5TS,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 5TS,Project (STEM, economisch financiële competenties, artistieke expressie, OC),basisvorming,vak,ONWAAR,ONWAAR,1
-5TS,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 5TS,Sport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 5TS,Toegepaste biologie en bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 5TS,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -1016,7 +1003,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 6TS,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 6TS,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 6TS,Project (STEM, economisch financiële competenties, artistieke expressie, OC),basisvorming,vak,ONWAAR,ONWAAR,1
-6TS,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
 6TS,Sport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 6TS,Toegepaste biologie en bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 6TS,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
