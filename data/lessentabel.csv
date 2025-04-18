@@ -214,17 +214,20 @@ klascode,vak,categorie,type,subvak,optie,uren
 5CO,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 5CO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 5CO,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+5CO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5CO,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 5CO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 5CO,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-5CO,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-5CO,Economische Wetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+5CO,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+5CO,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5CO,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 5CO,Bedrijfsorganisatie,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-5CO,Engels (wisseluur),specifiek gedeelte,vak,ONWAAR,ONWAAR,"0.5"
-5CO,Frans (wisseluur),specifiek gedeelte,vak,ONWAAR,ONWAAR,"0.5"
-5CO,Financiële algebra (wiskunde),specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-5CO,Economie (algemeen),specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-5CO,Bedrijfswetenschappen incl. mini-onderneming,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
-5CO,Toegepaste economie/toegepaste informatica incl. mini-onderneming,specifiek gedeelte,vak,ONWAAR,ONWAAR,8
+5CO,Engels (wisseluur),specifiek gedeelte,vak,WAAR,ONWAAR,"0.5"
+5CO,Frans (wisseluur),specifiek gedeelte,vak,WAAR,ONWAAR,"0.5"
+5CO,Financiële algebra (wiskunde),specifiek gedeelte,vak,WAAR,ONWAAR,-
+5CO,Economie (algemeen),specifiek gedeelte,vak,WAAR,ONWAAR,1
+5CO,Bedrijfswetenschappen incl. mini-onderneming,specifiek gedeelte,vak,WAAR,ONWAAR,4
+5CO,Toegepaste economie/toegepaste informatica incl. mini-onderneming,specifiek gedeelte,vak,WAAR,ONWAAR,8
 3ELEK,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 3ELEK,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
 3ELEK,STEM (1),basisvorming,vak,WAAR,ONWAAR,
