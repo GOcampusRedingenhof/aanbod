@@ -2,63 +2,95 @@ klascode,tekst
 5APDA,
 6APDA,
 5ASWW,
-5BZO,
-6BZO,
+5BZO,"* STEM (*): Wiskunde, aardrijkskunde en natuurwetenschappen
+* MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+6BZO,"* STEM (*): Wiskunde, aardrijkskunde en natuurwetenschappen
+* MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
 5BO,
 6BO,
 3BW,
 4BW,
 5BIN,
-6BIN,
-5CO,
+6BIN,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
 3ELEK,
-4ELEK,
-5ELINS,
-6ELINS,
-5EMT,
-6EMT,
-3GRATECH,
-4GRATECH,
-5GRAFI,
-6GRAFI,
-3HSZ,
-4HSZ,
-5HZ,
-6HZ,
-3HOUT,
-4HOUT,
-5ICW,
-6ICW,
-5KW,
-6KW,
-3MECH,
-4MECH,
+4ELEK,"* STEM (*): Wiskunde, aardrijkskunde en natuurwetenschappen
+** MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+5ELINS,"* STEM (*): Wiskunde, aardrijkskunde en natuurwetenschappen
+** MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+6ELINS,"* STEM (*): Wiskunde, aardrijkskunde en natuurwetenschappen
+** MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+5EMT,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Nederlands, burgerschap, geschiedenis en artistieke expressie"
+6EMT,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Nederlands, burgerschap, geschiedenis en artistieke expressie"
+3GRATECH,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Nederlands, burgerschap, geschiedenis en artistieke expressie"
+4GRATECH,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Nederlands, burgerschap, geschiedenis en artistieke expressie"
+5GRAFI,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Nederlands, burgerschap, geschiedenis en artistieke expressie"
+6GRAFI,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Nederlands, burgerschap, geschiedenis en artistieke expressie"
+3HSZ,"* STEM (*): Wiskunde, natuurwetenschappen, aardrijkskunde en toegepaste informatica
+* MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+4HSZ,"* STEM (*): Wiskunde, natuurwetenschappen, aardrijkskunde en toegepaste informatica
+* MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+5HZ,"* STEM (*): Wiskunde, natuurwetenschappen, aardrijkskunde en toegepaste informatica
+* MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+6HZ,"* STEM (*): Wiskunde, natuurwetenschappen, aardrijkskunde en toegepaste informatica
+* MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+3HOUT,"* STEM (*): Wiskunde, toegepaste informatica, aardrijkskunde en
+** MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+4HOUT,"* STEM (*): Wiskunde, toegepaste informatica, aardrijkskunde en
+** MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+5BIN,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+6BIN,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+5ICW,"(*) inclusief Artistieke expressie"
+6ICW,"(*) inclusief Artistieke expressie"
+5KW,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Nederlands, burgerschap, geschiedenis en artistieke expressie"
+6KW,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Nederlands, burgerschap, geschiedenis en artistieke expressie"
+3MECH,"* STEM (*): Wiskunde, aardrijkskunde en natuurwetenschappen
+** MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+4MECH,"* STEM (*): Wiskunde, aardrijkskunde en natuurwetenschappen
+** MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
 3MW,
 4MW,
 3MWW,
 4MWW,
 3OOS,
-6OOS,
+6OOS,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Talen, burgerschap, financiële geletterdheid"
 5OB,
 6OB,
-3OL,
-4OL,
-5PRO,
-6PRO,
+3OL,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Talen, burgerschap, financiële geletterdheid"
+4OL,"* Wiskunde, aardrijkskunde en natuurwetenschappen
+** Talen, burgerschap, financiële geletterdheid"
+5PRO,"* STEM (*): Wiskunde, aardrijkskunde en natuurwetenschappen
+** MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+6PRO,"* STEM (*): Wiskunde, aardrijkskunde en natuurwetenschappen
+** MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
 7SCHAKEL,
-3SPORT,
-4SPORT,
-5SPORT,
-6SPORT,
-5SPW,
-6SPW,
+3SPORT,"(*) gereduceerd urenpakket"
+4SPORT,"(*) gereduceerd urenpakket"
+5SPORT,"(*) gereduceerd urenpakket"
+6SPORT,"(*) gereduceerd urenpakket"
+5SPW,"(*) gereduceerd urenpakket"
+6SPW,"(*) gereduceerd urenpakket"
 5TOE,
 6TOE,
-5TOPEC,
-6TOPEC,
-3TOPNW,
-4TOPNW,
-5TOPWET,
-6TOPWET,
-3ZW,
-4ZW,
+5TOPEC,"(*) gereduceerd urenpakket"
+6TOPEC,"(*) gereduceerd urenpakket"
+3TOPNW,"(*) gereduceerd urenpakket"
+4TOPNW,"(*) gereduceerd urenpakket"
+5TOPWET,"(*) gereduceerd urenpakket"
+6TOPWET,"(*) gereduceerd urenpakket"
+3ZW,"* STEM (*): Wiskunde, aardrijkskunde en natuurwetenschappen
+* MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
+4ZW,"* STEM (*): Wiskunde, aardrijkskunde en natuurwetenschappen
+* MTC (**): Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
