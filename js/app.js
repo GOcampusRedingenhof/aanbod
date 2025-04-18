@@ -28,7 +28,6 @@ const LessentabellenApp = {
       console.log(`Data geladen: ${this.klassen.length} klassen, ${this.lessentabel.length} lesvakken`);
 
       this.renderGrid();
-      this.setupPrintDate();
       
       // Overlay klik binding toevoegen voor sluiten slidein
       document.getElementById('overlay').addEventListener('click', () => this.closeSlidein());
@@ -100,19 +99,6 @@ const LessentabellenApp = {
   closeSlidein() {
     document.getElementById("slidein").classList.remove("open");
     document.getElementById("overlay").classList.remove("active");
-  },
-
-  /**
-   * Stelt de huidige datum in voor de printversie
-   */
-  setupPrintDate() {
-    const span = document.getElementById("datum-print");
-    const today = new Date();
-    span.textContent = today.toLocaleDateString("nl-BE", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric"
-    });
   }
 };
 
