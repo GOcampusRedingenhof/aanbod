@@ -39,19 +39,6 @@ export function generateLessentabel(lessen, hoofdKlas) {
  * @returns {string} HTML voor de lessentabel
  */
 function buildTabelMetOrigineleVolgorde(hoofdKlasLessen, alleLessen, klasCodes, hoofdKlas) {
-  // Verzamel alle categorieën in oorspronkelijke volgorde
-  const categorieën = [];
-  const categorieIndex = {};
-  
-  // Loop door hoofdklaslessen om categorieën in originele volgorde te verzamelen
-  hoofdKlasLessen.forEach(les => {
-    const cat = les.categorie || 'onbekend';
-    if (!categorieIndex[cat]) {
-      categorieIndex[cat] = categorieën.length;
-      categorieën.push(cat);
-    }
-  });
-  
   // Bouw de HTML voor de tabel
   let tabelHTML = `
     <table class="lessentabel" border="1" cellspacing="0" cellpadding="4">
@@ -67,8 +54,63 @@ function buildTabelMetOrigineleVolgorde(hoofdKlasLessen, alleLessen, klasCodes, 
   // Bereken totalen alvast
   const totalen = berekenTotalen(alleLessen, klasCodes);
   
-  // Voor elke categorie in de oorspronkelijke volgorde
-  categorieën.forEach(categorie => {
+  // Verzamel alle vakken, gegroepeerd per categorie (zonder duplicaten)
+  const vakkenPerCategorie = {};
+  
+  // Eerste loop: verzamel alle unieke categorie/vak combinaties in originele volgorde
+  hoofdKlasLessen.forEach(les => {
+    const categorie = les.categorie || 'onbekend';
+    
+    if (!vakkenPerCategorie[categorie]) {
+      vakkenPerCategorie[categorie] = {
+        vakken: [],
+        vakIndex: {}
+      };
+    }
+    
+    // Sla elk vak maar één keer op
+    if (vakkenPerCategorie[categorie].vakIndex[les.vak] === undefined) {
+      const index = vakkenPerCategorie[categorie].vakken.length;
+      vakkenPerCategorie[categorie].vakIndex[les.vak] = index;
+      
+      vakkenPerCategorie[categorie].vakken.push({
+        vak: les.vak,
+        type: les.type,
+        subvak: les.subvak === true || les.subvak === 'WAAR',
+        uren: {}
+      });
+    }
+  });
+  
+  // Tweede loop: vul uren in per klas per vak
+  klasCodes.forEach(code => {
+    const lessenVoorKlas = alleLessen.filter(les => les.klascode === code);
+    
+    lessenVoorKlas.forEach(les => {
+      const categorie = les.categorie || 'onbekend';
+      
+      // Controleer of deze categorie en dit vak bestaan in onze structuur
+      if (vakkenPerCategorie[categorie] && 
+          vakkenPerCategorie[categorie].vakIndex[les.vak] !== undefined) {
+        
+        const vakIndex = vakkenPerCategorie[categorie].vakIndex[les.vak];
+        vakkenPerCategorie[categorie].vakken[vakIndex].uren[code] = les.uren;
+      }
+    });
+  });
+  
+  // Nu kunnen we de tabel opbouwen met unieke categorieën
+  // Sorteer categorieën in logische volgorde
+  const categorieVolgorde = ['basisvorming', 'specifiek gedeelte', 'vrije ruimte', 'totaal'];
+  
+  const gesorteerdeCategorieen = Object.keys(vakkenPerCategorie).sort((a, b) => {
+    const indexA = categorieVolgorde.indexOf(a.toLowerCase());
+    const indexB = categorieVolgorde.indexOf(b.toLowerCase());
+    return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+  });
+  
+  // Bouw nu de tabel op per categorie
+  gesorteerdeCategorieen.forEach(categorie => {
     // Voeg categorie header toe (behalve voor totaal)
     if (categorie.toLowerCase() !== 'totaal') {
       tabelHTML += `
@@ -78,45 +120,8 @@ function buildTabelMetOrigineleVolgorde(hoofdKlasLessen, alleLessen, klasCodes, 
       `;
     }
     
-    // Filter lessen van deze categorie in originele volgorde,
-    // zonder aparte groepering voor headers/normale vakken/subvakken
-    const lessenInCategorie = hoofdKlasLessen.filter(les => les.categorie === categorie);
-    
-    // Verzamel unieke vakken in deze categorie
-    const vakkenInCategorie = [];
-    const vakkenIndex = {};
-    
-    // Bewaar alle vakken in oorspronkelijke volgorde uit CSV
-    lessenInCategorie.forEach(les => {
-      if (vakkenIndex[les.vak] === undefined) {
-        vakkenIndex[les.vak] = vakkenInCategorie.length;
-        vakkenInCategorie.push({
-          vak: les.vak,
-          type: les.type,
-          subvak: les.subvak === true || les.subvak === 'WAAR',
-          uren: {}
-        });
-      }
-    });
-    
-    // Vul uren in voor alle klascodes
-    klasCodes.forEach(code => {
-      // Vind alle lessen voor deze klascode en categorie
-      const lessenVoorKlasEnCategorie = alleLessen.filter(
-        les => les.klascode === code && les.categorie === categorie
-      );
-      
-      // Vul uren in voor de juiste vakken
-      lessenVoorKlasEnCategorie.forEach(les => {
-        const index = vakkenIndex[les.vak];
-        if (index !== undefined) {
-          vakkenInCategorie[index].uren[code] = les.uren;
-        }
-      });
-    });
-    
-    // Genereer rijen voor alle vakken
-    vakkenInCategorie.forEach(vak => {
+    // Voeg alle vakken toe in de oorspronkelijke volgorde
+    vakkenPerCategorie[categorie].vakken.forEach(vak => {
       // CSS class voor deze rij
       let rowClass = '';
       if (vak.type === 'header') rowClass = 'vak-header';
@@ -141,7 +146,7 @@ function buildTabelMetOrigineleVolgorde(hoofdKlasLessen, alleLessen, klasCodes, 
   });
   
   // Voeg totaalrij toe als die niet al bestond
-  if (!categorieën.includes('totaal') && !categorieën.includes('Totaal')) {
+  if (!gesorteerdeCategorieen.find(cat => cat.toLowerCase() === 'totaal')) {
     tabelHTML += `
       <tr class="totaal-row" style="font-weight: bold; border-top: 2px solid #000;">
         <td>Lestijden per week</td>
