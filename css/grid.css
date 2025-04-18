@@ -422,3 +422,50 @@
     border: 1px solid #000;
   }
 }
+
+/**
+ * Flexibele oplossing voor lege graad- en finaliteitslabels
+ * Werkt met data-attributen in plaats van specifieke domeinnamen
+ */
+
+/* Verberg lege graad headers */
+.lessentabellen-root [data-leeg="true"] h3,
+.lessentabellen-root [data-leeg="true"] {
+  visibility: hidden;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border: none !important;
+}
+
+/* Verberg lege finaliteit headers */
+.lessentabellen-root .finaliteit-blok h4[data-leeg="true"] {
+  visibility: hidden;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border: none !important;
+}
+
+/* Stijlen voor finaliteitsblokken zonder finaliteit */
+.lessentabellen-root .finaliteit-blok[data-leeg-finaliteit="true"] {
+  margin-top: 0 !important;
+  padding-top: 0.5rem !important;
+}
+
+/* Betere spacing voor richtingen in lege finaliteitsblokken */
+.lessentabellen-root .finaliteit-blok[data-leeg-finaliteit="true"] ul {
+  margin-top: 0.5rem !important;
+}
+
+/* Graad containers zonder graad label */
+.lessentabellen-root .graad-container[data-no-graad="true"] {
+  padding-top: 0.75rem !important;
+}
+
+/* Zorg dat finaliteitsblokken niet te veel spacing hebben bovenaan */
+.lessentabellen-root .graad-container[data-no-graad="true"] .finaliteit-blok:first-child {
+  margin-top: 0 !important;
+}
