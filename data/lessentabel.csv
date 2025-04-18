@@ -46,6 +46,22 @@ klascode,vak,categorie,type,subvak,optie,uren
 5ASWW,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,4
 5ASWW,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
 5ASWW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
+5AUTO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+5AUTO,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
+5AUTO,STEM (*),basisvorming,vak,WAAR,ONWAAR,4
+5AUTO,MTC (**),basisvorming,vak,WAAR,ONWAAR,4
+5AUTO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+5AUTO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5AUTO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+5AUTO,Onderhoudsmechanica auto,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
+6AUTO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+6AUTO,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
+6AUTO,STEM (*),basisvorming,vak,WAAR,ONWAAR,4
+6AUTO,MTC (**),basisvorming,vak,WAAR,ONWAAR,4
+6AUTO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
+6AUTO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6AUTO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+6AUTO,Onderhoudsmechanica auto,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
 5BZO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 5BZO,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,2
 5BZO,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,4
@@ -183,10 +199,9 @@ klascode,vak,categorie,type,subvak,optie,uren
 3ELEK,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
 3ELEK,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 3ELEK,STEM Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-3ELEK,* Basis,specifiek gedeelte,vak,WAAR,ONWAAR,8
-3ELEK,* Auto,specifiek gedeelte,vak,WAAR,ONWAAR,5
-3ELEK,* Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,6
-3ELEK,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+3ELEK,Basis,specifiek gedeelte,vak,WAAR,ONWAAR,8
+3ELEK,Auto,specifiek gedeelte,vak,WAAR,ONWAAR,5
+3ELEK,Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,6
 4ELEK,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 4ELEK,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
 4ELEK,STEM (*),basisvorming,vak,WAAR,ONWAAR,
@@ -195,28 +210,25 @@ klascode,vak,categorie,type,subvak,optie,uren
 4ELEK,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
 4ELEK,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 4ELEK,STEM Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-4ELEK,* Basis,specifiek gedeelte,vak,WAAR,ONWAAR,8
-4ELEK,* Auto,specifiek gedeelte,vak,WAAR,ONWAAR,5
-4ELEK,* Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,6
-4ELEK,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+4ELEK,Basis,specifiek gedeelte,vak,WAAR,ONWAAR,8
+4ELEK,Auto,specifiek gedeelte,vak,WAAR,ONWAAR,5
+4ELEK,Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,6
 5ELINS,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-5ELINS,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,4
-5ELINS,STEM (*),basisvorming,vak,WAAR,ONWAAR,
-5ELINS,MTC (**),basisvorming,vak,WAAR,ONWAAR,
+5ELINS,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
+5ELINS,STEM (*),basisvorming,vak,WAAR,ONWAAR,4
+5ELINS,MTC (**),basisvorming,vak,WAAR,ONWAAR,4
 5ELINS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 5ELINS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 5ELINS,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 5ELINS,Elektrische installaties,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
-5ELINS,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 6ELINS,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-6ELINS,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,4
-6ELINS,STEM (*),basisvorming,vak,WAAR,ONWAAR,
-6ELINS,MTC (**),basisvorming,vak,WAAR,ONWAAR,
+6ELINS,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
+6ELINS,STEM (*),basisvorming,vak,WAAR,ONWAAR,4
+6ELINS,MTC (**),basisvorming,vak,WAAR,ONWAAR,4
 6ELINS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 6ELINS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 6ELINS,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 6ELINS,Elektrische installaties,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
-6ELINS,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 3EMT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 3EMT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 3EMT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
