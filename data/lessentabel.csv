@@ -884,6 +884,28 @@ klascode,vak,categorie,type,subvak,optie,uren
 6TOE,Frans,specifiek gedeelte,vak,WAAR,ONWAAR,2
 6TOE,Toeristische geografie,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
 6TOE,Toerisme,specifiek gedeelte,vak,WAAR,ONWAAR,6
+3TOPEC,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+3TOPEC,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+3TOPEC,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+3TOPEC,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
+3TOPEC,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
+3TOPEC,Geschiedenis (incl. burgerschap),basisvorming,vak,ONWAAR,ONWAAR,1
+3TOPEC,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
+3TOPEC,Project (STEM, toegepaste informatica, artistieke expressie),basisvorming,vak,ONWAAR,ONWAAR,
+3TOPEC,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
+3TOPEC,Economie en bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+3TOPEC,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+4TOPEC,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
+4TOPEC,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+4TOPEC,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+4TOPEC,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
+4TOPEC,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
+4TOPEC,Geschiedenis (incl. burgerschap),basisvorming,vak,ONWAAR,ONWAAR,2
+4TOPEC,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
+4TOPEC,Project (STEM, toegepaste informatica, artistieke expressie),basisvorming,vak,ONWAAR,ONWAAR,
+4TOPEC,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
+4TOPEC,Economie en bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+4TOPEC,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 5TOPEC,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 5TOPEC,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 5TOPEC,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
@@ -891,12 +913,10 @@ klascode,vak,categorie,type,subvak,optie,uren
 5TOPEC,Geschiedenis (incl. burgerschap) (*),basisvorming,vak,ONWAAR,ONWAAR,1
 5TOPEC,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
 5TOPEC,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
-5TOPEC,"Project (STEM, economisch financiële competenties, artistieke expressie, OC)",basisvorming,vak,ONWAAR,ONWAAR,0
+5TOPEC,Project (STEM, economisch financiële competenties, artistieke expressie, OC),basisvorming,vak,ONWAAR,ONWAAR,
 5TOPEC,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
-5TOPEC,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
 5TOPEC,Economie en Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 5TOPEC,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
-5TOPEC,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 6TOPEC,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 6TOPEC,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6TOPEC,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
@@ -904,64 +924,50 @@ klascode,vak,categorie,type,subvak,optie,uren
 6TOPEC,Geschiedenis (incl. burgerschap) (*),basisvorming,vak,ONWAAR,ONWAAR,2
 6TOPEC,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
 6TOPEC,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-6TOPEC,"Project (STEM, economisch financiële competenties, artistieke expressie, OC)",basisvorming,vak,ONWAAR,ONWAAR,0
+6TOPEC,Project (STEM, economisch financiële competenties, artistieke expressie, OC),basisvorming,vak,ONWAAR,ONWAAR,0
 6TOPEC,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
-6TOPEC,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
 6TOPEC,Economie en Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 6TOPEC,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
-6TOPEC,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 3TOPNW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 3TOPNW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
-3TOPNW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,0
 3TOPNW,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
 3TOPNW,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
 3TOPNW,Geschiedenis (incl. burgerschap),basisvorming,vak,ONWAAR,ONWAAR,1
 3TOPNW,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
-3TOPNW,"Project (STEM, toegepaste informatica, artistieke expressie)",basisvorming,vak,ONWAAR,ONWAAR,1
+3TOPNW,Project (STEM, toegepaste informatica, artistieke expressie),basisvorming,vak,ONWAAR,ONWAAR,1
 3TOPNW,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 3TOPNW,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
-3TOPNW,Economie en bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
 3TOPNW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
-3TOPNW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 4TOPNW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 4TOPNW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
-4TOPNW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,0
 4TOPNW,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
 4TOPNW,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
 4TOPNW,Geschiedenis (incl. burgerschap),basisvorming,vak,ONWAAR,ONWAAR,2
 4TOPNW,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
-4TOPNW,"Project (STEM, toegepaste informatica, artistieke expressie)",basisvorming,vak,ONWAAR,ONWAAR,0
+4TOPNW,Project (STEM, toegepaste informatica, artistieke expressie),basisvorming,vak,ONWAAR,ONWAAR,
 4TOPNW,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 4TOPNW,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
-4TOPNW,Economie en bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
 4TOPNW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
-4TOPNW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 5TOPWET,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 5TOPWET,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 5TOPWET,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
 5TOPWET,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
 5TOPWET,Geschiedenis (incl. burgerschap) (*),basisvorming,vak,ONWAAR,ONWAAR,1
 5TOPWET,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
-5TOPWET,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
-5TOPWET,"Project (STEM, economisch financiële competenties, artistieke expressie, OC)",basisvorming,vak,ONWAAR,ONWAAR,0
+5TOPWET,"Project (STEM, economisch financiële competenties, artistieke expressie, OC)",basisvorming,vak,ONWAAR,ONWAAR,
 5TOPWET,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 5TOPWET,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
-5TOPWET,Economie en Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
 5TOPWET,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
-5TOPWET,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 6TOPWET,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 6TOPWET,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6TOPWET,Engels (*),basisvorming,vak,ONWAAR,ONWAAR,2
 6TOPWET,Frans (*),basisvorming,vak,ONWAAR,ONWAAR,2
-6TOPWET,Geschiedenis (incl. burgerschap) (*),basisvorming,vak,ONWAAR,ONWAAR,1
+6TOPWET,Geschiedenis (incl. burgerschap) (*),basisvorming,vak,ONWAAR,ONWAAR,2
 6TOPWET,Nederlands (*),basisvorming,vak,ONWAAR,ONWAAR,3
-6TOPWET,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
-6TOPWET,"Project (STEM, economisch financiële competenties, artistieke expressie, OC)",basisvorming,vak,ONWAAR,ONWAAR,0
+6TOPWET,Project (STEM, economisch financiële competenties, artistieke expressie, OC),basisvorming,vak,ONWAAR,ONWAAR,
 6TOPWET,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 6TOPWET,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
-6TOPWET,Economie en Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,0
 6TOPWET,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
-6TOPWET,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 3ZW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 3ZW,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
 3ZW,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
