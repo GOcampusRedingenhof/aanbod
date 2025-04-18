@@ -1,0 +1,183 @@
+/* print-styles.css - Afzonderlijk bestand voor printgerelateerde styling */
+
+/* Specifieke printoptimalisatie voor lessentabellen */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 1cm;
+  }
+  
+  /* Verberg UI-elementen die niet nodig zijn bij afdrukken */
+  #overlay,
+  .close-btn,
+  .action-buttons {
+    display: none !important;
+  }
+  
+  /* Reset slidein voor print */
+  #slidein {
+    position: static !important;
+    transform: none !important;
+    box-shadow: none !important;
+    max-width: none !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  
+  /* Headers optimaliseren */
+  .detail-header h2 {
+    font-size: 1.2rem !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    color: #000 !important;
+  }
+  
+  .detail-header p {
+    font-size: 0.9rem !important;
+    margin: 0.5rem 0 !important;
+    color: #333 !important;
+  }
+  
+  /* Verklein de tabel voor betere pasvorm */
+  .lessentabel {
+    font-size: 0.75rem !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    margin: 0.5rem 0 !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+  }
+  
+  /* Verklein cellen */
+  .lessentabel th,
+  .lessentabel td {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.75rem !important;
+    border: 1px solid #ddd !important;
+  }
+  
+  /* Maak headers plat en kleiner */
+  .lessentabel thead th {
+    background: #f0f0f0 !important;
+    color: black !important;
+    box-shadow: none !important;
+    font-size: 0.8rem !important;
+    padding: 0.25rem 0.4rem !important;
+  }
+  
+  .lessentabel tr.categorie-header th {
+    background: #e0e0e0 !important;
+    color: black !important;
+    font-size: 0.8rem !important;
+    padding: 0.3rem 0.4rem !important;
+  }
+  
+  /* Compactere vak-headers */
+  .lessentabel tr.vak-header td {
+    font-size: 0.75rem !important;
+    padding: 0.2rem 0.4rem !important;
+    background-color: #f8f8f8 !important;
+  }
+  
+  /* Compactere subvakken */
+  .lessentabel tr.subvak td {
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.2rem !important;
+  }
+  
+  /* Totaalrij styling */
+  .lessentabel tr.totaal-row td {
+    font-weight: bold !important;
+    background-color: #f0f0f0 !important;
+  }
+  
+  /* Kleinere footnotes */
+  .footnotes {
+    font-size: 0.7rem !important;
+    background: none !important;
+    border-left: 1px solid #ddd !important;
+    padding: 0.25rem 0.5rem !important;
+    margin-top: 0.5rem !important;
+  }
+  
+  /* Content container aanpassingen */
+  .detail-content {
+    padding: 0 !important;
+  }
+  
+  /* Footer elementen verkleinen */
+  .logo-print {
+    max-width: 100px !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto 0.5rem !important;
+  }
+  
+  .datum, .quote {
+    font-size: 0.7rem !important;
+    margin: 0.3rem 0 !important;
+    position: relative !important;
+    color: #666 !important;
+  }
+  
+  .datum {
+    text-align: right !important;
+    margin-right: 1cm !important;
+  }
+  
+  .quote {
+    text-align: left !important;
+    margin-left: 1cm !important;
+    font-style: italic !important;
+  }
+  
+  /* Voorkom page breaks */
+  .lessentabel tr {
+    page-break-inside: avoid !important;
+  }
+  
+  #lessentabel-container {
+    page-break-inside: avoid !important;
+  }
+  
+  /* Reset alle animaties */
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  /* Verberg scrollbars */
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+  
+  /* Algemene pagina-optimalisaties */
+  html, body {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: white !important;
+  }
+  
+  /* Print-mode specifieke aanpassingen - geactiveerd via JS */
+  body.print-mode .lessentabel {
+    max-height: 650px !important; /* Beperkte hoogte om op één pagina te passen */
+  }
+  
+  body.print-mode .detail-header h2::after {
+    display: none !important; /* Verwijder decoratieve elementen */
+  }
+}
+
+/* Voorvertoning van print modus (optioneel) */
+.print-preview .lessentabel {
+  font-size: 0.8rem;
+  border: 1px solid #ddd;
+}
+
+.print-preview .lessentabel th,
+.print-preview .lessentabel td {
+  padding: 0.3rem 0.5rem;
+}
