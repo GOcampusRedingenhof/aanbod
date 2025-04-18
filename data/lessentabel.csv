@@ -746,8 +746,8 @@ klascode,vak,categorie,type,subvak,optie,uren
 4SPORT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
 4SPORT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 4SPORT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
-4SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,
-4SPORT,Toegepaste Informatica,basisvorming,vak,ONWAAR,ONWAAR,
+4SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+4SPORT,Toegepaste Informatica,basisvorming,vak,ONWAAR,ONWAAR,-
 4SPORT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 4SPORT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 4SPORT,Bewegingswetenschappen Toepassingen,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -756,7 +756,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 4SPORT,Interactieve sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 4SPORT,Recreatiesport en microteaching,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 4SPORT,Optie,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
-4SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+4SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,-
 4SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 5SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
@@ -769,15 +769,16 @@ klascode,vak,categorie,type,subvak,optie,uren
 5SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
 5SPORT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 5SPORT,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
-5SPORT,Bewegingswetenschappen Toepassingen,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
-5SPORT,Bewegingswetenschappen theorie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-5SPORT,Individuele sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
-5SPORT,Interactieve sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-5SPORT,Optie - inclusief stage,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+5SPORT,Sportgebeleiding,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+5SPORT,Bewegingswetenschappen Toepassingen,specifiek gedeelte,vak,WAAR,ONWAAR,3
+5SPORT,Bewegingswetenschappen theorie,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5SPORT,Individuele sporten,specifiek gedeelte,vak,WAAR,ONWAAR,3
+5SPORT,Interactieve sporten,specifiek gedeelte,vak,WAAR,ONWAAR,2
+5SPORT,Optie - inclusief stage,specifiek gedeelte,vak,WAAR,ONWAAR,6
 5SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 5SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 6SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-6SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+6SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 6SPORT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 6SPORT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 6SPORT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
@@ -787,11 +788,12 @@ klascode,vak,categorie,type,subvak,optie,uren
 6SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
 6SPORT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 6SPORT,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
-6SPORT,Bewegingswetenschappen Toepassingen,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
-6SPORT,Bewegingswetenschappen theorie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-6SPORT,Individuele sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
-6SPORT,Interactieve sporten,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-6SPORT,Optie - inclusief stage,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+6SPORT,Sportgebeleiding,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+6SPORT,Bewegingswetenschappen Toepassingen,specifiek gedeelte,vak,WAAR,ONWAAR,2
+6SPORT,Bewegingswetenschappen theorie,specifiek gedeelte,vak,WAAR,ONWAAR,2
+6SPORT,Individuele sporten,specifiek gedeelte,vak,WAAR,ONWAAR,3
+6SPORT,Interactieve sporten,specifiek gedeelte,vak,WAAR,ONWAAR,2
+6SPORT,Optie - inclusief stage,specifiek gedeelte,vak,WAAR,ONWAAR,6
 6SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 6SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 3SPW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
