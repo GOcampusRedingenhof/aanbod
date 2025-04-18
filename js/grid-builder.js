@@ -35,7 +35,7 @@ export function buildGrid(data, target) {
       graad = 'ONBEKEND';
     }
     
-    const finaliteit = (item.finaliteit || 'ONBEKEND').toString().trim().toLowerCase();
+    const finaliteit = (item.finaliteit || '').toString().trim().toLowerCase();
     const richting = item.richting;
     const richtingcode = item.richtingcode;
     const klascode = item.klascode;
@@ -92,7 +92,7 @@ export function buildGrid(data, target) {
         if (Object.keys(richtingen).length === 0) return;
         
         // Maak finaliteit block
-        const finaliteitBlok = createFinaliteitBlok(finaliteit);
+        const finaliteitBlok = createFinaliteitBlok(finaliteit, domein);
         
         // Bouw lijst met richtingen
         const ul = document.createElement('ul');
@@ -169,13 +169,13 @@ function createGraadTitle(graad, domein) {
   // Bepaal de geformatteerde weergavenaam
   let displayGraad;
   
-  // Als de graad ONBEKEND is, en het domein is okan of schakeljaar,
-  // gebruik het domein als graadnaam
-  if ((graad === 'ONBEKEND' || graad === '') && (domein === 'okan' || domein === 'schakeljaar')) {
-    displayGraad = domein.charAt(0).toUpperCase() + domein.slice(1);
-  } else if (graad === 'OKAN' || graad === 'SCHAKELJAAR') {
-    // Voor OKAN en SCHAKELJAAR, alleen eerste letter hoofdletter
+  // Voor OKAN en SCHAKELJAAR, gebruik de domeinnaam zonder 'ONBEKEND' label
+  if (graad === 'OKAN' || graad === 'SCHAKELJAAR') {
+    // Gebruik de eerste letter in hoofdletter, rest in kleine letters
     displayGraad = graad.charAt(0) + graad.slice(1).toLowerCase();
+  } else if (graad === 'ONBEKEND' || graad === '') {
+    // Voor onbekende graden bij andere domeinen, toon niets
+    displayGraad = '';
   } else {
     // Normale graad formatting (Eerste Graad, Tweede Graad, etc.)
     displayGraad = graad.charAt(0) + graad.slice(1).toLowerCase();
@@ -191,15 +191,35 @@ function createGraadTitle(graad, domein) {
 /**
  * Maakt een finaliteit block met titel
  * @param {string} finaliteit - De finaliteitnaam (bv. 'doorstroom')
+ * @param {string} domein - Het domein van deze finaliteit
  * @returns {HTMLElement} Het finaliteit block
  */
-function createFinaliteitBlok(finaliteit) {
+function createFinaliteitBlok(finaliteit, domein) {
   const finaliteitBlok = document.createElement('div');
   finaliteitBlok.className = 'finaliteit-blok';
 
   const h4 = document.createElement('h4');
-  // Eerste letter hoofdletter voor de finaliteit
-  h4.textContent = finaliteit.charAt(0).toUpperCase() + finaliteit.slice(1);
+  
+  // Verberg finaliteitslabel voor OKAN en schakeljaar
+  if (finaliteit === '' && (domein === 'okan' || domein === 'schakeljaar')) {
+    // Laat h4 leeg, maar behoud het element voor de structuur
+    h4.style.visibility = 'hidden';
+    h4.style.height = '0';
+    h4.style.margin = '0';
+    h4.style.padding = '0';
+    h4.style.border = 'none';
+  } else if (finaliteit === 'onbekend' || finaliteit === '') {
+    // Voor andere domeinen met onbekende finaliteit, toon niets
+    h4.style.visibility = 'hidden';
+    h4.style.height = '0';
+    h4.style.margin = '0';
+    h4.style.padding = '0';
+    h4.style.border = 'none';
+  } else {
+    // Normale finaliteitsweergave
+    h4.textContent = finaliteit.charAt(0).toUpperCase() + finaliteit.slice(1);
+  }
+  
   finaliteitBlok.appendChild(h4);
   
   return finaliteitBlok;
