@@ -8,120 +8,95 @@
  * @returns {string} HTML voor de lessentabel
  */
 export function generateLessentabel(lessen, hoofdKlas) {
-  // Vind alleen de unieke klascodes die we willen weergeven
-  // Dit zijn klassen uit dezelfde richting en graad als de hoofdklas
+  // Filter alleen op de geselecteerde klascode en graad
+  const hoofdKlasLessen = lessen.filter(les => les.klascode === hoofdKlas.klascode);
+  
+  // Vind de unieke klascodes met dezelfde richtingcode
   const klasCodes = [...new Set(lessen
     .filter(les => {
+      // Zoek de klas info voor deze les
       const klas = window.LessentabellenApp.klassen.find(k => k.klascode === les.klascode);
-      return klas && klas.graad === hoofdKlas.graad && klas.richtingcode === hoofdKlas.richtingcode;
+      // Behoud alleen lessen van klassen met dezelfde graad als hoofdklas
+      return klas && klas.graad === hoofdKlas.graad;
     })
     .map(les => les.klascode))]
-    .sort(); // Sorteer klascode op naam
+    .sort(); // Sorteer klascode alleen op naam
   
   if (klasCodes.length === 0) {
     return '<p>Geen lessentabel beschikbaar voor deze richting.</p>';
   }
   
-  // Filter de lessen zodat we alleen de relevante lessen behouden
-  const relevanteLessen = lessen.filter(les => klasCodes.includes(les.klascode));
-  
-  // Groepeer lessen per categorie, zonder duplicaten
-  const lessenPerCategorie = groepeerUniekeCategorieen(relevanteLessen, klasCodes, hoofdKlas);
-  
-  // Bereken de totalen per klas
-  const totalen = berekenTotalen(relevanteLessen, klasCodes);
-  
-  // Genereer de HTML voor de tabel
-  return buildTabelHTML(lessenPerCategorie, klasCodes, totalen);
+  // Maak tabelinhoud
+  return buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, lessen, klasCodes, hoofdKlas);
 }
 
 /**
- * Groepeert lessen per unieke categorie zonder duplicaten
- * @param {Array} lessen - Alle relevante lessen
+ * Bouwt een complete lessentabel met alle vakken gegroepeerd per categorie
+ * en waarbij iedere categorie slechts één keer voorkomt
+ * @param {Array} hoofdKlasLessen - Lessen van de hoofdklas in originele volgorde
+ * @param {Array} alleLessen - Alle lessen voor alle relevante klassen
  * @param {Array} klasCodes - Array van relevante klascode
- * @param {Object} hoofdKlas - Het klasobject van de geselecteerde klas
- * @returns {Map} Map van categorieën naar hun vakken
+ * @param {Object} hoofdKlas - Het klasobject van de geselecteerde klas 
+ * @returns {string} HTML voor de lessentabel
  */
-function groepeerUniekeCategorieen(lessen, klasCodes, hoofdKlas) {
-  // Gebruik een Map om categorieën bij te houden
-  const categorieenMap = new Map();
+function buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, alleLessen, klasCodes, hoofdKlas) {
+  // Object om gecombineerde vakken per categorie op te slaan
+  const categorieMap = new Map();
   
-  // Bepaal de volgorde van categorieën uit de hoofdklas lessen
-  const hoofdKlasLessen = lessen.filter(les => les.klascode === hoofdKlas.klascode);
-  const categorieVolgorde = [];
+  // Set om bij te houden welke vak-categorie combinaties we al hebben gezien
+  const verwerkteCombinaties = new Set();
   
-  // Verzamel unieke categorieën in de volgorde van de hoofdklas
+  // Loop door hoofdklaslessen en bouw categorieën op
   hoofdKlasLessen.forEach(les => {
-    const cat = les.categorie || 'onbekend';
-    if (!categorieVolgorde.includes(cat)) {
-      categorieVolgorde.push(cat);
+    const categorieNaam = les.categorie || 'onbekend';
+    const vakNaam = les.vak;
+    
+    // Unieke identificatie voor deze vak-categorie combinatie
+    const comboKey = `${categorieNaam}:${vakNaam}`;
+    
+    // Als we deze combinatie al hebben gezien, sla over
+    if (verwerkteCombinaties.has(comboKey)) {
+      return;
     }
+    
+    // Markeer deze combinatie als verwerkt
+    verwerkteCombinaties.add(comboKey);
+    
+    // Als deze categorie nog niet bestaat, maak het aan
+    if (!categorieMap.has(categorieNaam)) {
+      categorieMap.set(categorieNaam, []);
+    }
+    
+    // Voeg het vak toe aan de lijst voor deze categorie
+    categorieMap.get(categorieNaam).push({
+      vak: vakNaam,
+      type: les.type,
+      subvak: les.subvak === true || les.subvak === 'WAAR',
+      uren: {} // Dit wordt later ingevuld
+    });
   });
   
-  // Verwerk nu alle vakken per categorie (behoudt volgorde uit CSV)
-  categorieVolgorde.forEach(categorie => {
-    // Verzamel alle vakken voor deze categorie uit alle klasCodes
-    const alleVakkenInCategorie = lessen.filter(les => 
-      les.categorie === categorie && 
-      les.klascode === hoofdKlas.klascode // Gebruik alleen de hoofdklas voor de structuur
-    );
+  // Vul de uren in per klascode voor elk vak
+  klasCodes.forEach(klasCode => {
+    const lessenVoorKlas = alleLessen.filter(les => les.klascode === klasCode);
     
-    // Verzamel unieke vakken op basis van de vak naam
-    const uniqueVakken = [];
-    const uniqueVakNamen = new Set();
-    
-    alleVakkenInCategorie.forEach(les => {
-      // Als we dit vak nog niet hebben toegevoegd, doe dat nu
-      if (!uniqueVakNamen.has(les.vak)) {
-        uniqueVakNamen.add(les.vak);
+    lessenVoorKlas.forEach(les => {
+      const categorieNaam = les.categorie || 'onbekend';
+      const vakNaam = les.vak;
+      
+      // Zoek de categorie en het vak
+      if (categorieMap.has(categorieNaam)) {
+        const vakken = categorieMap.get(categorieNaam);
+        const vak = vakken.find(v => v.vak === vakNaam);
         
-        // Voeg vak info toe aan de lijst
-        uniqueVakken.push({
-          vak: les.vak,
-          type: les.type,
-          subvak: les.subvak === true || les.subvak === 'WAAR',
-          uren: {} // Dit wordt later ingevuld
-        });
+        if (vak) {
+          vak.uren[klasCode] = les.uren;
+        }
       }
     });
-    
-    // Sla deze categorie en zijn unieke vakken op
-    categorieenMap.set(categorie, uniqueVakken);
   });
   
-  // Vul nu de uren in voor elk vak per klas
-  klasCodes.forEach(klasCode => {
-    const lessenVoorKlas = lessen.filter(les => les.klascode === klasCode);
-    
-    // Loop door alle categorieën en vakken
-    categorieenMap.forEach((vakken, categorie) => {
-      vakken.forEach(vak => {
-        // Zoek het overeenkomstige les-item voor deze klas en dit vak
-        const lesItem = lessenVoorKlas.find(les => 
-          les.categorie === categorie && 
-          les.vak === vak.vak
-        );
-        
-        // Als gevonden, sla de uren op
-        if (lesItem) {
-          vak.uren[klasCode] = lesItem.uren;
-        }
-      });
-    });
-  });
-  
-  return categorieenMap;
-}
-
-/**
- * Bouwt de HTML voor de lessentabel
- * @param {Map} categorieenMap - Map van categorieën naar hun vakken
- * @param {Array} klasCodes - Array van relevante klascode
- * @param {Object} totalen - Object met totalen per klascode
- * @returns {string} HTML voor de tabel
- */
-function buildTabelHTML(categorieenMap, klasCodes, totalen) {
-  // Begin met de basisstructuur van de tabel
+  // Begin met het bouwen van de HTML
   let tabelHTML = `
     <table class="lessentabel" border="1" cellspacing="0" cellpadding="4">
       <thead>
@@ -133,24 +108,39 @@ function buildTabelHTML(categorieenMap, klasCodes, totalen) {
       <tbody>
   `;
   
-  // Voeg rijen toe voor elke categorie en diens vakken
-  categorieenMap.forEach((vakken, categorie) => {
-    // Voeg categorie header toe (behalve voor totaal)
-    if (categorie.toLowerCase() !== 'totaal') {
+  // Bereken totalen voor onderaan de tabel
+  const totalen = berekenTotalen(alleLessen, klasCodes);
+  
+  // Sorteer de categorieën in een logische volgorde
+  const categorieVolgorde = ['basisvorming', 'specifiek gedeelte', 'vrije ruimte', 'totaal'];
+  
+  // Bepaal volgorde van categorieën
+  const categorieKeys = Array.from(categorieMap.keys()).sort((a, b) => {
+    const indexA = categorieVolgorde.indexOf(a.toLowerCase());
+    const indexB = categorieVolgorde.indexOf(b.toLowerCase());
+    return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+  });
+  
+  // Genereer tabelrijen voor elke categorie
+  categorieKeys.forEach(categorieNaam => {
+    // Voeg categorie header toe, behalve voor totaal
+    if (categorieNaam.toLowerCase() !== 'totaal') {
       tabelHTML += `
         <tr class="categorie-header">
-          <th colspan="${klasCodes.length + 1}" scope="colgroup">${categorie.toUpperCase()}</th>
+          <th colspan="${klasCodes.length + 1}" scope="colgroup">${categorieNaam.toUpperCase()}</th>
         </tr>
       `;
     }
     
-    // Voeg rijen toe voor elk vak in deze categorie
+    // Voeg alle vakken toe voor deze categorie
+    const vakken = categorieMap.get(categorieNaam);
+    
     vakken.forEach(vak => {
       // Bepaal CSS class voor deze rij
       let rowClass = '';
       if (vak.type === 'header') rowClass = 'vak-header';
       else if (vak.subvak) rowClass = 'subvak';
-      else if (categorie.toLowerCase() === 'totaal') rowClass = 'totaal-row';
+      else if (categorieNaam.toLowerCase() === 'totaal') rowClass = 'totaal-row';
       
       // Begin rij
       tabelHTML += `<tr class="${rowClass}">`;
@@ -170,7 +160,7 @@ function buildTabelHTML(categorieenMap, klasCodes, totalen) {
   });
   
   // Voeg totaalrij toe als die nog niet bestaat
-  if (!categorieenMap.has('totaal') && !categorieenMap.has('Totaal')) {
+  if (!categorieKeys.find(cat => cat.toLowerCase() === 'totaal')) {
     tabelHTML += `
       <tr class="totaal-row" style="font-weight: bold; border-top: 2px solid #000;">
         <td>Lestijden per week</td>
