@@ -1,6 +1,4 @@
 // loader.js
-import Papa from 'papaparse';
-
 export default class DataLoader {
   constructor(config = {}) {
     this.cache = new Map();
