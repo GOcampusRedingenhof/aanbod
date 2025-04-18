@@ -6,8 +6,10 @@ klascode,richtingcode,richting,graad,domein,finaliteit,stage_weken
 6AUTO,AUTO,Onderhoudsmechanica auto,DERDE GRAAD,STEM,arbeidsmarkt,4 
 5BZO,BZO,Basiszorg en ondersteuning,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,6 
 6BZO,BZO,Basiszorg en ondersteuning,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,10 
-5BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,doorstroom,2 
-6BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,doorstroom,2 
+3BO,BO,Bedrijf en Organisatie,TWEEDE GRAAD,Economie & Organisatie,dubbele finaliteit,2 
+4BO,BO,Bedrijf en Organisatie,TWEEDE GRAAD,Economie & Organisatie,dubbele finaliteit,2 
+5BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,dubbele finaliteit,2 
+6BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,dubbele finaliteit,2 
 3BW,BW,Bedrijfswetenschappen,TWEEDE GRAAD,Economie & Organisatie,doorstroom,
 4BW,BW,Bedrijfswetenschappen,TWEEDE GRAAD,Economie & Organisatie,doorstroom,
 5BIN,BIN,Binnenschrijnwerk en interieur,DERDE GRAAD,STEM,arbeidsmarkt,4 
