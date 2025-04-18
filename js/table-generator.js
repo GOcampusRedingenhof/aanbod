@@ -19,7 +19,7 @@ export function generateLessentabel(lessen, hoofdKlas) {
   }
   
   // Groepeer lessen per categorie (basisvorming, specifiek gedeelte, etc.)
-  const lessenPerCategorie = groepeerLessenPerCategorie(lessenPerKlas, klasCodes);
+  const lessenPerCategorie = groepeerLessenPerCategorie(lessen, klasCodes, hoofdKlas);
   
   // Bereken totale lesuren per klas
   const totalen = berekenTotalen(lessenPerCategorie, klasCodes);
@@ -63,35 +63,59 @@ function filterKlascodesOpGraad(lessenPerKlas, hoofdKlas) {
 
 /**
  * Groepeert lessen per categorie (basisvorming, specifiek gedeelte, etc.)
- * @param {Object} lessenPerKlas - Object met lessen gegroepeerd per klascode
+ * behoud de originele volgorde van vakken uit het CSV bestand
+ * @param {Array} alleLessen - Alle lesitems
  * @param {Array} klasCodes - Gefilterde klascodes
+ * @param {Object} hoofdKlas - Het klasobject van de geselecteerde klas
  * @returns {Object} Object met vakken gegroepeerd per categorie
  */
-function groepeerLessenPerCategorie(lessenPerKlas, klasCodes) {
+function groepeerLessenPerCategorie(alleLessen, klasCodes, hoofdKlas) {
   const perCategorie = {};
   
+  // Filter lessen voor alleen de relevante klascodes
+  const relevanteRijtjes = alleLessen.filter(les => 
+    klasCodes.includes(les.klascode) && 
+    les.klascode === hoofdKlas.klascode // Gebruik alleen lessen van de hoofdklas voor de structuur
+  );
+  
+  // Verwerk rijen in de oorspronkelijke volgorde
+  relevanteRijtjes.forEach(les => {
+    const categorie = les.categorie || 'onbekend';
+    
+    if (!perCategorie[categorie]) {
+      perCategorie[categorie] = [];
+    }
+    
+    // Controleer of dit vak al bestaat in deze categorie
+    const bestaandVak = perCategorie[categorie].find(v => v.vak === les.vak);
+    
+    if (!bestaandVak) {
+      // Voeg nieuw vak toe in de oorspronkelijke volgorde
+      perCategorie[categorie].push({
+        vak: les.vak,
+        type: les.type,
+        subvak: les.subvak === 'WAAR' || les.subvak === true,
+        uren: {},
+        origineleIndex: perCategorie[categorie].length // Bewaar de volgorde
+      });
+    }
+  });
+  
+  // Verzamel uren voor alle klascodes voor elk vak
   klasCodes.forEach(code => {
-    lessenPerKlas[code].forEach(les => {
+    // Filter lessen voor huidige klascode
+    const lessenVoorKlas = alleLessen.filter(les => les.klascode === code);
+    
+    // Voeg uren toe aan de juiste vakken
+    lessenVoorKlas.forEach(les => {
       const categorie = les.categorie || 'onbekend';
       
-      if (!perCategorie[categorie]) {
-        perCategorie[categorie] = [];
-      }
-      
-      // Als dit vak nog niet bestaat in deze categorie, voeg het toe
-      if (!perCategorie[categorie].find(v => v.vak === les.vak)) {
-        perCategorie[categorie].push({
-          vak: les.vak,
-          type: les.type,
-          subvak: les.subvak === 'WAAR' || les.subvak === true,
-          uren: {} // Dit wordt gevuld met uren per klascode
-        });
-      }
-      
-      // Voeg de uren toe aan het juiste vak
-      const vakInCategorie = perCategorie[categorie].find(v => v.vak === les.vak);
-      if (vakInCategorie) {
-        vakInCategorie.uren[code] = les.uren;
+      if (perCategorie[categorie]) {
+        // Zoek het juiste vak
+        const vak = perCategorie[categorie].find(v => v.vak === les.vak);
+        if (vak) {
+          vak.uren[code] = les.uren;
+        }
       }
     });
   });
@@ -205,22 +229,21 @@ function buildCategorieRijen(categorie, vakken, klasCodes) {
     `;
   }
   
-  // Sorteer de vakken binnen elke categorie
-  // Headers (type: 'header') komen eerst, dan normale vakken, dan subvakken
-  const gesorteerdeVakken = vakken.sort((a, b) => {
-    // Headers eerst
-    if (a.type === 'header' && b.type !== 'header') return -1;
-    if (a.type !== 'header' && b.type === 'header') return 1;
-    
-    // Dan subvakken
-    if (a.subvak !== b.subvak) return a.subvak ? 1 : -1;
-    
-    // Anders alfabetisch
-    return a.vak.localeCompare(b.vak);
-  });
+  // Behoud de originele volgorde uit het CSV-bestand
+  // Sorteer wel op type (header eerst, dan normale vakken, dan subvakken)
+  // maar binnen elk type behoud de originele volgorde
+  const gesorteerdeVakken = [...vakken]; // maak kopie
+  
+  // Verdeel in groepen op basis van type en subvak
+  const headers = gesorteerdeVakken.filter(v => v.type === 'header');
+  const normaleVakken = gesorteerdeVakken.filter(v => v.type !== 'header' && !v.subvak);
+  const subVakken = gesorteerdeVakken.filter(v => v.type !== 'header' && v.subvak);
+  
+  // Combineer de groepen in de juiste volgorde
+  const geordendVakken = [...headers, ...normaleVakken, ...subVakken];
   
   // Bouw rijen voor alle vakken
-  gesorteerdeVakken.forEach(vak => {
+  geordendVakken.forEach(vak => {
     // Bepaal opmaak op basis van vaktype
     let vakClass = '';
     if (vak.type === 'header') vakClass = 'vak-header';
