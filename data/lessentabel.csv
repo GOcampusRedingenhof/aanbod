@@ -794,6 +794,38 @@ klascode,vak,categorie,type,subvak,optie,uren
 6SPORT,Optie - inclusief stage,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
 6SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 6SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+3SPW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+3SPW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+3SPW,Engels,basisvorming,vak,ONWAAR,ONWAAR,3
+3SPW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+3SPW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+3SPW,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,4
+3SPW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+3SPW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+3SPW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+3SPW,Chemie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3SPW,Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3SPW,Fysica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+3SPW,Bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+3SPW,Optie,specifiek gedeelte,vak,WAAR,ONWAAR,4
+3SPW,Algemene LO (1),specifiek gedeelte,vak,WAAR,ONWAAR,2
+3SPW,Theorie,specifiek gedeelte,vak,WAAR,ONWAAR,1
+4SPW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+4SPW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+4SPW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+4SPW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+4SPW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+4SPW,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,4
+4SPW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,-
+4SPW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+4SPW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+4SPW,Chemie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+4SPW,Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+4SPW,Fysica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
+4SPW,Bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+4SPW,Optie,specifiek gedeelte,vak,WAAR,ONWAAR,4
+4SPW,Algemene LO (1),specifiek gedeelte,vak,WAAR,ONWAAR,2
+4SPW,Theorie,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5SPW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 5SPW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 5SPW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -806,7 +838,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 5SPW,Chemie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5SPW,Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5SPW,Fysica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-5SPW,Bewegingswetenschappen,specifiek gedeelte,header,ONWAAR,ONWAAR,
+5SPW,Bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 5SPW,Optie,specifiek gedeelte,vak,WAAR,ONWAAR,4
 5SPW,Algemene LO (1),specifiek gedeelte,vak,WAAR,ONWAAR,2
 5SPW,Theorie,specifiek gedeelte,vak,WAAR,ONWAAR,2
@@ -822,7 +854,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 6SPW,Chemie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 6SPW,Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 6SPW,Fysica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-6SPW,Bewegingswetenschappen,specifiek gedeelte,header,ONWAAR,ONWAAR,
+6SPW,Bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 6SPW,Optie,specifiek gedeelte,vak,WAAR,WAAR,4
 6SPW,Algemene LO (1),specifiek gedeelte,vak,WAAR,ONWAAR,2
 6SPW,Theorie,specifiek gedeelte,vak,WAAR,ONWAAR,2
