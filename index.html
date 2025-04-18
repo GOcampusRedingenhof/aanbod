@@ -79,5 +79,32 @@
   
   <!-- App JavaScript - gebruik de nieuwe modulaire structuur -->
   <script type="module" src="js/index.js"></script>
+<!-- Voeg deze script tag toe net vóór de sluit-tag van body (</body>) -->
+<script>
+  // Print events
+  window.addEventListener('beforeprint', function() {
+    console.log('beforeprint event gedetecteerd');
+    // Extra check: forceer printmodus als die nog niet actief is
+    if (!document.body.classList.contains('print-mode') && 
+        window.LessentabellenApp && 
+        window.LessentabellenApp.currentKlasCode) {
+      
+      const klas = window.LessentabellenApp.klassen.find(
+        k => k.klascode === window.LessentabellenApp.currentKlasCode
+      );
+      if (klas) {
+        window.LessentabellenApp.startPrintProcess(klas);
+      }
+    }
+  });
+  
+  window.addEventListener('afterprint', function() {
+    console.log('afterprint event gedetecteerd');
+    if (document.body.classList.contains('print-mode') && 
+        window.LessentabellenApp) {
+      window.LessentabellenApp.cleanupAfterPrinting();
+    }
+  });
+</script>
 </body>
 </html>
