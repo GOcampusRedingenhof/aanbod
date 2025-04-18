@@ -526,10 +526,10 @@ klascode,vak,categorie,type,subvak,optie,uren
 4MECH,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 4MECH,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 4MECH,STEM Mechanica,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-4MECH,* Lassen,specifiek gedeelte,vak,WAAR,ONWAAR,6
-4MECH,* Machines,specifiek gedeelte,vak,WAAR,ONWAAR,6
-4MECH,* Plaatwerk,specifiek gedeelte,vak,WAAR,ONWAAR,6
-4MECH,* Montage/Demontage,specifiek gedeelte,vak,WAAR,ONWAAR,1
+4MECH,Lassen,specifiek gedeelte,vak,WAAR,ONWAAR,6
+4MECH,Machines,specifiek gedeelte,vak,WAAR,ONWAAR,6
+4MECH,Plaatwerk,specifiek gedeelte,vak,WAAR,ONWAAR,6
+4MECH,Montage/Demontage,specifiek gedeelte,vak,WAAR,ONWAAR,1
 3MW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 3MW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 3MW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
