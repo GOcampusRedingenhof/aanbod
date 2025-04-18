@@ -13,7 +13,7 @@ export function buildGrid(data, target) {
   const dataMap = {};
   
   // Maak helper arrays voor sorteren
-  const graadVolgorde = ['EERSTE GRAAD', 'TWEEDE GRAAD', 'DERDE GRAAD', 'OKAN', 'SCHAKELJAAR'];
+  const graadVolgorde = ['EERSTE GRAAD', 'TWEEDE GRAAD', 'DERDE GRAAD', 'ZEVENDE JAAR', 'OKAN', 'SCHAKELJAAR'];
   const finaliteitVolgorde = ['doorstroom', 'dubbele finaliteit', 'arbeidsmarkt'];
   const domeinen = new Set();
   
@@ -22,17 +22,10 @@ export function buildGrid(data, target) {
     // Basis metadata extraheren en normaliseren
     const domein = mapDomein(item.domein);
     
-    // Speciale behandeling voor bepaalde domeinen
+    // Bepaal graad - gebruik domein als graad als graad leeg is
     let graad = (item.graad || '').toString().trim().toUpperCase();
-    
-    // Als het domein OKAN of Schakeljaar is, gebruik dat als graad
-    if (domein === 'okan') {
-      graad = 'OKAN';
-    } else if (domein === 'schakeljaar') {
-      graad = 'SCHAKELJAAR';
-    } else if (!graad || graad === 'ONBEKEND') {
-      // Fallback voor andere onbekende graden
-      graad = 'ONBEKEND';
+    if (!graad && domein) {
+      graad = domein.toUpperCase();
     }
     
     const finaliteit = (item.finaliteit || '').toString().trim().toLowerCase();
@@ -70,13 +63,21 @@ export function buildGrid(data, target) {
     
     // Bouw elke graad
     graden.forEach(graad => {
+      // Controleer of de graad eigenlijk het domein is (dit betekent dat er geen echte graad is)
+      const isGraadHetzelfdeAlsDomein = graad.toLowerCase() === domein.toUpperCase().toLowerCase();
+      
       // Maak graad titel met een betere weergavenaam
-      const graadTitleContainer = createGraadTitle(graad, domein);
+      const graadTitleContainer = createGraadTitle(graad, domein, isGraadHetzelfdeAlsDomein);
       domainBlock.appendChild(graadTitleContainer);
       
       // Maak graad container
       const graadContainer = document.createElement('div');
       graadContainer.className = 'graad-container';
+      
+      // Als de graad hetzelfde is als het domein, markeer deze voor CSS
+      if (isGraadHetzelfdeAlsDomein) {
+        graadContainer.dataset.noGraad = 'true';
+      }
       
       // Haal finaliteiten op en sorteer ze
       const finaliteiten = Object.keys(dataMap[domein][graad] || {}).sort((a, b) => {
@@ -91,8 +92,11 @@ export function buildGrid(data, target) {
         const richtingen = dataMap[domein][graad][finaliteit] || {};
         if (Object.keys(richtingen).length === 0) return;
         
+        // Bepaal of dit een echte finaliteit is of een lege waarde
+        const heeftEchteFinaliteit = finaliteit && finaliteit !== 'onbekend';
+        
         // Maak finaliteit block
-        const finaliteitBlok = createFinaliteitBlok(finaliteit, domein);
+        const finaliteitBlok = createFinaliteitBlok(finaliteit, domein, heeftEchteFinaliteit);
         
         // Bouw lijst met richtingen
         const ul = document.createElement('ul');
@@ -158,9 +162,10 @@ function createDomainBlock(domein) {
  * Maakt een graad titel container
  * @param {string} graad - De graadnaam (bv. 'EERSTE GRAAD', 'OKAN')
  * @param {string} domein - Het domein waartoe deze graad behoort
+ * @param {boolean} isGraadHetzelfdeAlsDomein - Of de graad hetzelfde is als het domein
  * @returns {HTMLElement} De graad titel container
  */
-function createGraadTitle(graad, domein) {
+function createGraadTitle(graad, domein, isGraadHetzelfdeAlsDomein) {
   const graadTitleContainer = document.createElement('div');
   
   // Zet CSS class naam op basis van de graad
@@ -169,13 +174,10 @@ function createGraadTitle(graad, domein) {
   // Bepaal de geformatteerde weergavenaam
   let displayGraad;
   
-  // Voor OKAN en SCHAKELJAAR, gebruik de domeinnaam zonder 'ONBEKEND' label
-  if (graad === 'OKAN' || graad === 'SCHAKELJAAR') {
-    // Gebruik de eerste letter in hoofdletter, rest in kleine letters
-    displayGraad = graad.charAt(0) + graad.slice(1).toLowerCase();
-  } else if (graad === 'ONBEKEND' || graad === '') {
-    // Voor onbekende graden bij andere domeinen, toon niets
+  // Als graad hetzelfde is als domein of leeg, toon geen label
+  if (isGraadHetzelfdeAlsDomein || graad === 'ONBEKEND' || graad === '') {
     displayGraad = '';
+    graadTitleContainer.dataset.leeg = 'true'; // Markeer voor CSS
   } else {
     // Normale graad formatting (Eerste Graad, Tweede Graad, etc.)
     displayGraad = graad.charAt(0) + graad.slice(1).toLowerCase();
@@ -192,32 +194,26 @@ function createGraadTitle(graad, domein) {
  * Maakt een finaliteit block met titel
  * @param {string} finaliteit - De finaliteitnaam (bv. 'doorstroom')
  * @param {string} domein - Het domein van deze finaliteit
+ * @param {boolean} heeftEchteFinaliteit - Of dit een echte finaliteit is of een lege waarde
  * @returns {HTMLElement} Het finaliteit block
  */
-function createFinaliteitBlok(finaliteit, domein) {
+function createFinaliteitBlok(finaliteit, domein, heeftEchteFinaliteit) {
   const finaliteitBlok = document.createElement('div');
   finaliteitBlok.className = 'finaliteit-blok';
+  
+  // Als er geen echte finaliteit is, markeer dit voor CSS
+  if (!heeftEchteFinaliteit) {
+    finaliteitBlok.dataset.leegFinaliteit = 'true';
+  }
 
   const h4 = document.createElement('h4');
   
-  // Verberg finaliteitslabel voor OKAN en schakeljaar
-  if (finaliteit === '' && (domein === 'okan' || domein === 'schakeljaar')) {
-    // Laat h4 leeg, maar behoud het element voor de structuur
-    h4.style.visibility = 'hidden';
-    h4.style.height = '0';
-    h4.style.margin = '0';
-    h4.style.padding = '0';
-    h4.style.border = 'none';
-  } else if (finaliteit === 'onbekend' || finaliteit === '') {
-    // Voor andere domeinen met onbekende finaliteit, toon niets
-    h4.style.visibility = 'hidden';
-    h4.style.height = '0';
-    h4.style.margin = '0';
-    h4.style.padding = '0';
-    h4.style.border = 'none';
-  } else {
-    // Normale finaliteitsweergave
+  // Alleen toon finaliteitslabel als er een echte finaliteit is
+  if (heeftEchteFinaliteit) {
     h4.textContent = finaliteit.charAt(0).toUpperCase() + finaliteit.slice(1);
+  } else {
+    // Laat h4 leeg voor structuur, maar markeer voor CSS
+    h4.dataset.leeg = 'true';
   }
   
   finaliteitBlok.appendChild(h4);
