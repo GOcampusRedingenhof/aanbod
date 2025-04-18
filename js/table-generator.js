@@ -8,142 +8,213 @@
  * @returns {string} HTML voor de lessentabel
  */
 export function generateLessentabel(lessen, hoofdKlas) {
-  // Groepeer lessen per klas
-  const lessenPerKlas = groepeerLessenPerKlas(lessen);
+  // Filter alleen op de geselecteerde klascode en graad
+  const hoofdKlasLessen = lessen.filter(les => les.klascode === hoofdKlas.klascode);
   
-  // Filter klascodes op dezelfde graad als de hoofdklas
-  const klasCodes = filterKlascodesOpGraad(lessenPerKlas, hoofdKlas);
+  // Vind de unieke klascodes met dezelfde richtingcode
+  const klasCodes = [...new Set(lessen
+    .filter(les => {
+      // Zoek de klas info voor deze les
+      const klas = window.LessentabellenApp.klassen.find(k => k.klascode === les.klascode);
+      // Behoud alleen lessen van klassen met dezelfde graad als hoofdklas
+      return klas && klas.graad === hoofdKlas.graad;
+    })
+    .map(les => les.klascode))]
+    .sort(); // Sorteer klascode alleen op naam
   
   if (klasCodes.length === 0) {
     return '<p>Geen lessentabel beschikbaar voor deze richting.</p>';
   }
   
-  // Groepeer lessen per categorie (basisvorming, specifiek gedeelte, etc.)
-  const lessenPerCategorie = groepeerLessenPerCategorie(lessen, klasCodes, hoofdKlas);
+  // Maak tabelinhoud
+  return buildTabelMetOrigineleVolgorde(hoofdKlasLessen, lessen, klasCodes, hoofdKlas);
+}
+
+/**
+ * Bouwt een complete lessentabel met behoud van de oorspronkelijke volgorde
+ * @param {Array} hoofdKlasLessen - Lessen van de hoofdklas in originele volgorde
+ * @param {Array} alleLessen - Alle lessen voor alle relevante klassen
+ * @param {Array} klasCodes - Array van relevante klascode
+ * @param {Object} hoofdKlas - Het klasobject van de geselecteerde klas
+ * @returns {string} HTML voor de lessentabel
+ */
+function buildTabelMetOrigineleVolgorde(hoofdKlasLessen, alleLessen, klasCodes, hoofdKlas) {
+  // Verzamel alle categorieën in oorspronkelijke volgorde
+  const categorieën = [];
+  const categorieIndex = {};
   
-  // Bereken totale lesuren per klas
-  const totalen = berekenTotalen(lessenPerCategorie, klasCodes);
+  // Loop door hoofdklaslessen om categorieën in originele volgorde te verzamelen
+  hoofdKlasLessen.forEach(les => {
+    const cat = les.categorie || 'onbekend';
+    if (!categorieIndex[cat]) {
+      categorieIndex[cat] = categorieën.length;
+      categorieën.push(cat);
+    }
+  });
   
   // Bouw de HTML voor de tabel
-  return buildTabelHTML(lessenPerCategorie, klasCodes, totalen, hoofdKlas);
-}
-
-/**
- * Groepeert lessen per klascode
- * @param {Array} lessen - Alle lesitems
- * @returns {Object} Object met lessen gegroepeerd per klascode
- */
-function groepeerLessenPerKlas(lessen) {
-  const perKlas = {};
+  let tabelHTML = `
+    <table class="lessentabel" border="1" cellspacing="0" cellpadding="4">
+      <thead>
+        <tr>
+          <th scope="col" style="width:45%;">Vak</th>
+          ${klasCodes.map(code => `<th scope="col">${code}</th>`).join('')}
+        </tr>
+      </thead>
+      <tbody>
+  `;
   
-  lessen.forEach(les => {
-    if (!perKlas[les.klascode]) {
-      perKlas[les.klascode] = [];
-    }
-    perKlas[les.klascode].push(les);
-  });
+  // Bereken totalen alvast
+  const totalen = berekenTotalen(alleLessen, klasCodes);
   
-  return perKlas;
-}
-
-/**
- * Filtert klascodes om alleen die van dezelfde graad als hoofdKlas te behouden
- * @param {Object} lessenPerKlas - Object met lessen gegroepeerd per klascode
- * @param {Object} hoofdKlas - Het klasobject van de geselecteerde klas
- * @returns {Array} Gefilterde en gesorteerde klascodes
- */
-function filterKlascodesOpGraad(lessenPerKlas, hoofdKlas) {
-  return Object.keys(lessenPerKlas).sort().filter(code => {
-    // Zoek de graad van deze klascode in de hoofdapplicatie
-    const klas = window.LessentabellenApp.klassen.find(k => k.klascode === code);
-    // Alleen behouden als de graad overeenkomt met de hoofdKlas
-    return klas && klas.graad === hoofdKlas.graad;
-  });
-}
-
-/**
- * Groepeert lessen per categorie (basisvorming, specifiek gedeelte, etc.)
- * behoud de originele volgorde van vakken uit het CSV bestand
- * @param {Array} alleLessen - Alle lesitems
- * @param {Array} klasCodes - Gefilterde klascodes
- * @param {Object} hoofdKlas - Het klasobject van de geselecteerde klas
- * @returns {Object} Object met vakken gegroepeerd per categorie
- */
-function groepeerLessenPerCategorie(alleLessen, klasCodes, hoofdKlas) {
-  const perCategorie = {};
-  
-  // Filter lessen voor alleen de relevante klascodes
-  const relevanteRijtjes = alleLessen.filter(les => 
-    klasCodes.includes(les.klascode) && 
-    les.klascode === hoofdKlas.klascode // Gebruik alleen lessen van de hoofdklas voor de structuur
-  );
-  
-  // Verwerk rijen in de oorspronkelijke volgorde
-  relevanteRijtjes.forEach(les => {
-    const categorie = les.categorie || 'onbekend';
-    
-    if (!perCategorie[categorie]) {
-      perCategorie[categorie] = [];
+  // Voor elke categorie in de oorspronkelijke volgorde
+  categorieën.forEach(categorie => {
+    // Voeg categorie header toe (behalve voor totaal)
+    if (categorie.toLowerCase() !== 'totaal') {
+      tabelHTML += `
+        <tr class="categorie-header">
+          <th colspan="${klasCodes.length + 1}" scope="colgroup">${categorie.toUpperCase()}</th>
+        </tr>
+      `;
     }
     
-    // Controleer of dit vak al bestaat in deze categorie
-    const bestaandVak = perCategorie[categorie].find(v => v.vak === les.vak);
+    // Verzamel de unieke vakken binnen deze categorie in originele volgorde
+    const vakkenInCategorie = [];
+    const vakkenIndex = {};
     
-    if (!bestaandVak) {
-      // Voeg nieuw vak toe in de oorspronkelijke volgorde
-      perCategorie[categorie].push({
-        vak: les.vak,
-        type: les.type,
-        subvak: les.subvak === 'WAAR' || les.subvak === true,
-        uren: {},
-        origineleIndex: perCategorie[categorie].length // Bewaar de volgorde
-      });
-    }
-  });
-  
-  // Verzamel uren voor alle klascodes voor elk vak
-  klasCodes.forEach(code => {
-    // Filter lessen voor huidige klascode
-    const lessenVoorKlas = alleLessen.filter(les => les.klascode === code);
-    
-    // Voeg uren toe aan de juiste vakken
-    lessenVoorKlas.forEach(les => {
-      const categorie = les.categorie || 'onbekend';
-      
-      if (perCategorie[categorie]) {
-        // Zoek het juiste vak
-        const vak = perCategorie[categorie].find(v => v.vak === les.vak);
-        if (vak) {
-          vak.uren[code] = les.uren;
+    // Verzamel eerst header rijen
+    hoofdKlasLessen
+      .filter(les => les.categorie === categorie && les.type === 'header')
+      .forEach(les => {
+        if (!vakkenIndex[les.vak]) {
+          vakkenIndex[les.vak] = vakkenInCategorie.length;
+          vakkenInCategorie.push({
+            vak: les.vak,
+            type: les.type,
+            subvak: les.subvak === true || les.subvak === 'WAAR',
+            uren: {}
+          });
         }
-      }
+      });
+      
+    // Dan normale rijen (geen header, geen subvak)
+    hoofdKlasLessen
+      .filter(les => les.categorie === categorie && les.type !== 'header' && !(les.subvak === true || les.subvak === 'WAAR'))
+      .forEach(les => {
+        if (!vakkenIndex[les.vak]) {
+          vakkenIndex[les.vak] = vakkenInCategorie.length;
+          vakkenInCategorie.push({
+            vak: les.vak,
+            type: les.type,
+            subvak: les.subvak === true || les.subvak === 'WAAR',
+            uren: {}
+          });
+        }
+      });
+      
+    // Dan subvakken
+    hoofdKlasLessen
+      .filter(les => les.categorie === categorie && (les.subvak === true || les.subvak === 'WAAR'))
+      .forEach(les => {
+        if (!vakkenIndex[les.vak]) {
+          vakkenIndex[les.vak] = vakkenInCategorie.length;
+          vakkenInCategorie.push({
+            vak: les.vak,
+            type: les.type,
+            subvak: les.subvak === true || les.subvak === 'WAAR',
+            uren: {}
+          });
+        }
+      });
+    
+    // Vul uren in voor alle klascodes
+    klasCodes.forEach(code => {
+      // Vind alle lessen voor deze klascode en categorie
+      const lessenVoorKlasEnCategorie = alleLessen.filter(
+        les => les.klascode === code && les.categorie === categorie
+      );
+      
+      // Vul uren in voor de juiste vakken
+      lessenVoorKlasEnCategorie.forEach(les => {
+        const index = vakkenIndex[les.vak];
+        if (index !== undefined) {
+          vakkenInCategorie[index].uren[code] = les.uren;
+        }
+      });
+    });
+    
+    // Genereer rijen voor alle vakken
+    vakkenInCategorie.forEach(vak => {
+      // CSS class voor deze rij
+      let rowClass = '';
+      if (vak.type === 'header') rowClass = 'vak-header';
+      else if (vak.subvak) rowClass = 'subvak';
+      else if (categorie.toLowerCase() === 'totaal') rowClass = 'totaal-row';
+      
+      // Begin rij
+      tabelHTML += `<tr class="${rowClass}">`;
+      
+      // Vaknaam kolom
+      tabelHTML += `<td>${vak.vak}</td>`;
+      
+      // Kolommen voor uren per klas
+      klasCodes.forEach(code => {
+        const uren = vak.uren[code] || '';
+        tabelHTML += `<td>${uren}</td>`;
+      });
+      
+      // Sluit rij
+      tabelHTML += '</tr>';
     });
   });
   
-  return perCategorie;
+  // Voeg totaalrij toe als die niet al bestond
+  if (!categorieën.includes('totaal') && !categorieën.includes('Totaal')) {
+    tabelHTML += `
+      <tr class="totaal-row" style="font-weight: bold; border-top: 2px solid #000;">
+        <td>Lestijden per week</td>
+        ${klasCodes.map(code => `<td>${totalen[code]}</td>`).join('')}
+      </tr>
+    `;
+  }
+  
+  // Voeg stageweken rij toe indien beschikbaar
+  const stageRow = buildStageRow(klasCodes);
+  if (stageRow) {
+    tabelHTML += stageRow;
+  }
+  
+  // Sluit de tabel
+  tabelHTML += `
+      </tbody>
+    </table>
+  `;
+  
+  return tabelHTML;
 }
 
 /**
  * Berekent totale lesuren per klascode
- * @param {Object} perCategorie - Object met vakken gegroepeerd per categorie
- * @param {Array} klasCodes - Gefilterde klascodes
+ * @param {Array} lessen - Alle lesitems
+ * @param {Array} klasCodes - Array van klascode
  * @returns {Object} Object met totale uren per klascode
  */
-function berekenTotalen(perCategorie, klasCodes) {
+function berekenTotalen(lessen, klasCodes) {
   const totalen = {};
   
   klasCodes.forEach(code => {
     totalen[code] = 0;
     
-    // Som alle numerieke uurwaarden op (zonder totaal categorie)
-    Object.keys(perCategorie).forEach(categorie => {
-      if (categorie.toLowerCase() !== 'totaal') {
-        perCategorie[categorie].forEach(vak => {
-          const uren = vak.uren[code];
-          if (uren && !isNaN(parseFloat(uren.toString().replace(',', '.')))) {
-            totalen[code] += parseFloat(uren.toString().replace(',', '.'));
-          }
-        });
+    // Filter lessen voor deze klas, exclusief totaalrijen
+    const lessenVoorKlas = lessen.filter(les => 
+      les.klascode === code && 
+      les.categorie?.toLowerCase() !== 'totaal'
+    );
+    
+    // Tel uren op
+    lessenVoorKlas.forEach(les => {
+      if (les.uren && !isNaN(parseFloat(les.uren.toString().replace(',', '.')))) {
+        totalen[code] += parseFloat(les.uren.toString().replace(',', '.'));
       }
     });
     
@@ -155,136 +226,8 @@ function berekenTotalen(perCategorie, klasCodes) {
 }
 
 /**
- * Bouwt de HTML voor de lessentabel, geoptimaliseerd voor zowel scherm als afdrukken
- * @param {Object} perCategorie - Object met vakken gegroepeerd per categorie
- * @param {Array} klasCodes - Gefilterde klascodes
- * @param {Object} totalen - Object met totale uren per klascode
- * @param {Object} hoofdKlas - Het klasobject van de geselecteerde klas
- * @returns {string} HTML voor de lessentabel
- */
-function buildTabelHTML(perCategorie, klasCodes, totalen, hoofdKlas) {
-  let tableContent = '';
-  
-  // Sorteer categorieën in logische volgorde
-  const categorieVolgorde = ['basisvorming', 'specifiek gedeelte', 'vrije ruimte', 'totaal'];
-  const gesorteerdeCategorieen = Object.keys(perCategorie).sort((a, b) => {
-    const indexA = categorieVolgorde.indexOf(a.toLowerCase());
-    const indexB = categorieVolgorde.indexOf(b.toLowerCase());
-    return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
-  });
-
-  // Bouw tabelinhoud per categorie
-  gesorteerdeCategorieen.forEach(categorie => {
-    tableContent += buildCategorieRijen(categorie, perCategorie[categorie], klasCodes);
-  });
-
-  // Voeg totaalrij toe als die nog niet bestaat uit de categorieën
-  if (!perCategorie['totaal'] && !perCategorie['Totaal']) {
-    tableContent += buildTotaalRij(klasCodes, totalen);
-  }
-
-  // Voeg stageweken rij toe indien beschikbaar
-  const stageRow = buildStageRow(klasCodes);
-  if (stageRow) {
-    tableContent += stageRow;
-  }
-
-  // Bepaal de correct aantal kolommen voor colspans
-  const columnCount = klasCodes.length + 1;
-
-  // Bouw de volledige tabel inclusief headers met verbeterde print-optimalisatie
-  return `
-    <table class="lessentabel" border="1" cellspacing="0" cellpadding="4">
-      <thead>
-        <tr>
-          <th scope="col" style="width:45%;">Vak</th>
-          ${klasCodes.map(code => `<th scope="col">${code}</th>`).join('')}
-        </tr>
-      </thead>
-      <tbody>
-        ${tableContent}
-      </tbody>
-    </table>
-  `;
-}
-
-/**
- * Bouwt tabelrijen voor een specifieke categorie
- * @param {string} categorie - Naam van de categorie
- * @param {Array} vakken - Array van vakken in deze categorie
- * @param {Array} klasCodes - Gefilterde klascodes
- * @returns {string} HTML voor de tabelrijen van deze categorie
- */
-function buildCategorieRijen(categorie, vakken, klasCodes) {
-  let html = '';
-  
-  // Voeg een rij toe met de categorienaam als header (behalve voor 'totaal')
-  const isHeader = categorie.toLowerCase() !== 'totaal';
-  
-  if (isHeader) {
-    html += `
-      <tr class="categorie-header">
-        <th colspan="${klasCodes.length + 1}" scope="colgroup">${categorie.toUpperCase()}</th>
-      </tr>
-    `;
-  }
-  
-  // Behoud de originele volgorde uit het CSV-bestand
-  // Sorteer wel op type (header eerst, dan normale vakken, dan subvakken)
-  // maar binnen elk type behoud de originele volgorde
-  const gesorteerdeVakken = [...vakken]; // maak kopie
-  
-  // Verdeel in groepen op basis van type en subvak
-  const headers = gesorteerdeVakken.filter(v => v.type === 'header');
-  const normaleVakken = gesorteerdeVakken.filter(v => v.type !== 'header' && !v.subvak);
-  const subVakken = gesorteerdeVakken.filter(v => v.type !== 'header' && v.subvak);
-  
-  // Combineer de groepen in de juiste volgorde
-  const geordendVakken = [...headers, ...normaleVakken, ...subVakken];
-  
-  // Bouw rijen voor alle vakken
-  geordendVakken.forEach(vak => {
-    // Bepaal opmaak op basis van vaktype
-    let vakClass = '';
-    if (vak.type === 'header') vakClass = 'vak-header';
-    else if (vak.subvak) vakClass = 'subvak';
-    else if (categorie.toLowerCase() === 'totaal') vakClass = 'totaal-row';
-    
-    html += `<tr class="${vakClass}" ${vak.type === 'header' ? 'style="page-break-after: avoid; break-after: avoid;"' : ''}>`;
-    
-    // Eerste kolom is de vaknaam
-    html += `<td>${vak.vak}</td>`;
-    
-    // Daarna een kolom per klascode met het aantal uren
-    klasCodes.forEach(code => {
-      const uren = vak.uren[code] || '';
-      html += `<td>${uren}</td>`;
-    });
-    
-    html += '</tr>';
-  });
-  
-  return html;
-}
-
-/**
- * Bouwt een totaalrij voor de tabel
- * @param {Array} klasCodes - Gefilterde klascodes
- * @param {Object} totalen - Object met totale uren per klascode
- * @returns {string} HTML voor de totaalrij
- */
-function buildTotaalRij(klasCodes, totalen) {
-  return `
-    <tr class="totaal-row" style="font-weight: bold; border-top: 2px solid #000;">
-      <td>Lestijden per week</td>
-      ${klasCodes.map(code => `<td>${totalen[code]}</td>`).join('')}
-    </tr>
-  `;
-}
-
-/**
  * Bouwt een rij voor stageweken als die beschikbaar zijn
- * @param {Array} klasCodes - Gefilterde klascodes
+ * @param {Array} klasCodes - Array van klascode
  * @returns {string|null} HTML voor de stageweken rij of null
  */
 function buildStageRow(klasCodes) {
