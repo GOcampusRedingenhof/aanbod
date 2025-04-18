@@ -22,10 +22,22 @@ export function buildGrid(data, target) {
     // Basis metadata extraheren en normaliseren
     const domein = mapDomein(item.domein);
     
-    // Bepaal graad - gebruik domein als graad als graad leeg is
+    // Speciale behandeling voor bepaalde domeinen
     let graad = (item.graad || '').toString().trim().toUpperCase();
-    if (!graad && domein) {
-      graad = domein.toUpperCase();
+    
+    // Zorg dat "zevende jaar" gestandaardiseerd is naar "ZEVENDE JAAR"
+    if (graad.toLowerCase() === 'zevende jaar') {
+      graad = 'ZEVENDE JAAR';
+    }
+    
+    // Als het domein OKAN of Schakeljaar is, gebruik dat als graad
+    if (domein === 'okan') {
+      graad = 'OKAN';
+    } else if (domein === 'schakeljaar') {
+      graad = 'SCHAKELJAAR';
+    } else if (!graad || graad === 'ONBEKEND') {
+      // Fallback voor andere onbekende graden
+      graad = 'ONBEKEND';
     }
     
     const finaliteit = (item.finaliteit || '').toString().trim().toLowerCase();
@@ -170,6 +182,9 @@ function createGraadTitle(graad, domein, isGraadHetzelfdeAlsDomein) {
   
   // Zet CSS class naam op basis van de graad
   graadTitleContainer.className = graad.toLowerCase().replace(/\s+/g, '-') + '-title';
+  
+  // Voeg graad-type data attribuut toe voor consistente styling
+  graadTitleContainer.dataset.graadType = 'true';
   
   // Bepaal de geformatteerde weergavenaam
   let displayGraad;
