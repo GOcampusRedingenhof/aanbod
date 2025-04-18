@@ -901,7 +901,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 3TOPEC,Frans (1),basisvorming,vak,ONWAAR,ONWAAR,2
 3TOPEC,Geschiedenis (incl. burgerschap),basisvorming,vak,ONWAAR,ONWAAR,1
 3TOPEC,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,3
-3TOPEC,"Project (STEM, toegepaste informatica, artistieke expressie)",basisvorming,vak,ONWAAR,ONWAAR,
+3TOPEC,Project (1),basisvorming,vak,ONWAAR,ONWAAR,
 3TOPEC,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 3TOPEC,Economie en bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 3TOPEC,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
@@ -912,7 +912,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 4TOPEC,Frans (1),basisvorming,vak,ONWAAR,ONWAAR,2
 4TOPEC,Geschiedenis (incl. burgerschap),basisvorming,vak,ONWAAR,ONWAAR,2
 4TOPEC,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,3
-4TOPEC,"Project (STEM, toegepaste informatica, artistieke expressie)",basisvorming,vak,ONWAAR,ONWAAR,
+4TOPEC,Project (1),basisvorming,vak,ONWAAR,ONWAAR,
 4TOPEC,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 4TOPEC,Economie en bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
 4TOPEC,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
@@ -923,7 +923,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 5TOPEC,Geschiedenis (incl. burgerschap) (1),basisvorming,vak,ONWAAR,ONWAAR,1
 5TOPEC,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,3
 5TOPEC,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
-5TOPEC,"Project (STEM, economisch financiële competenties, artistieke expressie, OC)",basisvorming,vak,ONWAAR,ONWAAR,
+5TOPEC,Project (1),basisvorming,vak,ONWAAR,ONWAAR,
 5TOPEC,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 5TOPEC,Economie en Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 5TOPEC,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
@@ -934,7 +934,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 6TOPEC,Geschiedenis (incl. burgerschap) (1),basisvorming,vak,ONWAAR,ONWAAR,2
 6TOPEC,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,3
 6TOPEC,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-6TOPEC,Project (STEM, economisch financiële competenties, artistieke expressie, OC),basisvorming,vak,ONWAAR,ONWAAR,-
+6TOPEC,Project (1),basisvorming,vak,ONWAAR,ONWAAR,-
 6TOPEC,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 6TOPEC,Economie en Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 6TOPEC,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
@@ -944,7 +944,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 3TOPNW,Frans (1),basisvorming,vak,ONWAAR,ONWAAR,2
 3TOPNW,Geschiedenis (incl. burgerschap),basisvorming,vak,ONWAAR,ONWAAR,1
 3TOPNW,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,3
-3TOPNW,"Project (STEM, toegepaste informatica  artistieke expressie)",basisvorming,vak,ONWAAR,ONWAAR,1
+3TOPNW,Project (1),basisvorming,vak,ONWAAR,ONWAAR,1
 3TOPNW,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 3TOPNW,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
 3TOPNW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
@@ -954,7 +954,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 4TOPNW,Frans (1),basisvorming,vak,ONWAAR,ONWAAR,2
 4TOPNW,Geschiedenis (incl. burgerschap),basisvorming,vak,ONWAAR,ONWAAR,2
 4TOPNW,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,3
-4TOPNW,"Project (STEM toegepaste informatica artistieke expressie)",basisvorming,vak,ONWAAR,ONWAAR,-
+4TOPNW,Project (1),basisvorming,vak,ONWAAR,ONWAAR,-
 4TOPNW,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 4TOPNW,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
 4TOPNW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
@@ -964,7 +964,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 5TOPWET,Frans (1),basisvorming,vak,ONWAAR,ONWAAR,2
 5TOPWET,Geschiedenis (incl. burgerschap) (1),basisvorming,vak,ONWAAR,ONWAAR,1
 5TOPWET,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,3
-5TOPWET,"Project (STEM economisch financiële competenties artistieke expressie OC)",basisvorming,vak,ONWAAR,ONWAAR,-
+5TOPWET,Project (1),basisvorming,vak,ONWAAR,ONWAAR,-
 5TOPWET,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 5TOPWET,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
 5TOPWET,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
@@ -974,7 +974,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 6TOPWET,Frans (1),basisvorming,vak,ONWAAR,ONWAAR,2
 6TOPWET,Geschiedenis (incl. burgerschap) (1),basisvorming,vak,ONWAAR,ONWAAR,2
 6TOPWET,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,3
-6TOPWET,"Project (STEM, economisch financiële competenties, artistieke expressie, OC)",basisvorming,vak,ONWAAR,ONWAAR,-
+6TOPWET,Project (1),basisvorming,vak,ONWAAR,ONWAAR,-
 6TOPWET,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 6TOPWET,Wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,5
 6TOPWET,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
@@ -986,7 +986,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 3TS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 3TS,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
 3TS,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-3TS,"Project (STEM, toegepaste informatica, artistieke expressie)",basisvorming,vak,ONWAAR,ONWAAR,1
+3TS,Project (1),basisvorming,vak,ONWAAR,ONWAAR,1
 3TS,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 3TS,Toegepaste biologie en bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 3TS,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -998,7 +998,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 4TS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 4TS,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
 4TS,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-4TS,"Project (STEM, toegepaste informatica, artistieke expressie)",basisvorming,vak,ONWAAR,ONWAAR,1
+4TS,Project (1),basisvorming,vak,ONWAAR,ONWAAR,1
 4TS,Topsport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 4TS,Toegepaste biologie en bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 4TS,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -1010,7 +1010,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 5TS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 5TS,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 5TS,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-5TS,Project (STEM, economisch financiële competenties, artistieke expressie, OC),basisvorming,vak,ONWAAR,ONWAAR,1
+5TS,Project (1),basisvorming,vak,ONWAAR,ONWAAR,1
 5TS,Sport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 5TS,Toegepaste biologie en bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 5TS,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
@@ -1022,7 +1022,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 6TS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 6TS,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 6TS,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-6TS,Project (STEM, economisch financiële competenties, artistieke expressie, OC),basisvorming,vak,ONWAAR,ONWAAR,1
+6TS,Project (1),basisvorming,vak,ONWAAR,ONWAAR,1
 6TS,Sport,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
 6TS,Toegepaste biologie en bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 6TS,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
