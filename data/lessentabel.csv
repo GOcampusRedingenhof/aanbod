@@ -838,7 +838,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 5TOE,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
 5TOE,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 5TOE,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
-5TOE,Toerisme,specifiek gedeelte,header,ONWAAR,ONWAAR,
+5TOE,Toerisme ,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 5TOE,Engels,specifiek gedeelte,vak,WAAR,ONWAAR,2
 5TOE,Frans,specifiek gedeelte,vak,WAAR,ONWAAR,2
 5TOE,Toeristische geografie,specifiek gedeelte,vak,WAAR,ONWAAR,3
@@ -855,10 +855,10 @@ klascode,vak,categorie,type,subvak,optie,uren
 6TOE,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
 6TOE,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 6TOE,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
-6TOE,Toerisme,specifiek gedeelte,header,ONWAAR,ONWAAR,
-6TOE,Engels,specifiek gedeelte,vak,WAAR,ONWAAR,2
-6TOE,Frans,specifiek gedeelte,vak,WAAR,ONWAAR,2
-6TOE,Toeristische geografie,specifiek gedeelte,vak,ONWAAR,ONWAAR,3
+6TOE,Toerisme ,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+6TOE,Engels,specifiek gedeelte,vak,WAAR,WAAR,1
+6TOE,Frans,specifiek gedeelte,vak,WAAR,WAAR,1
+6TOE,Toeristische geografie,specifiek gedeelte,vak,WAAR,ONWAAR,2
 6TOE,Toerisme,specifiek gedeelte,vak,WAAR,ONWAAR,6
 3TOPEC,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 3TOPEC,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
