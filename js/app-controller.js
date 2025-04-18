@@ -11,6 +11,8 @@ class AppController {
         footnotes: []
       }
     };
+
+    this.dataLoader = new DataLoader();
   }
 
   async initialize() {
@@ -18,9 +20,9 @@ class AppController {
 
     try {
       const [klassen, lessentabel, footnotes] = await Promise.all([
-        DataLoader.getKlassen(),
-        DataLoader.getLessentabel(),
-        DataLoader.getFootnotes()
+        this.dataLoader.getKlassen(),
+        this.dataLoader.getLessentabel(),
+        this.dataLoader.getFootnotes()
       ]);
 
       this.state = {
