@@ -260,7 +260,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 6EMT,- Elektromechanische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,7
 6EMT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
 3GRATECH,Godsdienst en zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-3GRATECH,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+3GRATECH,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 3GRATECH,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 3GRATECH,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 3GRATECH,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
@@ -271,12 +271,11 @@ klascode,vak,categorie,type,subvak,optie,uren
 3GRATECH,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
 3GRATECH,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 3GRATECH,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
-3GRATECH,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,11
-3GRATECH,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
-3GRATECH,- STEM-engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
-3GRATECH,- Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
-3GRATECH,- Grafische technieken,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-3GRATECH,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+3GRATECH,Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+3GRATECH,STEM-engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
+3GRATECH,Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
+3GRATECH,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+3GRATECH,Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,11
 4GRATECH,Godsdienst en zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 4GRATECH,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 4GRATECH,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -285,16 +284,15 @@ klascode,vak,categorie,type,subvak,optie,uren
 4GRATECH,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 4GRATECH,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,4
 4GRATECH,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-4GRATECH,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-4GRATECH,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+4GRATECH,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+4GRATECH,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,-
 4GRATECH,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 4GRATECH,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
-4GRATECH,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,12
-4GRATECH,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+4GRATECH,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,-
 4GRATECH,- STEM-engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
-4GRATECH,- Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
-4GRATECH,- Grafische technieken,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-4GRATECH,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
+4GRATECH,- Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,-
+4GRATECH,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+4GRATECH,- Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,12
 5GRAFI,GGodsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 5GRAFI,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 5GRAFI,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -304,17 +302,15 @@ klascode,vak,categorie,type,subvak,optie,uren
 5GRAFI,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 5GRAFI,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 5GRAFI,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
-5GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,
-5GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,
+5GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+5GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 5GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
 5GRAFI,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
-5GRAFI,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
-5GRAFI,- Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5GRAFI,Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5GRAFI,Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5GRAFI,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-5GRAFI,- Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,11
-5GRAFI,- Vrije ruimte,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-5GRAFI,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
-6GRAFI,GGodsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+5GRAFI,Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,11
+6GRAFI,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 6GRAFI,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6GRAFI,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 6GRAFI,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -325,14 +321,12 @@ klascode,vak,categorie,type,subvak,optie,uren
 6GRAFI,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 6GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
 6GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
-6GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+6GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
 6GRAFI,Specifiek gedeelte,specifiek gedeelte,header,ONWAAR,ONWAAR,
-6GRAFI,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
-6GRAFI,- Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6GRAFI,Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6GRAFI,Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6GRAFI,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-6GRAFI,- Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,11
-6GRAFI,- Vrije ruimte,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-6GRAFI,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
+6GRAFI,Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,11
 3HSZ,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 3HSZ,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
 3HSZ,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
