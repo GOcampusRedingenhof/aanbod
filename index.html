@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/detail-view.css">
+  <!-- NIEUW: Aparte CSS voor printstijlen -->
+  <link rel="stylesheet" href="css/print-styles.css">
 </head>
 <body>
   <div id="lessentabellen-container" class="lessentabellen-container">
@@ -24,7 +26,8 @@
         <div class="detail-content">
           <div class="action-buttons">
             <a id="brochure-link" href="#" target="_blank">Brochure</a>
-            <button onclick="window.print()">Afdrukken</button>
+            <!-- GEWIJZIGD: Printknop gebruikt nu geen onclick maar wordt via JS beheerd -->
+            <button id="print-button">Afdrukken</button>
           </div>
           <div id="lessentabel-container"></div>
           <div id="footnotes"></div>
@@ -40,5 +43,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   <script type="module" src="js/app.js"></script>
+  <!-- NIEUW: Afzonderlijk script voor print-functionaliteit -->
+  <script type="module" src="js/print-handler.js"></script>
 </body>
 </html>
