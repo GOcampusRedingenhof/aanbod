@@ -1,0 +1,356 @@
+/* print-styles.css - Verbeterde versie die printproblemen oplost */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 1.5cm 1cm 1.8cm 1cm; /* Top, rechts, onder, links - Meer ruimte onder voor footer */
+    marks: none;
+  }
+  
+  /* Reset en basis printinstellingen */
+  * {
+    -webkit-print-color-adjust: exact !important; /* Chrome, Safari */
+    color-adjust: exact !important; /* Firefox */
+    print-color-adjust: exact !important; /* Toekomstige browsers */
+    box-shadow: none !important;
+    text-shadow: none !important;
+    transition: none !important;
+  }
+  
+  /* BELANGRIJKE FIX: Implementeer beter zichtbaarheidsmodel */
+  html {
+    overflow: auto !important;
+    height: auto !important;
+  }
+  
+  body {
+    background-color: white !important;
+    color: black !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  
+  /* Verberg ALLE elementen behalve wat we nodig hebben */
+  body * {
+    visibility: hidden !important;
+  }
+  
+  /* Belangrijke fix: alleen het slidein en diens content tonen */
+  body.print-mode #slidein,
+  body.print-mode #slidein * {
+    visibility: visible !important;
+  }
+  
+  /* Verberg alle UI elementen die niet nodig zijn bij afdrukken */
+  body.print-mode .action-buttons,
+  body.print-mode .close-btn,
+  body.print-mode #overlay,
+  body.print-mode [data-print-hidden="true"] {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Voorkom page breaks binnen belangrijke secties */
+  body.print-mode thead,
+  body.print-mode tr.categorie-header,
+  body.print-mode tr.totaal-row,
+  body.print-mode tr.stage-row {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* BELANGRIJKE FIX: Verberg expliciet elementen die lege pagina's veroorzaken */
+  body.print-mode #domains-container,
+  body.print-mode .lessentabellen-title,
+  body.print-mode .lessentabellen-intro {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+  }
+  
+  /* Optimaliseer slidein voor print */
+  body.print-mode #slidein {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    padding: 1cm !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    transform: none !important;
+    box-shadow: none !important;
+    color: black !important;
+    background-color: white !important;
+  }
+  
+  /* Reset detail content margin/padding voor full gebruik van pagina-ruimte */
+  body.print-mode .detail-content {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  
+  /* Verbeterd logo met constante grootte en positie */
+  body.print-mode .logo-print {
+    display: block !important;
+    position: absolute !important;
+    top: 0.5cm !important;
+    right: 0 !important;
+    width: auto !important;
+    height: 30px !important;
+    object-fit: contain !important;
+    z-index: 100 !important;
+  }
+  
+  /* Compacte headers met bedrijfsstijl */
+  body.print-mode .detail-header {
+    margin: 0 0 0.5cm 0 !important;
+    padding: 0.5cm 0 0.3cm 0 !important;
+    border-bottom: 1px solid #ddd !important;
+    position: relative !important;
+    min-height: 1.5cm !important; /* Ruimte voor logo */
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+  
+  body.print-mode .detail-header h2 {
+    font-size: 14pt !important;
+    margin: 0 0 0.2cm 0 !important;
+    padding: 0 !important;
+    color: #000 !important;
+    text-align: left !important;
+    font-weight: bold !important;
+    width: 70% !important; /* Ruimte laten voor logo */
+  }
+  
+  body.print-mode .detail-header h2::after {
+    display: none !important;
+  }
+  
+  body.print-mode .detail-header p {
+    font-size: 9pt !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #333 !important;
+    text-align: left !important;
+    line-height: 1.3 !important;
+    width: 70% !important; /* Ruimte laten voor logo */
+  }
+  
+  /* Optimalisatie van tabel voor printkwaliteit */
+  body.print-mode .lessentabel {
+    width: 100% !important;
+    margin: 0.3cm 0 0.5cm 0 !important;
+    border-collapse: collapse !important;
+    box-shadow: none !important;
+    border: 1px solid #000 !important;
+    table-layout: fixed !important;
+    font-size: 9pt !important;
+    line-height: 1.2 !important;
+    page-break-inside: auto !important;
+  }
+  
+  /* Betere fixed column breedte */
+  body.print-mode .lessentabel th,
+  body.print-mode .lessentabel td {
+    padding: 0.1cm 0.2cm !important;
+    border: 1px solid #000 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    height: auto !important;
+    min-height: 0.5cm !important;
+    max-height: none !important;
+    vertical-align: middle !important;
+  }
+  
+  body.print-mode .lessentabel td:first-child,
+  body.print-mode .lessentabel th:first-child {
+    text-align: left !important;
+    width: 45% !important; /* Breder eerste kolom voor vaknamen */
+  }
+  
+  body.print-mode .lessentabel td:not(:first-child),
+  body.print-mode .lessentabel th:not(:first-child) {
+    text-align: center !important;
+    width: auto !important;
+  }
+  
+  /* Duidelijkere tabelheaders */
+  body.print-mode .lessentabel thead {
+    display: table-header-group !important;
+  }
+  
+  body.print-mode .lessentabel thead th {
+    background-color: #e0e0e0 !important;
+    color: black !important;
+    font-weight: bold !important;
+    font-size: 9pt !important;
+    border-bottom: 2px solid #000 !important;
+  }
+  
+  /* Verbeterde categorie headers */
+  body.print-mode .lessentabel tr.categorie-header th {
+    background-color: #eee !important;
+    color: black !important;
+    font-size: 9pt !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    text-align: left !important;
+    border-bottom: 1px solid #000 !important;
+    border-top: 1px solid #000 !important;
+  }
+  
+  /* Subvak styling verbeteren */
+  body.print-mode .lessentabel tr.subvak td:first-child {
+    padding-left: 0.5cm !important;
+    position: relative !important;
+  }
+  
+  body.print-mode .lessentabel tr.subvak td:first-child::before {
+    content: "•" !important;
+    position: absolute !important;
+    left: 0.2cm !important;
+    color: #000 !important;
+  }
+  
+  /* Duidelijkere totaalrij */
+  body.print-mode .lessentabel tr.totaal-row {
+    border-top: 2px solid #000 !important;
+  }
+  
+  body.print-mode .lessentabel tr.totaal-row td {
+    font-weight: bold !important;
+    background-color: #f0f0f0 !important;
+  }
+  
+  /* Stage rij highlighten */
+  body.print-mode .lessentabel tr.stage-row {
+    border-top: 1px solid #000 !important;
+  }
+  
+  body.print-mode .lessentabel tr.stage-row td {
+    font-weight: bold !important;
+    background-color: #f5f5f5 !important;
+  }
+  
+  /* Verbeterde footnootes */
+  body.print-mode .footnotes {
+    background: none !important;
+    border-left: 1pt solid #000 !important;
+    padding: 0 0 0 0.3cm !important;
+    margin: 0.3cm 0 0.5cm 0 !important;
+    font-size: 8pt !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  body.print-mode .footnotes h4 {
+    font-size: 9pt !important;
+    margin: 0 0 0.1cm 0 !important;
+    font-weight: bold !important;
+  }
+  
+  body.print-mode .footnotes ul {
+    padding-left: 0.4cm !important;
+    margin: 0.1cm 0 0 0 !important;
+  }
+  
+  body.print-mode .footnotes li {
+    margin-bottom: 0.1cm !important;
+    line-height: 1.3 !important;
+  }
+  
+  /* BELANGRIJKE FIX: Verbeterde pagina footer */
+  body.print-mode #print-footer-container {
+    position: fixed !important;
+    bottom: 0.5cm !important;
+    left: 1cm !important;
+    right: 1cm !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border-top: 1pt solid #000 !important;
+    padding-top: 0.2cm !important;
+    font-size: 8pt !important;
+    color: #333 !important;
+    height: 0.8cm !important;
+    background-color: white !important;
+    z-index: 9999 !important;
+    visibility: visible !important;
+  }
+  
+  body.print-mode .datum {
+    display: inline-block !important;
+    visibility: visible !important;
+    text-align: right !important;
+    font-size: 8pt !important;
+  }
+  
+  body.print-mode .quote {
+    display: inline-block !important;
+    visibility: visible !important;
+    text-align: left !important;
+    font-style: italic !important;
+    font-weight: bold !important;
+    font-size: 8pt !important;
+  }
+  
+  body.print-mode .page-info {
+    font-size: 8pt !important;
+    text-align: center !important;
+  }
+
+  /* Zebra-striping voor betere leesbaarheid bij print */
+  body.print-mode .lessentabel tbody tr:nth-child(even):not(.categorie-header):not(.vak-header):not(.totaal-row):not(.stage-row) {
+    background-color: #f9f9f9 !important;
+  }
+  
+  /* BELANGRIJKE FIX: Voorkom dat lege containers pagina's veroorzaken */
+  body.print-mode *:empty:not(img):not(input):not(textarea):not(i):not(td):not(th) {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    max-height: 0 !important;
+  }
+  
+  /* Fix voor enkele browser-specifieke problemen */
+  body.print-mode #lessentabel-container {
+    page-break-after: auto !important;
+    break-after: auto !important;
+    page-break-before: auto !important;
+    break-before: auto !important;
+    margin-bottom: 1.5cm !important; /* Ruimte voor footer */
+    position: relative !important;
+    z-index: 1 !important;
+  }
+  
+  /* Specifieke verbeteringen voor zwartwit printers */
+  @media (monochrome) {
+    body.print-mode .lessentabel thead th {
+      background-color: #ddd !important;
+      border-bottom: 2px solid #000 !important;
+    }
+    
+    body.print-mode .lessentabel tr.categorie-header th {
+      background-color: #eee !important;
+      border-bottom: 1px solid #000 !important;
+    }
+    
+    body.print-mode .lessentabel tbody tr:nth-child(odd):not(.categorie-header):not(.vak-header):not(.totaal-row):not(.stage-row) {
+      background-color: #fff !important;
+    }
+    
+    body.print-mode .lessentabel tbody tr:nth-child(even):not(.categorie-header):not(.vak-header):not(.totaal-row):not(.stage-row) {
+      background-color: #f0f0f0 !important;
+    }
+    
+    body.print-mode .lessentabel tr.totaal-row td,
+    body.print-mode .lessentabel tr.stage-row td {
+      background-color: #ddd !important;
+    }
+  }
+}
