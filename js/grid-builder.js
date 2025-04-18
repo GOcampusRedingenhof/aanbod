@@ -1,14 +1,7 @@
 // grid-builder.js
 import { mapDomein } from './config-module.js';
 
-/**
- * Bouwt de volledige gridstructuur op volgens het premium grid.css-systeem.
- * Toont alle unieke richtingen, ook als ze dezelfde richtingcode hebben.
- */
-export function buildGrid(data, target) {
-  // Eerst alle data opschonen en voorbereiden
-  // In deze fase maken we unieke identifiers voor elke richting
-  
+export function renderGrid(data, target) {
   // Groepeer data per domein/graad/finaliteit/richting
   const dataMap = {};
   
@@ -18,11 +11,9 @@ export function buildGrid(data, target) {
   const domeinen = new Set();
   
   // Loop door alle items en bouw de structuur op
-  data.forEach(item => {
-    // Basis metadata extraheren en normaliseren
+  data.klassen.forEach(item => {
     const domein = mapDomein(item.domein);
     
-    // Speciale behandeling voor bepaalde domeinen
     let graad = (item.graad || '').toString().trim().toUpperCase();
     
     // Zorg dat "zevende jaar" gestandaardiseerd is naar "ZEVENDE JAAR"
@@ -36,7 +27,6 @@ export function buildGrid(data, target) {
     } else if (domein === 'schakeljaar') {
       graad = 'SCHAKELJAAR';
     } else if (!graad || graad === 'ONBEKEND') {
-      // Fallback voor andere onbekende graden
       graad = 'ONBEKEND';
     }
     
@@ -56,8 +46,7 @@ export function buildGrid(data, target) {
     if (!dataMap[domein][graad]) dataMap[domein][graad] = {};
     if (!dataMap[domein][graad][finaliteit]) dataMap[domein][graad][finaliteit] = {};
     
-    // Sla de richting op met zijn volledige data
-    // Als er al een item bestaat voor deze richting, sla alleen het nieuwste item op
+    // Sla de richting op
     dataMap[domein][graad][finaliteit][richtingId] = item;
   });
   
@@ -143,21 +132,13 @@ export function buildGrid(data, target) {
     // Voeg domein block toe aan target
     target.appendChild(domainBlock);
   });
-  
-  // Binden van event handlers gebeurt nu in app-controller.js
 }
 
-/**
- * Maakt een domein block met titel
- * @param {string} domein - De gestandaardiseerde domeinnaam
- * @returns {HTMLElement} Het domein block
- */
 function createDomainBlock(domein) {
   const domainBlock = document.createElement('div');
   domainBlock.className = 'domain-block';
   domainBlock.dataset.domain = domein;
   
-  // Domein titel (met eerste letters van elk woord in hoofdletters)
   const domeinTitel = domein
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -170,32 +151,19 @@ function createDomainBlock(domein) {
   return domainBlock;
 }
 
-/**
- * Maakt een graad titel container
- * @param {string} graad - De graadnaam (bv. 'EERSTE GRAAD', 'OKAN')
- * @param {string} domein - Het domein waartoe deze graad behoort
- * @param {boolean} isGraadHetzelfdeAlsDomein - Of de graad hetzelfde is als het domein
- * @returns {HTMLElement} De graad titel container
- */
 function createGraadTitle(graad, domein, isGraadHetzelfdeAlsDomein) {
   const graadTitleContainer = document.createElement('div');
   
-  // Zet CSS class naam op basis van de graad
   graadTitleContainer.className = graad.toLowerCase().replace(/\s+/g, '-') + '-title';
-  
-  // Voeg graad-type data attribuut toe voor consistente styling
   graadTitleContainer.dataset.graadType = 'true';
   
-  // Bepaal de geformatteerde weergavenaam
   let displayGraad;
   
-  // Als graad hetzelfde is als domein of leeg, toon geen label
   if (isGraadHetzelfdeAlsDomein || graad === 'ONBEKEND' || graad === '') {
     displayGraad = '';
-    graadTitleContainer.dataset.leeg = 'true'; // Markeer voor CSS
+    graadTitleContainer.dataset.leeg = 'true';
   } else {
-    // ALLES IN HOOFDLETTERS weergeven (zoals DERDE GRAAD, TWEEDE GRAAD, etc.)
-    displayGraad = graad; // Gebruik de graad in kapitalen zoals het is
+    displayGraad = graad;
   }
   
   const graadTitle = document.createElement('h3');
@@ -205,30 +173,19 @@ function createGraadTitle(graad, domein, isGraadHetzelfdeAlsDomein) {
   return graadTitleContainer;
 }
 
-/**
- * Maakt een finaliteit block met titel
- * @param {string} finaliteit - De finaliteitnaam (bv. 'doorstroom')
- * @param {string} domein - Het domein van deze finaliteit
- * @param {boolean} heeftEchteFinaliteit - Of dit een echte finaliteit is of een lege waarde
- * @returns {HTMLElement} Het finaliteit block
- */
 function createFinaliteitBlok(finaliteit, domein, heeftEchteFinaliteit) {
   const finaliteitBlok = document.createElement('div');
   finaliteitBlok.className = 'finaliteit-blok';
   
-  // Als er geen echte finaliteit is, markeer dit voor CSS
   if (!heeftEchteFinaliteit) {
     finaliteitBlok.dataset.leegFinaliteit = 'true';
   }
 
   const h4 = document.createElement('h4');
   
-  // Alleen toon finaliteitslabel als er een echte finaliteit is
   if (heeftEchteFinaliteit) {
-    // ALLES IN HOOFDLETTERS weergeven
     h4.textContent = finaliteit.toUpperCase();
   } else {
-    // Laat h4 leeg voor structuur, maar markeer voor CSS
     h4.dataset.leeg = 'true';
   }
   
