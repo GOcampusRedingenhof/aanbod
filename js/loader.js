@@ -1,7 +1,7 @@
 // loader.js
 import Papa from 'papaparse';
 
-class DataLoader {
+export default class DataLoader {
   constructor(config = {}) {
     this.cache = new Map();
     this.config = {
@@ -69,6 +69,3 @@ class DataLoader {
     return this.loadCSV('data/voetnoten.csv');
   }
 }
-
-// Standaard export van een nieuwe instantie
-export default new DataLoader();
