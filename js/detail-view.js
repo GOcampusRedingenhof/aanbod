@@ -1,5 +1,6 @@
 // detail-view.js
 import { mapDomein, getDomeinMeta } from './config-module.js';
+import { initPrintHandler } from './print-handler.js';
 
 /**
  * Genereert en toont de slide-in infokader voor een geselecteerde klas.
@@ -14,7 +15,7 @@ export function renderSlidein(klas, lessen, voetnoten) {
   const slideinEl = document.getElementById("slidein");
   slideinEl.dataset.domain = domeinKey;
   
-  // NIEUW: Haal de domein kleuren op en pas ze toe als CSS variabelen
+  // Haal de domein kleuren op en pas ze toe als CSS variabelen
   const domeinMeta = getDomeinMeta(domeinKey);
   slideinEl.style.setProperty('--app-domain-base', domeinMeta.base);
   slideinEl.style.setProperty('--app-domain-mid', domeinMeta.mid);
@@ -48,16 +49,8 @@ export function renderSlidein(klas, lessen, voetnoten) {
     document.getElementById("overlay").classList.remove("active");
   });
   
-  // NIEUW: Voeg een event listener toe voor afdrukken om de inhoud te optimaliseren
-  window.addEventListener('beforeprint', function() {
-    // Voeg een klasse toe aan de body voor print-specifieke styling
-    document.body.classList.add('print-mode');
-    
-    // Voeg na het afdrukken de klasse weer weg
-    window.addEventListener('afterprint', function() {
-      document.body.classList.remove('print-mode');
-    }, { once: true });
-  });
+  // Initialiseer de print handler voor dit slidein
+  initPrintHandler();
 }
 
 /**
@@ -71,7 +64,7 @@ function generateTabelPerKlas(lessen, hoofdKlas) {
     perKlas[les.klascode].push(les);
   });
 
-  // NIEUW: Filter klascodes om alleen die van dezelfde graad als hoofdKlas te behouden
+  // Filter klascodes om alleen die van dezelfde graad als hoofdKlas te behouden
   const klasCodes = Object.keys(perKlas).sort().filter(code => {
     // Zoek de graad van deze klascode op in LessentabellenApp.klassen
     const klas = window.LessentabellenApp.klassen.find(k => k.klascode === code);
