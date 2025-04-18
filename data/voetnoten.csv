@@ -81,24 +81,26 @@ klascode,tekst
 6PRO,"(1) STEM: Wiskunde, aardrijkskunde en natuurwetenschappen
 (2) MTC: Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
 7SCHAKEL,
-3SPORT,"(1)gereduceerd urenpakket"
-4SPORT,"(1)gereduceerd urenpakket"
-5SPORT,"(1)gereduceerd urenpakket"
-6SPORT,"(1)gereduceerd urenpakket"
-5SPW,"(1)gereduceerd urenpakket"
-6SPW,"(1)gereduceerd urenpakket"
+3SPORT,
+4SPORT,
+5SPORT,
+6SPORT,
+5SPW,
+6SPW,
 5TOE,
 6TOE,
+3TOPEC,"(1)gereduceerd urenpakket"
+4TOPEC,"(1)gereduceerd urenpakket"
 5TOPEC,"(1)gereduceerd urenpakket"
 6TOPEC,"(1)gereduceerd urenpakket"
 3TOPNW,"(1)gereduceerd urenpakket"
 4TOPNW,"(1)gereduceerd urenpakket"
 5TOPWET,"(1)gereduceerd urenpakket"
 6TOPWET,"(1)gereduceerd urenpakket"
-3TS,"(1)gereduceerd urenpakket"
-4TS,"(1)gereduceerd urenpakket"
-5TS,"(1)gereduceerd urenpakket"
-6TS,"(1)gereduceerd urenpakket"
+3TS,
+4TS,
+5TS,
+6TS,
 3ZW,"(1) STEM: Wiskunde, aardrijkskunde en natuurwetenschappen
 (2) MTC: Nederlands, burgerschap, geschiedenis, economie en artistieke expressie"
 4ZW,"(1) STEM: Wiskunde, aardrijkskunde en natuurwetenschappen
