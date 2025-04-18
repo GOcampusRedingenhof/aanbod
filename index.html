@@ -3,45 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lessentabellen App – Versie 3.4.0</title>
+  <meta name="description" content="Lessentabellen GO Campus Redingenhof - Bekijk alle beschikbare richtingen en lessentabellen">
+  <title>Lessentabellen GO Campus Redingenhof</title>
+  
+  <!-- CSS bestanden -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/detail-view.css">
-  <!-- Aparte CSS voor printstijlen -->
   <link rel="stylesheet" href="css/print-styles.css">
+  
+  <!-- Google Fonts: Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
   <div id="lessentabellen-container" class="lessentabellen-container">
     <h1 class="lessentabellen-title">Lessentabellen GO Campus Redingenhof</h1>
     <p class="lessentabellen-intro">Ontdek hieronder ons uitgebreide studieaanbod. Klik op een richting voor meer details en het volledige uurrooster.</p>
+    
     <div class="lessentabellen-root">
-      <div id="domains-container" class="domains-grid"></div>
+      <!-- Grid container voor alle domeinen/richtingen -->
+      <div id="domains-container" class="domains-grid">
+        <!-- Wordt dynamisch ingevuld door JavaScript -->
+        <div class="loader-spinner"></div>
+      </div>
 
+      <!-- Detail view slide-in panel -->
       <div id="slidein" class="lessentabellen-wrapper" tabindex="-1">
         <div class="detail-header">
-          <button class="close-btn" aria-label="Sluiten" onclick="LessentabellenApp.closeSlidein()">×</button>
+          <button class="close-btn" aria-label="Sluiten">×</button>
           <h2 id="opleiding-titel"></h2>
           <p id="opleiding-beschrijving"></p>
         </div>
+        
         <div class="detail-content">
           <div class="action-buttons">
-            <a id="brochure-link" href="#" target="_blank">Brochure</a>
-            <!-- ID toegevoegd voor printknop -->
-            <button id="print-button">Afdrukken</button>
+            <a id="brochure-link" href="#" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l9 2-9-18-9 18 9-2z"/></svg>
+              Brochure
+            </a>
+            <button id="print-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              Afdrukken
+            </button>
           </div>
-          <div id="lessentabel-container"></div>
-          <div id="footnotes"></div>
+          
+          <div id="lessentabel-container">
+            <!-- Wordt dynamisch ingevuld door JavaScript -->
+          </div>
+          
+          <div id="footnotes">
+            <!-- Wordt dynamisch ingevuld door JavaScript -->
+          </div>
         </div>
+        
+        <!-- Logo voor printversie -->
         <img class="logo-print" src="https://images.squarespace-cdn.com/content/v1/670992d66064015802d7e5dc/5425e461-06b0-4530-9969-4068d5a5dfdc/Scherm%C2%ADafbeelding+2024-12-03+om+09.38.12.jpg?format=1500w" alt="Redingenhof logo">
+        
+        <!-- Datum en quote voor printversie -->
         <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
         <div class="quote">SAMEN VER!</div>
       </div>
 
+      <!-- Overlay voor achtergrond dimmen -->
       <div id="overlay"></div>
     </div>
   </div>
 
+  <!-- Papa Parse voor CSV verwerking -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
-  <script type="module" src="js/app.js"></script>
+  
+  <!-- App JavaScript - gebruik de nieuwe modulaire structuur -->
+  <script type="module" src="js/index.js"></script>
 </body>
 </html>
