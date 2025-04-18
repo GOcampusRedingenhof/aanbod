@@ -288,11 +288,11 @@ klascode,vak,categorie,type,subvak,optie,uren
 4GRATECH,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,-
 4GRATECH,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 4GRATECH,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
-4GRATECH,- Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,-
-4GRATECH,- STEM-engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
-4GRATECH,- Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,-
+4GRATECH,Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,-
+4GRATECH,STEM-engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
+4GRATECH,Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,-
 4GRATECH,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-4GRATECH,- Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,12
+4GRATECH,Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,12
 5GRAFI,GGodsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 5GRAFI,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 5GRAFI,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
