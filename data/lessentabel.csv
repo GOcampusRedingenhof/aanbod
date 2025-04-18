@@ -675,7 +675,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 3OL,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
 3OL,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 3OL,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-3OL,Toegepaste Economie,specifiek gedeelte,header,ONWAAR,ONWAAR,
+3OL,Toegepaste Economie,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 3OL,TEC_Economie_logistiek,specifiek gedeelte,vak,WAAR,ONWAAR,5
 3OL,TEC_Economie_organisatie/Toeg. Inform.,specifiek gedeelte,vak,WAAR,ONWAAR,9
 3OL,Frans,specifiek gedeelte,vak,WAAR,ONWAAR,1
