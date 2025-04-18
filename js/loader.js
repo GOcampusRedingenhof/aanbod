@@ -11,6 +11,9 @@ export default class DataLoader {
       },
       ...config
     };
+
+    // Fallback parsing methode als Papaparse niet beschikbaar is
+    this.fallbackParse = this.fallbackParse.bind(this);
   }
 
   async loadCSV(url) {
@@ -23,16 +26,45 @@ export default class DataLoader {
       if (!response.ok) throw new Error(`Kon CSV niet laden: ${url}`);
       
       const text = await response.text();
-      const parsed = Papa.parse(text, this.config.parseOptions);
+      const parsed = this.parseCSV(text);
       
       // Cache resultaat
-      this.cacheData(url, parsed.data);
+      this.cacheData(url, parsed);
       
-      return parsed.data;
+      return parsed;
     } catch (error) {
       console.error(`CSV laden mislukt voor ${url}:`, error);
       throw error;
     }
+  }
+
+  parseCSV(text) {
+    // Probeer Papaparse eerst
+    if (typeof Papa !== 'undefined') {
+      return Papa.parse(text, this.config.parseOptions).data;
+    }
+    
+    // Fallback parsing methode
+    return this.fallbackParse(text);
+  }
+
+  fallbackParse(text) {
+    const lines = text.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.trim());
+    
+    return lines.slice(1).map(line => {
+      const values = line.split(',').map(v => v.trim());
+      return headers.reduce((obj, header, index) => {
+        // Basis type conversie
+        let value = values[index];
+        if (value === 'WAAR') value = true;
+        else if (value === 'ONWAAR') value = false;
+        else if (!isNaN(parseFloat(value))) value = parseFloat(value);
+        
+        obj[header] = value;
+        return obj;
+      }, {});
+    });
   }
 
   getCachedData(url) {
