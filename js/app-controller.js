@@ -27,6 +27,10 @@ class AppController {
     
     // Versie informatie
     this.version = '3.5.0';
+    
+    // Print state
+    this.isPrinting = false;
+    this.printCleanupTimeout = null;
   }
   
   /**
@@ -222,6 +226,187 @@ class AppController {
       footnotes: this.footnotes
     };
   }
+  
+  /**
+   * Start het printproces vanuit de centrale controller
+   * @param {Object} klas - Het klasobject dat geprint moet worden
+   */
+  startPrintProcess(klas) {
+    if (this.isPrinting) {
+      console.warn('Print proces al bezig');
+      return;
+    }
+    
+    // Markeer dat we bezig zijn met printen
+    this.isPrinting = true;
+    
+    try {
+      // Fase 1: Preparatie - DOM klaarmaken voor printen
+      this.prepareDOMForPrinting(klas);
+      
+      // Fase 2: Print event triggeren met een betrouwbare timeout
+      this.triggerPrint();
+    } catch (error) {
+      console.error('Fout tijdens printvoorbereiding:', error);
+      this.cleanupAfterPrinting();
+    }
+  }
+
+  /**
+   * Bereid de DOM voor op het printen
+   */
+  prepareDOMForPrinting(klas) {
+    // 1. Voeg printmode class toe aan body
+    document.body.classList.add('print-mode');
+    
+    // 2. Verberg elementen die niet nodig zijn voor printen
+    document.querySelectorAll('.action-buttons, .close-btn, #overlay')
+      .forEach(el => el.dataset.printHidden = true);
+    
+    // 3. Maak footer voor printversie
+    this.createPrintFooter();
+    
+    // 4. Optimaliseer tabel voor printen
+    this.optimizeTableForPrinting();
+    
+    // 5. Zet gerelateerde metadata
+    if (klas) {
+      document.querySelector('title').dataset.originalTitle = document.title;
+      document.title = `Lessentabel ${klas.richting} (${klas.klascode})`;
+    }
+    
+    // Log dat we klaar zijn met voorbereiden
+    console.log('DOM voorbereid voor printen');
+  }
+
+  /**
+   * Trigger het printdialoogvenster met een betrouwbare aanpak
+   */
+  triggerPrint() {
+    // Gebruik requestAnimationFrame voor betrouwbare timing
+    // Dit wacht tot de browser klaar is met renderen
+    requestAnimationFrame(() => {
+      // Nog een RAF voor extra zekerheid dat de DOM is bijgewerkt
+      requestAnimationFrame(() => {
+        // Start het printproces
+        window.print();
+        
+        // Luister naar het afterprint event
+        window.addEventListener('afterprint', () => {
+          this.cleanupAfterPrinting();
+        }, { once: true });
+        
+        // Backup: als afterprint niet wordt getriggerd na 3 seconden
+        this.printCleanupTimeout = setTimeout(() => {
+          if (this.isPrinting) {
+            console.warn('Print cleanup timeout getriggerd');
+            this.cleanupAfterPrinting();
+          }
+        }, 3000);
+      });
+    });
+  }
+
+  /**
+   * Maak de printfooter
+   */
+  createPrintFooter() {
+    // Verwijder bestaande footer indien aanwezig
+    const existingFooter = document.getElementById('print-footer-container');
+    if (existingFooter) existingFooter.remove();
+    
+    // Nieuwe footer maken
+    const footer = document.createElement('div');
+    footer.id = 'print-footer-container';
+    
+    // Footer inhoud
+    footer.innerHTML = `
+      <div class="quote">SAMEN VER!</div>
+      <div class="page-info">GO Campus Redingenhof</div>
+      <div class="datum">Afgedrukt op: ${document.getElementById('datum-print')?.textContent || new Date().toLocaleDateString("nl-BE")}</div>
+    `;
+    
+    // Voeg toe aan slidein
+    const slidein = document.getElementById('slidein');
+    if (slidein) slidein.appendChild(footer);
+  }
+
+  /**
+   * Optimaliseer tabel voor printen
+   */
+  optimizeTableForPrinting() {
+    const table = document.querySelector('.lessentabel');
+    if (!table) return;
+    
+    // Zorg dat de tabel fixed layout gebruikt
+    table.style.tableLayout = 'fixed';
+    
+    // Stel page-break-inside: avoid in voor belangrijke rijen
+    table.querySelectorAll('thead, .categorie-header, .totaal-row, .stage-row')
+      .forEach(row => {
+        row.style.pageBreakInside = 'avoid';
+      });
+    
+    // Zorg dat thead correct wordt herhaald op elke pagina
+    const thead = table.querySelector('thead');
+    if (thead) {
+      thead.style.display = 'table-header-group';
+    }
+  }
+
+  /**
+   * Opruimen na het printen
+   */
+  cleanupAfterPrinting() {
+    // Reset alleen als we in printmodus zijn
+    if (!this.isPrinting) return;
+    
+    // Clear timeout
+    if (this.printCleanupTimeout) {
+      clearTimeout(this.printCleanupTimeout);
+      this.printCleanupTimeout = null;
+    }
+    
+    // Verwijder printmode class
+    document.body.classList.remove('print-mode');
+    
+    // Herstel verborgen elementen
+    document.querySelectorAll('[data-print-hidden]').forEach(el => {
+      delete el.dataset.printHidden;
+    });
+    
+    // Verwijder printfooter
+    const printFooter = document.getElementById('print-footer-container');
+    if (printFooter) printFooter.remove();
+    
+    // Herstel tabelstyling
+    const table = document.querySelector('.lessentabel');
+    if (table) {
+      table.style.tableLayout = '';
+      
+      table.querySelectorAll('thead, .categorie-header, .totaal-row, .stage-row')
+        .forEach(row => {
+          row.style.pageBreakInside = '';
+        });
+      
+      const thead = table.querySelector('thead');
+      if (thead) {
+        thead.style.display = '';
+      }
+    }
+    
+    // Herstel titel
+    const title = document.querySelector('title');
+    if (title && title.dataset.originalTitle) {
+      document.title = title.dataset.originalTitle;
+      delete title.dataset.originalTitle;
+    }
+    
+    // Reset printingstatus
+    this.isPrinting = false;
+    
+    console.log('Print cleanup voltooid');
+  }
 }
 
 // Creëer een singleton instantie van de controller
@@ -237,190 +422,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Exporteer de controller voor gebruik in modules
 export default appController;
-
-// Aan het einde van de constructor in AppController, voeg toe:
-this.isPrinting = false;
-this.printCleanupTimeout = null;
-
-// Voeg deze methoden toe aan de AppController class (vóór de laatste sluitingsaccolade):
-
-/**
- * Start het printproces vanuit de centrale controller
- * @param {Object} klas - Het klasobject dat geprint moet worden
- */
-startPrintProcess(klas) {
-  if (this.isPrinting) {
-    console.warn('Print proces al bezig');
-    return;
-  }
-  
-  // Markeer dat we bezig zijn met printen
-  this.isPrinting = true;
-  
-  try {
-    // Fase 1: Preparatie - DOM klaarmaken voor printen
-    this.prepareDOMForPrinting(klas);
-    
-    // Fase 2: Print event triggeren met een betrouwbare timeout
-    this.triggerPrint();
-  } catch (error) {
-    console.error('Fout tijdens printvoorbereiding:', error);
-    this.cleanupAfterPrinting();
-  }
-},
-
-/**
- * Bereid de DOM voor op het printen
- */
-prepareDOMForPrinting(klas) {
-  // 1. Voeg printmode class toe aan body
-  document.body.classList.add('print-mode');
-  
-  // 2. Verberg elementen die niet nodig zijn voor printen
-  document.querySelectorAll('.action-buttons, .close-btn, #overlay')
-    .forEach(el => el.dataset.printHidden = true);
-  
-  // 3. Maak footer voor printversie
-  this.createPrintFooter();
-  
-  // 4. Optimaliseer tabel voor printen
-  this.optimizeTableForPrinting();
-  
-  // 5. Zet gerelateerde metadata
-  if (klas) {
-    document.querySelector('title').dataset.originalTitle = document.title;
-    document.title = `Lessentabel ${klas.richting} (${klas.klascode})`;
-  }
-  
-  // Log dat we klaar zijn met voorbereiden
-  console.log('DOM voorbereid voor printen');
-},
-
-/**
- * Trigger het printdialoogvenster met een betrouwbare aanpak
- */
-triggerPrint() {
-  // Gebruik requestAnimationFrame voor betrouwbare timing
-  // Dit wacht tot de browser klaar is met renderen
-  requestAnimationFrame(() => {
-    // Nog een RAF voor extra zekerheid dat de DOM is bijgewerkt
-    requestAnimationFrame(() => {
-      // Start het printproces
-      window.print();
-      
-      // Luister naar het afterprint event
-      window.addEventListener('afterprint', () => {
-        this.cleanupAfterPrinting();
-      }, { once: true });
-      
-      // Backup: als afterprint niet wordt getriggerd na 3 seconden
-      this.printCleanupTimeout = setTimeout(() => {
-        if (this.isPrinting) {
-          console.warn('Print cleanup timeout getriggerd');
-          this.cleanupAfterPrinting();
-        }
-      }, 3000);
-    });
-  });
-},
-
-/**
- * Maak de printfooter
- */
-createPrintFooter() {
-  // Verwijder bestaande footer indien aanwezig
-  const existingFooter = document.getElementById('print-footer-container');
-  if (existingFooter) existingFooter.remove();
-  
-  // Nieuwe footer maken
-  const footer = document.createElement('div');
-  footer.id = 'print-footer-container';
-  
-  // Footer inhoud
-  footer.innerHTML = `
-    <div class="quote">SAMEN VER!</div>
-    <div class="page-info">GO Campus Redingenhof</div>
-    <div class="datum">Afgedrukt op: ${document.getElementById('datum-print')?.textContent || new Date().toLocaleDateString("nl-BE")}</div>
-  `;
-  
-  // Voeg toe aan slidein
-  const slidein = document.getElementById('slidein');
-  if (slidein) slidein.appendChild(footer);
-},
-
-/**
- * Optimaliseer tabel voor printen
- */
-optimizeTableForPrinting() {
-  const table = document.querySelector('.lessentabel');
-  if (!table) return;
-  
-  // Zorg dat de tabel fixed layout gebruikt
-  table.style.tableLayout = 'fixed';
-  
-  // Stel page-break-inside: avoid in voor belangrijke rijen
-  table.querySelectorAll('thead, .categorie-header, .totaal-row, .stage-row')
-    .forEach(row => {
-      row.style.pageBreakInside = 'avoid';
-    });
-  
-  // Zorg dat thead correct wordt herhaald op elke pagina
-  const thead = table.querySelector('thead');
-  if (thead) {
-    thead.style.display = 'table-header-group';
-  }
-},
-
-/**
- * Opruimen na het printen
- */
-cleanupAfterPrinting() {
-  // Reset alleen als we in printmodus zijn
-  if (!this.isPrinting) return;
-  
-  // Clear timeout
-  if (this.printCleanupTimeout) {
-    clearTimeout(this.printCleanupTimeout);
-    this.printCleanupTimeout = null;
-  }
-  
-  // Verwijder printmode class
-  document.body.classList.remove('print-mode');
-  
-  // Herstel verborgen elementen
-  document.querySelectorAll('[data-print-hidden]').forEach(el => {
-    delete el.dataset.printHidden;
-  });
-  
-  // Verwijder printfooter
-  const printFooter = document.getElementById('print-footer-container');
-  if (printFooter) printFooter.remove();
-  
-  // Herstel tabelstyling
-  const table = document.querySelector('.lessentabel');
-  if (table) {
-    table.style.tableLayout = '';
-    
-    table.querySelectorAll('thead, .categorie-header, .totaal-row, .stage-row')
-      .forEach(row => {
-        row.style.pageBreakInside = '';
-      });
-    
-    const thead = table.querySelector('thead');
-    if (thead) {
-      thead.style.display = '';
-    }
-  }
-  
-  // Herstel titel
-  const title = document.querySelector('title');
-  if (title && title.dataset.originalTitle) {
-    document.title = title.dataset.originalTitle;
-    delete title.dataset.originalTitle;
-  }
-  
-  // Reset printingstatus
-  this.isPrinting = false;
-  
-  console.log('Print cleanup voltooid');
-},
