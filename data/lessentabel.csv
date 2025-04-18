@@ -43,7 +43,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5ASWW,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,6
 5ASWW,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,4
 5ASWW,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
-5ASWW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 5AUTO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 5AUTO,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
 5AUTO,STEM (*),basisvorming,vak,WAAR,ONWAAR,4
@@ -72,7 +71,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5BZO,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,4
 5BZO,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,5
 5BZO,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,4
-5BZO,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 6BZO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 6BZO,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
 6BZO,STEM (*),basisvorming,vak,WAAR,ONWAAR,4
@@ -85,7 +83,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 6BZO,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,4
 6BZO,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
 6BZO,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
-6BZO,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 3BO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 3BO,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 3BO,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -227,7 +224,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5CO,Economie (algemeen),specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5CO,Bedrijfswetenschappen incl. mini-onderneming,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 5CO,Toegepaste economie/toegepaste informatica incl. mini-onderneming,specifiek gedeelte,vak,ONWAAR,ONWAAR,8
-5CO,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
 3ELEK,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 3ELEK,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
 3ELEK,STEM (*),basisvorming,vak,WAAR,ONWAAR,
@@ -414,7 +410,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 3HSZ,Haar- en schoonheidsverzorging (19u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
 3HSZ,- Haarverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,14
 3HSZ,- Schoonheidsverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,5
-3HSZ,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
 4HSZ,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 4HSZ,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
 4HSZ,STEM (*),basisvorming,vak,WAAR,ONWAAR,
@@ -425,7 +420,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 4HSZ,Haar- en schoonheidsverzorging (19u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
 4HSZ,- Haarverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,14
 4HSZ,- Schoonheidsverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,5
-4HSZ,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
 5HZ,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 5HZ,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
 5HZ,STEM (*),basisvorming,vak,WAAR,ONWAAR,4
@@ -436,7 +430,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5HZ,Haarverzorging (20u),specifiek gedeelte,header,ONWAAR,ONWAAR,
 5HZ,- Haarverzorging incl. Frans/Engels,specifiek gedeelte,vak,WAAR,ONWAAR,17
 5HZ,- Schoonheidsverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,1
-5HZ,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 6HZ,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 6HZ,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
 6HZ,STEM (*),basisvorming,vak,WAAR,ONWAAR,4
@@ -447,7 +440,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 6HZ,Haarverzorging (20u),specifiek gedeelte,header,ONWAAR,ONWAAR,
 6HZ,- Haarverzorging incl. Frans/Engels,specifiek gedeelte,vak,WAAR,ONWAAR,17
 6HZ,- Schoonheidsverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,1
-6HZ,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,33
 3HOUT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 3HOUT,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
 3HOUT,STEM (*),basisvorming,vak,WAAR,ONWAAR,
@@ -557,7 +549,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 3MW,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,2
 3MW,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,2
 3MW,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,4
-3MW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
 4MW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 4MW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 4MW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -577,7 +568,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 4MW,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,3
 4MW,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,3
 4MW,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
-4MW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
 3MWW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 3MWW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 3MWW,Engels,basisvorming,vak,ONWAAR,ONWAAR,3
@@ -592,7 +582,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 3MWW,- Filosofie,specifiek gedeelte,vak,WAAR,ONWAAR,1
 3MWW,- Gedragswetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,4
 3MWW,- Cultuurwetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,3
-3MWW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
 4MWW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 4MWW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 4MWW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -609,7 +598,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 4MWW,- Filosofie,specifiek gedeelte,vak,WAAR,ONWAAR,2
 4MWW,- Gedragswetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,4
 4MWW,- Cultuurwetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,3
-4MWW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
 5OOS,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 5OOS,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
 5OOS,STEM (*),basisvorming,vak,WAAR,ONWAAR,4
@@ -655,7 +643,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5OB,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5OB,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,7
 5OB,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,1
-5OB,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
 6OB,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 6OB,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6OB,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -675,7 +662,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 6OB,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6OB,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
 6OB,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,1
-6OB,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,31
 3OL,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 3OL,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
 3OL,STEM (*),basisvorming,vak,WAAR,ONWAAR,
@@ -747,7 +733,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 3SPORT,Optie,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 3SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 3SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-3SPORT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
 4SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 4SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 4SPORT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -767,7 +752,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 4SPORT,Optie,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 4SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 4SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-4SPORT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
 5SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 5SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 5SPORT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -786,7 +770,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5SPORT,Optie - inclusief stage,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
 5SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 5SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-5SPORT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
 6SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 6SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6SPORT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -805,7 +788,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 6SPORT,Optie - inclusief stage,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
 6SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 6SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-6SPORT,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
 5SPW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 5SPW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 5SPW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -822,7 +804,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 5SPW,- Optie,specifiek gedeelte,vak,WAAR,ONWAAR,4
 5SPW,- Algemene LO (*),specifiek gedeelte,vak,WAAR,ONWAAR,2
 5SPW,- Theorie,specifiek gedeelte,vak,WAAR,ONWAAR,2
-5SPW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
 6SPW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 6SPW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6SPW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -839,7 +820,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 6SPW,- Optie,specifiek gedeelte,vak,WAAR,ONWAAR,4
 6SPW,- Algemene LO (*),specifiek gedeelte,vak,WAAR,ONWAAR,2
 6SPW,- Theorie,specifiek gedeelte,vak,WAAR,ONWAAR,2
-6SPW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,32
 5TOE,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 5TOE,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 5TOE,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -1013,12 +993,11 @@ klascode,vak,categorie,type,subvak,optie,uren
 3ZW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
 3ZW,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
 3ZW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-3ZW,Zorg en welzijn (19u),specifiek gedeelte,header,ONWAAR,ONWAAR,
-3ZW,- Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,5
-3ZW,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,5
-3ZW,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
-3ZW,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
-3ZW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
+3ZW,Zorg en welzijn (19u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
+3ZW,Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,5
+3ZW,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,5
+3ZW,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
+3ZW,Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
 4ZW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 4ZW,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
 4ZW,STEM (*),basisvorming,vak,ONWAAR,ONWAAR,
@@ -1031,7 +1010,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 4ZW,- Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,5
 4ZW,- Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
 4ZW,- Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
-4ZW,Lestijden per week,totaal,vak,ONWAAR,ONWAAR,34
 7SCHAKEL,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,6
 7SCHAKEL,Engels,basisvorming,vak,ONWAAR,ONWAAR,3
 7SCHAKEL,Frans,basisvorming,vak,ONWAAR,ONWAAR,4
