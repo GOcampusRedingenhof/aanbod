@@ -635,12 +635,12 @@ klascode,vak,categorie,type,subvak,optie,uren
 5OB,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 5OB,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
 5OB,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-5OB,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,
-5OB,Economie,basisvorming,vak,ONWAAR,ONWAAR,
-5OB,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,
+5OB,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+5OB,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5OB,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 5OB,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5OB,Pedagogiek,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-5OB,Opvoeding en begeleiding (12u),specifiek gedeelte,header,ONWAAR,ONWAAR,
+5OB,Opvoeding en begeleiding,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 5OB,Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5OB,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5OB,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,7
@@ -655,11 +655,11 @@ klascode,vak,categorie,type,subvak,optie,uren
 6OB,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 6OB,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 6OB,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-6OB,Economie,basisvorming,vak,ONWAAR,ONWAAR,
-6OB,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,
+6OB,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
+6OB,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 6OB,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 6OB,Pedagogiek,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-6OB,Opvoeding en begeleiding (12u),specifiek gedeelte,header,ONWAAR,ONWAAR,
+6OB,Opvoeding en begeleiding,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 6OB,Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6OB,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6OB,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
