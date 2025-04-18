@@ -600,7 +600,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 4MWW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,-
 4MWW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
 4MWW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
-4MWW,Maatschappij en welzijn,specifiek gedeelte,header,ONWAAR,ONWAAR,
+4MWW,Maatschappij en welzijn,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 4MWW,Filosofie,specifiek gedeelte,vak,WAAR,ONWAAR,2
 4MWW,Gedragswetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,4
 4MWW,Cultuurwetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,3
@@ -688,7 +688,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 4OL,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
 4OL,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 4OL,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-4OL,Toegepaste Economie,specifiek gedeelte,header,ONWAAR,ONWAAR,
+4OL,Toegepaste Economie,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 4OL,TEC_Economie_logistiek,specifiek gedeelte,vak,WAAR,ONWAAR,6
 4OL,TEC_Economie_organisatie/Toeg. Inform.,specifiek gedeelte,vak,WAAR,ONWAAR,8
 4OL,Frans,specifiek gedeelte,vak,WAAR,ONWAAR,1
