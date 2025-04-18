@@ -49,8 +49,8 @@ export function renderSlidein(klas, lessen, voetnoten) {
     document.getElementById("overlay").classList.remove("active");
   });
   
-  // Initialiseer de print handler voor dit slidein
-  initPrintHandler();
+  // Initialiseer de print handler voor dit slidein met klas-informatie
+  initPrintHandler(klas);
 }
 
 /**
