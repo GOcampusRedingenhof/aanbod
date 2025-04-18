@@ -3,8 +3,7 @@ import { mapDomein } from './config-module.js';
 
 /**
  * Bouwt de volledige gridstructuur op volgens het premium grid.css-systeem.
- * Groepeert per domein > graad > finaliteit, en dedupliceert richtingen per graad.
- * Met speciale ondersteuning voor OKAN zonder graad/finaliteit.
+ * Groepeert per domein > graad > finaliteit, en toont alle unieke richtingen.
  */
 export function buildGrid(data, target) {
   const structuur = {};
@@ -12,37 +11,23 @@ export function buildGrid(data, target) {
   const graadVolgorde = ['EERSTE GRAAD', 'TWEEDE GRAAD', 'DERDE GRAAD'];
   const finaliteitVolgorde = ['doorstroom', 'dubbele finaliteit', 'arbeidsmarkt'];
 
-  // Unieke richtingen per graad groeperen
+  // Alle richtingen groeperen op basis van richting, niet alleen richtcode
   data.forEach(item => {
     // Gebruik de gedeelde mapDomein functie voor consistente domeinnamen
     const domein = mapDomein(item.domein);
-    
-    // Speciale behandeling voor OKAN (geen graad/finaliteit)
-    if (domein === 'okan') {
-      if (!structuur[domein]) structuur[domein] = {};
-      if (!structuur[domein]['ONBEKEND']) structuur[domein]['ONBEKEND'] = {};
-      if (!structuur[domein]['ONBEKEND']['onbekend']) structuur[domein]['ONBEKEND']['onbekend'] = new Map();
-      
-      // Sla richting op in de structuur
-      const richtcode = item.richtingcode;
-      if (!structuur[domein]['ONBEKEND']['onbekend'].has(richtcode)) {
-        structuur[domein]['ONBEKEND']['onbekend'].set(richtcode, item);
-      }
-      return;
-    }
-    
-    // Normale verwerking voor niet-OKAN items
     const graad = (item.graad ?? 'ONBEKEND').toString().trim().toUpperCase();
     const finaliteit = (item.finaliteit ?? 'ONBEKEND').toString().trim().toLowerCase();
-    const richtcode = item.richtingcode;
+    
+    // Unieke id voor deze richting gebaseerd op richtingcode EN richting (naam)
+    const richtingId = `${item.richtingcode}_${item.richting}`;
 
     if (!structuur[domein]) structuur[domein] = {};
     if (!structuur[domein][graad]) structuur[domein][graad] = {};
     if (!structuur[domein][graad][finaliteit]) structuur[domein][graad][finaliteit] = new Map();
 
-    // Als de richting nog niet in deze finaliteit zit, voeg toe
-    if (!structuur[domein][graad][finaliteit].has(richtcode)) {
-      structuur[domein][graad][finaliteit].set(richtcode, item);
+    // Als deze specifieke richting nog niet in deze finaliteit zit, voeg toe
+    if (!structuur[domein][graad][finaliteit].has(richtingId)) {
+      structuur[domein][graad][finaliteit].set(richtingId, item);
     }
   });
 
@@ -61,44 +46,6 @@ export function buildGrid(data, target) {
     const title = document.createElement('h2');
     title.textContent = domeinTitel;
     domainBlock.appendChild(title);
-    
-    // Speciale weergave voor OKAN (zonder graad-headers)
-    if (domein === 'okan' && graden['ONBEKEND']) {
-      const graadContainer = document.createElement('div');
-      graadContainer.className = 'graad-container';
-      
-      // Render OKAN richtingen direct zonder finaliteit-blok
-      if (graden['ONBEKEND']['onbekend']) {
-        const richtingMap = graden['ONBEKEND']['onbekend'];
-        
-        // Sorteer richtingen alfabetisch
-        const sortedRichtingen = [...richtingMap.values()]
-          .sort((a, b) => a.richting.localeCompare(b.richting));
-          
-        // We creëren alsnog een finaliteit-blok voor de styling
-        const finaliteitBlok = document.createElement('div');
-        finaliteitBlok.className = 'finaliteit-blok';
-        
-        const ul = document.createElement('ul');
-        
-        sortedRichtingen.forEach(richting => {
-          const li = document.createElement('li');
-          const a = document.createElement('a');
-          a.href = '#';
-          a.dataset.code = richting.klascode;
-          a.textContent = richting.richting || 'Onthaalonderwijs voor anderstalige nieuwkomers';
-          li.appendChild(a);
-          ul.appendChild(li);
-        });
-        
-        finaliteitBlok.appendChild(ul);
-        graadContainer.appendChild(finaliteitBlok);
-      }
-      
-      domainBlock.appendChild(graadContainer);
-      target.appendChild(domainBlock);
-      return; // Skip de rest van de verwerking voor OKAN
-    }
 
     // Sorteer graden volgens voorgedefinieerde volgorde
     Object.entries(graden)
