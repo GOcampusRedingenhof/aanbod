@@ -14,160 +14,246 @@
     display: none !important;
   }
   
+  /* Print-only container voor footer */
+  #print-footer-container {
+    display: flex !important;
+    justify-content: space-between !important;
+    border-top: 1px solid #ddd !important;
+    margin-top: 0.5rem !important;
+    padding-top: 0.3rem !important;
+    font-size: 0.7rem !important;
+  }
+  
   /* Reset slidein voor print */
-  #slidein {
-    position: static !important;
+  body.print-mode #slidein {
+    position: absolute !important;
     transform: none !important;
     box-shadow: none !important;
     max-width: none !important;
-    width: 100% !important;
+    width: 210mm !important; /* A4 breedte */
     height: auto !important;
     padding: 0 !important;
+    margin: 0 !important;
     overflow: visible !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    z-index: auto !important;
   }
   
   /* Headers optimaliseren */
-  .detail-header h2 {
-    font-size: 1.2rem !important;
-    margin-top: 0.5rem !important;
+  body.print-mode .detail-header {
     margin-bottom: 0.5rem !important;
-    color: #000 !important;
   }
   
-  .detail-header p {
-    font-size: 0.9rem !important;
-    margin: 0.5rem 0 !important;
+  body.print-mode .detail-header h2 {
+    font-size: 1.2rem !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.3rem !important;
+    color: #000 !important;
+    text-align: center !important;
+  }
+  
+  body.print-mode .detail-header h2::after {
+    display: none !important;
+  }
+  
+  body.print-mode .detail-header p {
+    font-size: 0.85rem !important;
+    margin: 0.3rem 0 !important;
     color: #333 !important;
+    text-align: center !important;
   }
   
   /* Verklein de tabel voor betere pasvorm */
-  .lessentabel {
-    font-size: 0.75rem !important;
+  body.print-mode .lessentabel {
+    font-size: 0.7rem !important;
     box-shadow: none !important;
     border: 1px solid #ddd !important;
     margin: 0.5rem 0 !important;
     width: 100% !important;
     table-layout: fixed !important;
+    border-collapse: collapse !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
   
   /* Verklein cellen */
-  .lessentabel th,
-  .lessentabel td {
-    padding: 0.25rem 0.5rem !important;
-    font-size: 0.75rem !important;
+  body.print-mode .lessentabel th,
+  body.print-mode .lessentabel td {
+    padding: 0.15rem 0.4rem !important;
+    font-size: 0.7rem !important;
     border: 1px solid #ddd !important;
+    text-align: center !important;
+  }
+  
+  body.print-mode .lessentabel td:first-child,
+  body.print-mode .lessentabel th:first-child {
+    text-align: left !important;
   }
   
   /* Maak headers plat en kleiner */
-  .lessentabel thead th {
+  body.print-mode .lessentabel thead th {
     background: #f0f0f0 !important;
     color: black !important;
     box-shadow: none !important;
-    font-size: 0.8rem !important;
-    padding: 0.25rem 0.4rem !important;
+    font-size: 0.7rem !important;
+    padding: 0.2rem 0.3rem !important;
+    font-weight: bold !important;
   }
   
-  .lessentabel tr.categorie-header th {
+  body.print-mode .lessentabel tr.categorie-header th {
     background: #e0e0e0 !important;
     color: black !important;
-    font-size: 0.8rem !important;
-    padding: 0.3rem 0.4rem !important;
+    font-size: 0.7rem !important;
+    padding: 0.2rem 0.3rem !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
   }
   
   /* Compactere vak-headers */
-  .lessentabel tr.vak-header td {
-    font-size: 0.75rem !important;
-    padding: 0.2rem 0.4rem !important;
+  body.print-mode .lessentabel tr.vak-header td {
+    font-size: 0.7rem !important;
+    padding: 0.15rem 0.3rem !important;
     background-color: #f8f8f8 !important;
+    font-weight: bold !important;
   }
   
   /* Compactere subvakken */
-  .lessentabel tr.subvak td {
-    padding-top: 0.2rem !important;
-    padding-bottom: 0.2rem !important;
+  body.print-mode .lessentabel tr.subvak td {
+    padding-top: 0.15rem !important;
+    padding-bottom: 0.15rem !important;
+  }
+  
+  body.print-mode .lessentabel tr.subvak td:first-child {
+    padding-left: 1rem !important;
   }
   
   /* Totaalrij styling */
-  .lessentabel tr.totaal-row td {
+  body.print-mode .lessentabel tr.totaal-row td {
     font-weight: bold !important;
     background-color: #f0f0f0 !important;
   }
   
   /* Kleinere footnotes */
-  .footnotes {
+  body.print-mode .footnotes {
     font-size: 0.7rem !important;
     background: none !important;
     border-left: 1px solid #ddd !important;
-    padding: 0.25rem 0.5rem !important;
-    margin-top: 0.5rem !important;
+    padding: 0.2rem 0.4rem !important;
+    margin-top: 0.3rem !important;
+  }
+  
+  body.print-mode .footnotes h4 {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.2rem !important;
+  }
+  
+  body.print-mode .footnotes ul {
+    padding-left: 1rem !important;
+    margin-top: 0.2rem !important;
+  }
+  
+  body.print-mode .footnotes li {
+    margin-bottom: 0.2rem !important;
   }
   
   /* Content container aanpassingen */
-  .detail-content {
+  body.print-mode .detail-content {
     padding: 0 !important;
   }
   
   /* Footer elementen verkleinen */
-  .logo-print {
+  body.print-mode .logo-print {
     max-width: 100px !important;
     height: auto !important;
     display: block !important;
     margin: 0 auto 0.5rem !important;
+    position: relative !important;
   }
   
-  .datum, .quote {
+  body.print-mode .datum, 
+  body.print-mode .quote {
     font-size: 0.7rem !important;
     margin: 0.3rem 0 !important;
     position: relative !important;
-    color: #666 !important;
+    display: inline-block !important;
   }
   
-  .datum {
+  body.print-mode .datum {
     text-align: right !important;
-    margin-right: 1cm !important;
   }
   
-  .quote {
+  body.print-mode .quote {
     text-align: left !important;
-    margin-left: 1cm !important;
     font-style: italic !important;
+    font-weight: bold !important;
   }
   
   /* Voorkom page breaks */
-  .lessentabel tr {
+  body.print-mode #lessentabel-container {
     page-break-inside: avoid !important;
-  }
-  
-  #lessentabel-container {
-    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    position: relative !important;
   }
   
   /* Reset alle animaties */
-  * {
+  body.print-mode * {
     transition: none !important;
     animation: none !important;
   }
   
   /* Verberg scrollbars */
-  ::-webkit-scrollbar {
+  body.print-mode ::-webkit-scrollbar {
     display: none !important;
   }
   
   /* Algemene pagina-optimalisaties */
-  html, body {
+  body.print-mode html, 
+  body.print-mode body {
     width: 100% !important;
+    height: auto !important;
     margin: 0 !important;
     padding: 0 !important;
     background-color: white !important;
+    overflow: visible !important;
   }
   
-  /* Print-mode specifieke aanpassingen - geactiveerd via JS */
-  body.print-mode .lessentabel {
-    max-height: 650px !important; /* Beperkte hoogte om op één pagina te passen */
+  /* Zet bullet punten in subvakken terug */
+  body.print-mode .lessentabel tr.subvak td:first-child::before {
+    content: "•" !important;
+    position: absolute !important;
+    left: 0.5rem !important;
+    color: #333 !important;
   }
   
-  body.print-mode .detail-header h2::after {
-    display: none !important; /* Verwijder decoratieve elementen */
+  /* Voorkom dat inhoudscontainers breken */
+  body.print-mode h1, body.print-mode h2, body.print-mode h3,
+  body.print-mode h4, body.print-mode h5, body.print-mode h6 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+  
+  body.print-mode table, body.print-mode figure, 
+  body.print-mode .footnotes {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Fix voor onjuiste kleurovergangen in de header */
+  body.print-mode .lessentabel thead th {
+    background-image: none !important;
+  }
+  
+  body.print-mode .lessentabel tr.categorie-header th {
+    background-image: none !important;
+  }
+  
+  /* Minder witruimte voor optimaal gebruik van pagina */
+  body.print-mode p, body.print-mode h1, body.print-mode h2, 
+  body.print-mode h3, body.print-mode h4, body.print-mode h5, 
+  body.print-mode h6 {
+    margin: 0.2rem 0 !important;
   }
 }
 
