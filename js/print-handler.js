@@ -1,5 +1,4 @@
-// print-handler.js
-// Volledig verbeterde versie die lege pagina's voorkomt en professionele afdrukken levert
+// print-handler.js - Verbeterde versie die printproblemen oplost
 
 /**
  * Initialiseert de printfunctionaliteit
@@ -30,27 +29,31 @@ export function initPrintHandler(klas) {
 function handlePrint(e, klas) {
   e.preventDefault();
   
-  // Optimaliseer de pagina voor afdrukken
-  optimizeForPrint(klas);
+  // Maak een backup van de huidige body content
+  const bodyContent = document.body.innerHTML;
   
-  // Stel een korte timeout in om zeker te zijn dat de DOM is bijgewerkt
-  setTimeout(() => {
-    // Genereer en stel de bestandsnaam in (werkt in Chrome en sommige andere browsers)
-    setFilename(klas);
+  try {
+    // Optimaliseer de pagina voor afdrukken
+    optimizeForPrint(klas);
     
-    // Start het printproces
-    window.print();
-    
-    // Luister voor het afterprint event (browser-ondersteund)
-    window.addEventListener('afterprint', restoreFromPrint, { once: true });
-    
-    // Backup voor browsers die geen afterprint event triggeren
+    // Stel een korte timeout in om zeker te zijn dat de DOM is bijgewerkt
     setTimeout(() => {
-      if (document.body.classList.contains('print-mode')) {
-        restoreFromPrint();
-      }
-    }, 2000);
-  }, 200); // Iets langere timeout voor betere DOM-verwerking
+      // Genereer en stel de bestandsnaam in (werkt in Chrome en sommige andere browsers)
+      setFilename(klas);
+      
+      // Start het printproces
+      window.print();
+      
+      // Stel een timeout in om de pagina te herstellen nadat de printdialoog is gesloten
+      setTimeout(() => {
+        restoreFromPrint(bodyContent);
+      }, 1000);
+    }, 200);
+  } catch (error) {
+    console.error('Fout tijdens printen:', error);
+    // Bij error, herstel de pagina
+    restoreFromPrint(bodyContent);
+  }
 }
 
 /**
@@ -83,11 +86,6 @@ function setFilename(klas) {
       if (klas.klascode) {
         filename += `_${klas.klascode}`;
       }
-      
-      // Voeg de datum toe
-      const date = new Date();
-      const dateStr = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-      filename += `_${dateStr}`;
     }
     
     // Zorg ervoor dat de bestandsnaam geldig is voor bestandssystemen
@@ -128,145 +126,140 @@ function setupPrintDate() {
  * @param {Object} klas - Het klasobject met richting, graad, etc.
  */
 function optimizeForPrint(klas) {
-  // Verwijder evt. oude footer-container om duplicatie te voorkomen
-  removeExistingFooter();
-  
-  // Voeg een klasse toe aan de body voor print-specifieke styling
-  document.body.classList.add('print-mode');
-  
-  // Maak een profesionele printfooter
-  createProfessionalFooter();
-  
-  // Zorg dat de tabel goed wordt weergegeven
-  optimizeTable();
-  
-  // Fix overige elementen in de DOM die kunnen leiden tot lege pagina's
-  cleanupDomForPrinting();
-}
-
-/**
- * Verwijdert bestaande footer (om duplicatie te voorkomen)
- */
-function removeExistingFooter() {
-  const existingFooter = document.getElementById('print-footer-container');
-  if (existingFooter) {
-    existingFooter.remove();
-  }
-}
-
-/**
- * Maakt een professionele footer voor printen
- */
-function createProfessionalFooter() {
-  const datumElement = document.querySelector('.datum');
-  const quoteElement = document.querySelector('.quote');
-  
-  if (datumElement && quoteElement) {
-    // Maak een nieuwe footer container
-    const footerContainer = document.createElement('div');
-    footerContainer.id = 'print-footer-container';
-    
-    // Kloon de elementen om de originelen intact te houden
-    const quoteClone = quoteElement.cloneNode(true);
-    const datumClone = datumElement.cloneNode(true);
-    
-    // Voeg de pagina nummer toe als midden element
-    const pageInfo = document.createElement('div');
-    pageInfo.className = 'page-info';
-    pageInfo.innerHTML = 'GO Campus Redingenhof';
-    
-    // Voeg elementen toe aan de footer container
-    footerContainer.appendChild(quoteClone);
-    footerContainer.appendChild(pageInfo);
-    footerContainer.appendChild(datumClone);
-    
-    // Voeg de footer toe aan het document
-    const slidein = document.getElementById('slidein');
-    if (slidein) {
-      slidein.appendChild(footerContainer);
-    }
-  }
-}
-
-/**
- * Optimaliseert tabel groottes en opmaak voor printing
- */
-function optimizeTable() {
-  const table = document.querySelector('.lessentabel');
-  if (!table) return;
-  
-  // Bereken de optimale cell-breedte relatief aan de tabel
-  const columnCount = table.querySelectorAll('thead th').length;
-  
-  // Bereken de optimale font-grootte gebaseerd op aantal kolommen
-  let fontSize = '9pt';
-  if (columnCount > 4) {
-    fontSize = '8pt';
-  } else if (columnCount > 6) {
-    fontSize = '7pt';
-  }
-  
-  // Pas de tabel aan
-  table.style.fontSize = fontSize;
-  table.style.tableLayout = 'fixed';
-  table.style.width = '100%';
-  
-  // Zorg dat categorie headers duidelijk zijn
-  const categorieHeaders = table.querySelectorAll('.categorie-header th');
-  categorieHeaders.forEach(header => {
-    header.style.backgroundColor = '#eee';
-    header.style.textAlign = 'left';
-  });
-  
-  // Voorkom page-breaks binnen belangrijke rijen
-  const importantRows = table.querySelectorAll('thead tr, .categorie-header, .totaal-row, .stage-row');
-  importantRows.forEach(row => {
-    row.style.pageBreakInside = 'avoid';
-    row.style.breakInside = 'avoid';
-  });
-}
-
-/**
- * Schoont de DOM op om problemen met lege pagina's te voorkomen
- */
-function cleanupDomForPrinting() {
-  // Verberg tijdelijk alle andere elementen buiten het slidein
-  document.querySelectorAll('body > *:not(#slidein):not(script)').forEach(el => {
-    if (!el.dataset.printHidden) {
-      el.dataset.printHidden = 'true';
-      el.style.display = 'none';
-    }
-  });
-  
-  // Fix voor overflowing content die lege pagina's kan veroorzaken
-  const detailContent = document.querySelector('.detail-content');
-  if (detailContent) {
-    detailContent.style.overflow = 'visible';
-  }
-  
-  // Zorg dat de slidein correct wordt gepositioneerd
+  // BELANGRIJKE FIX: Kloon het slidein element in plaats van de hele pagina aan te passen
   const slidein = document.getElementById('slidein');
-  if (slidein) {
-    slidein.style.position = 'absolute';
-    slidein.style.top = '0';
-    slidein.style.left = '0';
-    slidein.style.transform = 'none';
+  if (!slidein) {
+    throw new Error('Slidein element niet gevonden');
   }
   
-  // Verwijder evt. lege of onnodige elementen
-  document.querySelectorAll('div:empty, p:empty').forEach(emptyEl => {
-    if (!emptyEl.hasAttribute('id') && emptyEl.children.length === 0) {
-      emptyEl.style.display = 'none';
-    }
+  // Maak een wrapper voor het printen
+  const printWrapper = document.createElement('div');
+  printWrapper.id = 'print-wrapper';
+  printWrapper.style.position = 'absolute';
+  printWrapper.style.top = '0';
+  printWrapper.style.left = '0';
+  printWrapper.style.width = '100%';
+  printWrapper.style.backgroundColor = 'white';
+  printWrapper.style.zIndex = '9999';
+  
+  // Kloon het slidein voor gebruik in het printen
+  const slideinClone = slidein.cloneNode(true);
+  slideinClone.style.position = 'static';
+  slideinClone.style.transform = 'none';
+  slideinClone.style.maxWidth = 'none';
+  slideinClone.style.width = '100%';
+  slideinClone.style.height = 'auto';
+  slideinClone.style.overflow = 'visible';
+  
+  // Verberg actieknoppen en sluitknop in de kopie
+  const actionsToHide = slideinClone.querySelectorAll('.action-buttons, .close-btn');
+  actionsToHide.forEach(el => {
+    el.style.display = 'none';
   });
+  
+  // Maak een professionele footer voor de printversie
+  const footerContainer = document.createElement('div');
+  footerContainer.id = 'print-footer-container';
+  footerContainer.style.borderTop = '1px solid #000';
+  footerContainer.style.marginTop = '20px';
+  footerContainer.style.paddingTop = '10px';
+  footerContainer.style.display = 'flex';
+  footerContainer.style.justifyContent = 'space-between';
+  
+  const quote = document.createElement('div');
+  quote.textContent = 'SAMEN VER!';
+  quote.style.fontStyle = 'italic';
+  quote.style.fontWeight = 'bold';
+  
+  const campusInfo = document.createElement('div');
+  campusInfo.textContent = 'GO Campus Redingenhof';
+  
+  const datumEl = document.createElement('div');
+  const today = new Date();
+  datumEl.textContent = 'Afgedrukt op: ' + today.toLocaleDateString("nl-BE");
+  
+  footerContainer.appendChild(quote);
+  footerContainer.appendChild(campusInfo);
+  footerContainer.appendChild(datumEl);
+  
+  // Voeg footer toe aan slidein kloon
+  slideinClone.appendChild(footerContainer);
+  
+  // Voeg de slidein kloon toe aan de print wrapper
+  printWrapper.appendChild(slideinClone);
+  
+  // Voeg de print wrapper toe aan de body
+  document.body.appendChild(printWrapper);
+  
+  // BELANGRIJKE FIX: Gebruik een print-specifieke stylesheet
+  const printStylesheet = document.createElement('style');
+  printStylesheet.id = 'print-specific-style';
+  printStylesheet.textContent = `
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      
+      #print-wrapper, #print-wrapper * {
+        visibility: visible !important;
+      }
+      
+      #print-wrapper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+      
+      @page {
+        size: A4 portrait;
+        margin: 1.5cm 1cm 1.8cm 1cm;
+      }
+      
+      .lessentabel {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: auto;
+      }
+      
+      .lessentabel th, .lessentabel td {
+        border: 1px solid #000;
+        padding: 0.5cm 0.2cm;
+      }
+      
+      .lessentabel thead {
+        display: table-header-group;
+      }
+      
+      tr {
+        page-break-inside: avoid;
+      }
+      
+      .categorie-header, .totaal-row, .stage-row {
+        page-break-inside: avoid;
+      }
+    }
+  `;
+  
+  document.head.appendChild(printStylesheet);
 }
 
 /**
  * Herstel de pagina na het afdrukken
+ * @param {string} originalBodyContent - De originele HTML content van de body
  */
-function restoreFromPrint() {
-  // Verwijder de printmodus klasse
-  document.body.classList.remove('print-mode');
+function restoreFromPrint(originalBodyContent) {
+  // Verwijder de print wrapper als die bestaat
+  const printWrapper = document.getElementById('print-wrapper');
+  if (printWrapper) {
+    printWrapper.remove();
+  }
+  
+  // Verwijder de print-specifieke stylesheet
+  const printStylesheet = document.getElementById('print-specific-style');
+  if (printStylesheet) {
+    printStylesheet.remove();
+  }
   
   // Herstel de originele paginatitel
   const titleElement = document.querySelector('title');
@@ -274,50 +267,4 @@ function restoreFromPrint() {
     titleElement.textContent = titleElement.dataset.originalTitle;
     delete titleElement.dataset.originalTitle;
   }
-  
-  // Verwijder de print footer container
-  const footerContainer = document.getElementById('print-footer-container');
-  if (footerContainer) {
-    footerContainer.remove();
-  }
-  
-  // Herstel eerder verborgen elementen
-  document.querySelectorAll('[data-print-hidden="true"]').forEach(el => {
-    el.style.display = '';
-    delete el.dataset.printHidden;
-  });
-  
-  // Herstel de instellingen voor sliding paneel
-  const slidein = document.getElementById('slidein');
-  if (slidein) {
-    slidein.style.position = '';
-    slidein.style.top = '';
-    slidein.style.left = '';
-    slidein.style.transform = '';
-  }
-  
-  // Herstel flow van content
-  const detailContent = document.querySelector('.detail-content');
-  if (detailContent) {
-    detailContent.style.overflow = '';
-  }
-  
-  // Herstel tabelstijlen
-  resetTableStyles();
-}
-
-/**
- * Reset tabelstijlen na printen
- */
-function resetTableStyles() {
-  const table = document.querySelector('.lessentabel');
-  if (!table) return;
-  
-  // Reset tabel stijlen
-  table.style = '';
-  
-  // Reset alle rijen en cellen
-  table.querySelectorAll('tr, th, td').forEach(el => {
-    el.style = '';
-  });
 }
