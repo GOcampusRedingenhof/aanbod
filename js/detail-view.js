@@ -13,7 +13,14 @@ export function renderSlidein(klas, lessen, voetnoten) {
   // Update het slidein element met de juiste domein data voor styling
   const slideinEl = document.getElementById("slidein");
   slideinEl.dataset.domain = domeinKey;
-
+  
+  // NIEUW: Haal de domein kleuren op en pas ze toe als CSS variabelen
+  const domeinMeta = getDomeinMeta(domeinKey);
+  slideinEl.style.setProperty('--app-domain-base', domeinMeta.base);
+  slideinEl.style.setProperty('--app-domain-mid', domeinMeta.mid);
+  slideinEl.style.setProperty('--app-domain-light1', domeinMeta.light1);
+  slideinEl.style.setProperty('--app-domain-hover', domeinMeta.hover);
+  
   // Vul de basisinformatie in
   document.getElementById("opleiding-titel").textContent = klas.richting;
   document.getElementById("opleiding-beschrijving").textContent = klas.beschrijving || '';
@@ -40,6 +47,17 @@ export function renderSlidein(klas, lessen, voetnoten) {
     document.getElementById("slidein").classList.remove("open");
     document.getElementById("overlay").classList.remove("active");
   });
+  
+  // NIEUW: Voeg een event listener toe voor afdrukken om de inhoud te optimaliseren
+  window.addEventListener('beforeprint', function() {
+    // Voeg een klasse toe aan de body voor print-specifieke styling
+    document.body.classList.add('print-mode');
+    
+    // Voeg na het afdrukken de klasse weer weg
+    window.addEventListener('afterprint', function() {
+      document.body.classList.remove('print-mode');
+    }, { once: true });
+  });
 }
 
 /**
@@ -53,7 +71,14 @@ function generateTabelPerKlas(lessen, hoofdKlas) {
     perKlas[les.klascode].push(les);
   });
 
-  const klasCodes = Object.keys(perKlas).sort();
+  // NIEUW: Filter klascodes om alleen die van dezelfde graad als hoofdKlas te behouden
+  const klasCodes = Object.keys(perKlas).sort().filter(code => {
+    // Zoek de graad van deze klascode op in LessentabellenApp.klassen
+    const klas = window.LessentabellenApp.klassen.find(k => k.klascode === code);
+    // Alleen behouden als de graad overeenkomt met de hoofdKlas
+    return klas && klas.graad === hoofdKlas.graad;
+  });
+  
   if (klasCodes.length === 0) return '<p>Geen lessentabel beschikbaar.</p>';
 
   // Haal de klassen informatie op
