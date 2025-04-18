@@ -576,8 +576,10 @@ klascode,vak,categorie,type,subvak,optie,uren
 3MWW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,4
 3MWW,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,4
 3MWW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3MWW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
 3MWW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
 3MWW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+3MWW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 3MWW,Maatschappij en welzijn,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 3MWW,Filosofie,specifiek gedeelte,vak,WAAR,ONWAAR,1
 3MWW,Gedragswetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,4
@@ -591,9 +593,9 @@ klascode,vak,categorie,type,subvak,optie,uren
 4MWW,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,4
 4MWW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 4MWW,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-4MWW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+4MWW,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,-
 4MWW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
-4MWW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+4MWW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 4MWW,Maatschappij en welzijn,specifiek gedeelte,header,ONWAAR,ONWAAR,
 4MWW,Filosofie,specifiek gedeelte,vak,WAAR,ONWAAR,2
 4MWW,Gedragswetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,4
