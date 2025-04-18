@@ -1,5 +1,5 @@
 // print-handler.js
-// Module voor alle printfunctionaliteit
+// Verbeterde module voor printfunctionaliteit met bestandsnaamgeneratie
 
 /**
  * Initialiseert de printfunctionaliteit
@@ -35,17 +35,107 @@ function handlePrint(e, klas) {
   
   // Stel een korte timeout in om zeker te zijn dat de DOM is bijgewerkt
   setTimeout(() => {
+    // Genereer en stel de bestandsnaam in (werkt in Chrome en sommige andere browsers)
+    setFilename(klas);
+    
     // Start het printproces
     window.print();
     
-    // Trigger de afterprint handler als die niet automatisch wordt aangeroepen
-    // Sommige browsers triggeren geen afterprint event
+    // Luister voor het afterprint event (browser-ondersteund)
+    window.addEventListener('afterprint', restoreFromPrint, { once: true });
+    
+    // Backup voor browsers die geen afterprint event triggeren
     setTimeout(() => {
       if (document.body.classList.contains('print-mode')) {
         restoreFromPrint();
       }
     }, 2000);
   }, 100);
+}
+
+/**
+ * Genereert en stelt een bestandsnaam in voor de afdruk
+ * @param {Object} klas - Het klasobject met richting, graad, etc.
+ */
+function setFilename(klas) {
+  try {
+    // Bereid een betekenisvolle bestandsnaam voor
+    let filename = 'Lessentabel';
+    
+    if (klas) {
+      // Haal de graad op (indien beschikbaar)
+      if (klas.graad) {
+        const graad = klas.graad.toLowerCase().replace(/\s+/g, '-');
+        filename += `_${graad}`;
+      }
+      
+      // Voeg de richting toe (indien beschikbaar)
+      if (klas.richting) {
+        // Verwijder speciale tekens en vervang spaties met streepjes
+        const richting = klas.richting
+          .toLowerCase()
+          .replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')
+          .replace(/\s+/g, '-');
+        filename += `_${richting}`;
+      }
+      
+      // Voeg de klascode toe voor unieke identificatie
+      if (klas.klascode) {
+        filename += `_${klas.klascode}`;
+      }
+      
+      // Voeg de datum toe
+      const date = new Date();
+      const dateStr = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+      filename += `_${dateStr}`;
+    }
+    
+    // Zorg ervoor dat de bestandsnaam geldig is voor bestandssystemen
+    filename = filename.replace(/[^\w\-]/g, '_');
+    
+    // Stel de bestandsnaam in via HTML
+    const titleElement = document.querySelector('title');
+    if (titleElement) {
+      // Bewaar de originele titel om later te herstellen
+      const originalTitle = titleElement.textContent;
+      titleElement.dataset.originalTitle = originalTitle;
+      
+      // Stel de nieuwe titel in (wordt in sommige browsers gebruikt als bestandsnaam)
+      titleElement.textContent = `${filename}.pdf`;
+    }
+    
+    // Voeg data-attributes toe voor debug en toekomstige functionaliteit
+    const slideinEl = document.getElementById('slidein');
+    if (slideinEl) {
+      slideinEl.dataset.printFilename = filename;
+    }
+    
+    // Voor Chrome: probeer de bestandsnaam in te stellen via script (alleen in Chrome)
+    try {
+      if (window.chrome) {
+        const style = document.createElement('style');
+        style.id = 'print-filename-style';
+        style.textContent = `
+          @page {
+            size: A4;
+            margin: 1cm;
+            marks: none;
+          }
+          @page :first {
+            margin-top: 1cm;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    } catch (err) {
+      console.log('Chrome-specifieke aanpassingen niet toegepast:', err);
+    }
+    
+    return filename;
+  } catch (error) {
+    console.error('Fout bij genereren bestandsnaam:', error);
+    return 'Lessentabel';
+  }
 }
 
 /**
@@ -71,147 +161,102 @@ function optimizeForPrint(klas) {
   // Voeg een klasse toe aan de body voor print-specifieke styling
   document.body.classList.add('print-mode');
   
+  // Configureer proefessionele print-layout
+  configurePageForPrint();
+  
   // Bereken en pas relatieve hoogtes aan om op één pagina te passen
   adjustTableSizesForPrint();
   
-  // Voeg attributen toe voor het genereren van de bestandsnaam
-  if (klas) {
-    try {
-      const graad = klas.graad ? klas.graad.toLowerCase().replace(/\s+/g, '-') : '';
-      const richting = klas.richting ? klas.richting.toLowerCase().replace(/\s+/g, '-') : '';
-      
-      // Voeg data-attributen toe aan het print container element
-      const slideinEl = document.getElementById('slidein');
-      if (slideinEl) {
-        slideinEl.dataset.printGraad = graad;
-        slideinEl.dataset.printRichting = richting;
-        slideinEl.dataset.printFilename = `#RDNGN - ${graad} - ${richting}`;
-      }
-    } catch (error) {
-      console.error('Fout bij instellen bestandsnaam:', error);
-    }
-  }
-  
-  // Luister naar window print events voor opruimen
-  window.addEventListener('afterprint', restoreFromPrint, { once: true });
+  // Maak een profesionele printfooter
+  createProfessionalFooter();
 }
 
 /**
- * Herstel de pagina na het afdrukken
+ * Configureert de pagina voor professionele afdruk
  */
-function restoreFromPrint() {
-  // Verwijder de printmodus klasse
-  document.body.classList.remove('print-mode');
-  
-  // Herstel oorspronkelijke afmetingen
-  resetTableSizes();
-  
-  // Verwijder eventuele print-specifieke attributen
-  const slideinEl = document.getElementById('slidein');
-  if (slideinEl) {
-    delete slideinEl.dataset.printGraad;
-    delete slideinEl.dataset.printRichting;
-    delete slideinEl.dataset.printFilename;
-  }
-}
-
-/**
- * Past tabel groottes aan voor optimale printweergave
- */
-function adjustTableSizesForPrint() {
-  const table = document.querySelector('.lessentabel');
-  if (!table) return;
-  
-  // Detecteer de grootte van de tabel
-  const columnCount = table.querySelectorAll('thead th').length;
-  const rowCount = table.querySelectorAll('tbody tr').length;
-  
-  // Pas lettergroottes aan op basis van tabelgrootte
-  if (columnCount > 3 || rowCount > 15) {
-    // Voor grote tabellen extra verkleinen
-    table.style.fontSize = '0.65rem';
-    
-    // Verkleinde padding
-    const cells = table.querySelectorAll('th, td');
-    cells.forEach(cell => {
-      cell.style.padding = '0.15rem 0.35rem';
-    });
-  } else {
-    // Normale verkleining voor kleinere tabellen
-    table.style.fontSize = '0.75rem';
-  }
-  
-  // Compactere cell spacing
-  table.style.borderSpacing = '0';
-  
-  // Maak headers compacter
-  const headers = table.querySelectorAll('thead th');
-  headers.forEach(header => {
-    header.style.padding = '0.25rem 0.4rem';
-  });
-  
-  // Verklein de titelheader
-  const titleElement = document.getElementById('opleiding-titel');
-  if (titleElement) {
-    titleElement.style.fontSize = '1.2rem';
-    titleElement.style.marginBottom = '0.5rem';
-  }
-  
-  // Verklein de beschrijving
-  const descriptionElement = document.getElementById('opleiding-beschrijving');
-  if (descriptionElement) {
-    descriptionElement.style.fontSize = '0.85rem';
-    descriptionElement.style.marginBottom = '0.5rem';
-  }
-  
-  // Print-optimalisatie voor logo
+function configurePageForPrint() {
+  // Toon het logo
   const logoElement = document.querySelector('.logo-print');
   if (logoElement) {
     logoElement.style.display = 'block';
-    logoElement.style.maxWidth = '100px';
-    logoElement.style.margin = '0 auto 0.5rem';
   }
   
-  // Zet de tabel in een outer container om pagebreaks te voorkomen
-  const tableContainer = document.getElementById('lessentabel-container');
-  if (tableContainer) {
-    tableContainer.style.pageBreakInside = 'avoid';
-    tableContainer.style.breakInside = 'avoid';
+  // Optimaliseer titel en beschrijving
+  const titleElement = document.getElementById('opleiding-titel');
+  if (titleElement) {
+    titleElement.style.fontSize = '16pt';
+    titleElement.style.marginBottom = '6pt';
+    titleElement.style.textAlign = 'left';
   }
   
-  // Verbeterde positie van footers
-  positionFootersForPrint();
+  const descriptionElement = document.getElementById('opleiding-beschrijving');
+  if (descriptionElement) {
+    descriptionElement.style.fontSize = '9pt';
+    descriptionElement.style.marginBottom = '10pt';
+    descriptionElement.style.textAlign = 'left';
+  }
+  
+  // Verberg UI-elementen
+  const actionButtons = document.querySelector('.action-buttons');
+  if (actionButtons) {
+    actionButtons.style.display = 'none';
+  }
+  
+  // Voorkom pagebreaks
+  const contentContainer = document.querySelector('.detail-content');
+  if (contentContainer) {
+    contentContainer.style.pageBreakInside = 'avoid';
+    contentContainer.style.breakInside = 'avoid';
+  }
 }
 
 /**
- * Positioneert de footers (datum, quote) beter voor afdrukken
+ * Maakt een professionele footer voor printen
  */
-function positionFootersForPrint() {
+function createProfessionalFooter() {
   const datumElement = document.querySelector('.datum');
   const quoteElement = document.querySelector('.quote');
   
   if (datumElement && quoteElement) {
-    // Creëer een footer container als die nog niet bestaat
+    // Controleer of er al een footer container bestaat
     let footerContainer = document.getElementById('print-footer-container');
     
     if (!footerContainer) {
+      // Maak een nieuwe footer container
       footerContainer = document.createElement('div');
       footerContainer.id = 'print-footer-container';
+      
+      // Zet de juiste styling
+      footerContainer.style.position = 'fixed';
+      footerContainer.style.bottom = '0.5cm';
+      footerContainer.style.left = '1cm';
+      footerContainer.style.right = '1cm';
       footerContainer.style.display = 'flex';
       footerContainer.style.justifyContent = 'space-between';
-      footerContainer.style.borderTop = '1px solid #ddd';
-      footerContainer.style.marginTop = '1rem';
-      footerContainer.style.paddingTop = '0.5rem';
+      footerContainer.style.alignItems = 'center';
+      footerContainer.style.borderTop = '1pt solid #000';
+      footerContainer.style.paddingTop = '5pt';
+      footerContainer.style.fontSize = '8pt';
       
-      // Voeg toe aan slidein na de huidige elementen
+      // Kloon de elementen om de originelen intact te houden
+      const quoteClone = quoteElement.cloneNode(true);
+      const datumClone = datumElement.cloneNode(true);
+      
+      // Voeg de pagina nummer toe als midden element
+      const pageInfo = document.createElement('div');
+      pageInfo.className = 'page-info';
+      pageInfo.style.textAlign = 'center';
+      pageInfo.innerHTML = 'Pagina <span class="pageNumber"></span>';
+      
+      // Voeg elementen toe aan de footer container
+      footerContainer.appendChild(quoteClone);
+      footerContainer.appendChild(pageInfo);
+      footerContainer.appendChild(datumClone);
+      
+      // Voeg de footer toe aan het document
       const slidein = document.getElementById('slidein');
       if (slidein) {
-        // Plaats de container voor de huidige footer-elementen
-        slidein.insertBefore(footerContainer, datumElement);
-        
-        // Verplaats datum en quote naar de container
-        footerContainer.appendChild(quoteElement.cloneNode(true));
-        footerContainer.appendChild(datumElement.cloneNode(true));
+        slidein.appendChild(footerContainer);
         
         // Verberg de originele elementen
         datumElement.style.display = 'none';
@@ -222,89 +267,124 @@ function positionFootersForPrint() {
 }
 
 /**
- * Herstel oorspronkelijke tabel groottes
+ * Past tabel groottes aan voor optimale printweergave
  */
-function resetTableSizes() {
+function adjustTableSizesForPrint() {
   const table = document.querySelector('.lessentabel');
   if (!table) return;
   
-  // Verwijder inline styles
-  table.style.fontSize = '';
-  table.style.borderSpacing = '';
+  // Zet de basis table styling
+  table.style.borderCollapse = 'collapse';
+  table.style.width = '100%';
+  table.style.pageBreakInside = 'avoid';
+  table.style.breakInside = 'avoid';
   
-  // Reset cell styles
-  const cells = table.querySelectorAll('th, td');
-  cells.forEach(cell => {
-    cell.style.padding = '';
+  // Detecteer de grootte van de tabel
+  const columnCount = table.querySelectorAll('thead th').length;
+  const rowCount = table.querySelectorAll('tbody tr').length;
+  
+  // Pas lettergroottes aan op basis van tabelgrootte
+  let fontSize = '9pt';
+  if (columnCount > 3 || rowCount > 30) {
+    fontSize = '8pt';
+  } else if (columnCount > 4 || rowCount > 40) {
+    fontSize = '7pt';
+  }
+  
+  table.style.fontSize = fontSize;
+  
+  // Geef de vaknamen kolom meer ruimte
+  const firstColumnCells = table.querySelectorAll('tr td:first-child, tr th:first-child');
+  firstColumnCells.forEach(cell => {
+    cell.style.width = '40%';
+    cell.style.textAlign = 'left';
   });
   
-  // Reset header styles
-  const titleElement = document.getElementById('opleiding-titel');
-  if (titleElement) {
-    titleElement.style.fontSize = '';
-    titleElement.style.marginBottom = '';
-  }
+  // Zet de overige kolommen equal width
+  const otherColumnWidth = `${60 / (columnCount - 1)}%`;
+  const otherColumns = table.querySelectorAll('tr td:not(:first-child), tr th:not(:first-child)');
+  otherColumns.forEach(cell => {
+    cell.style.width = otherColumnWidth;
+    cell.style.textAlign = 'center';
+  });
   
-  // Reset beschrijving styles
-  const descriptionElement = document.getElementById('opleiding-beschrijving');
-  if (descriptionElement) {
-    descriptionElement.style.fontSize = '';
-    descriptionElement.style.marginBottom = '';
-  }
-  
-  // Reset logo styles
-  const logoElement = document.querySelector('.logo-print');
-  if (logoElement) {
-    logoElement.style.display = '';
-    logoElement.style.maxWidth = '';
-    logoElement.style.margin = '';
-  }
-  
-  // Reset table container styles
+  // Voeg ruimte onderaan toe voor de footer
   const tableContainer = document.getElementById('lessentabel-container');
   if (tableContainer) {
-    tableContainer.style.pageBreakInside = '';
-    tableContainer.style.breakInside = '';
-  }
-  
-  // Verwijder de footer container indien aanwezig
-  const footerContainer = document.getElementById('print-footer-container');
-  if (footerContainer) {
-    footerContainer.remove();
-    
-    // Herstel de originele footer elementen
-    const datumElement = document.querySelector('.datum');
-    const quoteElement = document.querySelector('.quote');
-    
-    if (datumElement && quoteElement) {
-      datumElement.style.display = '';
-      quoteElement.style.display = '';
-    }
+    tableContainer.style.marginBottom = '2cm';
   }
 }
 
 /**
- * Verzorgt bestandsnaamgeneratie voor de download
+ * Herstel de pagina na het afdrukken
  */
-export function setupFilenameObserver() {
-  // Dit is een polyfill functie voor browsers die geen filename ondersteuning hebben
-  // Deze observer kan later worden gebruikt als er download-functionaliteit wordt toegevoegd
+function restoreFromPrint() {
+  // Verwijder de printmodus klasse
+  document.body.classList.remove('print-mode');
   
-  try {
-    // Controleer of we in een printdialoog zitten door een MutationObserver te gebruiken
-    const observer = new MutationObserver(mutations => {
-      // Zoek het slidein element met printdata
-      const slidein = document.getElementById('slidein');
-      if (slidein && slidein.dataset.printFilename) {
-        // Hier zouden we eventueel de filename kunnen instellen
-        console.log('Printing with filename:', slidein.dataset.printFilename);
-      }
-    });
-    
-    // Observeer het document.body element voor veranderingen
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-    
-  } catch (error) {
-    console.error('Fout bij setup filename observer:', error);
+  // Herstel de originele paginatitel
+  const titleElement = document.querySelector('title');
+  if (titleElement && titleElement.dataset.originalTitle) {
+    titleElement.textContent = titleElement.dataset.originalTitle;
+    delete titleElement.dataset.originalTitle;
   }
+  
+  // Verwijder de print-style tag als die bestaat
+  const printStyle = document.getElementById('print-filename-style');
+  if (printStyle) {
+    printStyle.remove();
+  }
+  
+  // Verwijder de print footer container
+  const footerContainer = document.getElementById('print-footer-container');
+  if (footerContainer) {
+    footerContainer.remove();
+  }
+  
+  // Herstel zichtbaarheid van originele elementen
+  const datumElement = document.querySelector('.datum');
+  const quoteElement = document.querySelector('.quote');
+  if (datumElement) datumElement.style.display = '';
+  if (quoteElement) quoteElement.style.display = '';
+  
+  // Herstel logo zichtbaarheid
+  const logoElement = document.querySelector('.logo-print');
+  if (logoElement) {
+    logoElement.style.display = '';
+  }
+  
+  // Herstel actieknoppen
+  const actionButtons = document.querySelector('.action-buttons');
+  if (actionButtons) {
+    actionButtons.style.display = '';
+  }
+  
+  // Herstel inline styles van tabel
+  const table = document.querySelector('.lessentabel');
+  if (table) {
+    table.style = '';
+    
+    // Reset alle cell styles
+    const cells = table.querySelectorAll('th, td');
+    cells.forEach(cell => {
+      cell.style = '';
+    });
+  }
+  
+  // Herstel container styles
+  const contentContainer = document.querySelector('.detail-content');
+  if (contentContainer) {
+    contentContainer.style = '';
+  }
+  
+  const tableContainer = document.getElementById('lessentabel-container');
+  if (tableContainer) {
+    tableContainer.style = '';
+  }
+  
+  // Herstel titel en beschrijving
+  const titleHeader = document.getElementById('opleiding-titel');
+  const descriptionElement = document.getElementById('opleiding-beschrijving');
+  if (titleHeader) titleHeader.style = '';
+  if (descriptionElement) descriptionElement.style = '';
 }
