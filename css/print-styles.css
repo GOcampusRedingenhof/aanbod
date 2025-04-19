@@ -1,8 +1,8 @@
-/* css/print-styles.css - Verbeterde versie met betere foutafhandeling */
+/* css/print-styles.css - Vereenvoudigde versie */
 
-/* Algemene printinstellingen */
+/* Alleen printstijlen */
 @media print {
-  /* Reset body styles */
+  /* Reset body */
   body {
     margin: 0 !important;
     padding: 0 !important;
@@ -11,32 +11,6 @@
     background: none !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    width: 100% !important;
-    height: auto !important;
-    overflow: visible !important;
-    min-height: 0 !important;
-  }
-
-  /* Print header elementen */
-  .print-header {
-    display: block !important;
-    margin-bottom: 0.5rem !important;
-  }
-
-  .print-logo {
-    height: 40px !important;
-    max-width: 200px !important;
-  }
-
-  .print-footer {
-    display: block !important;
-    position: fixed !important;
-    bottom: 0.5cm !important;
-    left: 1cm !important;
-    right: 1cm !important;
-    text-align: right !important;
-    font-size: 8pt !important;
-    color: #333 !important;
   }
 
   /* Elementen verbergen die niet geprint moeten worden */
@@ -44,8 +18,6 @@
   nav,
   footer,
   .domains-grid,
-  .slide-in,
-  .screen-only,
   .close-btn,
   .action-buttons,
   #overlay,
@@ -65,17 +37,9 @@
     padding: 0 !important;
     margin: 0 !important;
     overflow: visible !important;
-    z-index: auto !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    border: none !important;
-    background: none !important;
   }
 
   /* Content containers */
-  #print-content,
   .print-container,
   .lessentabellen-wrapper,
   .detail-content {
@@ -85,13 +49,6 @@
     overflow: visible !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* Voorkom dat content wordt afgekapt */
-  * {
-    overflow: visible !important;
   }
 
   /* Tabelstijlen voor printen */
@@ -101,9 +58,6 @@
     border-collapse: collapse !important;
     font-size: 9pt !important;
     margin: 0.5cm auto !important;
-    table-layout: fixed !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
     border: 1px solid #999 !important;
   }
 
@@ -111,33 +65,26 @@
   .lessentabel td {
     padding: 3px !important;
     border: 1px solid #999 !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
     font-size: 9pt !important;
-    max-width: 100% !important;
   }
 
   .lessentabel thead th {
     background: #f0f0f0 !important;
     color: black !important;
     font-weight: bold !important;
-    font-size: 9pt !important;
   }
 
   .categorie-header th {
     background: #e0e0e0 !important;
     color: black !important;
     font-weight: bold !important;
-    font-size: 9pt !important;
-    text-align: left !important;
   }
 
-  /* Verbeterde titelstijlen voor printen */
+  /* Titelstijlen voor printen */
   #opleiding-titel {
     font-size: 16pt !important;
     margin-top: 0.5cm !important;
     margin-bottom: 0.3cm !important;
-    padding-bottom: 5px !important;
     text-align: center !important;
     color: black !important;
   }
@@ -145,17 +92,8 @@
   #opleiding-beschrijving {
     font-size: 9pt !important;
     margin-bottom: 0.3cm !important;
-    line-height: 1.3 !important;
-    max-width: 100% !important;
     text-align: center !important;
     color: black !important;
-  }
-
-  .detail-header {
-    margin-bottom: 0.5cm !important;
-    page-break-after: avoid !important;
-    break-after: avoid !important;
-    border: none !important;
   }
 
   /* Voetnoten */
@@ -165,24 +103,6 @@
     padding: 5px !important;
     background: none !important;
     border-top: 1px solid #ccc !important;
-    page-break-before: avoid !important;
-    break-before: avoid !important;
-    color: black !important;
-  }
-
-  .footnotes h4 {
-    font-size: 9pt !important;
-    margin: 0 0 0.3cm 0 !important;
-    color: black !important;
-  }
-
-  .footnotes ul {
-    margin: 0 !important;
-    padding-left: 15px !important;
-  }
-
-  .footnotes li {
-    margin-bottom: 3px !important;
     color: black !important;
   }
 
@@ -212,50 +132,6 @@
     background-color: #f5f5f5 !important;
   }
 
-  /* Schaalaanpassingen voor grote tabellen */
-  /* Deze klassen worden dynamisch toegevoegd door JavaScript */
-  .print-scale-80 .lessentabel {
-    font-size: 8pt !important;
-  }
-  
-  .print-scale-70 .lessentabel {
-    font-size: 7pt !important;
-  }
-  
-  .print-scale-60 .lessentabel {
-    font-size: 6pt !important;
-  }
-  
-  /* Specifieke optimalisaties o.b.v. DOM-klassen */
-  .scaled-for-print .lessentabel {
-    font-size: 8pt !important;
-  }
-  
-  .scaled-for-print .lessentabel td,
-  .scaled-for-print .lessentabel th {
-    padding: 2px 3px !important;
-  }
-  
-  /* Extra kleine tabellen */
-  .scaled-for-print.extreme .lessentabel {
-    font-size: 7pt !important;
-  }
-  
-  .scaled-for-print.extreme .lessentabel td,
-  .scaled-for-print.extreme .lessentabel th {
-    padding: 1px 2px !important;
-  }
-  
-  /* Page-break controle */
-  #lessentabel-container {
-    page-break-before: auto !important;
-    page-break-after: auto !important;
-    page-break-inside: avoid !important;
-    break-before: auto !important;
-    break-after: auto !important;
-    break-inside: avoid !important;
-  }
-  
   /* Branding */
   .logo-print {
     display: block !important;
@@ -279,88 +155,6 @@
     font-weight: bold !important;
     color: #333 !important;
   }
-  
-  /* Force zichtbaarheid van belangrijke print elementen */
-  .logo-print,
-  .datum,
-  .quote {
-    visibility: visible !important;
-    opacity: 1 !important;
-    display: block !important;
-  }
-  
-  /* Print in lagen oplossen */
-  body * {
-    transform: none !important;
-    transition: none !important;
-    animation: none !important;
-  }
-  
-  /* Extra aanpassingen voor grote tabellen */
-  table {
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-  
-  /* Verbeterde compatibiliteit met nieuwe browsers */
-  @supports(overflow: -webkit-paged-x) or (overflow: -moz-paged-x) {
-    #slidein {
-      overflow: visible !important;
-      display: block !important;
-      position: static !important;
-    }
-    
-    .lessentabel {
-      page-break-inside: avoid !important;
-      break-inside: avoid !important;
-    }
-  }
-  
-  /* Zorgt dat alles zichtbaar is en er geen raar afsnijden gebeurt */
-  html, body {
-    height: auto !important;
-    overflow: visible !important;
-  }
-  
-  /* Specifieke fix voor transform */
-  #slidein, .lessentabel, .footnotes {
-    transform: none !important;
-    transform-origin: unset !important;
-  }
-  
-  /* Reset van alle mogelijke animaties */
-  * {
-    transition: none !important;
-    animation: none !important;
-  }
-  
-  /* Fix voor tabel headers */
-  .lessentabel thead th {
-    position: static !important; /* Voorkomt sticky positioning tijdens printen */
-  }
-  
-  /* Zorg dat alle tabel cellen goed geprint worden, ook als ze veel tekst bevatten */
-  .lessentabel td {
-    vertical-align: top !important;
-    height: auto !important;
-    max-height: none !important;
-  }
-  
-  /* Specifieke verbeteringen voor browser compatibiliteit */
-  /* Chrome/Edge specifieke verbeteringen */
-  @media print and (-webkit-min-device-pixel-ratio:0) {
-    .lessentabel {
-      width: 100% !important;
-    }
-  }
-  
-  /* Firefox specifieke verbeteringen */
-  @-moz-document url-prefix() {
-    .lessentabel {
-      width: 100% !important;
-      page-break-inside: avoid !important;
-    }
-  }
 }
 
 /* Schermversie styles - zorgt dat print elementen niet zichtbaar zijn in browser */
@@ -373,94 +167,13 @@
     display: none !important;
   }
   
-  /* Reset print schaalklassen */
-  .scaled-for-print,
-  .print-scale-80,
-  .print-scale-70,
-  .print-scale-60 {
-    /* Reset deze classes bij schermweergave */
-  }
-  
-  /* Zorg dat transition animaties alleen werken op scherm niet tijdens printen */
-  #slidein {
+  body:not(.print-mode) #slidein {
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
   
-  .close-btn, 
-  .action-buttons a,
-  .action-buttons button {
+  body:not(.print-mode) .close-btn, 
+  body:not(.print-mode) .action-buttons a,
+  body:not(.print-mode) .action-buttons button {
     transition: all 0.25s !important;
-  }
-}
-
-/* Fix voor afdrukproblemen in Safari */
-@media print and (color) {
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  body {
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-}
-/* Toe te voegen aan het einde van print-styles.css */
-
-/* Specifieke reset voor na het printen */
-@media screen {
-  /* Deze stijlen zorgen ervoor dat print-specifieke stijlen niet blijven hangen in schermweergave */
-  body:not(.print-mode) .lessentabel {
-    font-size: inherit !important;  /* Gebruik standaard font size */
-    max-width: none !important;
-    width: 100% !important;
-    border-collapse: separate !important;
-    margin: 1rem 0 !important;
-    transform: none !important;
-    overflow: visible !important;
-  }
-  
-  body:not(.print-mode) .lessentabel th,
-  body:not(.print-mode) .lessentabel td {
-    padding: 0.7rem 0.75rem !important;  /* Herstel normale padding */
-    font-size: inherit !important;
-  }
-  
-  /* Herstel van print-specifieke class modifiers */
-  body:not(.print-mode) #slidein {
-    transform: none !important;
-    padding: 2rem !important;  /* Herstel normale padding van slidein */
-  }
-  
-  body:not(.print-mode) #slidein.scaled-for-print,
-  body:not(.print-mode) #slidein.extreme,
-  body:not(.print-mode) #slidein.scaled-table {
-    /* Reset schaling classes na printen */
-    transform: none !important;
-  }
-  
-  body:not(.print-mode) #slidein.scaled-for-print .lessentabel,
-  body:not(.print-mode) #slidein.extreme .lessentabel,
-  body:not(.print-mode) #slidein.scaled-table .lessentabel {
-    transform: none !important;
-    font-size: inherit !important;
-  }
-  
-  /* Zorg dat all print-elementen verborgen blijven in normale weergave */
-  body:not(.print-mode) .print-header,
-  body:not(.print-mode) .print-footer,
-  body:not(.print-mode) .logo-print,
-  body:not(.print-mode) .datum,
-  body:not(.print-mode) .quote {
-    display: none !important;
-  }
-  
-  /* Zorg dat alle normale UI elementen zichtbaar zijn na het printen */
-  body:not(.print-mode) .close-btn,
-  body:not(.print-mode) .action-buttons {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
   }
 }
