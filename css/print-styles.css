@@ -1,7 +1,8 @@
 /* css/print-styles.css */
 
+/* --- Print‑specifiek --- */
 @media print {
-  /* --- Algemene reset --- */
+  /* 1. Basis-reset */
   body {
     margin: 0 !important;
     padding: 0 !important;
@@ -10,42 +11,42 @@
     background: none !important;
   }
 
-  /* --- Verberg homepage en loader --- */
+  /* 2. Verberg hoofd‑UI */
   #lessentabellen-container,
   #domains-container,
   .loader-spinner {
     display: none !important;
   }
 
-  /* --- Toon slide‑in volledig --- */
+  /* 3. Toon slide‑in */
   #slidein {
     position: static !important;
     transform: none !important;
     overflow: visible !important;
-    page-break-before: avoid !important;
     display: block !important;
+    page-break-before: avoid !important;
+    visibility: visible !important;
   }
   #overlay {
     display: none !important;
   }
 
-  /* --- Toon header/titel, content, knoppen en footer --- */
+  /* 4. Toon titel, beschrijving, knoppen, tabel, voetnoten */
   .detail-header,
   .detail-content,
   .action-buttons,
-  .print-footer {
-    display: block !important;
-  }
-
-  /* --- Lessentabel (altijd zichtbaar, geen lege pagina) --- */
+  .print-footer,
+  #opleiding-titel,
+  #opleiding-beschrijving,
   #lessentabel-container,
   .lessentabel,
-  .lessentabel thead,
-  .lessentabel tbody,
-  .lessentabel tr {
-    display: table-row-group !important;
+  #footnotes {
+    display: block !important;
+    visibility: visible !important;
     page-break-inside: avoid !important;
   }
+
+  /* 5. Lessentabel formatting */
   .lessentabel {
     width: 100% !important;
     border-collapse: collapse !important;
@@ -53,18 +54,20 @@
   .lessentabel th,
   .lessentabel td {
     border: 1px solid #000 !important;
-    padding: 0.25rem !important;
+    padding: 0.3rem !important;
     font-size: 9pt !important;
   }
 
-  /* --- Voetnoten --- */
+  /* 6. Voetnoten formatting */
   #footnotes {
     font-size: 8pt !important;
-    page-break-inside: avoid !important;
     margin-top: 1rem !important;
   }
+  #footnotes li {
+    margin-bottom: 0.3rem !important;
+  }
 
-  /* --- Achtergrondafbeelding --- */
+  /* 7. Achtergrondplaatje (zonder te licht) */
   body::before {
     content: "";
     position: fixed;
@@ -72,11 +75,11 @@
     width: 100%; height: 100%;
     background: url("https://images.squarespace-cdn.com/content/670992d66064015802d7e5dc/20828b48-569c-42e4-abd5-51dbd409f5bb/SAMEN+VER%21+%281%29.png?content-type=image%2Fpng")
                 center/cover no-repeat !important;
-    opacity: 0.1 !important;
+    opacity: 0.3 !important;
     z-index: -1 !important;
   }
 
-  /* --- Behoud scherm-transities buiten print-mode --- */
+  /* 8. Houd scherm‑transities actief buiten print‑mode */
   body:not(.print-mode) #slidein {
     transition: transform 0.35s cubic-bezier(0.16,1,0.3,1) !important;
   }
@@ -87,6 +90,7 @@
   }
 }
 
+/* --- In de browser verberg je print‑footer en achtergrond --- */
 @media screen {
   .print-footer,
   body::before {
