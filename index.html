@@ -44,14 +44,8 @@
         
         <div class="detail-content">
           <div class="action-buttons">
-            <a id="brochure-link" href="#" target="_blank">
-              <!-- SVG-icon -->
-              Brochure
-            </a>
-            <button id="print-button" type="button">
-              <!-- SVG-icon -->
-              Afdrukken
-            </button>
+            <a id="brochure-link" href="#" target="_blank">Brochure</a>
+            <button id="print-button" type="button">Afdrukken</button>
           </div>
           
           <div id="lessentabel-container">
@@ -65,7 +59,6 @@
           </div>
         </div>
         
-        <!-- Print‑footer -->
         <div class="print-footer">
           <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
           <div class="quote">SAMEN VER!</div>
@@ -77,31 +70,7 @@
   <!-- Papa Parse voor CSV verwerking -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   
-  <!-- App JavaScript - gebruik de nieuwe modulaire structuur -->
+  <!-- App JavaScript - ESM entrypoint -->
   <script type="module" src="js/index.js"></script>
-  
-  <!-- Globale error- en afterprint-handler -->
-  <script>
-    window.addEventListener('error', function(event) {
-      console.error('Globale fout:', event.error);
-      if (document.body.classList.contains('print-mode')) {
-        document.body.classList.remove('print-mode');
-        console.warn('Print‑mode verwijderd vanwege een fout');
-        const closeBtn = document.querySelector('.close-btn');
-        if (closeBtn) closeBtn.style.display = '';
-        const actionButtons = document.querySelector('.action-buttons');
-        if (actionButtons) actionButtons.style.display = '';
-      }
-    });
-
-    window.addEventListener('afterprint', function() {
-      console.log('Globale afterprint event');
-      if (window.LessentabellenApp && typeof window.LessentabellenApp.cleanupAfterPrinting === 'function') {
-        window.LessentabellenApp.cleanupAfterPrinting();
-      } else {
-        document.body.classList.remove('print-mode');
-      }
-    });
-  </script>
 </body>
 </html>
