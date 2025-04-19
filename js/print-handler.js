@@ -1,4 +1,4 @@
-// js/print-handler.js
+// 2js/print-handler.js
 
 /**
  * Initialiseert de printknop voor een specifieke klas
@@ -41,7 +41,9 @@ export function startPrintProcess(klas) {
     }
 
     const docHead = document.querySelector('head').innerHTML;
-    const title = klas.richting ? `${klas.richting}-aanbod` : document.title;
+    
+    // Gebruik de richting van de klas om de bestandsnaam te genereren
+    const title = klas.richting ? `${klas.richting.replace(/[^a-zA-Z0-9-_]/g, '_')}-aanbod` : 'lessentabel';
 
     printWindow.document.write(`
       <html>
@@ -65,18 +67,22 @@ export function startPrintProcess(klas) {
     printWindow.onload = () => {
       printWindow.focus();
       
-      try {
-        printWindow.print();
-        setTimeout(() => printWindow.close(), 500);
-        cleanupAfterPrinting();
-      } catch (error) {
-        console.error('Fout tijdens printen:', error);
-        showPrintError('Het afdrukken is mislukt. Probeer het opnieuw of neem contact op met ondersteuning.');
-      }
+      // Voeg een timeout toe voordat het printen start
+      setTimeout(() => {
+        try {
+          printWindow.print();
+          setTimeout(() => printWindow.close(), 500);
+          cleanupAfterPrinting();
+        } catch (error) {
+          console.error('Fout tijdens printen:', error);
+          showPrintError('Het afdrukken is mislukt. Probeer het opnieuw of neem contact op met ondersteuning.');
+          printWindow.close();
+        }
+      }, 500);
     };
     
   } catch (error) {
-    console.error('Fout bij printen:', error);
+    console.error('Fout bij het initialiseren van het printen:', error);
     showPrintError();
   }
 }
@@ -93,7 +99,16 @@ function showPrintError(message = 'Er is een fout opgetreden tijdens het printen
  * Cleanup: zet eventuele classes en stijlen terug
  */
 export function cleanupAfterPrinting() {
-  // Code blijft hetzelfde
+  const slidein = document.getElementById('slidein');
+  if (slidein) {
+    slidein.classList.remove('open');
+    slidein.style.removeProperty('position');
+    slidein.style.removeProperty('transform');
+  }
+
+  const overlay = document.getElementById('overlay');
+  if (overlay) overlay.classList.remove('active');
+  document.body.classList.remove('print-mode');
 }
 
 export default {
