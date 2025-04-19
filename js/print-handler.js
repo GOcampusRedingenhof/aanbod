@@ -1,211 +1,109 @@
-// print-handler.js - Verbeterde versie zonder inline CSS
+// js/print-handler.js – Module met professionele printfunctie
 
-/**
- * Houdt de huidige klas vast voor printen
- * @type {Object|null}
- */
-let currentPrintKlas = null;
-
-/**
- * Initialiseert de printHandler voor een specifieke klas
- * @param {Object} klas - Het klasobject met alle informatie
- */
-export function initPrintHandler(klas) {
-  try {
-    if (!klas || !klas.klascode) {
-      console.error('Ongeldige klas data ontvangen in initPrintHandler:', klas);
-      return;
+export function generateHTML(selectedData) {
+    // 1) Filter het Event-object eruit wanneer je deze functie vanuit een click-handler aanroept
+    if (selectedData instanceof Event) {
+        selectedData.preventDefault?.();
+        selectedData = undefined;
     }
-    
-    // Sla de klas lokaal op in deze module
-    currentPrintKlas = klas;
-    
-    console.log(`Print handler geïnitialiseerd voor klas: ${klas.klascode} (${klas.richting || 'onbekend'})`);
-    
-    // Initialiseer de print knop
-    const printButton = document.getElementById('download-pdf-button');
-    if (printButton) {
-      // Vervang de bestaande event listener om memory leaks te voorkomen
-      const newButton = printButton.cloneNode(true);
-      printButton.parentNode.replaceChild(newButton, printButton);
-      
-      // Voeg nieuwe event listener toe
-      newButton.addEventListener('click', generateHTML);
-    }
-  } catch (error) {
-    console.error('Fout bij initialiseren print handler:', error);
-  }
-}
 
-/**
- * Genereert een HTML-versie van de lessentabel in een nieuw venster
- */
-export function generateHTML() {
-  try {
-    console.log('HTML generatie gestart...');
-    
-    if (!currentPrintKlas || !currentPrintKlas.klascode) {
-      // Probeer de klas op een alternatieve manier te vinden
-      if (window.currentPrintKlas && window.currentPrintKlas.klascode) {
-        currentPrintKlas = window.currentPrintKlas;
-        console.log('Klas gevonden via window.currentPrintKlas:', currentPrintKlas.klascode);
-      } else if (window.LessentabellenApp && window.LessentabellenApp.currentKlasCode) {
-        const klasCode = window.LessentabellenApp.currentKlasCode;
-        console.log('Probeert klas te vinden met klascode:', klasCode);
-        
-        if (typeof window.LessentabellenApp.getKlasByCode === 'function') {
-          currentPrintKlas = window.LessentabellenApp.getKlasByCode(klasCode);
-          console.log('Klas gevonden via getKlasByCode:', currentPrintKlas?.klascode);
-        } else if (window.LessentabellenApp.klassen && Array.isArray(window.LessentabellenApp.klassen)) {
-          currentPrintKlas = window.LessentabellenApp.klassen.find(k => k.klascode === klasCode);
-          console.log('Klas gevonden via klassen array:', currentPrintKlas?.klascode);
-        }
-      }
-      
-      if (!currentPrintKlas || !currentPrintKlas.klascode) {
-        console.error('Geen klas informatie beschikbaar voor printen');
-        alert('Er kon geen informatie over de huidige richting worden gevonden. Probeer de pagina te verversen en selecteer de richting opnieuw.');
+    // 2) Bepaal de data die je wilt afdrukken (meegegeven of laatste geselecteerde)
+    const data = selectedData || window.LessentabellenApp.currentItem;
+    if (!data) {
+        console.error("Geen data beschikbaar om af te drukken.");
         return;
-      }
     }
-    
-    console.log('HTML generatie gestart voor:', currentPrintKlas.richting);
-    
-    // Haal originele DOM elementen op
-    const titelElement = document.getElementById('opleiding-titel');
-    const beschrijvingElement = document.getElementById('opleiding-beschrijving');
-    const tabelElement = document.querySelector('.lessentabel');
-    const voetnotenElement = document.querySelector('.footnotes');
-    
-    if (!tabelElement) {
-      console.error('Geen lessentabel gevonden in DOM');
-      alert('Kon geen lessentabel vinden om te exporteren.');
-      return;
+
+    // 3) Pak de hoofdcascade‑CSS (indien geladen) voor identieke styling
+    let cssHref = "";
+    const mainStyle = document.querySelector('link[rel="stylesheet"]');
+    if (mainStyle) cssHref = mainStyle.href;
+
+    // 4) Bouw de HTML-string voor het print‑venster
+    let html = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>${escapeHtml(data.title || data.name || "Print")}</title>`;
+    if (cssHref) {
+        html += `  <link rel="stylesheet" href="${cssHref}">`;
     }
-    
-    // Open een nieuw venster
-    const printWindow = window.open('', '_blank', 'width=800,height=600');
-    if (!printWindow) {
-      alert('Kon geen nieuw venster openen. Controleer uw popup-instellingen.');
-      return;
+    // Fallback inline‑CSS
+    html += `<style>
+    body { font-family: Arial, sans-serif; margin: 20px; color: #000; }
+    h1 { font-size: 1.6em; margin-bottom: 0.2em; }
+    p, li { font-size: 1em; line-height: 1.4; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+    th, td { border: 1px solid #333; padding: 6px; text-align: left; font-size: 0.9em; }
+    th { background: #eee; }
+    @media print {
+      body { margin: 10mm; }
+      table { page-break-inside: avoid; }
     }
-    
-    // Bepaal het pad naar het CSS bestand
-    const cssPath = 'css/print-export.css';
-    
-    // Bereid HTML content voor
-    let htmlContent = `
-    <!DOCTYPE html>
-    <html lang="nl">
-    <head>
-      <meta charset="UTF-8">
-      <title>${currentPrintKlas.richting || 'Lessentabel'} - GO Campus Redingenhof</title>
-      <link rel="stylesheet" href="${cssPath}">
-    </head>
-    <body>
-      <button class="print-button" onclick="window.print()">Afdrukken</button>
-      <div class="container">
-        <h1>${titelElement && titelElement.textContent ? titelElement.textContent : (currentPrintKlas.richting || 'Lessentabel')}</h1>
-    `;
-    
-    // Voeg beschrijving toe indien beschikbaar
-    const beschrijving = beschrijvingElement && beschrijvingElement.textContent.trim() 
-      ? beschrijvingElement.textContent 
-      : (currentPrintKlas.beschrijving || '');
-      
-    if (beschrijving) {
-      htmlContent += `<div class="description">${beschrijving}</div>`;
+</style>
+</head>
+<body>`;
+
+    // Titel, code en beschrijving
+    if (data.title || data.name) {
+        html += `<h1>${escapeHtml(data.title || data.name)}</h1>`;
     }
-    
-    // Voeg tabel toe
-    htmlContent += tabelElement.outerHTML;
-    
-    // Voeg voetnoten toe indien beschikbaar
-    if (voetnotenElement && voetnotenElement.innerHTML.trim()) {
-      htmlContent += `<div class="footnotes">${voetnotenElement.innerHTML}</div>`;
+    if (data.code) {
+        html += `<h2>Code: ${escapeHtml(data.code)}</h2>`;
     }
-    
-    // Voeg footer toe
-    let datum;
-    try {
-      datum = new Date().toLocaleDateString('nl-BE', {
-        day: '2-digit',
-        month: 'long', 
-        year: 'numeric'
-      });
-    } catch (error) {
-      datum = new Date().toLocaleDateString();
+    if (data.description || data.omschrijving) {
+        html += `<p>${escapeHtml(data.description || data.omschrijving)}</p>`;
     }
-    
-    htmlContent += `
-        <div class="footer">
-          <div>GO Campus Redingenhof</div>
-          <div>Afgedrukt op: ${datum}</div>
-        </div>
-      </div>
-      
-      <script>
-        // Auto-detect tabel grootte en pas font size aan indien nodig
-        window.onload = function() {
-          try {
-            const table = document.querySelector('table');
-            if (table) {
-              // Als tabel te breed is voor de pagina, verklein font
-              const container = document.querySelector('.container');
-              if (container && table.offsetWidth > container.offsetWidth - 40) {
-                table.style.fontSize = '10px';
-              }
-              
-              // Als tabel te hoog is, probeer pagina-einde te voorkomen
-              const containerHeight = window.innerHeight - 200;
-              if (table.offsetHeight > containerHeight) {
-                if (table.offsetHeight > containerHeight * 1.2) {
-                  table.style.fontSize = '9px';
-                }
-              }
-            }
-          } catch(e) {
-            console.error('Fout bij aanpassen tabelgrootte:', e);
-          }
+
+    // Lessentabel of lijst met sub-items
+    let lijst = Array.isArray(data.lessons)  ? data.lessons
+               : Array.isArray(data.lessen)  ? data.lessen
+               : Array.isArray(data.schedule)? data.schedule
+               : null;
+
+    if (lijst && lijst.length) {
+        const cols = Object.keys(lijst[0]).filter(k => !k.startsWith('_'));
+        html += `<table>
+  <thead>
+    <tr>${cols.map(k => `<th>${escapeHtml(capitalize(k))}</th>`).join('')}</tr>
+  </thead>
+  <tbody>`;
+        for (const row of lijst) {
+            html += `<tr>${cols.map(k => `<td>${escapeHtml(row[k] ?? '')}</td>`).join('')}</tr>`;
         }
-        
-        // Fallback als het externe CSS bestand niet kan worden geladen
-        window.addEventListener('error', function(e) {
-          if (e.target && (e.target.nodeName === 'LINK' || e.target.nodeName === 'STYLE')) {
-            console.warn('Kon extern CSS bestand niet laden, gebruiken we inline CSS');
-            
-            // Voeg basis inline CSS toe als fallback
-            var style = document.createElement('style');
-            style.textContent = 'body{font-family:Arial;line-height:1.5}' +
-                               '.container{max-width:210mm;margin:0 auto}' +
-                               'table{width:100%;border-collapse:collapse}' +
-                               'th,td{border:1px solid #333;padding:8px}' +
-                               'th{background:#f0f0f0}' +
-                               '.print-button{position:fixed;top:10px;right:10px;padding:8px;background:#007bff;color:white}' +
-                               '@media print{.print-button{display:none}}';
-            document.head.appendChild(style);
-          }
-        }, true);
-      </script>
-    </body>
-    </html>
-    `;
-    
-    // Schrijf naar het nieuwe venster
-    printWindow.document.open();
-    printWindow.document.write(htmlContent);
-    printWindow.document.close();
-    
-    console.log('HTML export succesvol gegenereerd');
-    
-  } catch (error) {
-    console.error('Onverwachte fout bij HTML generatie:', error);
-    alert('Er is een onverwachte fout opgetreden bij het genereren van de HTML: ' + error.message);
-  }
+        html += `  </tbody>
+</table>`;
+    }
+
+    // Voettekst met datum
+    const today = new Date().toLocaleDateString();
+    html += `<p style="margin-top:20px; font-size:0.8em; color:#555;">
+  Afgedrukt op ${escapeHtml(today)}
+</p>`;
+
+    html += `</body>
+</html>`;
+
+    // 5) Open het printvenster binnen de click‑actie om blokkering te vermijden
+    const w = window.open('', '_blank');
+    if (!w) {
+        console.error('Kon printvenster niet openen (popup waarschijnlijk geblokkeerd).');
+        return;
+    }
+    w.document.write(html);
+    w.document.close();
+    w.focus();
+    w.onload = () => w.print();
 }
 
-// Exporteer functies
-export default {
-  initPrintHandler,
-  generateHTML
-};
+// Helper om strings veilig in HTML te zetten
+function escapeHtml(str) {
+    return String(str ?? '').replace(/[&<>"']/g, m =>
+      ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[m]
+    );
+}
+
+// Helper om 'vaknaam' → 'Vaknaam' te maken
+function capitalize(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
