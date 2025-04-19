@@ -1,4 +1,4 @@
-// print-handler.js - Vereenvoudigde versie (alleen PDF-generatie)
+// 2print-handler.js - Vereenvoudigde versie (alleen PDF-generatie)
 // Deze module focust op betrouwbare PDF-generatie
 
 /**
