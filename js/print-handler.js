@@ -28,9 +28,14 @@ export function startPrintProcess(klas) {
   // Dynamisch title voor PDF-bestandsnaam
   if (klas.richting) document.title = `${klas.richting}-aanbod`;
 
-  // Verberg UI-elementen in slidein
+  // Zorg dat slidein zichtbaar is (class 'open')
   const slidein = document.getElementById('slidein');
   if (slidein) {
+    slidein.classList.add('open');
+    const overlay = document.getElementById('overlay');
+    if (overlay) overlay.classList.add('active');
+
+    // Verberg UI-elementen
     const closeBtn = slidein.querySelector('.close-btn');
     if (closeBtn) closeBtn.style.display = 'none';
     const actionButtons = slidein.querySelector('.action-buttons');
@@ -38,23 +43,29 @@ export function startPrintProcess(klas) {
     slidein.classList.add('print-optimized');
   }
 
-  // PDF export met html2pdf.js
-  const element = document.getElementById('slidein');
-  if (!element || typeof html2pdf !== 'function') {
-    console.error('PDF-export vereist html2pdf.js en #slidein-element.');
+  // Kies element voor PDF: als slidein open dan die, anders de hele body
+  const target = (slidein && slidein.classList.contains('open'))
+    ? slidein
+    : document.body;
+
+  if (typeof html2pdf !== 'function') {
+    console.error('PDF-export vereist html2pdf.js.');
     cleanupAfterPrinting();
     return;
   }
 
   const options = {
     margin:       0.5,
-    filename:     `${klas.richting}-aanbod.pdf`,
+    filename:     `${klas.richting || 'document'}-aanbod.pdf`,
     image:        { type: 'jpeg', quality: 0.98 },
     html2canvas:  { scale: 2 },
     jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
 
-  html2pdf().set(options).from(element).save()
+  html2pdf()
+    .set(options)
+    .from(target)
+    .save()
     .then(() => cleanupAfterPrinting())
     .catch(err => {
       console.error('PDF-fout:', err);
@@ -76,19 +87,19 @@ export function cleanupAfterPrinting() {
     window.safetyPrintTimeoutId = null;
   }
 
-  // Haal print-mode weg
+  // Haal print-mode en classes weg
   document.body.classList.remove('print-mode');
-
-  // Herstel UI in slidein
   try {
     const slidein = document.getElementById('slidein');
     if (slidein) {
+      slidein.classList.remove('open', 'print-optimized');
       const restoredClose = slidein.querySelector('.close-btn');
       if (restoredClose) restoredClose.style.display = '';
       const actionButtons = slidein.querySelector('.action-buttons');
       if (actionButtons) actionButtons.style.display = '';
-      slidein.classList.remove('print-optimized');
     }
+    const overlay = document.getElementById('overlay');
+    if (overlay) overlay.classList.remove('active');
   } catch (error) {
     console.error('Fout bij herstel UI na export:', error);
   }
