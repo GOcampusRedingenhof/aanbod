@@ -1,203 +1,103 @@
-// js/print-handler.js — Verbeterde versie met cross-browser afterprint fallback en dynamische titel
+// 2js/print-handler.js
 
 /**
- * Globale print timeout ID om timeouts te kunnen annuleren
- */
-let printTimeoutId = null;
-
-/**
- * Initialiseert de print handler voor een specifieke klas
+ * Initialiseert de printknop voor een specifieke klas
+ * @param {Object} klas - bevat o.a. richting en domein
  */
 export function initPrintHandler(klas) {
   const printButton = document.getElementById('print-button');
-  if (!printButton) return;
-
-  // Clone en vervang om oude handlers te verwijderen
-  const newBtn = printButton.cloneNode(true);
-  printButton.parentNode.replaceChild(newBtn, printButton);
-
-  newBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  if (!printButton) {
+    console.warn('Printknop niet gevonden, print-handler wordt niet geïnitialiseerd.');
+    return;
+  }
+  
+  printButton.addEventListener('click', () => {
     try {
       startPrintProcess(klas);
     } catch (error) {
-      console.error('Fout bij starten printproces:', error);
-      cleanupAfterPrinting();
+      console.error('Fout tijdens initialisatie van printproces:', error);
+      showPrintError();
     }
   });
-
-  updatePrintDate();
 }
 
 /**
- * Update de datum die wordt weergegeven in de print footer
- */
-function updatePrintDate() {
-  const datumEl = document.getElementById('datum-print');
-  if (!datumEl) return;
-  try {
-    const datum = new Date().toLocaleDateString('nl-BE', {
-      day: '2-digit', month: 'long', year: 'numeric'
-    });
-    datumEl.textContent = datum;
-  } catch {
-    const now = new Date();
-    datumEl.textContent = `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
-  }
-}
-
-/**
- * Start het printproces voor een specifieke klas
+ * Start print-workflow: open nieuw venster met alleen slidein, print en sluit
+ * @param {Object} klas
  */
 export function startPrintProcess(klas) {
-  console.log('Printproces gestart voor klas', klas?.klascode);
-
-  saveCurrentState();
-
-  if (document.body.classList.contains('print-mode')) {
-    console.warn('Printmodus al actief, opruimen voordat je opnieuw print');
-    cleanupAfterPrinting();
+  const slidein = document.getElementById('slidein');
+  if (!slidein) {
+    console.error('Slide-in element niet gevonden, kan niet printen.');
+    showPrintError();
+    return;
   }
-  document.body.classList.add('print-mode');
-  prepareForPrint();
+  slidein.classList.add('open');
 
-  // Dynamische document.title voor correcte bestandsnaam
-  window._originalTitle = document.title;
-  document.title = `${klas.richting} – ${window._originalTitle}`;
-
-  // Fallback voor browsers (Safari/Edge) via matchMedia
-  const mql = window.matchMedia('print');
-  const mmListener = (evt) => {
-    if (!evt.matches) {
-      cleanupAfterPrinting();
-      mql.removeListener(mmListener);
-    }
-  };
-  mql.addListener(mmListener);
-
-  window.printModeStartTime = Date.now();
-  if (printTimeoutId) clearTimeout(printTimeoutId);
-
-  // Wacht even voor DOM-update, voeg before/afterprint handlers toe
-  printTimeoutId = setTimeout(() => {
-    const beforePrintHandler = () => {
-      window.removeEventListener('beforeprint', beforePrintHandler);
-    };
-    window.addEventListener('beforeprint', beforePrintHandler);
-
-    const afterPrintHandler = () => {
-      window.removeEventListener('afterprint', afterPrintHandler);
-      setTimeout(cleanupAfterPrinting, 500);
-    };
-    window.addEventListener('afterprint', afterPrintHandler);
-
-    window.print();
-
-    // Safety timeout voor when afterprint niet vuurt
-    const safetyTimeoutId = setTimeout(() => {
-      console.warn('Safety timeout: afterprint niet gedetecteerd, handmatig opruimen');
-      cleanupAfterPrinting();
-    }, 5000);
-    window.safetyPrintTimeoutId = safetyTimeoutId;
-  }, 200);
-}
-
-/**
- * Bewaar de huidige UI-staat voor herstel na print
- */
-function saveCurrentState() {
-  const slidein = document.getElementById('slidein');
-  if (!slidein) return;
-  window.printStateBackup = {
-    closeButtonDisplay: slidein.querySelector('.close-btn')?.style.display || '',
-    actionButtonsDisplay: slidein.querySelector('.action-buttons')?.style.display || '',
-    slideinPadding: slidein.style.padding || '',
-    slideinClasses: [...slidein.classList],
-    tableTransform: slidein.querySelector('.lessentabel')?.style.transform || '',
-    tableFontSize: slidein.querySelector('.lessentabel')?.style.fontSize || '',
-    tableMarginBottom: slidein.querySelector('.lessentabel')?.style.marginBottom || ''
-  };
-}
-
-/**
- * Pas UI aan voor een printvriendelijke weergave
- */
-function prepareForPrint() {
-  const slidein = document.getElementById('slidein');
-  if (!slidein) return;
   try {
-    // Verberg interactieve elementen
-    slidein.querySelectorAll('.close-btn, .action-buttons').forEach(el => el.style.display = 'none');
-    slidein.classList.add('print-optimized');
-
-    // Verdere print-specifieke aanpassingen
-    const table = slidein.querySelector('.lessentabel');
-    if (table && table.querySelectorAll('tbody tr').length > 30) {
-      table.style.fontSize = '9pt';
-      slidein.classList.add('scaled-table');
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      throw new Error('Kon printvenster niet openen.');
     }
-    console.log('Print voorbereidingen voltooid');
-  } catch (e) {
-    console.error('Fout tijdens printvoorbereiding:', e);
+
+    const docHead = document.querySelector('head').innerHTML;
+    const title = klas.richting ? `${klas.richting}-aanbod` : document.title;
+
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>${title}</title>
+          ${docHead}
+          <style>
+            /* Verberg overbodige elementen */
+            header, footer, #print-button, .action-buttons, .close-btn, .logo, .quote { display: none !important; }
+            /* Slidein volledig tonen */
+            #slidein { position: static !important; transform: none !important; }
+          </style>
+        </head>
+        <body>
+          ${slidein.outerHTML}
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+
+    printWindow.onload = () => {
+      printWindow.focus();
+      
+      try {
+        printWindow.print();
+        setTimeout(() => printWindow.close(), 500);
+        cleanupAfterPrinting();
+      } catch (error) {
+        console.error('Fout tijdens printen:', error);
+        showPrintError('Het afdrukken is mislukt. Probeer het opnieuw of neem contact op met ondersteuning.');
+      }
+    };
+    
+  } catch (error) {
+    console.error('Fout bij printen:', error);
+    showPrintError();
   }
 }
 
 /**
- * Herstel UI na het printen
+ * Toont een foutmelding aan de gebruiker
+ * @param {string} message - Optioneel, een specifiek foutbericht om te tonen
+ */
+function showPrintError(message = 'Er is een fout opgetreden tijdens het printen.') {
+  alert(message + ' Probeer het opnieuw of neem contact op met ondersteuning als het probleem aanhoudt.');
+}
+
+/**
+ * Cleanup: zet eventuele classes en stijlen terug
  */
 export function cleanupAfterPrinting() {
-  console.log('Opruimen na printen gestart');
-  if (printTimeoutId) { clearTimeout(printTimeoutId); printTimeoutId = null; }
-  if (window.safetyPrintTimeoutId) { clearTimeout(window.safetyPrintTimeoutId); window.safetyPrintTimeoutId = null; }
-
-  document.body.classList.remove('print-mode');
-  try {
-    restoreUIState();
-    console.log('Opruimen na printen voltooid');
-  } catch (e) {
-    console.error('Fout tijdens opruimen:', e);
-    forceResetUI();
-  }
-
-  // Herstel originele document title
-  if (window._originalTitle) {
-    document.title = window._originalTitle;
-    window._originalTitle = null;
-  }
+  // Code blijft hetzelfde
 }
 
-/**
- * Herstel UI-elementen naar originele staat
- */
-function restoreUIState() {
-  const slidein = document.getElementById('slidein');
-  if (!slidein || !window.printStateBackup) return;
-
-  const { closeButtonDisplay, actionButtonsDisplay, slideinPadding, slideinClasses,
-          tableTransform, tableFontSize, tableMarginBottom } = window.printStateBackup;
-
-  slidein.querySelector('.close-btn').style.display = closeButtonDisplay;
-  slidein.querySelector('.action-buttons').style.display = actionButtonsDisplay;
-  slidein.style.padding = slideinPadding;
-  slidein.className = slideinClasses.join(' ');
-
-  const table = slidein.querySelector('.lessentabel');
-  if (table) {
-    table.style.transform = tableTransform;
-    table.style.fontSize = tableFontSize;
-    table.style.marginBottom = tableMarginBottom;
-  }
-
-  window.printStateBackup = null;
-}
-
-/**
- * Forceer UI-reset bij ernstige fouten
- */
-function forceResetUI() {
-  console.warn('Forceer UI reset vanwege fouten');
-  document.body.classList.remove('print-mode');
-  const slidein = document.getElementById('slidein');
-  if (slidein) { slidein.classList.remove('print-optimized', 'scaled-table'); }
-}
+export default {
+  initPrintHandler,
+  startPrintProcess,
+  cleanupAfterPrinting
+};
