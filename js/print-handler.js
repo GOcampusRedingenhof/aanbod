@@ -8,8 +8,14 @@ export function initPrintHandler(klas) {
   const printButton = document.querySelector('#print-button');
   if (!printButton) return;
 
+  // Voorkom dubbele event listeners
+  printButton.removeEventListener('click', handlePrintButtonClick);
+  window.removeEventListener('beforeprint', handleBeforePrint);
+  window.removeEventListener('afterprint', handleAfterPrint);
+  
   // Zet klascode als data attribuut op de printknop
   printButton.dataset.klas = klas.klascode;
+  printButton.dataset.richting = klas.richting || '';
 
   // Huidige datum voor in de footer
   const datumEl = document.getElementById('datum-print');
@@ -22,127 +28,188 @@ export function initPrintHandler(klas) {
     datumEl.textContent = datum;
   }
 
-  // Bind click event
-  printButton.addEventListener('click', () => {
-    startPrintProcess(klas);
-  });
+  // Bind event listeners - gebruik named functions zodat we ze later kunnen verwijderen
+  printButton.addEventListener('click', handlePrintButtonClick);
+  window.addEventListener('beforeprint', handleBeforePrint);
+  window.addEventListener('afterprint', handleAfterPrint);
+  
+  // Safety timeout om te zorgen dat de UI altijd vrijgegeven wordt
+  window.printSafetyTimeout = null;
 }
 
-/**
- * Start het printproces voor een klas
- * @param {Object} klas - Het klasobject met informatie over de richting
- */
-export function startPrintProcess(klas) {
+// Event handler voor print button
+function handlePrintButtonClick(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  
+  // Sla UI-state op
+  const originalState = saveUIState();
+  
   try {
-    // Pas documenttitel aan voor correcte PDF-bestandsnaam
-    document.title = `Lessentabel ${klas.richting} - Campus Redingenhof`;
-    
-    // Zet body in printmodus
+    // Meld browser dat we gaan afdrukken
     document.body.classList.add('print-mode');
     
-    // Prepare for print
-    prepareForPrint(klas);
+    // Bereid voor op printen
+    prepareForPrint();
     
-    // Timer om de browser genoeg tijd te geven om de layout aan te passen
-    setTimeout(() => {
-      window.print();
-      
-      // Reset na printen
-      setTimeout(() => {
-        cleanupAfterPrinting();
-      }, 1000);
-    }, 300);
-  } catch (error) {
-    console.error('Fout bij printen:', error);
-    window.print(); // Fallback: gewoon printen
-  }
-}
-
-/**
- * Bereidt het document voor op printen met automatische schaling
- * @param {Object} klas - Het klasobject
- */
-function prepareForPrint(klas) {
-  try {
-    // Haal het slide-in element op dat afgedrukt moet worden
-    const slidein = document.getElementById('slidein');
-    if (!slidein) return;
-    
-    // Verberg de actieknoppen tijdens printen
-    const actionButtons = slidein.querySelector('.action-buttons');
-    if (actionButtons) {
-      actionButtons.setAttribute('data-original-display', actionButtons.style.display);
-      actionButtons.style.display = 'none';
-    }
-    
-    // Verwijder onnodige marges en padding voor maximale printruimte
-    slidein.style.padding = '0.5cm';
-    
-    // Zoek de tabel
-    const table = slidein.querySelector('.lessentabel');
-    if (table) {
-      // Reset eerst eventuele eerdere transformaties
-      table.style.transform = '';
-      
-      // Sla originele stijlen op
-      const originalFontSize = window.getComputedStyle(table).fontSize;
-      table.setAttribute('data-original-font-size', originalFontSize);
-      
-      // Meet de tabel en het beschikbare gebied
-      const totalHeight = slidein.scrollHeight;
-      const availableHeight = 1050; // ~A4 hoogte in pixels @ 96DPI
-      
-      if (totalHeight > availableHeight) {
-        // Bereken schaalfactor om op een pagina te passen
-        const scale = availableHeight / totalHeight;
-        const scaledFontSize = parseFloat(originalFontSize) * scale;
-        
-        // Pas de tabel aan
-        table.style.fontSize = Math.max(8, Math.floor(scaledFontSize)) + 'px';
-        
-        // Maak tabelcellen compacter
-        const cells = table.querySelectorAll('td, th');
-        cells.forEach(cell => {
-          cell.style.padding = '3px';
-        });
+    // Set a safety timeout to ensure UI is released even if afterprint never fires
+    clearTimeout(window.printSafetyTimeout);
+    window.printSafetyTimeout = setTimeout(() => {
+      if (document.body.classList.contains('print-mode')) {
+        console.log('Safety timeout: resetting UI after print');
+        restoreUIState(originalState);
       }
-    }
+    }, 5000); // 5 seconden timeout
+    
+    // Print met een kleine vertraging om de browser tijd te geven om de layout aan te passen
+    setTimeout(() => window.print(), 100);
   } catch (error) {
-    console.error('Fout bij voorbereiden print:', error);
+    console.error('Print error:', error);
+    // Herstel UI bij fout
+    restoreUIState(originalState);
   }
 }
 
-/**
- * Ruimt op na het printen
- */
-function cleanupAfterPrinting() {
+// Voordat het printdialoogvenster verschijnt
+function handleBeforePrint(e) {
+  if (!document.body.classList.contains('print-mode')) {
+    // Als print werd gestart door browser (bijv. Ctrl+P) in plaats van onze knop
+    document.body.classList.add('print-mode');
+    prepareForPrint();
+  }
+}
+
+// Nadat het printdialoogvenster is gesloten
+function handleAfterPrint(e) {
+  console.log('Print dialog closed');
+  
+  // Annuleer veiligheids-timeout
+  clearTimeout(window.printSafetyTimeout);
+  
+  // Herstel UI
+  restoreUIState(saveUIState());
+}
+
+// Slaat de huidige UI-state op
+function saveUIState() {
+  return {
+    title: document.title,
+    scrollY: window.scrollY,
+    bodyClasses: [...document.body.classList],
+    slideinOpen: document.getElementById('slidein')?.classList.contains('open') || false,
+    overlayActive: document.getElementById('overlay')?.classList.contains('active') || false
+  };
+}
+
+// Herstelt UI-state
+function restoreUIState(state) {
+  if (!state) return;
+  
+  // Verwijder printmodus
   document.body.classList.remove('print-mode');
   
+  // Herstel titel
+  if (state.title) {
+    document.title = state.title;
+  }
+  
+  // Herstel slidein
+  const slidein = document.getElementById('slidein');
+  if (slidein) {
+    // Herstel padding
+    slidein.style.padding = '';
+    
+    // Zorg dat de close-knop weer werkt
+    const closeBtn = slidein.querySelector('.close-btn');
+    if (closeBtn) {
+      closeBtn.style.display = '';
+      closeBtn.style.pointerEvents = 'auto';
+    }
+    
+    // Zorg dat actieknoppen weer zichtbaar zijn
+    const actionButtons = slidein.querySelector('.action-buttons');
+    if (actionButtons) {
+      actionButtons.style.display = '';
+    }
+    
+    // Herstel tabel
+    const table = slidein.querySelector('.lessentabel');
+    if (table) {
+      table.style.fontSize = '';
+      table.style.transform = '';
+      
+      // Herstel cell padding
+      const cells = table.querySelectorAll('td, th');
+      cells.forEach(cell => {
+        cell.style.padding = '';
+      });
+    }
+    
+    // Verwijder printgerelateerde klassen
+    slidein.classList.remove('scaled-for-print');
+    slidein.classList.remove('extreme');
+  }
+  
+  // Zorg dat overlay correct is
+  const overlay = document.getElementById('overlay');
+  if (overlay) {
+    if (state.overlayActive) {
+      overlay.classList.add('active');
+    } else {
+      overlay.classList.remove('active');
+    }
+  }
+  
+  // Force een browser repaint om glitches te voorkomen
+  document.body.style.display = 'none';
+  setTimeout(() => {
+    document.body.style.display = '';
+    
+    // Herstel scroll positie
+    if (state.scrollY !== undefined) {
+      window.scrollTo(0, state.scrollY);
+    }
+  }, 5);
+}
+
+// Bereid het document voor op printen
+function prepareForPrint() {
   const slidein = document.getElementById('slidein');
   if (!slidein) return;
   
-  // Herstel de actieknoppen
-  const actionButtons = slidein.querySelector('.action-buttons');
-  if (actionButtons && actionButtons.hasAttribute('data-original-display')) {
-    actionButtons.style.display = actionButtons.getAttribute('data-original-display');
-    actionButtons.removeAttribute('data-original-display');
+  // Verberg interactieve elementen
+  const closeBtn = slidein.querySelector('.close-btn');
+  if (closeBtn) {
+    closeBtn.style.display = 'none';
+    closeBtn.style.pointerEvents = 'none';
   }
   
-  // Herstel padding
-  slidein.style.padding = '';
+  const actionButtons = slidein.querySelector('.action-buttons');
+  if (actionButtons) {
+    actionButtons.style.display = 'none';
+  }
   
-  // Herstel tabel
+  // Optimaliseer layout
+  slidein.style.padding = '0.5cm';
+  
+  // Optimaliseer tabel voor printen
   const table = slidein.querySelector('.lessentabel');
   if (table) {
-    if (table.hasAttribute('data-original-font-size')) {
-      table.style.fontSize = table.getAttribute('data-original-font-size');
-      table.removeAttribute('data-original-font-size');
-    }
+    // Reset eerst
+    table.style.fontSize = '';
+    table.style.transform = '';
     
-    // Herstel padding van cellen
-    const cells = table.querySelectorAll('td, th');
-    cells.forEach(cell => {
-      cell.style.padding = '';
-    });
+    // Meet de tabel
+    const tableHeight = table.offsetHeight;
+    
+    // Pas fontsize aan op basis van grootte
+    if (tableHeight > 900) {
+      slidein.classList.add('scaled-for-print');
+      
+      // Extreem grote tabellen nog kleiner maken
+      if (tableHeight > 1200) {
+        slidein.classList.add('extreme');
+      }
+    }
   }
 }
