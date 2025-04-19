@@ -93,6 +93,7 @@ function cleanupResources() {
     slidein.classList.remove('scaled-table');
     slidein.classList.remove('contains-scaled-table');
     slidein.classList.remove('print-optimized');
+    slidein.classList.remove('print-ready');
   }
 }
 
@@ -338,5 +339,6 @@ function showSlidein() {
   }
 }
 
-// Exporteer alleen de belangrijkste functie
+// Exporteer functies die nodig zijn voor externe modules
+export { detectAndScaleTable };
 export default renderSlidein;
