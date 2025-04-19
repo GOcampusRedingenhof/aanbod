@@ -1,103 +1,83 @@
-/* print-styles.css - Verbeterde versie voor professionele afdruk */
+/* Aangepaste print-stijlen voor één A4 en professionele look */
+
+@page {
+  size: A4 portrait;
+  margin: 15mm;
+}
 
 @media print {
-  @page {
-    size: A4 portrait;
-    margin: 1cm; /* Kleinere marges voor maximale ruimtebenutting */
+  /* Basisreset voor print */
+  html, body {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 10pt;
+    color: #000;
   }
-  
-  * {
-    -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
-    print-color-adjust: exact !important;
+
+  /* Verberg niet-printbare elementen */
+  .no-print,
+  header,
+  footer,
+  nav,
+  .button,
+  .controls {
+    display: none !important;
   }
-  
-  body {
-    font-family: Arial, sans-serif !important;
-    line-height: 1.4 !important;
-  }
-  
-  body.print-mode .logo-print {
-    display: block !important;
-    position: absolute !important;
-    top: 1cm !important;
-    right: 1cm !important;
-    width: 200px !important; /* Grotere logo grootte */
-    height: auto !important;
-    max-height: 150px !important;
-    object-fit: contain !important;
-    z-index: 100 !important;
-  }
-  
-  body.print-mode .detail-header {
-    position: relative !important;
-    padding-bottom: 10px !important;
-    border-bottom: 1px solid #ddd !important;
-    margin-bottom: 15px !important;
-  }
-  
-  body.print-mode .detail-header h2 {
-    font-size: 20pt !important;
-    margin-right: 220px !important; /* Meer ruimte voor logo */
-    color: #2B2243 !important; /* Huisstijl kleur */
-  }
-  
-  body.print-mode .detail-header p {
-    font-size: 10pt !important;
-  }
-  
-  body.print-mode .lessentabel {
+
+  /* Container vult volledige breedte */
+  .container,
+  .grid {
     width: 100% !important;
-    font-size: 10pt !important;
-    page-break-inside: avoid !important;
-    margin-bottom: 20px !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    page-break-inside: avoid;
+  }
+
+  /* Tabel-opmaak */
+  table {
+    width: 100% !important;
     border-collapse: collapse !important;
+    table-layout: fixed;
   }
-  
-  body.print-mode .lessentabel th,
-  body.print-mode .lessentabel td {
-    border: 1px solid #000 !important;
-    padding: 4px !important;
+
+  th, td {
+    padding: 4px 6px !important;
+    border: 1px solid #333 !important;
+    page-break-inside: avoid;
+    word-wrap: break-word;
   }
-  
-  body.print-mode .lessentabel thead th {
-    background-color: #f0f0f0 !important;
-    font-weight: bold !important;
+
+  /* Professionele header op print */
+  .print-header {
+    display: block;
+    text-align: center;
+    margin-bottom: 10mm;
+    font-weight: bold;
+    font-size: 12pt;
   }
-  
-  body.print-mode .footnotes {
-    font-size: 9pt !important;
-    margin-top: 15px !important;
-    border-top: 1px solid #ddd !important;
-    padding-top: 10px !important;
+
+  /* Footer met printdatum */
+  .print-footer {
+    display: block;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 8pt;
   }
-  
-  /* Footer styling */
-  body.print-mode #print-footer-container {
-    position: fixed !important;
-    bottom: 1cm !important;
-    left: 1cm !important;
-    right: 1cm !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    border-top: 1px solid #ddd !important;
-    padding-top: 5px !important;
-    font-size: 8pt !important;
+
+  /* Voorkom splitsen van rijen */
+  tr {
+    page-break-inside: avoid !important;
+    page-break-after: auto;
   }
-  
-  body.print-mode .quote {
-    font-style: italic !important;
-    font-weight: bold !important;
-    text-align: left !important;
-    color: #2B2243 !important; /* Huisstijl kleur */
-  }
-  
-  body.print-mode .datum {
-    text-align: right !important;
-  }
-  
-  body.print-mode .page-info {
-    text-align: center !important;
+
+  /* Schaal indien nodig om op één pagina te passen */
+  body {
+    transform: scale(0.95);
+    transform-origin: top left;
   }
 }
