@@ -67,5 +67,117 @@
   <!-- CSV‑parser & App entrypoint -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   <script type="module" src="js/index.js"></script>
+// Voeg dit direct vóór de sluitende </body> tag in index.html toe
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Vind de print knop en voeg event listener toe
+  const printButton = document.getElementById('print-button');
+  if (printButton) {
+    printButton.addEventListener('click', handlePrint);
+  }
+  
+  // Print functie die een nieuw venster gebruikt
+  function handlePrint() {
+    // Haal de benodigde gegevens op
+    const title = document.getElementById('opleiding-titel').textContent;
+    const tableHTML = document.querySelector('.lessentabel').outerHTML;
+    const currentDate = new Date().toLocaleDateString('nl-BE', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+    
+    // Creëer een schone print-pagina
+    const printWindow = window.open('', '_blank');
+    
+    // Schrijf clean HTML naar het nieuwe venster
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>${title} - Lessentabel</title>
+        <style>
+          @media print {
+            @page {
+              size: A4 portrait;
+              margin: 1.5cm;
+            }
+          }
+          
+          body {
+            font-family: Arial, sans-serif;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+          }
+          
+          h1 {
+            text-align: center;
+            font-size: 18pt;
+            margin-bottom: 20px;
+            color: #E399BB; /* Maatschappij & Welzijn kleur */
+          }
+          
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 10pt;
+          }
+          
+          th, td {
+            border: 1px solid #000;
+            padding: 4px 6px;
+            text-align: left;
+          }
+          
+          th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+          }
+          
+          tr.categorie-header th {
+            text-transform: uppercase;
+            background-color: #f0f0f0;
+          }
+          
+          tr.totaal-row td {
+            font-weight: bold;
+            border-top: 2px solid #000;
+          }
+          
+          tr.subvak td:first-child {
+            padding-left: 15px;
+          }
+          
+          .footer {
+            text-align: right;
+            font-size: 9pt;
+            margin-top: 20px;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>${title}</h1>
+        ${tableHTML}
+        <div class="footer">Afgedrukt op: ${currentDate}</div>
+        <script>
+          // Print meteen en sluit het venster na het printen
+          window.onload = function() {
+            window.print();
+            window.onafterprint = function() {
+              window.close();
+            };
+          };
+        </script>
+      </body>
+      </html>
+    `);
+    
+    printWindow.document.close();
+  }
+});
+</script>
 </body>
 </html>
