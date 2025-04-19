@@ -3,7 +3,6 @@
 import appController from './app-controller.js';
 import { buildGrid } from './grid-builder.js';
 import { renderSlidein } from './detail-view.js';
-import { initPrintHandler } from './print-handler.js';
 
 class LessentabellenAppClass {
   constructor() {
@@ -11,31 +10,29 @@ class LessentabellenAppClass {
     this.klassen = [];
     this.lessentabel = [];
     this.footnotes = [];
-    this.isPrinting = false;
     
     this.initEventListeners();
   }
 
   initEventListeners() {
     document.addEventListener('DOMContentLoaded', () => this.init());
-    document.addEventListener('error', this.handleGlobalError);
     
     // Overlay klik binding toevoegen voor sluiten slidein
     document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('overlay').addEventListener('click', () => this.closeSlidein());
+      const overlay = document.getElementById('overlay');
+      if (overlay) {
+        overlay.addEventListener('click', () => this.closeSlidein());
+      }
     });
-    
-    // Verbeterde print event handlers
-    window.addEventListener('beforeprint', this.handleBeforePrint.bind(this));
-    window.addEventListener('afterprint', this.handleAfterPrint.bind(this));
   }
 
   async init() {
     try {
       // Toon een loading indicatie
-      document.getElementById('domains-container').innerHTML = `
-        <div class="loader-spinner"></div>
-      `;
+      const container = document.getElementById('domains-container');
+      if (container) {
+        container.innerHTML = `<div class="loader-spinner"></div>`;
+      }
       
       await appController.initialize();
       const { klassen, lessentabel, footnotes } = appController.getData();
@@ -55,6 +52,8 @@ class LessentabellenAppClass {
 
   setupUI() {
     const container = document.getElementById('domains-container');
+    if (!container) return;
+    
     container.innerHTML = ''; // Clear container
     buildGrid(this.klassen, container);
     this.bindDomainEvents();
@@ -72,12 +71,6 @@ class LessentabellenAppClass {
   }
 
   openSlidein(klascode) {
-    // Voorkom openen tijdens printen
-    if (this.isPrinting) {
-      console.log('Kan slidein niet openen tijdens printen');
-      return;
-    }
-    
     this.currentKlasCode = klascode; // Bewaar huidige klascode
     
     // Zoek de klas op basis van klascode
@@ -113,85 +106,35 @@ class LessentabellenAppClass {
   }
 
   closeSlidein() {
-    // Voorkom sluiten tijdens printen
-    if (this.isPrinting) {
-      console.log('Kan slidein niet sluiten tijdens printen');
-      return;
-    }
+    const slidein = document.getElementById("slidein");
+    const overlay = document.getElementById("overlay");
     
-    document.getElementById("slidein").classList.remove("open");
-    document.getElementById("overlay").classList.remove("active");
-  }
-  
-  // Verbeterde print handlers
-  handleBeforePrint(event) {
-    console.log('Globale beforeprint event handler');
-    
-    // Voorkom dubbele initialisatie
-    if (this.isPrinting) return;
-    this.isPrinting = true;
-    
-    // Als er een huidige klascode is, zorg dat de print handler wordt geïnitialiseerd
-    if (this.currentKlasCode) {
-      const klas = this.klassen.find(k => k.klascode === this.currentKlasCode);
-      if (klas) {
-        this.startPrintProcess(klas);
-      }
-    }
-  }
-  
-  handleAfterPrint(event) {
-    console.log('Globale afterprint event handler');
-    this.isPrinting = false;
-    this.cleanupAfterPrinting();
+    if (slidein) slidein.classList.remove("open");
+    if (overlay) overlay.classList.remove("active");
   }
   
   // Print process management
   startPrintProcess(klas) {
     console.log('Print proces gestart voor klas', klas.klascode);
     document.body.classList.add('print-mode');
-    
-    // Zorg dat printhandler correct is geïnitialiseerd
-    initPrintHandler(klas);
-    
-    // Voorkom dat we de print methode dubbel aanroepen als dit direct van de browser komt
-    if (!this.isPrinting) {
-      this.isPrinting = true;
-      window.print();
-    }
+    window.print();
   }
   
   cleanupAfterPrinting() {
     console.log('Opruimen na afdrukken');
     document.body.classList.remove('print-mode');
-    this.isPrinting = false;
-    
-    // Forceer extra update van de UI om glitches te voorkomen
-    setTimeout(() => {
-      // Herstel visibility van knoppen en andere elementen
-      const slidein = document.getElementById('slidein');
-      if (slidein) {
-        const closeBtn = slidein.querySelector('.close-btn');
-        if (closeBtn) closeBtn.style.display = '';
-        
-        const actionButtons = slidein.querySelector('.action-buttons');
-        if (actionButtons) actionButtons.style.display = '';
-      }
-    }, 100);
   }
 
   handleInitError(error) {
     console.error('App initialisatie mislukt:', error);
     const container = document.getElementById('domains-container');
+    if (!container) return;
+    
     container.innerHTML = `
       <div class="error-message">
         Kon lessentabellen niet laden. Probeer de pagina te herladen.
       </div>
     `;
-  }
-
-  handleGlobalError(event) {
-    console.error('Onverwachte fout:', event.error);
   }
 }
 
