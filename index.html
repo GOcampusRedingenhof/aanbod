@@ -57,10 +57,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               Download PDF
             </button>
-            <button id="print-button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-              Afdrukken
-            </button>
+            <!-- Afdrukknop is verwijderd zoals gevraagd -->
           </div>
           
           <div id="lessentabel-container">
@@ -73,7 +70,7 @@
         </div>
         
        
-        <!-- Datum en quote voor printversie -->
+        <!-- Datum en quote voor printversie (behouden voor PDF) -->
         <div id="print-footer">
           <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
           <div class="quote">SAMEN VER!</div>
@@ -88,12 +85,12 @@
   <!-- App JavaScript - gebruik de nieuwe modulaire structuur -->
   <script type="module" src="js/index.js"></script>
 
-  <!-- Centraal error handler script -->
+  <!-- Centraal error handler script en datum initialisatie -->
   <script>
   // Deze functie vangt globale fouten op
   window.addEventListener('error', function(event) {
     console.error('Globale fout:', event.error);
-    // Probeer UI te resetten als er een fout is tijdens printen
+    // Probeer UI te resetten als er een fout is
     if (document.body.classList.contains('print-mode')) {
       document.body.classList.remove('print-mode');
       console.warn('Print-mode verwijderd vanwege een fout');
@@ -104,24 +101,6 @@
       
       const actionButtons = document.querySelector('.action-buttons');
       if (actionButtons) actionButtons.style.display = '';
-      
-      // Reset styling van slidein
-      const slidein = document.getElementById('slidein');
-      if (slidein) {
-        slidein.style.padding = '';
-        slidein.classList.remove('scaled-for-print');
-        slidein.classList.remove('extreme');
-        slidein.classList.remove('print-optimized');
-        slidein.classList.remove('scaled-table');
-        
-        // Herstel tabel styling
-        const table = slidein.querySelector('.lessentabel');
-        if (table) {
-          table.style.fontSize = '';
-          table.style.transform = '';
-          table.style.marginBottom = '';
-        }
-      }
     }
   });
   
@@ -137,6 +116,19 @@
         // Fallback bij fout in datumformat
         datumElement.textContent = nu.toLocaleDateString();
       }
+    }
+    
+    // Initialiseer de PDF download knop
+    const downloadButton = document.getElementById('download-pdf-button');
+    if (downloadButton) {
+      downloadButton.addEventListener('click', function() {
+        if (window.LessentabellenApp && typeof window.LessentabellenApp.generatePDF === 'function') {
+          window.LessentabellenApp.generatePDF();
+        } else {
+          console.error('PDF functie niet beschikbaar');
+          alert('PDF downloaden is momenteel niet beschikbaar. Probeer de pagina te verversen.');
+        }
+      });
     }
   });
   </script>
