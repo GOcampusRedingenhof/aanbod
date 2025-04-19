@@ -406,3 +406,61 @@
     padding: 0 !important;
   }
 }
+/* Toe te voegen aan het einde van print-styles.css */
+
+/* Specifieke reset voor na het printen */
+@media screen {
+  /* Deze stijlen zorgen ervoor dat print-specifieke stijlen niet blijven hangen in schermweergave */
+  body:not(.print-mode) .lessentabel {
+    font-size: inherit !important;  /* Gebruik standaard font size */
+    max-width: none !important;
+    width: 100% !important;
+    border-collapse: separate !important;
+    margin: 1rem 0 !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
+  
+  body:not(.print-mode) .lessentabel th,
+  body:not(.print-mode) .lessentabel td {
+    padding: 0.7rem 0.75rem !important;  /* Herstel normale padding */
+    font-size: inherit !important;
+  }
+  
+  /* Herstel van print-specifieke class modifiers */
+  body:not(.print-mode) #slidein {
+    transform: none !important;
+    padding: 2rem !important;  /* Herstel normale padding van slidein */
+  }
+  
+  body:not(.print-mode) #slidein.scaled-for-print,
+  body:not(.print-mode) #slidein.extreme,
+  body:not(.print-mode) #slidein.scaled-table {
+    /* Reset schaling classes na printen */
+    transform: none !important;
+  }
+  
+  body:not(.print-mode) #slidein.scaled-for-print .lessentabel,
+  body:not(.print-mode) #slidein.extreme .lessentabel,
+  body:not(.print-mode) #slidein.scaled-table .lessentabel {
+    transform: none !important;
+    font-size: inherit !important;
+  }
+  
+  /* Zorg dat all print-elementen verborgen blijven in normale weergave */
+  body:not(.print-mode) .print-header,
+  body:not(.print-mode) .print-footer,
+  body:not(.print-mode) .logo-print,
+  body:not(.print-mode) .datum,
+  body:not(.print-mode) .quote {
+    display: none !important;
+  }
+  
+  /* Zorg dat alle normale UI elementen zichtbaar zijn na het printen */
+  body:not(.print-mode) .close-btn,
+  body:not(.print-mode) .action-buttons {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
