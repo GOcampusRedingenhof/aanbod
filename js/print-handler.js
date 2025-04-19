@@ -1,55 +1,49 @@
 // print-handler.js
 
-/**
- * Initialiseert de printfunctionaliteit
- * @param {Object} klas - Het klasobject met richting, graad, etc.
- */
 export function initPrintHandler(klas) {
   const printBtn = document.querySelector('#print-button');
   if (printBtn) {
-    // Verwijder eventuele bestaande event listeners door kloon te maken
+    // Remove any existing event listeners by cloning
     const newBtn = printBtn.cloneNode(true);
     printBtn.parentNode.replaceChild(newBtn, printBtn);
     
-    // Voeg nieuwe event listener toe
+    // Add new event listener
     newBtn.addEventListener('click', (e) => {
       e.preventDefault();
       
-      // Controleer of app controller beschikbaar is
+      // Check if app controller is available
       if (!window.LessentabellenApp) {
-        console.error('LessentabellenApp controller niet gevonden');
+        console.error('LessentabellenApp controller not found');
         return;
       }
       
-      // Roep de centrale print functie aan op de controller
+      // Call central print function on the controller
       window.LessentabellenApp.startPrintProcess(klas);
     });
   }
   
-  // Initialiseer datum
-  initializePrintDate(klas);
-  
-  // Stel documenttitel in voor printen
-  setPrintDocumentTitle(klas);
+  // Initialize date and title
+  _initializePrintDate(klas);
+  _setPrintDocumentTitle(klas);
 }
 
 /**
- * Initialiseert de datum en titel op de pagina
- * @param {Object} klas - Het klasobject met richting, graad, etc.
+ * Initialize date on the page
+ * @param {Object} klas - The class object with direction, grade, etc.
  */
-function initializePrintDate(klas) {
+function _initializePrintDate(klas) {
   const today = new Date();
   const formattedDate = today.toLocaleDateString("nl-BE", {
     day: "2-digit", month: "2-digit", year: "numeric"
   });
 
-  // Zet datum in de datum-print span
+  // Set date in the date-print span
   const dateSpan = document.getElementById("datum-print");
   if (dateSpan) {
     dateSpan.textContent = formattedDate;
   }
 
-  // Extra check om zeker te zijn dat de datum op de footer ook wordt ingevuld
+  // Ensure date is also set in the footer
   const footerDateElement = document.querySelector('.datum');
   if (footerDateElement) {
     footerDateElement.textContent = `Afgedrukt op: ${formattedDate}`;
@@ -57,48 +51,48 @@ function initializePrintDate(klas) {
 }
 
 /**
- * Stelt een betekenisvolle documenttitel in voor het afdrukken
- * @param {Object} klas - Het klasobject waarvoor we printen
+ * Set a meaningful document title for printing
+ * @param {Object} klas - The class object for which we are printing
  */
-function setPrintDocumentTitle(klas) {
+function _setPrintDocumentTitle(klas) {
   if (!klas) return;
   
-  // Bewaar originele titel om later te herstellen
+  // Save original title to restore later
   const originalTitle = document.title;
   
-  // Genereer betekenisvolle printtitel
+  // Generate meaningful print title
   const printTitle = `Lessentabel ${klas.klascode} - ${klas.richting} - GO Campus Redingenhof`;
   
-  // Tijdelijk de documenttitel veranderen voor het printen
+  // Temporarily change document title for printing
   document.title = printTitle;
   
-  // Herstel de originele titel na het printen
+  // Restore original title after printing
   window.addEventListener('afterprint', function restoreTitle() {
     document.title = originalTitle;
-    // Verwijder deze event listener na één keer uitvoeren
+    // Remove this event listener after one execution
     window.removeEventListener('afterprint', restoreTitle);
   });
 }
 
 /**
- * Helper functie om direct een print dialoog te openen
- * @param {Object} klas - Het klasobject waarvoor we printen
+ * Open print dialog directly
+ * @param {Object} klas - The class object for which we are printing
  */
 export function printLessentabel(klas) {
-  // Voeg print class toe aan body voor speciale print styling
+  // Add print class to body for special print styling
   document.body.classList.add('print-mode');
   
-  // Zorg dat datum en titel correct zijn
-  initializePrintDate(klas);
-  setPrintDocumentTitle(klas);
+  // Ensure date and title are correct
+  _initializePrintDate(klas);
+  _setPrintDocumentTitle(klas);
   
-  // Creëer print footer als die nog niet bestaat
-  createPrintFooter(klas);
+  // Create print footer if it doesn't exist
+  _createPrintFooter(klas);
   
-  // Open printdialoog
+  // Open print dialog
   window.print();
   
-  // Schedule cleanup voor na het printen
+  // Schedule cleanup after printing
   setTimeout(() => {
     document.body.classList.remove('print-mode');
     const footer = document.getElementById('print-footer-container');
@@ -107,152 +101,29 @@ export function printLessentabel(klas) {
 }
 
 /**
- * Creëert een print footer voor de afdruk
- * @param {Object} klas - Het klasobject voor extra context indien nodig
+ * Create a print footer for the printout
+ * @param {Object} klas - The class object for additional context if needed
  */
-function createPrintFooter(klas) {
-  // Controleer of footer al bestaat
+function _createPrintFooter(klas) {
+  // Check if footer already exists
   if (document.getElementById('print-footer-container')) return;
   
-  // Creëer footer container
+  // Create footer container
   const footer = document.createElement('div');
   footer.id = 'print-footer-container';
   
-  // Voeg datum en quote toe
+  // Add date and quote
   const datum = new Date().toLocaleDateString("nl-BE", {
     day: "2-digit", month: "2-digit", year: "numeric"
   });
   
-  // Vul footer
+  // Fill footer
   footer.innerHTML = `
     <div class="quote">SAMEN VER!</div>
     <div class="page-info">Pagina <span class="pageNumber"></span></div>
     <div class="datum">Afgedrukt op: ${datum}</div>
   `;
   
-  // Voeg toe aan document
+  // Add to document
   document.body.appendChild(footer);
 }
-// print-handler.js
-
-/**
- * Initialiseert de printfunctionaliteit
- * @param {Object} klas - Het klasobject met richting, graad, etc.
- */
-export function initPrintHandler(klas) {
-  const printBtn = document.querySelector('#print-button');
-  if (printBtn) {
-    // Verwijder eventuele bestaande event listeners door kloon te maken
-    const newBtn = printBtn.cloneNode(true);
-    printBtn.parentNode.replaceChild(newBtn, printBtn);
-    
-    // Voeg nieuwe event listener toe
-    newBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      
-      // Controleer of app controller beschikbaar is
-      if (!window.LessentabellenApp) {
-        console.error('LessentabellenApp controller niet gevonden');
-        return;
-      }
-      
-      // Roep de centrale print functie aan op de controller
-      window.LessentabellenApp.startPrintProcess(klas);
-    });
-  }
-  
-  // Initialiseer datum
-  initializePrintDate(klas);
-  
-  // Stel documenttitel in voor printen
-  setPrintDocumentTitle(klas);
-}
-
-/**
- * Initialiseert de datum en titel op de pagina
- * @param {Object} klas - Het klasobject met richting, graad, etc.
- */
-function initializePrintDate(klas) {
-  const today = new Date();
-  const formattedDate = today.toLocaleDateString("nl-BE", {
-    day: "2-digit", month: "2-digit", year: "numeric"
-  });
-
-  // Zet datum in de datum-print span
-  const dateSpan = document.getElementById("datum-print");
-  if (dateSpan) {
-    dateSpan.textContent = formattedDate;
-  }
-
-  // Extra check om zeker te zijn dat de datum op de footer ook wordt ingevuld
-  const footerDateElement = document.querySelector('.datum');
-  if (footerDateElement) {
-    footerDateElement.textContent = `Afgedrukt op: ${formattedDate}`;
-  }
-}
-
-/**
- * Stelt een betekenisvolle documenttitel in voor het afdrukken
- * @param {Object} klas - Het klasobject waarvoor we printen
- */
-function setPrintDocumentTitle(klas) {
-  if (!klas) return;
-  
-  // Bewaar originele titel om later te herstellen
-  const originalTitle = document.title;
-  
-  // Genereer betekenisvolle printtitel
-  const printTitle = `Lessentabel ${klas.klascode} - ${klas.richting} - GO Campus Redingenhof`;
-  
-  // Tijdelijk de documenttitel veranderen voor het printen
-  document.title = printTitle;
-  
-  // Herstel de originele titel na het printen
-  window.addEventListener('afterprint', function restoreTitle() {
-    document.title = originalTitle;
-    // Verwijder deze event listener na één keer uitvoeren
-    window.removeEventListener('afterprint', restoreTitle);
-  });
-}
-
-/**
- * Helper functie om direct een print dialoog te openen
- * @param {Object} klas - Het klasobject waarvoor we printen
- */
-export function printLessentabel(klas) {
-  // Voeg print class toe aan body voor speciale print styling
-  document.body.classList.add('print-mode');
-  
-  // Zorg dat datum en titel correct zijn
-  initializePrintDate(klas);
-  setPrintDocumentTitle(klas);
-  
-  // Creëer print footer als die nog niet bestaat
-  createPrintFooter(klas);
-  
-  // Open printdialoog
-  window.print();
-  
-  // Schedule cleanup voor na het printen
-  setTimeout(() => {
-    document.body.classList.remove('print-mode');
-    const footer = document.getElementById('print-footer-container');
-    if (footer) footer.remove();
-  }, 1000);
-}
-
-/**
- * Creëert een print footer voor de afdruk
- * @param {Object} klas - Het klasobject voor extra context indien nodig
- */
-function createPrintFooter(klas) {
-  // Controleer of footer al bestaat
-  if (document.getElementById('print-footer-container')) return;
-  
-  // Creëer footer container
-  const footer = document.createElement('div');
-  footer.id = 'print-footer-container';
-  
-  // Voeg datum en quote toe
-  const datum = new Date().toLocaleDateString("nl-BE", {
-    day: "2-
