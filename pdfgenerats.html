@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <title>PDF Generator — Domeinen</title>
+  <!-- Externe libraries: PapaParse voor CSV, html2pdf voor PDF-export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body { font-family: sans-serif; margin: 1em; }
+    button { padding: 0.5em 1em; font-size: 1em; }
+    #content { display: none; }
+    section { page-break-after: always; margin-bottom: 2cm; }
+    h1 { text-align: center; margin-bottom: 1em; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1em; }
+    th, td { border: 1px solid #333; padding: 0.3em; font-size: 10pt; }
+    th { background: #eee; }
+    footer { position: fixed; bottom: 0.5cm; left: 1cm; font-size: 8pt; }
+    @page { size: A4 portrait; margin: 1cm; }
+  </style>
+</head>
+<body>
+  <h2>PDF Generator per Domein</h2>
+  <p>Druk op de knop om per domein een PDF te maken met elke richting op aparte pagina.</p>
+  <button id="generateBtn">Genereer PDF’s</button>
+  <div id="content"></div>
+
+  <script>
+    async function loadCSV(url) {
+      const response = await fetch(url);
+      const text = await response.text();
+      return Papa.parse(text, { header: true, skipEmptyLines: true }).data;
+    }
+
+    async function generate() {
+      const klassen = await loadCSV('data/klassen.csv');
+      const lessen = await loadCSV('data/lessentabel.csv');
+      // Map klas_id naar klas-info
+      const klasseMap = {};
+      klassen.forEach(k => { klasseMap[k.klas_id] = k; });
+      // Merge lessen met klassen
+      const merged = lessen.map(l => ({ ...l, ...klasseMap[l.klas_id] }));
+      // Groeperen op domein en richting
+      const domains = {};
+      merged.forEach(r => {
+        domains[r.domein] = domains[r.domein] || {};
+        domains[r.domein][r.richting] = domains[r.domein][r.richting] || [];
+        domains[r.domein][r.richting].push(r);
+      });
+      const container = document.getElementById('content');
+      container.innerHTML = '';
+      const today = new Date().toLocaleDateString('nl-BE');
+      // Bouw DOM-structuur per domein
+      for (const [domein, richtingen] of Object.entries(domains)) {
+        // Sectie titel domein
+        const secDom = document.createElement('section');
+        const hDom = document.createElement('h1');
+        hDom.textContent = domein;
+        secDom.appendChild(hDom);
+        container.appendChild(secDom);
+        // Richtingen
+        for (const [richting, rows] of Object.entries(richtingen)) {
+          const sec = document.createElement('section');
+          const h = document.createElement('h1');
+          h.textContent = richting;
+          sec.appendChild(h);
+          const table = document.createElement('table');
+          const cols = Object.keys(rows[0] || {});
+          const thead = document.createElement('thead');
+          const trHead = document.createElement('tr');
+          cols.forEach(c => {
+            const th = document.createElement('th'); th.textContent = c; trHead.appendChild(th);
+          });
+          thead.appendChild(trHead);
+          table.appendChild(thead);
+          const tbody = document.createElement('tbody');
+          rows.forEach(rw => {
+            const tr = document.createElement('tr');
+            cols.forEach(c => {
+              const td = document.createElement('td'); td.textContent = rw[c] || '';
+              tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+          });
+          table.appendChild(tbody);
+          sec.appendChild(table);
+          // Afdrukdatum
+          const footer = document.createElement('footer');
+          footer.textContent = 'Afdrukdatum: ' + today;
+          sec.appendChild(footer);
+          container.appendChild(sec);
+        }
+      }
+      // PDF export per domein
+      for (const domein of Object.keys(domains)) {
+        const opt = {
+          margin:       1,
+          filename:     domein + '-aanbod.pdf',
+          pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+        await html2pdf().set(opt).from(container).save();
+      }
+    }
+
+    document.getElementById('generateBtn').addEventListener('click', generate);
+  </script>
+</body>
+</html>
