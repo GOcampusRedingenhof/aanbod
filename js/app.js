@@ -1,8 +1,9 @@
-// app.js
+// js/app.js
 import { getKlassen, getLessentabel, getFootnotes } from './loader.js';
 import { buildGrid } from './grid-builder.js';
-import { renderSlidein } from './detail-view.js';
-
+// `showDetail` is wat je detail-view.js nu exporteert – maar in de rest van je code
+// gebruik je nog `renderSlidein`, dus aliassen we het hier.
+import { showDetail as renderSlidein } from './detail-view.js';
 const LessentabellenApp = {
   /**
    * Initialiseert de app en laadt alle benodigde data
