@@ -2,73 +2,108 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Opleidingsaanbod</title>
-  <!-- Core styles -->
-  <link rel="stylesheet" href="css/grid.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lessentabellen GO Campus Redingenhof - Bekijk alle beschikbare richtingen en lessentabellen">
+  <title>Lessentabellen GO Campus Redingenhof</title>
+
+  <!-- CSS bestanden -->
   <link rel="stylesheet" href="css/styles.css">
-  <!-- Print‑specifieke styles -->
+  <link rel="stylesheet" href="css/grid.css">
+  <link rel="stylesheet" href="css/detail-view.css">
   <link rel="stylesheet" href="css/print-styles.css">
+
+  <!-- Google Fonts: Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <!-- Hoofdcontent, te verbergen in print -->
-  <header id="index">
-    <img src="images/logo.png" alt="Schoollogo" class="logo">
-    <h1 class="slogan">Samen verder in leren</h1>
-    <button id="print-button" type="button">Print aanbod</button>
-  </header>
+  <!-- Hoofdcontent (komt niet in de print) -->
+  <div id="index" class="lessentabellen-container">
+    <h1 class="lessentabellen-title">Lessentabellen GO Campus Redingenhof</h1>
+    <p class="lessentabellen-intro slogan">
+      Ontdek hieronder ons uitgebreide aanbod. Klik op een richting voor meer details en het volledige uurrooster.
+    </p>
 
-  <!-- Grid met klassen (wordt door JS gevuld) -->
-  <main>
-    <div id="grid"></div>
-  </main>
+    <div class="lessentabellen-root">
+      <!-- Grid container voor alle domeinen/richtingen -->
+      <div id="domains-container" class="domains-grid">
+        <!-- Wordt dynamisch ingevuld door JavaScript -->
+        <div class="loader-spinner"></div>
+      </div>
 
-  <!-- Overlay en slide‑in infokader -->
-  <div id="overlay" class="overlay"></div>
-  <aside id="slidein" class="slidein">
-    <!-- Sluitknop -->
-    <button class="close-btn" aria-label="Sluit">&#10005;</button>
+      <!-- Detail view slide-in panel -->
+      <div id="slidein" class="lessentabellen-wrapper" tabindex="-1">
+        <div class="detail-header">
+          <button class="close-btn" aria-label="Sluiten">×</button>
+          <h2 id="opleiding-titel"></h2>
+          <p id="opleiding-beschrijving"></p>
+        </div>
 
-    <!-- Inhoud van de slide‑in -->
-    <div class="slidein-content">
-      <h2 id="richting-titel"></h2>
-      <div id="omschrijving"></div>
-      <!-- Container voor de lessentabel -->
-      <div id="tabel-container">
-        <table class="lessentabel">
-          <!-- wordt gevuld door table-generator.js -->
-        </table>
+        <div class="detail-content">
+          <div class="action-buttons">
+            <a id="brochure-link" href="#" target="_blank">
+              <!-- SVG voor brochure -->
+              Brochure
+            </a>
+            <button id="print-button" type="button">
+              <!-- SVG voor print -->
+              Afdrukken
+            </button>
+          </div>
+
+          <!-- Lessentabel -->
+          <div id="lessentabel-container">
+            <table class="lessentabel">
+              <!-- Wordt door JS gevuld -->
+            </table>
+          </div>
+
+          <!-- Voetnoten -->
+          <div id="footnotes">
+            <!-- Wordt door JS gevuld -->
+          </div>
+        </div>
+
+        <!-- Print‑footer -->
+        <div class="print-footer">
+          <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
+          <div class="quote">SAMEN VER!</div>
+        </div>
       </div>
     </div>
+  </div>
 
-    <!-- Eventuele extra actieknoppen -->
-    <div class="action-buttons">
-      <button id="export-pdf" type="button">Exporteer PDF</button>
-    </div>
+  <!-- Papa Parse voor CSV verwerking -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
 
-    <!-- Footer met datum voor print -->
-    <footer>
-      <div id="datum-print"></div>
-    </footer>
-  </aside>
-
-  <!-- Voetnoten onderaan -->
-  <section id="footnotes"></section>
-
-  <!-- Modules importeren en initialiseren -->
+  <!-- Module‑scripts -->
   <script type="module" src="js/index.js"></script>
-  <script type="module">
-    import initPrintHandler from './js/print-handler.js';
-    import gridBuilder       from './js/grid-builder.js';
-    import loader            from './js/loader.js';
-    import appController     from './js/app-controller.js';
 
-    // Data inladen en app opstarten
-    loader.loadData().then(({ klassen, lessen, voetnoten }) => {
-      gridBuilder.buildGrid(klassen);
-      appController.setup({ klassen, lessen, voetnoten });
-      // Initieer de print‑handler voor de huidige klas
-      initPrintHandler(appController.currentKlas);
+  <!-- Globale error- en afterprint‑handler -->
+  <script>
+    window.addEventListener('error', function(event) {
+      console.error('Globale fout:', event.error);
+      if (document.body.classList.contains('print-mode')) {
+        document.body.classList.remove('print-mode');
+        console.warn('Print‑mode verwijderd vanwege een fout');
+        const closeBtn = document.querySelector('.close-btn');
+        if (closeBtn) closeBtn.style.display = '';
+        const actionButtons = document.querySelector('.action-buttons');
+        if (actionButtons) actionButtons.style.display = '';
+      }
+    });
+
+    window.addEventListener('afterprint', function() {
+      console.log('Globale afterprint event');
+      if (window.LessentabellenApp && typeof window.LessentabellenApp.cleanupAfterPrinting === 'function') {
+        window.LessentabellenApp.cleanupAfterPrinting();
+      } else {
+        document.body.classList.remove('print-mode');
+      }
     });
   </script>
 </body>
