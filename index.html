@@ -5,36 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Lessentabellen GO Campus Redingenhof - Bekijk alle beschikbare richtingen en lessentabellen">
   <title>Lessentabellen GO Campus Redingenhof</title>
-
+  
   <!-- CSS bestanden -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/detail-view.css">
   <link rel="stylesheet" href="css/print-styles.css">
-
+  
   <!-- Google Fonts: Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-
+  
   <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <!-- Hoofdcontent (komt niet in de print) -->
-  <div id="index" class="lessentabellen-container">
+  <div id="lessentabellen-container" class="lessentabellen-container">
     <h1 class="lessentabellen-title">Lessentabellen GO Campus Redingenhof</h1>
     <p class="lessentabellen-intro slogan">
       Ontdek hieronder ons uitgebreide aanbod. Klik op een richting voor meer details en het volledige uurrooster.
     </p>
-
+    
     <div class="lessentabellen-root">
       <!-- Grid container voor alle domeinen/richtingen -->
       <div id="domains-container" class="domains-grid">
         <!-- Wordt dynamisch ingevuld door JavaScript -->
         <div class="loader-spinner"></div>
       </div>
-
+      
       <!-- Detail view slide-in panel -->
       <div id="slidein" class="lessentabellen-wrapper" tabindex="-1">
         <div class="detail-header">
@@ -42,32 +41,30 @@
           <h2 id="opleiding-titel"></h2>
           <p id="opleiding-beschrijving"></p>
         </div>
-
+        
         <div class="detail-content">
           <div class="action-buttons">
             <a id="brochure-link" href="#" target="_blank">
-              <!-- SVG voor brochure -->
+              <!-- SVG-icon -->
               Brochure
             </a>
             <button id="print-button" type="button">
-              <!-- SVG voor print -->
+              <!-- SVG-icon -->
               Afdrukken
             </button>
           </div>
-
-          <!-- Lessentabel -->
+          
           <div id="lessentabel-container">
             <table class="lessentabel">
               <!-- Wordt door JS gevuld -->
             </table>
           </div>
-
-          <!-- Voetnoten -->
+          
           <div id="footnotes">
             <!-- Wordt door JS gevuld -->
           </div>
         </div>
-
+        
         <!-- Print‑footer -->
         <div class="print-footer">
           <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
@@ -76,14 +73,14 @@
       </div>
     </div>
   </div>
-
+  
   <!-- Papa Parse voor CSV verwerking -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
-
-  <!-- Module‑scripts -->
+  
+  <!-- App JavaScript - gebruik de nieuwe modulaire structuur -->
   <script type="module" src="js/index.js"></script>
-
-  <!-- Globale error- en afterprint‑handler -->
+  
+  <!-- Globale error- en afterprint-handler -->
   <script>
     window.addEventListener('error', function(event) {
       console.error('Globale fout:', event.error);
