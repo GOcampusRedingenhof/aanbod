@@ -35,3 +35,52 @@ export function initPrintHandler(klas) {
     });
   }
 }
+
+/**
+ * Helper functie om direct een print dialoog te openen
+ * @param {Object} klas - Het klasobject waarvoor we printen
+ */
+export function printLessentabel(klas) {
+  // Voeg print class toe aan body voor speciale print styling
+  document.body.classList.add('print-mode');
+  
+  // Creëer print footer als die nog niet bestaat
+  createPrintFooter();
+  
+  // Open printdialoog
+  window.print();
+  
+  // Schedule cleanup voor na het printen
+  setTimeout(() => {
+    document.body.classList.remove('print-mode');
+    const footer = document.getElementById('print-footer-container');
+    if (footer) footer.remove();
+  }, 1000);
+}
+
+/**
+ * Creëert een print footer voor de afdruk
+ */
+function createPrintFooter() {
+  // Controleer of footer al bestaat
+  if (document.getElementById('print-footer-container')) return;
+  
+  // Creëer footer container
+  const footer = document.createElement('div');
+  footer.id = 'print-footer-container';
+  
+  // Voeg datum en quote toe
+  const datum = new Date().toLocaleDateString("nl-BE", {
+    day: "2-digit", month: "2-digit", year: "numeric"
+  });
+  
+  // Vul footer
+  footer.innerHTML = `
+    <div class="quote">SAMEN VER!</div>
+    <div class="page-info">Pagina <span class="pageNumber"></span></div>
+    <div class="datum">Afgedrukt op: ${datum}</div>
+  `;
+  
+  // Voeg toe aan document
+  document.body.appendChild(footer);
+}
