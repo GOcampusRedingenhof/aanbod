@@ -29,6 +29,11 @@ export function renderSlidein(klas, lessen, voetnoten) {
   
   // Initialiseer de print handler voor dit slidein met klas-informatie
   initPrintHandler(klas);
+  
+  // Bewaar huidige klascode in global LessentabellenApp
+  if (window.LessentabellenApp) {
+    window.LessentabellenApp.currentKlasCode = klas.klascode;
+  }
 }
 
 /**
@@ -110,9 +115,19 @@ function showSlidein() {
   // Zorg ervoor dat de sluitknop werkt
   const closeBtn = document.querySelector('.close-btn');
   if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      slideinEl.classList.remove("open");
-      document.getElementById("overlay").classList.remove("active");
+    // Maak een nieuwe knop aan om eventuele oude event listeners te verwijderen
+    const newBtn = closeBtn.cloneNode(true);
+    closeBtn.parentNode.replaceChild(newBtn, closeBtn);
+    
+    // Voeg nieuwe event listener toe
+    newBtn.addEventListener('click', () => {
+      if (window.LessentabellenApp && typeof window.LessentabellenApp.closeSlidein === 'function') {
+        window.LessentabellenApp.closeSlidein();
+      } else {
+        // Fallback als de app niet beschikbaar is
+        slideinEl.classList.remove("open");
+        document.getElementById("overlay").classList.remove("active");
+      }
     });
   }
 }
