@@ -6,22 +6,22 @@
   <meta name="description" content="Lessentabellen GO Campus Redingenhof">
   <title>Lessentabellen GO Campus Redingenhof</title>
 
-  <!-- CSS -->
+  <!-- Jouw bestaande CSS -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/detail-view.css">
+  
+  <!-- Print‑CSS moet als laatste staan -->
   <link rel="stylesheet" href="css/print-styles.css">
 
-  <!-- Google Fonts -->
+  <!-- Fonts & favicon -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <!-- Inline achtergrond‑PNG, wordt full‑bleed geprint -->
+  <!-- Inline achtergrond‑PNG: print‑only -->
   <img 
     src="https://images.squarespace-cdn.com/content/670992d66064015802d7e5dc/20828b48-569c-42e4-abd5-51dbd409f5bb/SAMEN+VER%21+%281%29.png?content-type=image%2Fpng" 
     class="print-bg" 
@@ -60,7 +60,7 @@
     </div>
   </div>
 
-  <!-- CSV‑parser & App -->
+  <!-- CSV‑parser & App entrypoint -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   <script type="module" src="js/index.js"></script>
 </body>
