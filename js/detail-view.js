@@ -112,41 +112,56 @@ function enableAutoScaling() {
 /**
  * Detecteert of tabel te groot is en past schaal aan indien nodig
  */
+/**
+ * Detecteert of tabel te groot is en past schaal aan indien nodig.
+ * Wordt alleen toegepast tijdens printen of wanneer de tabel echt te groot is voor het scherm.
+ */
 function detectAndScaleTable() {
-  // Controleer of we in printmodus zijn
-  const isPrintMode = document.body.classList.contains('print-mode');
-  if (isPrintMode) {
-    // In printmodus laten we print-handler.js de schaling afhandelen
-    return;
-  }
-  
   const container = document.getElementById("slidein");
   const table = document.querySelector(".lessentabel");
   
   if (!container || !table) return;
   
-  // Reset eerst eventuele transformaties
+  // Controleer of we in printmodus zijn
+  const isPrintMode = document.body.classList.contains('print-mode');
+  
+  // Reset eerst eventuele transformaties om van een schone lei te beginnen
   table.style.transform = '';
   table.style.fontSize = '';
   table.style.marginBottom = '';
   
-  // Bepaal beschikbare hoogte (minus marges)
-  const maxHeight = container.clientHeight - 200;
-  
-  if (table.offsetHeight > maxHeight) {
-    // Bereken schaalfactor
-    const scale = Math.max(0.5, maxHeight / table.offsetHeight); // Niet kleiner dan 50%
+  // In de normale weergave willen we alleen schalen als het echt nodig is
+  if (!isPrintMode) {
+    // Bepaal beschikbare hoogte (minus marges voor header/footer)
+    const availableHeight = container.clientHeight - 250; // Extra marge voor veiligheid
     
-    // Pas transformatie toe voor vloeiende verkleining
-    table.style.transform = `scale(${scale})`;
-    table.style.transformOrigin = 'top center';
-    
-    // Compenseer voor schaling door margin toe te voegen
-    const newMargin = Math.ceil(table.offsetHeight * (1 - scale));
-    table.style.marginBottom = `${newMargin}px`;
+    // Alleen schalen als de tabel VEEL groter is dan beschikbare ruimte (50% groter)
+    if (table.offsetHeight > availableHeight * 1.5) {
+      console.log('Tabel is te groot voor normaal scherm, schalen toegepast');
+      
+      // Bereken schaalfactor, maar niet kleiner dan 80% om leesbaarheid te behouden
+      const scale = Math.max(0.8, availableHeight / table.offsetHeight); 
+      
+      // Pas transformatie toe voor vloeiende verkleining
+      table.style.transform = `scale(${scale})`;
+      table.style.transformOrigin = 'top center';
+      
+      // Compenseer voor schaling door margin toe te voegen
+      const newMargin = Math.ceil(table.offsetHeight * (1 - scale));
+      table.style.marginBottom = `${newMargin}px`;
+      
+      // Voeg marker class toe voor styling
+      container.classList.add('contains-scaled-table');
+    } else {
+      // Als schaling niet nodig is, zorg dat alle markers worden verwijderd
+      container.classList.remove('contains-scaled-table');
+      container.classList.remove('scaled-table');
+    }
   } else {
-    // Verwijder schalingsindicator als er geen schaling meer nodig is
-    container.classList.remove('scaled-table');
+    // We zijn in printmodus, laat print-handler.js de schaling afhandelen
+    // Verwijder eventuele schermen-specifieke schaling
+    table.style.transform = '';
+    table.style.marginBottom = '';
   }
 }
 
