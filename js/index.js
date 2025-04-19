@@ -3,8 +3,8 @@
 import appController from './app-controller.js';
 import { buildGrid } from './grid-builder.js';
 import { renderSlidein } from './detail-view.js';
-// Importeer functies uit onze verbeterde print-handler module
-import { startPrintProcess, cleanupAfterPrinting } from './print-handler.js';
+// Importeer printfuncties uit onze verbeterde print-handler module
+import { initPrintHandler, printLessentabel, cleanupAfterPrinting, generatePDF } from './print-handler.js';
 
 class LessentabellenAppClass {
   constructor() {
@@ -28,6 +28,17 @@ class LessentabellenAppClass {
       const overlay = document.getElementById('overlay');
       if (overlay) {
         overlay.addEventListener('click', () => this.closeSlidein());
+      }
+      
+      // Initialiseer print en PDF knoppen
+      const printButton = document.getElementById('print-button');
+      if (printButton) {
+        printButton.addEventListener('click', () => this.printLessentabel());
+      }
+      
+      const downloadButton = document.getElementById('download-pdf-button');
+      if (downloadButton) {
+        downloadButton.addEventListener('click', () => this.generatePDF());
       }
     });
   }
@@ -172,56 +183,37 @@ class LessentabellenAppClass {
   }
   
   /**
-   * Start het printproces voor een specifieke klas
-   * @param {Object} klas - Het klasobject om af te drukken
+   * Start het printproces voor de huidige lessentabel
    */
-  startPrintProcess(klas) {
+  printLessentabel() {
     try {
-      console.log('Print proces gestart voor klas', klas?.klascode);
+      console.log('Print proces gestart');
       
-      // Gebruik de geïmporteerde functie uit print-handler.js
-      startPrintProcess(klas);
+      // Gebruik de geëxporteerde printLessentabel functie
+      printLessentabel();
     } catch (error) {
       console.error('Fout bij starten printproces:', error);
       
       // Fallback: probeer eenvoudig printen als de module faalt
-      document.body.classList.add('print-mode');
-      
-      // Verberg interactieve elementen
-      document.querySelector('.close-btn')?.style.setProperty('display', 'none');
-      document.querySelector('.action-buttons')?.style.setProperty('display', 'none');
-      
-      // Druk af
       window.print();
-      
-      // Herstel UI
-      setTimeout(() => {
-        document.body.classList.remove('print-mode');
-        document.querySelector('.close-btn')?.style.removeProperty('display');
-        document.querySelector('.action-buttons')?.style.removeProperty('display');
-      }, 1000);
     }
   }
   
   /**
-   * Ruimt op na het afdrukken
+   * Genereert een PDF bestand van de huidige lessentabel
    */
-  cleanupAfterPrinting() {
+  generatePDF() {
     try {
-      console.log('Opruimen na afdrukken');
+      console.log('PDF generatie gestart');
       
-      // Gebruik de geïmporteerde functie uit print-handler.js
-      cleanupAfterPrinting();
+      // Gebruik de geëxporteerde generatePDF functie
+      generatePDF();
     } catch (error) {
-      console.error('Fout bij opruimen na printen:', error);
-      
-      // Fallback cleanup
-      document.body.classList.remove('print-mode');
-      document.querySelector('.close-btn')?.style.removeProperty('display');
-      document.querySelector('.action-buttons')?.style.removeProperty('display');
+      console.error('Fout bij genereren PDF:', error);
+      alert('Er is een fout opgetreden bij het maken van de PDF.');
     }
   }
-
+  
   /**
    * Handler voor initialisatiefouten
    * @param {Error} error - De opgetreden fout
