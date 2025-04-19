@@ -95,12 +95,17 @@ export function generatePDF() {
       tabel.style.fontSize = '9pt';
       tabel.style.marginBottom = '20px';
       
-      // Stijl de cellen
-      const cellen = tabel.querySelectorAll('th, td');
-      cellen.forEach(cel => {
-        cel.style.border = '1px solid #ddd';
-        cel.style.padding = '4px 6px';
-        cel.style.textAlign = cel.tagName === 'TH' || cellen.indexOf(cel) === 0 ? 'left' : 'center';
+      // Stijl de cellen zonder indexOf of cellIndex te gebruiken
+      const cellen = tabel.querySelectorAll('tr');
+      cellen.forEach(rij => {
+        // Verwerk elke cel in de rij
+        const rijCellen = rij.querySelectorAll('th, td');
+        rijCellen.forEach((cel, index) => {
+          cel.style.border = '1px solid #ddd';
+          cel.style.padding = '4px 6px';
+          // Eerste cel links uitlijnen, rest centreren
+          cel.style.textAlign = (index === 0 || cel.tagName === 'TH') ? 'left' : 'center';
+        });
       });
       
       // Stijl de headers
