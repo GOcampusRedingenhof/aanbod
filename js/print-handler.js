@@ -1,5 +1,5 @@
 // print-handler.js
-// Verbeterde printlogica via een verborgen iframe, behoudt originele pagina en event handlers
+// Verbeterde printlogica: open een nieuw venster met inline styling en dynamische inhoud
 
 /**
  * Initialiseert de printfunctionaliteit op de print-knop
@@ -17,53 +17,63 @@ export function initPrintHandler(klas) {
 }
 
 /**
- * Print de pagina in een verborgen iframe, behoudt originele pagina-intact
+ * Print de pagina door een nieuw venster te openen en de benodigde HTML plus CSS inline te schrijven
  * @param {Object} klas
  */
-function printKlas(klas) {
-  // Bouw titel en datum
-  const dateStr = new Date().toLocaleDateString('nl-BE', { day: '2-digit', month: '2-digit', year: 'numeric' });
-  const titleText = `Lessentabel ${klas.richting} ${klas.klascode}`;
+async function printKlas(klas) {
+  // Scroll naar top van de originele pagina
+  window.scrollTo(0, 0);
 
-  // Genereer header, content en footer HTML
-  const logoImg = document.querySelector('.logo')?.outerHTML || '';
-  const headerHTML = `<div class="print-header">${logoImg}<div class="title">${titleText}</div><div class="date">${dateStr}</div></div>`;
-  const contentSource = document.querySelector('.print-container')
-    || document.getElementById('content')
-    || document.querySelector('main')
-    || document.querySelector('.grid')
-    || document.querySelector('table');
-  if (!contentSource) {
-    console.error('Print content container niet gevonden');
+  // Haal CSS voor print op
+  let cssText = '';
+  try {
+    const res = await fetch('css/print-styles.css');
+    cssText = await res.text();
+  } catch (err) {
+    console.warn('Kon print-styles.css niet laden, inline default gebruiken.', err);
+    cssText = `@page { size: A4 portrait; margin: 5mm; } body { font-family: Arial, sans-serif; font-size:9pt; }`;
+  }
+
+  // Bouw bestandsnaam en zichtbare titel
+  const titleText = `Lessentabellen GO Campus Redingenhof - ${klas.richting} ${klas.klascode}`;
+  const fileName = titleText.replace(/\s+/g, '_') + '.pdf';
+
+  // Bepaal content: lesentabel en voetnoten
+  const tabelEl = document.getElementById('lessentabel-container');
+  const voetEl = document.getElementById('footnotes');
+  if (!tabelEl) {
+    console.error('Container lessentabel niet gevonden');
     return;
   }
-  const containerHTML = `<div class="print-container">${contentSource.outerHTML}</div>`;
-  const footerHTML = `<div class="print-footer"><span class="page-number"></span></div>`;
+  const contentHTML = tabelEl.outerHTML + (voetEl ? voetEl.outerHTML : '');
 
-  // Maak verborgen iframe
-  const iframe = document.createElement('iframe');
-  iframe.style.position = 'fixed';
-  iframe.style.width = '0';
-  iframe.style.height = '0';
-  iframe.style.border = '0';
-  document.body.appendChild(iframe);
+  // Genereer header en footer
+  const dateStr = new Date().toLocaleDateString('nl-BE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const headerHTML = `<div class=\"print-header\">` +
+                     `<img class=\"logo-print\" src=\"${document.querySelector('.logo-print')?.src || ''}\" alt=\"Logo\">` +
+                     `<div class=\"title\">${titleText}</div>` +
+                     `<div class=\"date\">${dateStr}</div>` +
+                     `</div>`;
+  const footerHTML = `<div class=\"print-footer\"><span class=\"page-number\"></span></div>`;
 
-  const doc = iframe.contentWindow.document;
-  doc.open();
-  doc.write(
-    `<!DOCTYPE html><html><head><title>${titleText}</title>` +
-    // Link naar print stylesheet
-    `<link rel="stylesheet" href="css/print.css" media="all">` +
-    `</head><body>` +
-    headerHTML + containerHTML + footerHTML +
-    `</body></html>`
-  );
-  doc.close();
+  // Open nieuw venster en schrijf de volledige HTML
+  const win = window.open('', '_blank');
+  if (!win) {
+    console.error('Kon nieuw venster niet openen voor print');
+    return;
+  }
+  win.document.write(`<!DOCTYPE html><html lang=\"nl\"><head><meta charset=\"UTF-8\">` +
+                     `<title>${fileName}</title>` +
+                     `<style>${cssText}</style>` +
+                     `</head><body>` +
+                     `${headerHTML}` +
+                     `<div class=\"print-container\">${contentHTML}</div>` +
+                     `${footerHTML}` +
+                     `</body></html>`);
+  win.document.close();
 
-  // Print en verwijder iframe
-  iframe.contentWindow.focus();
-  iframe.contentWindow.print();
-  setTimeout(() => {
-    document.body.removeChild(iframe);
-  }, 1000);
+  // Print en sluit het venster
+  win.focus();
+  win.print();
+  win.close();
 }
