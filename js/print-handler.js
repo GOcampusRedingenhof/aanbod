@@ -153,9 +153,10 @@ export function generatePDF() {
     
     const datum = document.createElement('p');
     const now = new Date();
-    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    // Vermijd dubbele variabele declaratie
+    const dateOptions = { day: '2-digit', month: 'long', year: 'numeric' };
     try {
-      datum.textContent = `Afgedrukt op: ${now.toLocaleDateString('nl-BE', options)}`;
+      datum.textContent = `Afgedrukt op: ${now.toLocaleDateString('nl-BE', dateOptions)}`;
     } catch (error) {
       datum.textContent = `Afgedrukt op: ${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
     }
@@ -177,7 +178,8 @@ export function generatePDF() {
     document.body.appendChild(pdfContainer);
     
     // Configureer html2pdf
-    const options = {
+    // Voorkom dubbele variabele declaratie
+    const html2pdfOptions = {
       margin: [15, 10, 15, 10], // top, right, bottom, left in mm
       filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
@@ -197,7 +199,7 @@ export function generatePDF() {
     // Genereer de PDF
     window.html2pdf()
       .from(pdfContainer)
-      .set(options)
+      .set(html2pdfOptions)
       .save()
       .then(() => {
         // Cleanup
