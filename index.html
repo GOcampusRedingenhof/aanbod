@@ -20,6 +20,11 @@
   <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   
+  <!-- Externe libraries voor PDF generatie -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <!-- PapaParse voor CSV verwerking -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   
 </head>
 <body>
@@ -132,33 +137,6 @@
         // Fallback bij fout in datumformat
         datumElement.textContent = nu.toLocaleDateString();
       }
-    }
-    
-    // Stel een betere printervaring in
-    const printButton = document.getElementById('print-button');
-    if (printButton) {
-      printButton.addEventListener('click', function() {
-        // Gebruik de verbeterde print functie als die beschikbaar is
-        if (window.LessentabellenApp && typeof window.LessentabellenApp.printLessentabel === 'function') {
-          window.LessentabellenApp.printLessentabel();
-        } else {
-          // Fallback naar standaard browser printen
-          window.print();
-        }
-      });
-    }
-    
-    // Stel PDF download in
-    const downloadButton = document.getElementById('download-pdf-button');
-    if (downloadButton) {
-      downloadButton.addEventListener('click', function() {
-        // Gebruik de PDF generatie functie als die beschikbaar is
-        if (window.LessentabellenApp && typeof window.LessentabellenApp.generatePDF === 'function') {
-          window.LessentabellenApp.generatePDF();
-        } else {
-          alert('PDF downloaden is niet beschikbaar. Probeer de pagina te verversen.');
-        }
-      });
     }
   });
   </script>
