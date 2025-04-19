@@ -1,4 +1,4 @@
-/* css/print-styles.css — Printstijlen voor de Lessentabel-app */
+/* 2css/print-styles.css — Printstijlen voor de Lessentabel-app */
 
 @media print {
   /* Algemeen reset */
@@ -25,7 +25,14 @@
   /* Specifiek logo in slidein verbergen */
   #slidein .logo,
   #slidein img.logo,
+  #slidein .logo,
+  #slidein img.logo,
   #slidein #logo {
+    display: none !important;
+  }
+
+  /* Alle afbeeldingen binnen slidein verbergen */
+  #slidein img {
     display: none !important;
   }
 
