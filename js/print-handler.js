@@ -1,10 +1,12 @@
 // js/print-handler.js
+
 let isPrinting = false;
 
 export function initPrintHandler(klas) {
   const btn = document.getElementById('print-button');
   if (!btn) return;
-  // Reset eventuele oude listener
+
+  // Verwijder oude listener en bind nieuwe
   btn.replaceWith(btn.cloneNode(true));
   document.getElementById('print-button')
           .addEventListener('click', () => startPrintProcess(klas));
@@ -15,14 +17,16 @@ export function startPrintProcess(klas) {
   isPrinting = true;
 
   document.body.classList.add('print-mode');
-  if (klas.richting) document.title = `${klas.richting}-aanbod`;
+  if (klas.richting) {
+    document.title = `${klas.richting}-aanbod`;
+  }
 
-  const after = () => {
+  const onAfter = () => {
     cleanupAfterPrinting();
-    window.removeEventListener('afterprint', after);
+    window.removeEventListener('afterprint', onAfter);
     isPrinting = false;
   };
-  window.addEventListener('afterprint', after, { once: true });
+  window.addEventListener('afterprint', onAfter, { once: true });
 
   window.print();
 }
