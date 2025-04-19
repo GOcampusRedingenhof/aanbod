@@ -1,205 +1,135 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lessentabellen GO Campus Redingenhof - Bekijk alle beschikbare richtingen en lessentabellen">
-  <title>Lessentabellen GO Campus Redingenhof</title>
-  
-  <!-- CSS bestanden -->
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/grid.css">
-  <link rel="stylesheet" href="css/detail-view.css">
-  <link rel="stylesheet" href="css/print-styles.css">
-  
-  <!-- Google Fonts: Montserrat -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta charset="utf-8">
+  <title>PDF Generator — Domeinen</title>
+  <!-- PapaParse voor CSV, html2pdf voor PDF-export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body { font-family: sans-serif; margin: 1em; }
+    input, button { margin: 0.5em; }
+    #content { display: block; margin-top: 1em; }
+    section { page-break-after: always; margin-bottom: 2cm; }
+    h1 { text-align: center; margin-bottom: 1em; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1em; }
+    th, td { border: 1px solid #333; padding: 0.3em; font-size: 10pt; }
+    th { background: #eee; }
+    footer { position: fixed; bottom: 0.5cm; left: 1cm; font-size: 8pt; }
+    @page { size: A4 portrait; margin: 1cm; }
+    #pdf-links { margin-top: 1em; }
+  </style>
 </head>
 <body>
-  <div id="lessentabellen-container" class="lessentabellen-container">
-    <h1 class="lessentabellen-title">Lessentabellen GO Campus Redingenhof</h1>
-    <p class="lessentabellen-intro">Ontdek hieronder ons uitgebreide studieaanbod. Klik op een richting voor meer details en het volledige uurrooster.</p>
-    
-    <div class="lessentabellen-root">
-      <!-- Grid container voor alle domeinen/richtingen -->
-      <div id="domains-container" class="domains-grid">
-        <!-- Wordt dynamisch ingevuld door JavaScript -->
-        <div class="loader-spinner"></div>
-      </div>
-
-      <!-- Detail view slide-in panel -->
-      <div id="slidein" class="lessentabellen-wrapper" tabindex="-1">
-        <div class="detail-header">
-          <button class="close-btn" aria-label="Sluiten">×</button>
-          <h2 id="opleiding-titel"></h2>
-          <p id="opleiding-beschrijving"></p>
-        </div>
-        
-        <div class="detail-content">
-          <div class="action-buttons">
-            <a id="brochure-link" href="#" target="_blank">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l9 2-9-18-9 18 9-2z"/></svg>
-              Brochure
-            </a>
-            <button id="print-button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-              Afdrukken
-            </button>
-          </div>
-          
-          <div id="lessentabel-container">
-            <!-- Wordt dynamisch ingevuld door JavaScript -->
-          </div>
-          
-          <div id="footnotes">
-            <!-- Wordt dynamisch ingevuld door JavaScript -->
-          </div>
-        </div>
-        
-        <!-- Logo voor printversie -->
-        <img class="logo-print" src="https://images.squarespace-cdn.com/content/v1/670992d66064015802d7e5dc/5425e461-06b0-4530-9969-4068d5a5dfdc/Scherm%C2%ADafbeelding+2024-12-03+om+09.38.12.jpg?format=1500w" alt="Redingenhof logo">
-        
-        <!-- Datum en quote voor printversie -->
-        <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
-        <div class="quote">SAMEN VER!</div>
-      </div>
-
-      <!-- Overlay voor achtergrond dimmen -->
-      <div id="overlay"></div>
-    </div>
+  <h2>PDF Generator per Domein</h2>
+  <p>Selecteer eerst de CSV-bestanden en klik dan op genereren.</p>
+  <div>
+    <label>Klassen CSV: <input type="file" id="klassenFile" accept=".csv"></label>
+    <label>Lessentabel CSV: <input type="file" id="lessenFile" accept=".csv"></label>
   </div>
+  <button id="generateBtn" disabled>Genereer PDF’s</button>
+  <div id="content"></div>
+  <div id="pdf-links"></div>
 
-  <!-- Papa Parse voor CSV verwerking -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
-  
-  <!-- App JavaScript - gebruik de nieuwe modulaire structuur -->
-  <script type="module" src="js/index.js"></script>
-
-  <!-- Centraal error handler script -->
   <script>
-  // Deze functie vangt globale fouten op
-  window.addEventListener('error', function(event) {
-    console.error('Globale fout:', event.error);
-    // Probeer UI te resetten als er een fout is tijdens printen
-    if (document.body.classList.contains('print-mode')) {
-      document.body.classList.remove('print-mode');
-      console.warn('Print-mode verwijderd vanwege een fout');
-      
-      // Herstel UI-elementen
-      const closeBtn = document.querySelector('.close-btn');
-      if (closeBtn) closeBtn.style.display = '';
-      
-      const actionButtons = document.querySelector('.action-buttons');
-      if (actionButtons) actionButtons.style.display = '';
-      
-      // Reset styling van slidein
-      const slidein = document.getElementById('slidein');
-      if (slidein) {
-        slidein.style.padding = '';
-        slidein.classList.remove('scaled-for-print');
-        slidein.classList.remove('extreme');
-        slidein.classList.remove('print-optimized');
-        slidein.classList.remove('scaled-table');
-        
-        // Herstel tabel styling
-        const table = slidein.querySelector('.lessentabel');
-        if (table) {
-          table.style.fontSize = '';
-          table.style.transform = '';
-          table.style.marginBottom = '';
-        }
+    let klassenData = null, lessenData = null;
+    function readFile(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = reject;
+        reader.readAsText(file);
+      });
+    }
+    document.getElementById('klassenFile').addEventListener('change', async e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const text = await readFile(file);
+      klassenData = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
+      checkReady();
+    });
+    document.getElementById('lessenFile').addEventListener('change', async e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const text = await readFile(file);
+      lessenData = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
+      checkReady();
+    });
+    function checkReady() {
+      if (klassenData && lessenData) {
+        document.getElementById('generateBtn').disabled = false;
       }
     }
-  });
-  
-  // We delegeren de print events naar onze centrale printmodule
-  window.addEventListener('beforeprint', function(event) {
-    console.log('Globale beforeprint event gedetecteerd');
-    // We sturen dit door naar de print-handler module
-    // De module handelt dit zelf af
-  });
-  
-  window.addEventListener('afterprint', function(event) {
-    console.log('Globale afterprint event gedetecteerd');
-    // We laten de print-handler module dit afhandelen
-    // Alleen als er geen handler actief is, doen we een fallback cleanup
-    if (document.body.classList.contains('print-mode')) {
-      // Controleer of er een cleanup functie beschikbaar is in de app
-      if (window.LessentabellenApp && typeof window.LessentabellenApp.cleanupAfterPrinting === 'function') {
-        window.LessentabellenApp.cleanupAfterPrinting();
-      } else {
-        // Fallback: eenvoudige cleanup
-        document.body.classList.remove('print-mode');
-      }
-    }
-  });
-  
-  // Safety timeout om vastlopen te voorkomen
-  document.addEventListener('DOMContentLoaded', function() {
-    // Controleer periodiek of print-mode vast is blijven zitten
-    setInterval(function() {
-      if (document.body.classList.contains('print-mode')) {
-        // Check hoe lang print-mode al actief is
-        const printModeStart = window.printModeStartTime || 0;
-        const now = Date.now();
-        
-        // Als print-mode langer dan 30 seconden actief is, forceer reset
-        if (printModeStart > 0 && (now - printModeStart > 30000)) {
-          console.warn('Print-mode zit vast, forceer reset');
-          
-          // Reset print mode
-          document.body.classList.remove('print-mode');
-          window.printModeStartTime = 0;
-          
-          // Probeer de cleanup functie aan te roepen als die bestaat
-          if (window.LessentabellenApp && typeof window.LessentabellenApp.cleanupAfterPrinting === 'function') {
-            window.LessentabellenApp.cleanupAfterPrinting();
-          } else {
-            // Anders basis UI elementen herstellen
-            const closeBtn = document.querySelector('.close-btn');
-            if (closeBtn) closeBtn.style.display = '';
-            
-            const actionButtons = document.querySelector('.action-buttons');
-            if (actionButtons) actionButtons.style.display = '';
-            
-            // Reset slidein styling
-            const slidein = document.getElementById('slidein');
-            if (slidein) {
-              slidein.style.padding = '';
-              slidein.classList.remove('scaled-for-print');
-              slidein.classList.remove('extreme');
-              slidein.classList.remove('print-optimized');
-              slidein.classList.remove('scaled-table');
-              
-              // Herstel tabel styling
-              const table = slidein.querySelector('.lessentabel');
-              if (table) {
-                table.style.fontSize = '';
-                table.style.transform = '';
-                table.style.marginBottom = '';
-                
-                // Herstel cel padding
-                const cells = table.querySelectorAll('td, th');
-                if (cells) {
-                  cells.forEach(cell => {
-                    if (cell) cell.style.padding = '';
-                  });
-                }
-              }
-            }
-          }
+
+    async function generate() {
+      const btn = document.getElementById('generateBtn');
+      btn.disabled = true;
+      btn.textContent = 'Bezig...';
+
+      // Map klas_id naar info
+      const klasseMap = {};
+      klassenData.forEach(k => { klasseMap[k.klas_id] = k; });
+      const merged = lessenData.map(l => ({ ...l, ...klasseMap[l.klas_id] }));
+      const domains = {};
+      merged.forEach(r => {
+        if (!r.domein || !r.richting) return;
+        domains[r.domein] = domains[r.domein] || {};
+        domains[r.domein][r.richting] = domains[r.domein][r.richting] || [];
+        domains[r.domein][r.richting].push(r);
+      });
+
+      const container = document.getElementById('content');
+      container.innerHTML = '';
+      const today = new Date().toLocaleDateString('nl-BE');
+
+      for (const [domein, richtingen] of Object.entries(domains)) {
+        for (const [richting, rows] of Object.entries(richtingen)) {
+          const sec = document.createElement('section');
+          const h = document.createElement('h1'); h.textContent = domein + ' — ' + richting;
+          sec.appendChild(h);
+
+          const cols = Object.keys(rows[0] || {});
+          const table = document.createElement('table');
+          const thead = document.createElement('thead');
+          const trHead = document.createElement('tr');
+          cols.forEach(c => { const th = document.createElement('th'); th.textContent = c; trHead.appendChild(th); });
+          thead.appendChild(trHead);
+          table.appendChild(thead);
+
+          const tbody = document.createElement('tbody');
+          rows.forEach(rw => {
+            const tr = document.createElement('tr');
+            cols.forEach(c => { const td = document.createElement('td'); td.textContent = rw[c] || ''; tr.appendChild(td); });
+            tbody.appendChild(tr);
+          });
+          table.appendChild(tbody);
+          sec.appendChild(table);
+
+          const footer = document.createElement('footer');
+          footer.textContent = 'Afdrukdatum: ' + today;
+          sec.appendChild(footer);
+
+          container.appendChild(sec);
         }
-      } else {
-        // Reset timer als print-mode niet actief is
-        window.printModeStartTime = 0;
       }
-    }, 5000); // Controleer elke 5 seconden
-  });
+
+      const linksContainer = document.getElementById('pdf-links');
+      linksContainer.innerHTML = '<h3>Download links:</h3>';
+      for (const domein of Object.keys(domains)) {
+        const opt = { margin: 1, filename: domein + '-aanbod.pdf' };
+        const pdfBlob = await html2pdf().set(opt).from(container).outputPdf('blob');
+        const url = URL.createObjectURL(pdfBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = opt.filename;
+        link.textContent = `Download ${opt.filename}`;
+        link.style.display = 'block';
+        linksContainer.appendChild(link);
+      }
+
+      btn.textContent = 'Genereer PDF’s';
+    }
+    document.getElementById('generateBtn').addEventListener('click', generate);
   </script>
 </body>
 </html>
