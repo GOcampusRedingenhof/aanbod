@@ -19,6 +19,12 @@
   
   <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- PDF Library - Zorg dat deze voordat de app JavaScript wordt geladen -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  <!-- Papa Parse voor CSV verwerking - Zorg dat deze vóór de app JavaScript wordt geladen -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js" integrity="sha256-Ue7waqU6zPGe+WY5/dbpxn1SQ8JEo8kVbzMpNZ4RZ5k=" crossorigin="anonymous"></script>
 </head>
 <body>
   <div id="lessentabellen-container" class="lessentabellen-container">
@@ -46,6 +52,10 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l9 2-9-18-9 18 9-2z"/></svg>
               Brochure
             </a>
+            <button id="download-pdf-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download PDF
+            </button>
             <button id="print-button">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
               Afdrukken
@@ -65,21 +75,19 @@
         <img class="logo-print" src="https://images.squarespace-cdn.com/content/v1/670992d66064015802d7e5dc/5425e461-06b0-4530-9969-4068d5a5dfdc/Scherm%C2%ADafbeelding+2024-12-03+om+09.38.12.jpg?format=1500w" alt="Redingenhof logo">
         
         <!-- Datum en quote voor printversie -->
-        <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
-        <div class="quote">SAMEN VER!</div>
+        <div id="print-footer">
+          <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
+          <div class="quote">SAMEN VER!</div>
+        </div>
       </div>
 
       <!-- Overlay voor achtergrond dimmen -->
       <div id="overlay"></div>
     </div>
   </div>
-
-  <!-- Papa Parse voor CSV verwerking -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   
   <!-- App JavaScript - gebruik de nieuwe modulaire structuur -->
   <script type="module" src="js/index.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <!-- Centraal error handler script -->
   <script>
@@ -118,88 +126,46 @@
     }
   });
   
-  // We delegeren de print events naar onze centrale printmodule
-  window.addEventListener('beforeprint', function(event) {
-    console.log('Globale beforeprint event gedetecteerd');
-    // We sturen dit door naar de print-handler module
-    // De module handelt dit zelf af
-  });
-  
-  window.addEventListener('afterprint', function(event) {
-    console.log('Globale afterprint event gedetecteerd');
-    // We laten de print-handler module dit afhandelen
-    // Alleen als er geen handler actief is, doen we een fallback cleanup
-    if (document.body.classList.contains('print-mode')) {
-      // Controleer of er een cleanup functie beschikbaar is in de app
-      if (window.LessentabellenApp && typeof window.LessentabellenApp.cleanupAfterPrinting === 'function') {
-        window.LessentabellenApp.cleanupAfterPrinting();
-      } else {
-        // Fallback: eenvoudige cleanup
-        document.body.classList.remove('print-mode');
+  // Voeg een huidige datum toe aan het datum-print element zodra de pagina geladen is
+  document.addEventListener('DOMContentLoaded', function() {
+    const datumElement = document.getElementById('datum-print');
+    if (datumElement) {
+      const nu = new Date();
+      const opties = { day: '2-digit', month: 'long', year: 'numeric' };
+      try {
+        datumElement.textContent = nu.toLocaleDateString('nl-BE', opties);
+      } catch (error) {
+        // Fallback bij fout in datumformat
+        datumElement.textContent = nu.toLocaleDateString();
       }
     }
-  });
-  
-  // Safety timeout om vastlopen te voorkomen
-  document.addEventListener('DOMContentLoaded', function() {
-    // Controleer periodiek of print-mode vast is blijven zitten
-    setInterval(function() {
-      if (document.body.classList.contains('print-mode')) {
-        // Check hoe lang print-mode al actief is
-        const printModeStart = window.printModeStartTime || 0;
-        const now = Date.now();
-        
-        // Als print-mode langer dan 30 seconden actief is, forceer reset
-        if (printModeStart > 0 && (now - printModeStart > 30000)) {
-          console.warn('Print-mode zit vast, forceer reset');
-          
-          // Reset print mode
-          document.body.classList.remove('print-mode');
-          window.printModeStartTime = 0;
-          
-          // Probeer de cleanup functie aan te roepen als die bestaat
-          if (window.LessentabellenApp && typeof window.LessentabellenApp.cleanupAfterPrinting === 'function') {
-            window.LessentabellenApp.cleanupAfterPrinting();
-          } else {
-            // Anders basis UI elementen herstellen
-            const closeBtn = document.querySelector('.close-btn');
-            if (closeBtn) closeBtn.style.display = '';
-            
-            const actionButtons = document.querySelector('.action-buttons');
-            if (actionButtons) actionButtons.style.display = '';
-            
-            // Reset slidein styling
-            const slidein = document.getElementById('slidein');
-            if (slidein) {
-              slidein.style.padding = '';
-              slidein.classList.remove('scaled-for-print');
-              slidein.classList.remove('extreme');
-              slidein.classList.remove('print-optimized');
-              slidein.classList.remove('scaled-table');
-              
-              // Herstel tabel styling
-              const table = slidein.querySelector('.lessentabel');
-              if (table) {
-                table.style.fontSize = '';
-                table.style.transform = '';
-                table.style.marginBottom = '';
-                
-                // Herstel cel padding
-                const cells = table.querySelectorAll('td, th');
-                if (cells) {
-                  cells.forEach(cell => {
-                    if (cell) cell.style.padding = '';
-                  });
-                }
-              }
-            }
-          }
+    
+    // Stel een betere printervaring in
+    const printButton = document.getElementById('print-button');
+    if (printButton) {
+      printButton.addEventListener('click', function() {
+        // Gebruik de verbeterde print functie als die beschikbaar is
+        if (window.LessentabellenApp && typeof window.LessentabellenApp.printLessentabel === 'function') {
+          window.LessentabellenApp.printLessentabel();
+        } else {
+          // Fallback naar standaard browser printen
+          window.print();
         }
-      } else {
-        // Reset timer als print-mode niet actief is
-        window.printModeStartTime = 0;
-      }
-    }, 5000); // Controleer elke 5 seconden
+      });
+    }
+    
+    // Stel PDF download in
+    const downloadButton = document.getElementById('download-pdf-button');
+    if (downloadButton) {
+      downloadButton.addEventListener('click', function() {
+        // Gebruik de PDF generatie functie als die beschikbaar is
+        if (window.LessentabellenApp && typeof window.LessentabellenApp.generatePDF === 'function') {
+          window.LessentabellenApp.generatePDF();
+        } else {
+          alert('PDF downloaden is niet beschikbaar. Probeer de pagina te verversen.');
+        }
+      });
+    }
   });
   </script>
 </body>
