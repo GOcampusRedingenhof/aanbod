@@ -3,8 +3,8 @@
 import appController from './app-controller.js';
 import { buildGrid } from './grid-builder.js';
 import { renderSlidein } from './detail-view.js';
-// Importeer printfuncties uit onze verbeterde print-handler module
-import { initPrintHandler, printLessentabel, cleanupAfterPrinting, generatePDF } from './print-handler.js';
+// Importeer alleen de benodigde functies uit print-handler.js
+import { initPrintHandler, generatePDF } from './print-handler.js';
 
 class LessentabellenAppClass {
   constructor() {
@@ -30,12 +30,7 @@ class LessentabellenAppClass {
         overlay.addEventListener('click', () => this.closeSlidein());
       }
       
-      // Initialiseer print en PDF knoppen
-      const printButton = document.getElementById('print-button');
-      if (printButton) {
-        printButton.addEventListener('click', () => this.printLessentabel());
-      }
-      
+      // Initialiseer PDF download knop
       const downloadButton = document.getElementById('download-pdf-button');
       if (downloadButton) {
         downloadButton.addEventListener('click', () => this.generatePDF());
@@ -179,23 +174,6 @@ class LessentabellenAppClass {
       // Forceer sluiten bij fout
       document.getElementById("slidein")?.classList.remove("open");
       document.getElementById("overlay")?.classList.remove("active");
-    }
-  }
-  
-  /**
-   * Start het printproces voor de huidige lessentabel
-   */
-  printLessentabel() {
-    try {
-      console.log('Print proces gestart');
-      
-      // Gebruik de geëxporteerde printLessentabel functie
-      printLessentabel();
-    } catch (error) {
-      console.error('Fout bij starten printproces:', error);
-      
-      // Fallback: probeer eenvoudig printen als de module faalt
-      window.print();
     }
   }
   
