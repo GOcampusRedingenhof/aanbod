@@ -1,9 +1,11 @@
-// loader.js
+// js/loader.js
+
+// DataLoader laadt CSV’s in via PapaParse (of fallback) en biedt methods om data te vragen.
 export default class DataLoader {
   constructor(config = {}) {
     this.cache = new Map();
     this.config = {
-      cacheTimeout: 1000 * 60 * 60, // 1 uur cache
+      cacheTimeout: 1000 * 60 * 60, // 1 uur cache
       parseOptions: {
         header: true,
         dynamicTyping: true,
@@ -11,82 +13,43 @@ export default class DataLoader {
       },
       ...config
     };
-
-    // Fallback parsing methode als Papaparse niet beschikbaar is
     this.fallbackParse = this.fallbackParse.bind(this);
   }
 
-  async loadCSV(url) {
-    // Check cache eerst
-    const cachedData = this.getCachedData(url);
-    if (cachedData) return cachedData;
-
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error(`Kon CSV niet laden: ${url}`);
-      
-      const text = await response.text();
-      const parsed = this.parseCSV(text);
-      
-      // Cache resultaat
-      this.cacheData(url, parsed);
-      
-      return parsed;
-    } catch (error) {
-      console.error(`CSV laden mislukt voor ${url}:`, error);
-      throw error;
+  // Laadt een CSV-bestand en cachet het
+  async loadCSV(path) {
+    const now = Date.now();
+    if (this.cache.has(path)) {
+      const { timestamp, data } = this.cache.get(path);
+      if (now - timestamp < this.config.cacheTimeout) {
+        return data;
+      }
     }
+    // Probeer PapaParse (globaal beschikbaar) anders fallback
+    const csvText = await fetch(path).then(r => r.text());
+    let parsed;
+    if (window.Papa && typeof Papa.parse === 'function') {
+      parsed = Papa.parse(csvText, this.config.parseOptions).data;
+    } else {
+      parsed = this.fallbackParse(csvText);
+    }
+    this.cache.set(path, { timestamp: now, data: parsed });
+    return parsed;
   }
 
-  parseCSV(text) {
-    // Probeer Papaparse eerst
-    if (typeof Papa !== 'undefined') {
-      return Papa.parse(text, this.config.parseOptions).data;
-    }
-    
-    // Fallback parsing methode
-    return this.fallbackParse(text);
-  }
-
-  fallbackParse(text) {
-    const lines = text.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
-    
-    return lines.slice(1).map(line => {
-      const values = line.split(',').map(v => v.trim());
-      return headers.reduce((obj, header, index) => {
-        // Basis type conversie
-        let value = values[index];
-        if (value === 'WAAR') value = true;
-        else if (value === 'ONWAAR') value = false;
-        else if (!isNaN(parseFloat(value))) value = parseFloat(value);
-        
-        obj[header] = value;
-        return obj;
-      }, {});
+  // Fallback parser (eenvoudige split op regels en komma’s)
+  fallbackParse(csvText) {
+    const lines = csvText.trim().split(/\r?\n/);
+    const headers = lines.shift().split(',');
+    return lines.map(line => {
+      const cols = line.split(',');
+      const obj = {};
+      headers.forEach((h, i) => obj[h.trim()] = cols[i]?.trim() ?? '');
+      return obj;
     });
   }
 
-  getCachedData(url) {
-    const cached = this.cache.get(url);
-    if (!cached) return null;
-    
-    // Check of cache verlopen is
-    if (Date.now() - cached.timestamp > this.config.cacheTimeout) {
-      this.cache.delete(url);
-      return null;
-    }
-    
-    return cached.data;
-  }
-
-  cacheData(url, data) {
-    this.cache.set(url, {
-      data,
-      timestamp: Date.now()
-    });
-  }
-
+  // Named methods voor je app.js
   async getKlassen() {
     return this.loadCSV('data/klassen.csv');
   }
@@ -98,4 +61,18 @@ export default class DataLoader {
   async getFootnotes() {
     return this.loadCSV('data/voetnoten.csv');
   }
+}
+
+// **Nieuw**: instanties en named exports zodat app.js kan doen:
+// import { getKlassen, getLessentabel, getFootnotes } from './loader.js';
+const _sharedLoader = new DataLoader();
+
+export function getKlassen() {
+  return _sharedLoader.getKlassen();
+}
+export function getLessentabel() {
+  return _sharedLoader.getLessentabel();
+}
+export function getFootnotes() {
+  return _sharedLoader.getFootnotes();
 }
