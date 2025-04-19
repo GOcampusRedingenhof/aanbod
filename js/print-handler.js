@@ -34,6 +34,33 @@ export function initPrintHandler(klas) {
       day: "2-digit", month: "2-digit", year: "numeric"
     });
   }
+  
+  // Stel documenttitel in voor printen
+  setPrintDocumentTitle(klas);
+}
+
+/**
+ * Stelt een betekenisvolle documenttitel in voor het afdrukken
+ * @param {Object} klas - Het klasobject waarvoor we printen
+ */
+function setPrintDocumentTitle(klas) {
+  if (!klas) return;
+  
+  // Bewaar originele titel om later te herstellen
+  const originalTitle = document.title;
+  
+  // Genereer betekenisvolle printtitel
+  const printTitle = `Lessentabel ${klas.klascode} - ${klas.richting} - GO Campus Redingenhof`;
+  
+  // Tijdelijk de documenttitel veranderen voor het printen
+  document.title = printTitle;
+  
+  // Herstel de originele titel na het printen
+  window.addEventListener('afterprint', function restoreTitle() {
+    document.title = originalTitle;
+    // Verwijder deze event listener na één keer uitvoeren
+    window.removeEventListener('afterprint', restoreTitle);
+  });
 }
 
 /**
@@ -41,6 +68,9 @@ export function initPrintHandler(klas) {
  * @param {Object} klas - Het klasobject waarvoor we printen
  */
 export function printLessentabel(klas) {
+  // Stel documenttitel in voor printen
+  setPrintDocumentTitle(klas);
+  
   // Voeg print class toe aan body voor speciale print styling
   document.body.classList.add('print-mode');
   
