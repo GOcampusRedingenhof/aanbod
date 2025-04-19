@@ -8,32 +8,35 @@
  * @returns {string} HTML voor de lessentabel
  */
 export function generateLessentabel(lessen, hoofdKlas) {
-  // Filter alleen op de geselecteerde klascode en graad
-  const hoofdKlasLessen = lessen.filter(les => les.klascode === hoofdKlas.klascode);
-  
-  // Vind de unieke klascodes met dezelfde richtingcode
-  const klasCodes = [...new Set(lessen
-    .filter(les => {
-      // Zoek de klas info voor deze les
-      // Controleer of window.LessentabellenApp bestaat
-      if (!window.LessentabellenApp || !window.LessentabellenApp.klassen) {
-        console.error('LessentabellenApp of klassen niet beschikbaar!');
-        return false;
-      }
-      
-      const klas = window.LessentabellenApp.klassen.find(k => k.klascode === les.klascode);
-      // Behoud alleen lessen van klassen met dezelfde graad als hoofdklas
-      return klas && klas.graad === hoofdKlas.graad;
-    })
-    .map(les => les.klascode))]
-    .sort(); // Sorteer klascode alleen op naam
-  
-  if (klasCodes.length === 0) {
-    return '<p>Geen lessentabel beschikbaar voor deze richting.</p>';
+  try {
+    // Filter alleen op de geselecteerde klascode en graad
+    const hoofdKlasLessen = lessen.filter(les => les.klascode === hoofdKlas.klascode);
+    
+    // Vind de unieke klascodes met dezelfde richtingcode
+    const klasCodes = [...new Set(lessen
+      .filter(les => {
+        try {
+          // We hoeven hier niet de globale app instance te gebruiken!
+          // In plaats daarvan gebruiken we de hoofdKlas die als parameter is meegegeven
+          return les.klascode && hoofdKlas && les.klascode.startsWith(hoofdKlas.klascode.charAt(0));
+        } catch (err) {
+          console.warn('Fout bij vergelijken van klas codes:', err);
+          return false;
+        }
+      })
+      .map(les => les.klascode))]
+      .sort(); // Sorteer klascode alleen op naam
+    
+    if (klasCodes.length === 0) {
+      return '<p>Geen lessentabel beschikbaar voor deze richting.</p>';
+    }
+    
+    // Maak tabelinhoud
+    return buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, lessen, klasCodes, hoofdKlas);
+  } catch (error) {
+    console.error('Fout bij genereren van lessentabel:', error);
+    return `<div class="error-message">Er is een fout opgetreden bij het laden van de lessentabel. ${error.message}</div>`;
   }
-  
-  // Maak tabelinhoud
-  return buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, lessen, klasCodes, hoofdKlas);
 }
 
 /**
@@ -176,7 +179,7 @@ function buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, alleLessen, klas
   }
   
   // Voeg stageweken toe indien van toepassing
-  const stageRow = buildStageRow(klasCodes);
+  const stageRow = buildStageRow(klasCodes, hoofdKlas);
   if (stageRow) {
     tabelHTML += stageRow;
   }
@@ -225,45 +228,35 @@ function berekenTotalen(lessen, klasCodes) {
 /**
  * Bouwt een rij voor stageweken als die beschikbaar zijn
  * @param {Array} klasCodes - Array van klascode
+ * @param {Object} hoofdKlas - Het hoofdklas object voor deze lessentabel
  * @returns {string|null} HTML voor de stageweken rij of null
  */
-function buildStageRow(klasCodes) {
-  // Controleer of er überhaupt stage weken zijn in enige klas
-  const heeftStageWeken = klasCodes.some(code => {
-    // Controleer of window.LessentabellenApp bestaat
-    if (!window.LessentabellenApp || !window.LessentabellenApp.klassen) {
-      console.error('LessentabellenApp of klassen niet beschikbaar voor stage check!');
-      return false;
-    }
+function buildStageRow(klasCodes, hoofdKlas) {
+  try {
+    // In plaats van afhankelijk te zijn van window.LessentabellenApp, gebruiken we 
+    // parameters of lokale data
     
-    // Zoek klas bij de code
-    const klas = window.LessentabellenApp.klassen.find(k => k.klascode === code);
-    // Controleer of er stage_weken zijn gedefinieerd
-    return klas && klas.stage_weken !== undefined && klas.stage_weken !== null;
-  });
+    // Kijk of hoofdklas stage weken heeft
+    const heeftHoofdKlasStage = hoofdKlas && hoofdKlas.stage_weken !== undefined && 
+                               hoofdKlas.stage_weken !== null && 
+                               hoofdKlas.stage_weken !== '';
+    
+    // Als de hoofdklas geen stageweken heeft, return null
+    if (!heeftHoofdKlasStage) {
+      return null;
+    }
 
-  if (heeftStageWeken) {
     return `
       <tr class="stage-row" style="font-weight:bold; border-top: 1px solid #000;">
         <td>Stage weken</td>
         ${klasCodes.map(code => {
-          // Controleer of window.LessentabellenApp bestaat
-          if (!window.LessentabellenApp || !window.LessentabellenApp.klassen) {
-            console.error('LessentabellenApp of klassen niet beschikbaar voor stage data!');
-            return '<td></td>';
-          }
-          
-          // Zoek de juiste klas-info voor deze klascode
-          const klas = window.LessentabellenApp.klassen.find(k => k.klascode === code);
-          // Haal stageweken op indien beschikbaar
-          const stageWeken = (klas && klas.stage_weken !== undefined && klas.stage_weken !== null) 
-            ? klas.stage_weken 
-            : '';
-          return `<td>${stageWeken}</td>`;
+          // We weten al dat hoofdKlas stage weken heeft, dus we gebruiken dat
+          return `<td>${code === hoofdKlas.klascode ? hoofdKlas.stage_weken : '-'}</td>`;
         }).join('')}
       </tr>
     `;
+  } catch (error) {
+    console.warn('Fout bij genereren stage rij:', error);
+    return null;
   }
-  
-  return null;
 }
