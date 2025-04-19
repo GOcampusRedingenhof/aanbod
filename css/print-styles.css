@@ -1,108 +1,58 @@
-/* print-styles.css
-   Profielfinishing voor GO Campus Redingenhof
-   Laadt na styles.css en overruled voor print
-*/
-
-@page {
-  size: A4 portrait;
-  margin: 5mm;
-}
-
 @media print {
-  /* Basis reset */
-  *, *::before, *::after {
-    box-sizing: border-box;
-    color: #000 !important;
-    -webkit-print-color-adjust: exact;
-  }
-  html, body {
+  body {
     margin: 0;
-    padding: 0;
-    font-family: var(--font-base, Arial, sans-serif);
-    font-size: 9pt;
-    line-height: 1.2;
+    padding: 1cm;
+    font-size: 10pt;
+    color: #000;
     background: none;
   }
-  /* Verberg niet-print elementen */
-  .no-print, nav, header, footer, .button, .controls {
-    display: none !important;
+
+  .print-header {
+    display: block;
+    margin-bottom: 1rem;
   }
 
-  /* Header styling */
-  .print-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid var(--color-primary, #005b96);
-    padding: 4mm 0;
-    margin-bottom: 6mm;
+  .print-logo {
+    height: 40px;
   }
-  .print-header .logo-print,
-  .print-header .logo {
-    max-height: 40px;
-    object-fit: contain;
-  }
-  .print-header .title {
-    font-size: var(--font-size-lg, 14pt);
-    font-weight: bold;
-    color: var(--color-primary, #005b96);
-    text-transform: uppercase;
-  }
-  .print-header .date {
-    font-size: 8pt;
+
+  .print-footer {
+    display: block;
+    position: fixed;
+    bottom: 1cm;
+    left: 1cm;
+    right: 1cm;
+    text-align: right;
+    font-size: 10pt;
     color: #333;
   }
 
-  /* Container rond hoofdcontent */
-  .print-container {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+  #print-button,
+  nav,
+  footer,
+  .domains-grid,
+  .slide-in,
+  .screen-only {
+    display: none !important;
   }
 
-  /* Tabellen */
-  table {
+  #print-content, .print-container {
+    display: block;
     width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-    margin-bottom: 6mm;
-  }
-  thead tr {
-    background-color: rgba(0, 91, 150, 0.1);
-  }
-  thead th, tbody td {
-    border: 1px solid var(--color-primary, #005b96);
-    padding: 4px 6px;
-    word-wrap: break-word;
-  }
-  thead th {
-    font-size: 9pt;
-    font-weight: bold;
-  }
-  tbody td {
-    font-size: 8pt;
-  }
-  tr {
+    max-height: 25cm;
+    overflow: hidden;
     page-break-inside: avoid;
   }
 
-  /* Footer met paginering */
-  .print-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-top: 1px solid var(--color-primary, #005b96);
-    padding: 3mm 0;
-    text-align: right;
-    font-size: 7pt;
-    background: #fff;
+  @page {
+    size: A4 portrait;
+    margin: 1cm;
   }
-  .print-footer .page-number::after {
-    content: "Pagina " counter(page) " van " counter(pages);
-  }
+}
 
-  /* Header en footer herhalen */
-  thead { display: table-header-group; }
-  tfoot { display: table-footer-group; }
+@media screen {
+  .print-header,
+  .print-footer {
+    display: none;
+  }
 }
