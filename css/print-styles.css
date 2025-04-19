@@ -14,166 +14,132 @@
   }
 
   /* Elementen verbergen die niet geprint moeten worden */
-  #print-button,
-  nav,
-  footer,
-  .domains-grid,
-  .close-btn,
-  .action-buttons,
-  #overlay,
+  header,
+  .logo,
+  .slogan,
+  .loader-spinner,
   #domains-container {
     display: none !important;
-    visibility: hidden !important;
   }
 
   /* Reset slidein styles voor printen */
   #slidein {
     position: static !important;
+    width: auto !important;
     transform: none !important;
-    box-shadow: none !important;
-    max-width: none !important;
-    width: 100% !important;
-    height: auto !important;
-    padding: 0 !important;
-    margin: 0 !important;
     overflow: visible !important;
+    page-break-before: avoid !important;
+  }
+  #overlay {
+    display: none !important;
   }
 
   /* Content containers */
-  .print-container,
-  .lessentabellen-wrapper,
-  .detail-content {
+  .detail-header,
+  .detail-content,
+  .action-buttons,
+  .print-footer {
     display: block !important;
-    width: 100% !important;
-    height: auto !important;
-    overflow: visible !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
   }
 
   /* Tabelstijlen voor printen */
+  #lessentabel-container {
+    width: 100% !important;
+    margin: 1rem 0 !important;
+    page-break-inside: avoid !important;
+  }
   .lessentabel {
     width: 100% !important;
-    max-width: 100% !important;
     border-collapse: collapse !important;
-    font-size: 9pt !important;
-    margin: 0.5cm auto !important;
-    border: 1px solid #999 !important;
+    page-break-inside: avoid !important;
   }
-
+  .lessentabel thead {
+    display: table-header-group !important;
+  }
+  .lessentabel tbody {
+    display: table-row-group !important;
+    page-break-inside: avoid !important;
+  }
+  .lessentabel tr {
+    page-break-inside: avoid !important;
+  }
   .lessentabel th,
   .lessentabel td {
-    padding: 3px !important;
-    border: 1px solid #999 !important;
+    border: 1px solid #000 !important;
+    padding: 0.25rem !important;
     font-size: 9pt !important;
-  }
-
-  .lessentabel thead th {
-    background: #f0f0f0 !important;
-    color: black !important;
-    font-weight: bold !important;
-  }
-
-  .categorie-header th {
-    background: #e0e0e0 !important;
-    color: black !important;
-    font-weight: bold !important;
   }
 
   /* Titelstijlen voor printen */
-  #opleiding-titel {
-    font-size: 16pt !important;
-    margin-top: 0.5cm !important;
-    margin-bottom: 0.3cm !important;
-    text-align: center !important;
-    color: black !important;
-  }
-
-  #opleiding-beschrijving {
-    font-size: 9pt !important;
-    margin-bottom: 0.3cm !important;
-    text-align: center !important;
-    color: black !important;
+  .detail-header h2,
+  .detail-header p {
+    font-size: 12pt !important;
+    margin: 0.5rem 0 !important;
   }
 
   /* Voetnoten */
-  .footnotes {
+  #footnotes {
+    margin-top: 1rem !important;
     font-size: 8pt !important;
-    margin-top: 0.3cm !important;
-    padding: 5px !important;
-    background: none !important;
-    border-top: 1px solid #ccc !important;
-    color: black !important;
+    page-break-inside: avoid !important;
+  }
+  #footnotes li {
+    margin-bottom: 0.25rem !important;
   }
 
   /* Paginainstellingen */
   @page {
-    size: A4 portrait;
-    margin: 0.5cm;
+    margin: 1cm !important;
   }
-  
+
   /* Styling voor specifieke rijtypen */
-  .vak-header td {
-    background-color: #f5f5f5 !important;
-    font-weight: bold !important;
+  .lessentabel tr.passend {
+    background: #e8f5e9 !important;
   }
-  
-  .subvak td:first-child {
-    padding-left: 10px !important;
-  }
-  
-  .totaal-row td {
-    font-weight: bold !important;
-    border-top: 2px solid #000 !important;
-  }
-  
-  .stage-row td {
-    border-top: 1px solid #000 !important;
-    background-color: #f5f5f5 !important;
+  .lessentabel tr.afwezig {
+    background: #ffebee !important;
   }
 
   /* Branding */
-  .logo-print {
-    display: block !important;
-    height: 30px !important;
-    margin: 0 0 0.3cm 0 !important;
+  .print-footer .datum,
+  .print-footer .quote {
+    text-align: center !important;
+    margin: 0.5rem 0 !important;
   }
-  
-  .datum {
-    display: block !important;
-    font-size: 7pt !important;
-    margin: 0.2cm 0 0 0 !important;
-    text-align: right !important;
-    color: #333 !important;
+  .print-footer .quote {
+    font-style: italic !important;
   }
-  
-  .quote {
-    display: block !important;
-    font-size: 8pt !important;
-    margin: 0.2cm 0 0 0 !important;
-    text-align: left !important;
-    font-weight: bold !important;
-    color: #333 !important;
-  }
-}
 
-/* Schermversie styles - zorgt dat print elementen niet zichtbaar zijn in browser */
-@media screen {
-  .print-header,
-  .print-footer,
-  .logo-print,
-  .datum,
-  .quote {
-    display: none !important;
+  /* Achtergrondafbeelding */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url("https://images.squarespace-cdn.com/content/670992d66064015802d7e5dc/b8d9cee9-fa08-460b-b0a5-f4c15a1f2728/SAMEN+VER%21.png?content-type=image%2Fpng")
+                center/cover no-repeat !important;
+    opacity: 0.1 !important;
+    z-index: -1 !important;
   }
-  
+
+  /* Transities buiten print-mode behouden voor scherm */
   body:not(.print-mode) #slidein {
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
-  
-  body:not(.print-mode) .close-btn, 
+  body:not(.print-mode) .close-btn,
   body:not(.print-mode) .action-buttons a,
   body:not(.print-mode) .action-buttons button {
     transition: all 0.25s !important;
+  }
+}
+
+/* Schermversie styles - zorgt dat print-specifieke elementen niet zichtbaar zijn in browser */
+@media screen {
+  .print-footer,
+  #lessentabellen-container header,
+  .logo-print,
+  #datum-print,
+  .quote {
+    display: none !important;
   }
 }
