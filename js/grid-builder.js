@@ -55,39 +55,19 @@ export function buildGrid(klassen, container) {
     dataMap[domein][graad][finaliteit][richtingId] = item;
   });
   
-  // Definieer de gewenste volgorde van domeinen
-  const domeinenVolgorde = [
-    'eerste-graad', 
-    'economie-organisatie', 
-    'maatschappij-welzijn', 
-    'stem', 
-    'sport-topsport', 
-    'okan', 
-    'schakeljaar'  // Schakeljaar als laatste
-  ];
-
-  // Converteer de Set naar een array en sorteer op basis van de domeinenVolgorde
-  const sortedDomeinen = Array.from(domeinen).sort((a, b) => {
-    const indexA = domeinenVolgorde.indexOf(a);
-    const indexB = domeinenVolgorde.indexOf(b);
-    
-    // Als beide domeinen niet in de lijst staan, sorteer alfabetisch
-    if (indexA === -1 && indexB === -1) {
-      return a.localeCompare(b);
-    }
-    
-    // Als alleen a niet in de lijst staat, zet het achteraan
-    if (indexA === -1) return 1;
-    
-    // Als alleen b niet in de lijst staat, zet het achteraan
-    if (indexB === -1) return -1;
-    
-    // Anders sorteer op basis van de index in de volgorde array
-    return indexA - indexB;
-  });
-  
   // Begin met het bouwen van de DOM voor het grid
-  sortedDomeinen.forEach(domein => {
+  // Verwerk domeinen in een speciale volgorde, met schakeljaar als laatste
+  const domeinenArray = Array.from(domeinen);
+  if (domeinenArray.includes('schakeljaar')) {
+    // Verwijder schakeljaar uit de array
+    const index = domeinenArray.indexOf('schakeljaar');
+    domeinenArray.splice(index, 1);
+    // Voeg schakeljaar toe aan het einde
+    domeinenArray.push('schakeljaar');
+  }
+  
+  // Gebruik domeinenArray in plaats van domeinen
+  domeinenArray.forEach(domein => {
     // Maak domein block
     const domainBlock = createDomainBlock(domein);
     
