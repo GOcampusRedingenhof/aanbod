@@ -1,7 +1,7 @@
 /* css/print-styles.css */
 
 @media print {
-  /* --- Reset en algemene body‑regels --- */
+  /* --- Algemene reset --- */
   body {
     margin: 0 !important;
     padding: 0 !important;
@@ -10,24 +10,34 @@
     background: none !important;
   }
 
-  /* --- Verberg onnodige onderdelen --- */
+  /* --- Verberg homepage en loader --- */
   #lessentabellen-container,
   #domains-container,
   .loader-spinner {
     display: none !important;
   }
 
-  /* --- Toon slide-in: titel, tabel, voetnoten --- */
-  #slidein,
+  /* --- Toon slide‑in volledig --- */
+  #slidein {
+    position: static !important;
+    transform: none !important;
+    overflow: visible !important;
+    page-break-before: avoid !important;
+    display: block !important;
+  }
+  #overlay {
+    display: none !important;
+  }
+
+  /* --- Toon header/titel, content, knoppen en footer --- */
   .detail-header,
   .detail-content,
   .action-buttons,
   .print-footer {
     display: block !important;
-    page-break-inside: avoid !important;
   }
 
-  /* --- Lessentabel volledig tonen zonder lege pagina’s --- */
+  /* --- Lessentabel (altijd zichtbaar, geen lege pagina) --- */
   #lessentabel-container,
   .lessentabel,
   .lessentabel thead,
@@ -36,10 +46,22 @@
     display: table-row-group !important;
     page-break-inside: avoid !important;
   }
+  .lessentabel {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
   .lessentabel th,
   .lessentabel td {
     border: 1px solid #000 !important;
     padding: 0.25rem !important;
+    font-size: 9pt !important;
+  }
+
+  /* --- Voetnoten --- */
+  #footnotes {
+    font-size: 8pt !important;
+    page-break-inside: avoid !important;
+    margin-top: 1rem !important;
   }
 
   /* --- Achtergrondafbeelding --- */
@@ -54,14 +76,17 @@
     z-index: -1 !important;
   }
 
-  /* --- Voetnoten bij elkaar houden --- */
-  #footnotes {
-    font-size: 8pt !important;
-    page-break-inside: avoid !important;
+  /* --- Behoud scherm-transities buiten print-mode --- */
+  body:not(.print-mode) #slidein {
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1) !important;
+  }
+  body:not(.print-mode) .close-btn,
+  body:not(.print-mode) .action-buttons a,
+  body:not(.print-mode) .action-buttons button {
+    transition: all 0.25s !important;
   }
 }
 
-/* scherm‑versie: voorkom dat print‑footer en achtergrond in de browser zichtbaar zijn */
 @media screen {
   .print-footer,
   body::before {
