@@ -1,110 +1,48 @@
 /* css/print-styles.css */
 
-/* Alleen printstijlen */
 @media print {
-  /* --- Algemene reset --- */
+  /* --- Reset en algemene body‑regels --- */
   body {
     margin: 0 !important;
     padding: 0 !important;
     font-size: 10pt !important;
     color: #000 !important;
     background: none !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
   }
 
-  /* --- Verberg alles wat niet geprint moet worden --- */
+  /* --- Verberg onnodige onderdelen --- */
   #lessentabellen-container,
   #domains-container,
-  .loader-spinner,
-  .lessentabellen-root .slogan,
-  .logo,
-  header {
+  .loader-spinner {
     display: none !important;
   }
 
-  /* --- Slide‑in zichtbaar en stabiel maken --- */
-  #slidein {
-    position: static !important;
-    width: auto !important;
-    transform: none !important;
-    overflow: visible !important;
-    page-break-before: avoid !important;
-  }
-  #overlay {
-    display: none !important;
-  }
-
-  /* --- Detail‑header en knoppen weergeven --- */
+  /* --- Toon slide-in: titel, tabel, voetnoten --- */
+  #slidein,
   .detail-header,
   .detail-content,
   .action-buttons,
   .print-footer {
     display: block !important;
+    page-break-inside: avoid !important;
   }
 
-  /* --- Lessentabel: geen pagina‑breaks binnenin --- */
-  #lessentabel-container {
-    width: 100% !important;
-    margin: 1rem 0 !important;
-    page-break-inside: avoid !important;
-  }
-  .lessentabel {
-    width: 100% !important;
-    border-collapse: collapse !important;
-    page-break-inside: avoid !important;
-  }
-  .lessentabel thead {
-    display: table-header-group !important;
-  }
-  .lessentabel tbody {
-    display: table-row-group !important;
-    page-break-inside: avoid !important;
-  }
+  /* --- Lessentabel volledig tonen zonder lege pagina’s --- */
+  #lessentabel-container,
+  .lessentabel,
+  .lessentabel thead,
+  .lessentabel tbody,
   .lessentabel tr {
+    display: table-row-group !important;
     page-break-inside: avoid !important;
   }
   .lessentabel th,
   .lessentabel td {
     border: 1px solid #000 !important;
     padding: 0.25rem !important;
-    font-size: 9pt !important;
   }
 
-  /* --- Voetnoten bij elkaar houden --- */
-  #footnotes {
-    margin-top: 1rem !important;
-    font-size: 8pt !important;
-    page-break-inside: avoid !important;
-  }
-  #footnotes li {
-    margin-bottom: 0.25rem !important;
-  }
-
-  /* --- Pagina‑marges --- */
-  @page {
-    margin: 1cm !important;
-  }
-
-  /* --- Rijtinting (optioneel) --- */
-  .lessentabel tr.passend {
-    background: #e8f5e9 !important;
-  }
-  .lessentabel tr.afwezig {
-    background: #ffebee !important;
-  }
-
-  /* --- Print‑footer styling --- */
-  .print-footer .datum,
-  .print-footer .quote {
-    text-align: center !important;
-    margin: 0.5rem 0 !important;
-  }
-  .print-footer .quote {
-    font-style: italic !important;
-  }
-
-  /* --- Jouw nieuwe achtergrond --- */
+  /* --- Achtergrondafbeelding --- */
   body::before {
     content: "";
     position: fixed;
@@ -116,22 +54,17 @@
     z-index: -1 !important;
   }
 
-  /* --- Houd transitions buiten print‑mode intact --- */
-  body:not(.print-mode) #slidein {
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  }
-  body:not(.print-mode) .close-btn,
-  body:not(.print-mode) .action-buttons a,
-  body:not(.print-mode) .action-buttons button {
-    transition: all 0.25s !important;
+  /* --- Voetnoten bij elkaar houden --- */
+  #footnotes {
+    font-size: 8pt !important;
+    page-break-inside: avoid !important;
   }
 }
 
-/* Schermversie: verberg print‑footer e.d. */
+/* scherm‑versie: voorkom dat print‑footer en achtergrond in de browser zichtbaar zijn */
 @media screen {
   .print-footer,
-  #datum-print,
-  .quote {
+  body::before {
     display: none !important;
   }
 }
