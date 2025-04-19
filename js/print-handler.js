@@ -1,5 +1,5 @@
-// js/print-handler.js — Printhandler met print‑preview via nieuw venster
-// Geen html2pdf meer, gewoon window.print() op een aparte window
+// 2js/print-handler.js — Printhandler met print‑preview via nieuw venster
+// Zorgt ook voor cleanupAfterPrinting export zodat importers niet falen
 
 /**
  * Initialiseert de printknop voor een specifieke klas
@@ -16,7 +16,6 @@ export function initPrintHandler(klas) {
  * @param {Object} klas
  */
 export function startPrintProcess(klas) {
-  // Zorg dat slidein openstaat
   const slidein = document.getElementById('slidein');
   if (!slidein) {
     console.error('Slide-in element niet gevonden.');
@@ -24,18 +23,15 @@ export function startPrintProcess(klas) {
   }
   slidein.classList.add('open');
 
-  // Bouw een nieuw venster
   const printWindow = window.open('', '_blank');
   if (!printWindow) {
     console.error('Kon printvenster niet openen.');
     return;
   }
 
-  // Kopieer <head> styles en title
   const docHead = document.querySelector('head').innerHTML;
   const title = klas.richting ? `${klas.richting}-aanbod` : document.title;
 
-  // Schrijf HTML
   printWindow.document.write(`
     <html>
       <head>
@@ -55,13 +51,35 @@ export function startPrintProcess(klas) {
   `);
   printWindow.document.close();
 
-  // Wacht even tot content geladen is
   printWindow.onload = () => {
     printWindow.focus();
     printWindow.print();
-    // Sluit venster na printdialog
     setTimeout(() => printWindow.close(), 500);
+    cleanupAfterPrinting();
   };
 }
 
-export default { initPrintHandler, startPrintProcess };
+/**
+ * Cleanup: zet eventuele classes en stijlen terug
+ */
+export function cleanupAfterPrinting() {
+  try {
+    const slidein = document.getElementById('slidein');
+    if (slidein) {
+      slidein.classList.remove('open');
+      // Herstel knop en acties indien nodig
+      slidein.querySelectorAll('.close-btn, .action-buttons').forEach(el => el.style.display = '');
+    }
+    const overlay = document.getElementById('overlay');
+    if (overlay) overlay.classList.remove('active');
+    document.body.classList.remove('print-mode');
+  } catch (e) {
+    console.error('Fout bij cleanup:', e);
+  }
+}
+
+export default {
+  initPrintHandler,
+  startPrintProcess,
+  cleanupAfterPrinting
+};
