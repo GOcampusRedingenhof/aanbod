@@ -1,6 +1,6 @@
 /* css/print-styles.css */
 
-/* 1) Schermmodus: verberg de inline achtergrond */
+/* 1) Schermmodus: verberg de print‑achtergrond */
 @media screen {
   .print-bg {
     display: none !important;
@@ -9,7 +9,7 @@
 
 /* 2) Printmodus: */
 @media print {
-  /* — Basisreset — */
+  /* — Basis reset — */
   body {
     margin: 0 !important;
     padding: 0 !important;
@@ -36,13 +36,13 @@
     display: none !important;
   }
 
-  /* — Slide‑in als volledige A4 pagina — */
+  /* — Slide‑in als pagina — */
   #slidein {
     display: block !important;
     position: relative !important;
     transform: none !important;
     overflow: visible !important;
-    background: #fff !important;
+    background: #fff !important;   /* wit vlak voor leesbaarheid */
     margin: 0 !important;
     padding: 1cm !important;
     page-break-before: avoid !important;
@@ -61,7 +61,7 @@
     margin-bottom: 0.5rem !important;
   }
 
-  /* — Verberg action‑buttons — */
+  /* — Verberg actieknoppen in print — */
   .action-buttons {
     display: none !important;
   }
@@ -82,7 +82,6 @@
   }
   .lessentabel tr {
     display: table-row !important;
-    page-break-inside: avoid !important;
   }
   .lessentabel th,
   .lessentabel td {
