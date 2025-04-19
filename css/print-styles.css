@@ -1,8 +1,8 @@
-/* css/print-styles.css - Vereenvoudigde versie */
+/* css/print-styles.css */
 
 /* Alleen printstijlen */
 @media print {
-  /* Reset body */
+  /* --- Algemene reset --- */
   body {
     margin: 0 !important;
     padding: 0 !important;
@@ -13,16 +13,17 @@
     print-color-adjust: exact !important;
   }
 
-  /* Elementen verbergen die niet geprint moeten worden */
-  header,
-  .logo,
-  .slogan,
+  /* --- Verberg alles wat niet geprint moet worden --- */
+  #lessentabellen-container,
+  #domains-container,
   .loader-spinner,
-  #domains-container {
+  .lessentabellen-root .slogan,
+  .logo,
+  header {
     display: none !important;
   }
 
-  /* Reset slidein styles voor printen */
+  /* --- Slide‑in zichtbaar en stabiel maken --- */
   #slidein {
     position: static !important;
     width: auto !important;
@@ -34,7 +35,7 @@
     display: none !important;
   }
 
-  /* Content containers */
+  /* --- Detail‑header en knoppen weergeven --- */
   .detail-header,
   .detail-content,
   .action-buttons,
@@ -42,7 +43,7 @@
     display: block !important;
   }
 
-  /* Tabelstijlen voor printen */
+  /* --- Lessentabel: geen pagina‑breaks binnenin --- */
   #lessentabel-container {
     width: 100% !important;
     margin: 1rem 0 !important;
@@ -70,14 +71,7 @@
     font-size: 9pt !important;
   }
 
-  /* Titelstijlen voor printen */
-  .detail-header h2,
-  .detail-header p {
-    font-size: 12pt !important;
-    margin: 0.5rem 0 !important;
-  }
-
-  /* Voetnoten */
+  /* --- Voetnoten bij elkaar houden --- */
   #footnotes {
     margin-top: 1rem !important;
     font-size: 8pt !important;
@@ -87,12 +81,12 @@
     margin-bottom: 0.25rem !important;
   }
 
-  /* Paginainstellingen */
+  /* --- Pagina‑marges --- */
   @page {
     margin: 1cm !important;
   }
 
-  /* Styling voor specifieke rijtypen */
+  /* --- Rijtinting (optioneel) --- */
   .lessentabel tr.passend {
     background: #e8f5e9 !important;
   }
@@ -100,7 +94,7 @@
     background: #ffebee !important;
   }
 
-  /* Branding */
+  /* --- Print‑footer styling --- */
   .print-footer .datum,
   .print-footer .quote {
     text-align: center !important;
@@ -110,19 +104,19 @@
     font-style: italic !important;
   }
 
-  /* Achtergrondafbeelding */
+  /* --- Jouw nieuwe achtergrond --- */
   body::before {
     content: "";
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: url("https://images.squarespace-cdn.com/content/670992d66064015802d7e5dc/b8d9cee9-fa08-460b-b0a5-f4c15a1f2728/SAMEN+VER%21.png?content-type=image%2Fpng")
+    background: url("https://images.squarespace-cdn.com/content/670992d66064015802d7e5dc/20828b48-569c-42e4-abd5-51dbd409f5bb/SAMEN+VER%21+%281%29.png?content-type=image%2Fpng")
                 center/cover no-repeat !important;
     opacity: 0.1 !important;
     z-index: -1 !important;
   }
 
-  /* Transities buiten print-mode behouden voor scherm */
+  /* --- Houd transitions buiten print‑mode intact --- */
   body:not(.print-mode) #slidein {
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
@@ -133,11 +127,9 @@
   }
 }
 
-/* Schermversie styles - zorgt dat print-specifieke elementen niet zichtbaar zijn in browser */
+/* Schermversie: verberg print‑footer e.d. */
 @media screen {
   .print-footer,
-  #lessentabellen-container header,
-  .logo-print,
   #datum-print,
   .quote {
     display: none !important;
