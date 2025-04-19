@@ -110,11 +110,11 @@ function buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, alleLessen, klas
   
   // Begin met het bouwen van de HTML
   let tabelHTML = `
-    <table class="lessentabel" border="1" cellspacing="0" cellpadding="4">
+    <table class="lessentabel print-optimized" cellspacing="0" cellpadding="4">
       <thead>
         <tr>
-          <th scope="col" style="width:45%;">Vak</th>
-          ${klasCodes.map(code => `<th scope="col">${code}</th>`).join('')}
+          <th scope="col" style="width:40%;">Vak</th>
+          ${klasCodes.map(code => `<th scope="col" style="width:${60/klasCodes.length}%;">${code}</th>`).join('')}
         </tr>
       </thead>
       <tbody>
@@ -147,7 +147,10 @@ function buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, alleLessen, klas
     // Voeg alle vakken toe voor deze categorie
     const vakken = categorieMap.get(categorieNaam);
     
-    vakken.forEach(vak => {
+    // Groepeer vakken door het 'subvak' attribuut
+    const gegroepeerdeVakken = groeperenEnSorterenVakken(vakken);
+    
+    gegroepeerdeVakken.forEach(vak => {
       // Bepaal CSS class voor deze rij
       let rowClass = '';
       if (vak.type === 'header') rowClass = 'vak-header';
@@ -157,12 +160,18 @@ function buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, alleLessen, klas
       // Begin rij
       tabelHTML += `<tr class="${rowClass}">`;
       
-      // Vaknaam kolom
-      tabelHTML += `<td>${vak.vak}</td>`;
+      // Vaknaam kolom - voeg prefix toe voor subvakken voor betere visualisatie
+      let displayNaam = vak.vak;
+      if (vak.subvak) {
+        // Gebruik Unicode bullet en indent voor subvakken
+        displayNaam = `<span class="subvak-marker">•&nbsp;</span>${displayNaam}`;
+      }
+      
+      tabelHTML += `<td>${displayNaam}</td>`;
       
       // Uren per klas
       klasCodes.forEach(klasCode => {
-        const uren = vak.uren[klasCode] || '';
+        const uren = vak.uren[klasCode] || '-';
         tabelHTML += `<td>${uren}</td>`;
       });
       
@@ -174,7 +183,7 @@ function buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, alleLessen, klas
   // Voeg totaalrij toe als die nog niet bestaat
   if (!categorieKeys.find(cat => cat.toLowerCase() === 'totaal')) {
     tabelHTML += `
-      <tr class="totaal-row" style="font-weight: bold; border-top: 2px solid #000;">
+      <tr class="totaal-row">
         <td>Lestijden per week</td>
         ${klasCodes.map(code => `<td>${totalen[code]}</td>`).join('')}
       </tr>
@@ -194,6 +203,69 @@ function buildTabelMetGecombineerdeCategorieen(hoofdKlasLessen, alleLessen, klas
   `;
   
   return tabelHTML;
+}
+
+/**
+ * Groepeert en sorteert vakken zodat subvakken onder hoofdvakken komen
+ * @param {Array} vakken - Array van vakobjecten
+ * @returns {Array} Gesorteerde array van vakken
+ */
+function groeperenEnSorterenVakken(vakken) {
+  // Sorteer eerst alle vakken alfabetisch
+  const gesorteerdeVakken = [...vakken].sort((a, b) => {
+    // Bij gelijke vaknaam sorteren op subvak (hoofdvak eerst)
+    if (a.vak === b.vak) {
+      return a.subvak ? 1 : -1;
+    }
+    return a.vak.localeCompare(b.vak);
+  });
+  
+  // Sorteer nu specifiek zodat subvakken direct na hun hoofdvakken komen
+  const resultaat = [];
+  const subvakken = new Map(); // Map van hoofdvak naar bijbehorende subvakken
+  
+  // Verzamel eerst alle subvakken per hoofdvak
+  gesorteerdeVakken.forEach(vak => {
+    if (vak.subvak) {
+      // Zoek bijbehorend hoofdvak (als die bestaat)
+      // We nemen aan dat subvakken onder hoofdvakken vallen met dezelfde naam
+      // of voordat ze met een punt beginnen (bijv. "Elektriciteit" en ".Basis")
+      const hoofdvakNaam = vak.vak.startsWith('.') ? 
+        vak.vak.substring(1).split(' ')[0] : vak.vak;
+      
+      if (!subvakken.has(hoofdvakNaam)) {
+        subvakken.set(hoofdvakNaam, []);
+      }
+      subvakken.get(hoofdvakNaam).push(vak);
+    } else {
+      resultaat.push(vak);
+    }
+  });
+  
+  // Voeg nu subvakken direct na hun hoofdvakken toe
+  for (let i = 0; i < resultaat.length; i++) {
+    const hoofdvak = resultaat[i];
+    const bijbehorendeSubvakken = subvakken.get(hoofdvak.vak) || [];
+    
+    if (bijbehorendeSubvakken.length > 0) {
+      // Voeg subvakken toe direct na het hoofdvak
+      resultaat.splice(i + 1, 0, ...bijbehorendeSubvakken);
+      // Update index om over de toegevoegde subvakken heen te springen
+      i += bijbehorendeSubvakken.length;
+    }
+  }
+  
+  // Voeg eventueel overgebleven subvakken (zonder bijbehorend hoofdvak) toe
+  subvakken.forEach((subvakkenLijst, hoofdvakNaam) => {
+    // Controleer of er al een hoofdvak met deze naam is
+    const hoofdvakBestaat = resultaat.some(vak => vak.vak === hoofdvakNaam);
+    
+    if (!hoofdvakBestaat) {
+      resultaat.push(...subvakkenLijst);
+    }
+  });
+  
+  return resultaat;
 }
 
 /**
@@ -250,15 +322,15 @@ function buildStageRow(klasCodes, hoofdKlas) {
     }
 
     return `
-      <tr class="stage-row" style="font-weight:bold; border-top: 1px solid #000;">
+      <tr class="stage-row">
         <td>Stage weken</td>
         ${klasCodes.map(code => {
           // Probeer stage weken te vinden in de juiste klas
-          let stageWeken = '';
+          let stageWeken = '-';
           
           if (window.LessentabellenApp && window.LessentabellenApp.klassen) {
             const klas = window.LessentabellenApp.klassen.find(k => k.klascode === code);
-            if (klas && klas.stage_weken !== undefined && klas.stage_weken !== null) {
+            if (klas && klas.stage_weken !== undefined && klas.stage_weken !== null && klas.stage_weken !== '') {
               stageWeken = klas.stage_weken;
             }
           } else if (code === hoofdKlas.klascode && hoofdKlas.stage_weken) {
