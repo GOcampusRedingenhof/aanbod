@@ -1,4 +1,4 @@
-// js/detail-view.js – Module voor detailweergave en printbinding
+// 1js/detail-view.js – Module voor detailweergave en printbinding
 
 /**
  * Laat de detailweergave zien voor een geselecteerd item.
