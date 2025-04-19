@@ -1,72 +1,25 @@
 /* css/print-styles.css */
 
+/* 1) Schermmodus: geen achtergrond‑img en slide‑in verborgen */
+@media screen {
+  /* Verberg de print‑achtergrond */
+  body::before {
+    display: none !important;
+  }
+  /* Zorg dat de slide‑in in schermmodus via je eigen JS/nav gewoon werkt */
+}
+
+/* 2) Printmodus: alleen slide‑in + achtergrond tonen, grid verbergen */
 @media print {
-  /* 1. Basis-reset */
+  /* Reset basis */
   body {
     margin: 0 !important;
     padding: 0 !important;
-    font-size: 10pt !important;
     color: #000 !important;
     background: none !important;
   }
 
-  /* 2. Verberg hoofd‑UI */
-  #lessentabellen-container,
-  #domains-container,
-  .loader-spinner {
-    display: none !important;
-  }
-
-  /* 3. Toon slide‑in volledig */
-  #slidein {
-    position: static !important;
-    transform: none !important;
-    overflow: visible !important;
-    display: block !important;
-    page-break-before: avoid !important;
-    visibility: visible !important;
-  }
-  #overlay {
-    display: none !important;
-  }
-
-  /* 4. Toon titel, beschrijving, knoppen, tabel, voetnoten */
-  .detail-header,
-  .detail-content,
-  .action-buttons,
-  .print-footer,
-  #opleiding-titel,
-  #opleiding-beschrijving,
-  #lessentabel-container,
-  .lessentabel,
-  #footnotes {
-    display: block !important;
-    visibility: visible !important;
-    page-break-inside: avoid !important;
-  }
-
-  /* 5. Lessentabel formatting */
-  .lessentabel {
-    width: 100% !important;
-    border-collapse: collapse !important;
-  }
-  .lessentabel th,
-  .lessentabel td {
-    border: 1px solid #000 !important;
-    padding: 0.3rem !important;
-    font-size: 9pt !important;
-  }
-
-  /* 6. Voetnoten formatting */
-  #footnotes {
-    font-size: 8pt !important;
-    margin-top: 1rem !important;
-  }
-  #footnotes li {
-    margin-bottom: 0.3rem !important;
-  }
-
-  /* 7. Achtergrondplaatje volledig zichtbaar */
+  /* Achtergrondplaat volledig zichtbaar */
   body::before {
     content: "";
     position: fixed;
@@ -78,21 +31,83 @@
     z-index: -1 !important;
   }
 
-  /* 8. Houd scherm‑transities actief buiten print‑mode */
-  body:not(.print-mode) #slidein {
-    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1) !important;
-  }
-  body:not(.print-mode) .close-btn,
-  body:not(.print-mode) .action-buttons a,
-  body:not(.print-mode) .action-buttons button {
-    transition: all 0.25s !important;
-  }
-}
-
-@media screen {
-  /* In de browser verberg je print‑footer en achtergrond */
-  .print-footer,
-  body::before {
+  /* Verberg je hele homepage en grid */
+  #lessentabellen-container,
+  #domains-container,
+  .loader-spinner {
     display: none !important;
+  }
+
+  /* Toon de slide‑in als “hoofdpagina” */
+  #slidein {
+    position: static !important;
+    transform: none !important;
+    overflow: visible !important;
+    display: block !important;
+    page-break-before: avoid !important;
+    visibility: visible !important;
+    margin: 1cm !important;
+    background: transparent !important;
+  }
+  #overlay {
+    display: none !important;
+  }
+
+  /* Toon titel + beschrijving */
+  .detail-header,
+  #opleiding-titel,
+  #opleiding-beschrijving {
+    display: block !important;
+    visibility: visible !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Verberg de print‑knop / action‑buttons in de afdruk */
+  .action-buttons {
+    display: none !important;
+  }
+
+  /* Lessentabel */
+  #lessentabel-container,
+  .lessentabel {
+    display: table !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: avoid !important;
+  }
+  .lessentabel thead {
+    display: table-header-group !important;
+  }
+  .lessentabel tbody {
+    display: table-row-group !important;
+  }
+  .lessentabel tr {
+    display: table-row !important;
+    page-break-inside: avoid !important;
+  }
+  .lessentabel th,
+  .lessentabel td {
+    border: 1px solid #000 !important;
+    padding: 0.3rem !important;
+    font-size: 9pt !important;
+  }
+
+  /* Voetnoten */
+  #footnotes {
+    display: block !important;
+    font-size: 8pt !important;
+    margin-top: 1rem !important;
+    page-break-inside: avoid !important;
+  }
+  #footnotes li {
+    margin-bottom: 0.3rem !important;
+  }
+
+  /* Datum onderaan */
+  .print-footer {
+    display: block !important;
+    text-align: center !important;
+    margin-top: 1rem !important;
+    font-size: 8pt !important;
   }
 }
