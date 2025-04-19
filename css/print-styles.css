@@ -1,12 +1,11 @@
-/* css/print-styles.css - Verbeterde versie */
+/* css/print-styles.css - Verbeterde versie voor betere A4-compatibiliteit */
 
-/* 1) Schermmodus: verberg de print‑achtergrond */
+/* 1) Schermmodus: verberg print-gerelateerde elementen */
 @media screen {
   .print-bg {
     display: none !important;
   }
   
-  /* Verbergen van print-specifieke elementen in schermmodus */
   .print-footer {
     display: none !important;
   }
@@ -14,7 +13,7 @@
 
 /* 2) Printmodus: */
 @media print {
-  /* — Basis reset met !important om zeker te zijn — */
+  /* Basis reset met !important om zeker te zijn van correcte weergave */
   body {
     margin: 0 !important;
     padding: 0 !important;
@@ -33,20 +32,20 @@
     visibility: hidden !important;
   }
   
-  /* Forceer paginaformaat en marges */
+  /* Forceer paginaformaat en marges voor A4 */
   @page {
     size: A4 portrait !important;
     margin: 1.5cm !important;
   }
 
-  /* — Full‑bleed achtergrond via <img> — */
+  /* — Full‑bleed achtergrond PNG exact op A4-formaat — */
   .print-bg {
     display: block !important;
     position: fixed !important;
     top: 0 !important; 
     left: 0 !important;
-    width: 210mm !important;
-    height: 297mm !important;
+    width: 210mm !important; /* Exacte A4-breedte */
+    height: 297mm !important; /* Exacte A4-hoogte */
     object-fit: cover !important;
     z-index: -1 !important;
     visibility: visible !important;
@@ -60,6 +59,12 @@
   .close-btn,
   .action-buttons,
   #overlay {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* — Verberg het logo — */
+  .logo-print {
     display: none !important;
     visibility: hidden !important;
   }
@@ -86,9 +91,9 @@
     max-width: none !important;
     height: auto !important;
     overflow: visible !important;
-    background: #fff !important;   /* wit vlak voor leesbaarheid */
+    background: transparent !important; /* Transparante achtergrond zodat PNG zichtbaar is */
     margin: 0 !important;
-    padding: 0.5cm !important;
+    padding: 0 !important;
     page-break-before: avoid !important;
     z-index: 1 !important;
     box-shadow: none !important;
@@ -112,15 +117,17 @@
   /* — Toon header/titel/beschrijving — */
   .detail-header {
     margin-bottom: 2rem !important;
-    border-bottom: 1px solid #aaa !important;
     padding-bottom: 0.5rem !important;
+    background: rgba(255,255,255,0.9) !important; /* Lichte achtergrond voor leesbaarheid */
+    padding: 1rem !important;
+    border-radius: 4px !important;
   }
   
   #opleiding-titel {
     text-align: center !important;
     font-size: 18pt !important;
     font-weight: bold !important;
-    margin: 1cm 0 0.5cm !important;
+    margin: 0.5cm 0 0.3cm !important;
     padding: 0 !important;
     color: var(--app-domain-base, #000) !important;
   }
@@ -128,27 +135,34 @@
   #opleiding-beschrijving {
     text-align: center !important;
     font-size: 12pt !important;
-    margin: 0 0 1cm !important;
+    margin: 0 0 0.5cm !important;
     padding: 0 !important;
   }
 
-  /* — Lessentabel styling — */
+  /* — Lessentabel container styling voor A4 — */
   #lessentabel-container {
-    overflow: visible !important;
     width: 100% !important;
-    margin: 0 !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
     padding: 0 !important;
+    overflow: visible !important;
+    background: rgba(255,255,255,0.9) !important; /* Lichte achtergrond voor leesbaarheid */
+    border-radius: 4px !important;
+    padding: 0.5rem !important;
   }
-  
+
+  /* — Lessentabel zelf stylen voor A4 — */
   .lessentabel {
     display: table !important;
     width: 100% !important;
     border-collapse: collapse !important;
     margin: 0 0 1rem !important;
     page-break-inside: avoid !important;
-    font-size: 10pt !important;
+    font-size: 9pt !important;
     visibility: visible !important;
     transform: none !important;
+    table-layout: fixed !important; /* Belangrijk: dwingt tabel binnen beschikbare breedte */
+    max-width: 100% !important;
   }
   
   .lessentabel thead {
@@ -168,12 +182,27 @@
   .lessentabel td {
     display: table-cell !important;
     border: 1px solid #000 !important;
-    padding: 4px 6px !important;
+    padding: 3px 4px !important; /* Kleinere padding voor meer ruimte */
     background-color: transparent !important;
     color: #000 !important;
-    font-size: 10pt !important;
+    font-size: 9pt !important; /* Kleinere fontgrootte */
     text-align: left !important;
     page-break-inside: avoid !important;
+    word-wrap: break-word !important; /* Sta toe dat woorden afbreken */
+    overflow-wrap: break-word !important;
+  }
+  
+  /* Voor vaknamen (eerste kolom) meer ruimte */
+  .lessentabel th:first-child,
+  .lessentabel td:first-child {
+    width: 35% !important;
+  }
+  
+  /* Voor uurkolommen, maak ze allemaal even breed */
+  .lessentabel th:not(:first-child),
+  .lessentabel td:not(:first-child) {
+    width: auto !important;
+    text-align: center !important;
   }
   
   /* Categorie headers in tabel */
@@ -199,25 +228,26 @@
   /* — Voetnoten — */
   #footnotes {
     display: block !important;
-    font-size: 9pt !important;
-    margin: 1rem 0 !important;
+    font-size: 8pt !important;
+    margin: 0.5rem 0 !important;
     page-break-inside: avoid !important;
-    border-top: 1px solid #ddd !important;
-    padding-top: 0.5rem !important;
+    background: rgba(255,255,255,0.9) !important;
+    border-radius: 4px !important;
+    padding: 0.5rem !important;
   }
   
   #footnotes h4 {
-    font-size: 10pt !important;
-    margin: 0 0 0.5rem !important;
+    font-size: 9pt !important;
+    margin: 0 0 0.3rem !important;
   }
   
   #footnotes ul {
     margin: 0 !important;
-    padding: 0 0 0 1.5rem !important;
+    padding: 0 0 0 1.2rem !important;
   }
   
   #footnotes li {
-    margin-bottom: 0.3rem !important;
+    margin-bottom: 0.2rem !important;
   }
 
   /* — Print footer — */
@@ -226,35 +256,38 @@
     visibility: visible !important;
     position: relative !important;
     text-align: center !important;
-    margin-top: 2rem !important;
+    margin-top: 1rem !important;
     padding-top: 0.5rem !important;
-    border-top: 1px solid #ddd !important;
+    background: rgba(255,255,255,0.9) !important;
+    border-radius: 4px !important;
+    padding: 0.5rem !important;
     font-size: 8pt !important;
   }
   
   .print-footer .datum {
     display: block !important;
-    margin: 0.5rem 0 !important;
+    margin: 0 !important;
   }
   
   /* — Specifieke aanpassingen voor domeinkleuren in print — */
-  #slidein[data-domain] .lessentabel thead tr th {
-    background-color: #f0f0f0 !important;
-    color: #000 !important;
+  /* Zorg ervoor dat donkere domeinkleuren goed leesbaar zijn in print */
+  #slidein[data-domain="economie-organisatie"] #opleiding-titel,
+  #slidein[data-domain="schakeljaar"] #opleiding-titel {
+    color: #254a87 !important; /* Iets lichter dan de originele kleur */
   }
   
-  /* Betere zichtbaarheid voor lichtere kleuren */
+  /* Betere zichtbaarheid voor lichtere kleuren in tabelheaders */
   #slidein[data-domain="maatschappij-welzijn"] .lessentabel thead tr th,
   #slidein[data-domain="sport-topsport"] .lessentabel thead tr th {
     border: 1px solid #000 !important;
+    color: #000 !important;
   }
   
-  /* School logo bovenaan */
-  .logo-print {
-    display: block !important;
-    max-width: 150px !important;
-    height: auto !important;
-    margin: 0 auto 1rem !important;
-    visibility: visible !important;
+  /* Voorkomen van witruimte rondom de pagina */
+  html, body {
+    height: 297mm !important;
+    width: 210mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 }
