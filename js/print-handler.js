@@ -1,29 +1,62 @@
-// print-handler.js - Vereenvoudigde versie met HTML-export functionaliteit
-// Deze module creëert een afdrukbare HTML-pagina in een nieuw venster
+// print-handler.js - Verbeterde versie voor betrouwbare print functionaliteit
 
 /**
- * Initialiseert de handler voor een specifieke klas
+ * Houdt de huidige klas vast voor printen
+ * @type {Object|null}
+ */
+let currentPrintKlas = null;
+
+/**
+ * Initialiseert de printHandler voor een specifieke klas
  * @param {Object} klas - Het klasobject met alle informatie
  */
 export function initPrintHandler(klas) {
-  // Sla de klas op voor gebruik in HTML-export functie
-  window.currentPrintKlas = klas;
+  try {
+    // Sla de klas lokaal op in deze module (niet meer op window object)
+    currentPrintKlas = klas;
+    
+    console.log(`Print handler geïnitialiseerd voor klas: ${klas?.klascode || 'onbekend'}`);
+    
+    // Initialiseer de print knop
+    const printButton = document.getElementById('download-pdf-button');
+    if (printButton) {
+      // Vervang de bestaande event listener om memory leaks te voorkomen
+      const newButton = printButton.cloneNode(true);
+      printButton.parentNode.replaceChild(newButton, printButton);
+      
+      // Voeg nieuwe event listener toe
+      newButton.addEventListener('click', generateHTML);
+    }
+  } catch (error) {
+    console.error('Fout bij initialiseren print handler:', error);
+  }
 }
 
 /**
  * Genereert een HTML-versie van de lessentabel in een nieuw venster
- * wat gemakkelijk kan worden afgedrukt of opgeslagen
  */
 export function generateHTML() {
   try {
-    // Haal huidige klas op
-    const klas = window.currentPrintKlas;
-    if (!klas || !klas.richting) {
-      alert('Kon geen richtingsinformatie vinden.');
-      return;
+    console.log('HTML generatie gestart...');
+    
+    if (!currentPrintKlas) {
+      // Probeer de klas op een alternatieve manier te vinden
+      if (window.LessentabellenApp && window.LessentabellenApp.currentKlasCode) {
+        const klasCode = window.LessentabellenApp.currentKlasCode;
+        currentPrintKlas = window.LessentabellenApp.getKlasByCode?.(klasCode) || 
+                           window.LessentabellenApp.klassen?.find(k => k.klascode === klasCode);
+        
+        console.log(`Klas hersteld met alternatieve methode: ${currentPrintKlas?.klascode || 'mislukt'}`);
+      }
+      
+      if (!currentPrintKlas) {
+        console.error('Geen klas informatie beschikbaar voor printen');
+        alert('Er kon geen informatie over de huidige richting worden gevonden. Probeer de pagina te verversen en selecteer de richting opnieuw.');
+        return;
+      }
     }
     
-    console.log('HTML generatie gestart voor:', klas.richting);
+    console.log('HTML generatie gestart voor:', currentPrintKlas.richting);
     
     // Haal originele DOM elementen op
     const titelElement = document.getElementById('opleiding-titel');
@@ -32,6 +65,7 @@ export function generateHTML() {
     const voetnotenElement = document.querySelector('.footnotes');
     
     if (!tabelElement) {
+      console.error('Geen lessentabel gevonden in DOM');
       alert('Kon geen lessentabel vinden om te exporteren.');
       return;
     }
@@ -49,7 +83,7 @@ export function generateHTML() {
     <html lang="nl">
     <head>
       <meta charset="UTF-8">
-      <title>${klas.richting} - Lessentabel</title>
+      <title>${currentPrintKlas.richting || 'Lessentabel'} - Lessentabel</title>
       <style>
         @media print {
           @page {
@@ -66,22 +100,6 @@ export function generateHTML() {
           margin: 0;
           padding: 20px;
           position: relative;
-        }
-        
-        /* Achtergrond afbeelding (indien gewenst) */
-        body:before {
-          content: "";
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-image: url('data:image/png;base64,YOUR_BASE64_IMAGE_HERE'); /* Hier later een achtergrond invoegen */
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
-          opacity: 0.08; /* Subtiele achtergrond */
-          z-index: -1;
         }
         
         .container {
@@ -136,6 +154,11 @@ export function generateHTML() {
         tr.totaal-row td {
           font-weight: bold;
           border-top: 2px solid #333;
+        }
+        
+        tr.stage-row td {
+          font-weight: bold;
+          background-color: #f5f5f5;
         }
         
         .subvak td:first-child {
@@ -202,12 +225,16 @@ export function generateHTML() {
     <body>
       <button class="print-button" onclick="window.print()">Afdrukken</button>
       <div class="container">
-        <h1>${titelElement ? titelElement.textContent : klas.richting}</h1>
+        <h1>${titelElement && titelElement.textContent ? titelElement.textContent : (currentPrintKlas.richting || 'Lessentabel')}</h1>
     `;
     
     // Voeg beschrijving toe indien beschikbaar
-    if (beschrijvingElement && beschrijvingElement.textContent.trim()) {
-      htmlContent += `<div class="description">${beschrijvingElement.textContent}</div>`;
+    const beschrijving = beschrijvingElement && beschrijvingElement.textContent.trim() 
+      ? beschrijvingElement.textContent 
+      : (currentPrintKlas.beschrijving || '');
+      
+    if (beschrijving) {
+      htmlContent += `<div class="description">${beschrijving}</div>`;
     }
     
     // Voeg tabel toe
@@ -219,31 +246,42 @@ export function generateHTML() {
     }
     
     // Voeg footer toe
+    const datum = new Date().toLocaleDateString('nl-BE', {
+      day: '2-digit',
+      month: 'long', 
+      year: 'numeric'
+    });
+    
     htmlContent += `
         <div class="footer">
           <div>GO Campus Redingenhof</div>
-          <div>Afgedrukt op: ${new Date().toLocaleDateString('nl-BE')}</div>
+          <div>Afgedrukt op: ${datum}</div>
         </div>
       </div>
       
       <script>
         // Auto-detect tabel grootte en pas font size aan indien nodig
         window.onload = function() {
-          const table = document.querySelector('table');
-          if (table) {
-            // Als tabel te breed is voor de pagina, verklein font
-            if (table.offsetWidth > document.querySelector('.container').offsetWidth - 40) {
-              table.style.fontSize = '10px';
-            }
-            
-            // Als tabel te hoog is, probeer pagina-einde te voorkomen
-            const containerHeight = window.innerHeight - 200; // Roughly account for margins
-            if (table.offsetHeight > containerHeight) {
-              // Font size further adjustment if needed
-              if (table.offsetHeight > containerHeight * 1.2) {
-                table.style.fontSize = '9px';
+          try {
+            const table = document.querySelector('table');
+            if (table) {
+              // Als tabel te breed is voor de pagina, verklein font
+              const container = document.querySelector('.container');
+              if (container && table.offsetWidth > container.offsetWidth - 40) {
+                table.style.fontSize = '10px';
+              }
+              
+              // Als tabel te hoog is, probeer pagina-einde te voorkomen
+              const containerHeight = window.innerHeight - 200; // Roughly account for margins
+              if (table.offsetHeight > containerHeight) {
+                // Font size further adjustment if needed
+                if (table.offsetHeight > containerHeight * 1.2) {
+                  table.style.fontSize = '9px';
+                }
               }
             }
+          } catch(e) {
+            console.error('Fout bij aanpassen tabelgrootte:', e);
           }
         }
       </script>
@@ -264,18 +302,8 @@ export function generateHTML() {
   }
 }
 
-/**
- * Update deze functie later om een PNG achtergrond toe te voegen
- * @param {string} backgroundImageUrl - URL naar de achtergrondafbeelding
- */
-export function setBackgroundImage(backgroundImageUrl) {
-  // Deze functie kan later worden gebruikt om een achtergrondafbeelding toe te voegen
-  window.lessentabelAchtergrond = backgroundImageUrl;
-}
-
-// Exporteer functies - hernoemd van generatePDF naar generateHTML
+// Exporteer functies
 export default {
   initPrintHandler,
-  generateHTML,
-  setBackgroundImage
+  generateHTML
 };
