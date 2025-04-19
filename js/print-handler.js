@@ -27,9 +27,8 @@ export function startPrintProcess(klas) {
   if (isPrinting) return;        // bij annuleren niet opnieuw triggeren
   isPrinting = true;
 
-  // Zet print‑mode (voor CSS)
+  // Zet print‑mode (voor @media print regels)
   document.body.classList.add('print-mode');
-  window.printModeStartTime = Date.now();
 
   // Dynamische document.title voor juiste PDF‑naam
   if (klas.richting) {
@@ -39,7 +38,7 @@ export function startPrintProcess(klas) {
   // Eénmalige afterprint-handler
   window.onafterprint = () => {
     cleanupAfterPrinting();
-    window.onafterprint = null;   // handler verwijderen
+    window.onafterprint = null;   // handler weer verwijderen
     isPrinting = false;           // opnieuw printen weer toestaan
   };
 
@@ -48,13 +47,13 @@ export function startPrintProcess(klas) {
 }
 
 /**
- * Herstelt de UI na het printen: close‑knop, actieknoppen en CSS‑state
+ * Herstelt de UI na printing: close‑knop, actieknoppen en CSS‑state
  */
 export function cleanupAfterPrinting() {
-  // Verwijder print‑mode (werkt met je @media print rules)
+  // Verwijder print‑mode
   document.body.classList.remove('print-mode');
 
-  // Herstel de close‑knop en actieknoppen in de slide‑in
+  // Herstel de close‑knop en actieknoppen
   const slidein = document.getElementById('slidein');
   if (slidein) {
     const closeBtn = slidein.querySelector('.close-btn');
@@ -63,12 +62,9 @@ export function cleanupAfterPrinting() {
     const actionButtons = slidein.querySelector('.action-buttons');
     if (actionButtons) actionButtons.style.display = '';
   }
-
-  // Reset eventuele timers of state
-  window.printModeStartTime = 0;
 }
 
-// Default export voor eenvoudige import
+// Default export
 export default {
   initPrintHandler,
   startPrintProcess,
