@@ -1,12 +1,9 @@
-/* detail-view.css - verbeterde versie met betere lessentabel styling */
+/* detail-view.css */
 
 #slidein {
   position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  max-width: 800px;
-  height: 100%;
+  top: 0; right: 0;
+  width: 100%; max-width: 800px; height: 100%;
   background: white;
   box-shadow: -4px 0 15px rgba(0,0,0,0.2);
   transform: translateX(100%);
@@ -16,7 +13,6 @@
   padding: 2rem;
   font-family: 'Montserrat', sans-serif;
 }
-
 #slidein.open {
   transform: translateX(0);
 }
@@ -33,32 +29,25 @@
   opacity: 1; pointer-events: auto;
 }
 
+/* Domeinkleuren via data-attributes */
 #slidein[data-domain] {
   --app-domain-base: var(--kleur-base);
   --app-domain-hover: var(--kleur-hover);
 }
 
 .detail-header {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-  position: relative;
+  display: flex; flex-direction: column;
+  margin-bottom: 2rem; position: relative;
 }
 
-/* Sluitknop links en in domeinkleur */
+/* Sluitknop links + domeinkleur */
 .close-btn {
   position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  right: auto;
+  top: 0.5rem; left: 0.5rem; right: auto;
   z-index: 2;
-  font-size: 1.5rem;
-  width: 40px; height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
+  font-size: 1.5rem; width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent; border: none;
   color: var(--app-domain-base) !important;
   cursor: pointer;
 }
@@ -66,41 +55,33 @@
   color: var(--app-domain-hover) !important;
 }
 
+/* Overige slide‑in inhoud */
 .detail-content {
-  font-size: 1.05rem;
-  line-height: 1.6;
+  font-size: 1.05rem; line-height: 1.6;
 }
-
 .action-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+  display: flex; justify-content: center; gap: 1rem;
   margin: 1rem 0 1.5rem;
 }
-.action-buttons a,
-.action-buttons button {
-  padding: 0.75rem 1.5rem;
+.action-buttons button,
+.action-buttons a {
+  padding: .75rem 1.5rem;
   background: var(--app-domain-base);
-  color: #fff;
-  border: none; border-radius: 4px;
+  color: #fff; border: none; border-radius: 4px;
   text-decoration: none; cursor: pointer;
 }
-.action-buttons a:hover,
-.action-buttons button:hover {
+.action-buttons button:hover,
+.action-buttons a:hover {
   background: var(--app-domain-hover);
 }
 
 /* Lessentabel styling */
 .lessentabel {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 2rem;
+  width: 100%; border-collapse: collapse; margin-bottom: 2rem;
 }
 .lessentabel th,
 .lessentabel td {
-  border: 1px solid #ddd;
-  padding: 0.5rem;
-  text-align: left;
+  border: 1px solid #ddd; padding: .5rem; text-align: left;
 }
 .lessentabel tr:nth-child(even) {
   background: var(--app-domain-base);
@@ -108,21 +89,20 @@
 
 /* Voetnoten */
 #footnotes {
-  font-size: 0.9rem;
-  margin-top: 1rem;
+  font-size: .9rem; margin-top: 1rem;
 }
 #footnotes li {
-  margin-bottom: 0.5rem;
+  margin-bottom: .5rem;
 }
 
-/* Print‑footer (alleen in print) */
+/* Print‑footer alleen in print */
 @media print {
   .print-footer {
     display: block !important;
-    text-align: center; margin-top: 2rem;
+    text-align: center; margin-top: 2rem; font-size: .9rem;
   }
   .print-footer .datum,
   .print-footer .quote {
-    margin: 0.5rem 0; font-size: 0.9rem;
+    margin: .5rem 0;
   }
 }
