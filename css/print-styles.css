@@ -1,293 +1,43 @@
-/* css/print-styles.css - Verbeterde versie voor betere A4-compatibiliteit */
-
-/* 1) Schermmodus: verberg print-gerelateerde elementen */
-@media screen {
-  .print-bg {
-    display: none !important;
-  }
-  
-  .print-footer {
-    display: none !important;
-  }
-}
-
-/* 2) Printmodus: */
+/* Vervang de huidige print-styles.css met deze eenvoudige versie */
 @media print {
-  /* Basis reset met !important om zeker te zijn van correcte weergave */
-  body {
-    margin: 0 !important;
-    padding: 0 !important;
-    background: none !important;
-    color: #000 !important;
-    width: 100% !important;
-    min-width: 100% !important;
-    height: auto !important;
-    min-height: auto !important;
-    font-size: 12pt !important;
-    line-height: 1.4 !important;
-  }
-  
-  /* Algemene print regels - alles voor eerste instantie verbergen */
-  body * {
-    visibility: hidden !important;
-  }
-  
-  /* Forceer paginaformaat en marges voor A4 */
+  /* Basisregels voor A4-formaat */
   @page {
-    size: A4 portrait !important;
-    margin: 1.5cm !important;
+    size: A4;
+    margin: 1.5cm;
   }
-
-  /* — Full‑bleed achtergrond PNG exact op A4-formaat — */
-  .print-bg {
-    display: block !important;
-    position: fixed !important;
-    top: 0 !important; 
-    left: 0 !important;
-    width: 210mm !important; /* Exacte A4-breedte */
-    height: 297mm !important; /* Exacte A4-hoogte */
-    object-fit: cover !important;
-    z-index: -1 !important;
-    visibility: visible !important;
-  }
-
-  /* — Verberg elementen die niet nodig zijn in print — */
-  #domains-container,
-  .loader-spinner,
-  .lessentabellen-title,
-  .slogan,
-  .close-btn,
-  .action-buttons,
-  #overlay {
+  
+  /* Verberg elementen die niet nodig zijn voor printen */
+  .close-btn, .action-buttons, #overlay, #domains-container,
+  .lessentabellen-title, .slogan, .logo-print {
     display: none !important;
-    visibility: hidden !important;
   }
   
-  /* — Verberg het logo — */
-  .logo-print {
-    display: none !important;
-    visibility: hidden !important;
-  }
-
-  /* — Slide‑in als pagina — */
-  .lessentabellen-container {
-    visibility: visible !important;
-    position: relative !important;
-    width: 100% !important;
-    height: auto !important;
-    overflow: visible !important;
-  }
-  
-  #slidein,
-  #slidein.open,
-  .print-mode #slidein {
-    display: block !important;
-    position: relative !important;
-    transform: none !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    max-width: none !important;
-    height: auto !important;
-    overflow: visible !important;
-    background: transparent !important; /* Transparante achtergrond zodat PNG zichtbaar is */
-    margin: 0 !important;
-    padding: 0 !important;
-    page-break-before: avoid !important;
-    z-index: 1 !important;
-    box-shadow: none !important;
-    visibility: visible !important;
-    border: none !important;
-  }
-  
-  /* Maak alle inhoud van slidein zichtbaar */
-  #slidein *,
-  #slidein .detail-header,
-  #slidein .detail-content,
-  #slidein #lessentabel-container,
-  #slidein #opleiding-titel,
-  #slidein #opleiding-beschrijving,
-  #slidein .lessentabel,
-  #slidein #footnotes,
-  #slidein .print-footer {
-    visibility: visible !important;
-  }
-
-  /* — Toon header/titel/beschrijving — */
-  .detail-header {
-    margin-bottom: 2rem !important;
-    padding-bottom: 0.5rem !important;
-    background: rgba(255,255,255,0.9) !important; /* Lichte achtergrond voor leesbaarheid */
-    padding: 1rem !important;
-    border-radius: 4px !important;
-  }
-  
-  #opleiding-titel {
-    text-align: center !important;
-    font-size: 18pt !important;
-    font-weight: bold !important;
-    margin: 0.5cm 0 0.3cm !important;
-    padding: 0 !important;
-    color: var(--app-domain-base, #000) !important;
-  }
-  
-  #opleiding-beschrijving {
-    text-align: center !important;
-    font-size: 12pt !important;
-    margin: 0 0 0.5cm !important;
-    padding: 0 !important;
-  }
-
-  /* — Lessentabel container styling voor A4 — */
-  #lessentabel-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    overflow: visible !important;
-    background: rgba(255,255,255,0.9) !important; /* Lichte achtergrond voor leesbaarheid */
-    border-radius: 4px !important;
-    padding: 0.5rem !important;
-  }
-
-  /* — Lessentabel zelf stylen voor A4 — */
+  /* Zorg dat de table correct schaalt naar A4 */
   .lessentabel {
-    display: table !important;
     width: 100% !important;
+    font-size: 9pt !important;
     border-collapse: collapse !important;
-    margin: 0 0 1rem !important;
-    page-break-inside: avoid !important;
-    font-size: 9pt !important;
-    visibility: visible !important;
+  }
+  
+  /* Fix table wijdte */
+  .lessentabel th, .lessentabel td {
+    padding: 3px !important;
+    border: 1px solid black !important;
+  }
+  
+  /* Zorg dat het slidein-element volledig zichtbaar is */
+  #slidein {
+    position: static !important;
     transform: none !important;
-    table-layout: fixed !important; /* Belangrijk: dwingt tabel binnen beschikbare breedte */
-    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
   }
   
-  .lessentabel thead {
-    display: table-header-group !important;
-  }
-  
-  .lessentabel tbody {
-    display: table-row-group !important;
-  }
-  
-  .lessentabel tr {
-    display: table-row !important;
-    page-break-inside: avoid !important;
-  }
-  
-  .lessentabel th,
-  .lessentabel td {
-    display: table-cell !important;
-    border: 1px solid #000 !important;
-    padding: 3px 4px !important; /* Kleinere padding voor meer ruimte */
-    background-color: transparent !important;
-    color: #000 !important;
-    font-size: 9pt !important; /* Kleinere fontgrootte */
-    text-align: left !important;
-    page-break-inside: avoid !important;
-    word-wrap: break-word !important; /* Sta toe dat woorden afbreken */
-    overflow-wrap: break-word !important;
-  }
-  
-  /* Voor vaknamen (eerste kolom) meer ruimte */
-  .lessentabel th:first-child,
-  .lessentabel td:first-child {
-    width: 35% !important;
-  }
-  
-  /* Voor uurkolommen, maak ze allemaal even breed */
-  .lessentabel th:not(:first-child),
-  .lessentabel td:not(:first-child) {
-    width: auto !important;
-    text-align: center !important;
-  }
-  
-  /* Categorie headers in tabel */
-  .lessentabel tr.categorie-header th {
-    background-color: #f0f0f0 !important;
-    font-weight: bold !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-  }
-  
-  /* Totaal rij in tabel */
-  .lessentabel tr.totaal-row td,
-  .lessentabel tr.stage-row td {
-    font-weight: bold !important;
-    border-top: 2px solid #000 !important;
-  }
-  
-  /* Subvak indentatie */
-  .lessentabel tr.subvak td:first-child {
-    padding-left: 15px !important;
-  }
-
-  /* — Voetnoten — */
-  #footnotes {
-    display: block !important;
-    font-size: 8pt !important;
-    margin: 0.5rem 0 !important;
-    page-break-inside: avoid !important;
-    background: rgba(255,255,255,0.9) !important;
-    border-radius: 4px !important;
-    padding: 0.5rem !important;
-  }
-  
-  #footnotes h4 {
-    font-size: 9pt !important;
-    margin: 0 0 0.3rem !important;
-  }
-  
-  #footnotes ul {
-    margin: 0 !important;
-    padding: 0 0 0 1.2rem !important;
-  }
-  
-  #footnotes li {
-    margin-bottom: 0.2rem !important;
-  }
-
-  /* — Print footer — */
+  /* Datum onderin pagina */
   .print-footer {
     display: block !important;
-    visibility: visible !important;
-    position: relative !important;
-    text-align: center !important;
     margin-top: 1rem !important;
-    padding-top: 0.5rem !important;
-    background: rgba(255,255,255,0.9) !important;
-    border-radius: 4px !important;
-    padding: 0.5rem !important;
-    font-size: 8pt !important;
-  }
-  
-  .print-footer .datum {
-    display: block !important;
-    margin: 0 !important;
-  }
-  
-  /* — Specifieke aanpassingen voor domeinkleuren in print — */
-  /* Zorg ervoor dat donkere domeinkleuren goed leesbaar zijn in print */
-  #slidein[data-domain="economie-organisatie"] #opleiding-titel,
-  #slidein[data-domain="schakeljaar"] #opleiding-titel {
-    color: #254a87 !important; /* Iets lichter dan de originele kleur */
-  }
-  
-  /* Betere zichtbaarheid voor lichtere kleuren in tabelheaders */
-  #slidein[data-domain="maatschappij-welzijn"] .lessentabel thead tr th,
-  #slidein[data-domain="sport-topsport"] .lessentabel thead tr th {
-    border: 1px solid #000 !important;
-    color: #000 !important;
-  }
-  
-  /* Voorkomen van witruimte rondom de pagina */
-  html, body {
-    height: 297mm !important;
-    width: 210mm !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    text-align: center !important;
+    font-size: 9pt !important;
   }
 }
