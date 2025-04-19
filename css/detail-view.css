@@ -194,8 +194,9 @@
   border-left: 3px solid var(--app-domain-base);
 }
 
+/* Verbeterde subvak styling */
 .lessentabel tr.subvak td:first-child {
-  padding-left: 1.5rem;
+  padding-left: 1.5rem !important;
   position: relative;
   color: var(--app-domain-base);
 }
@@ -206,6 +207,17 @@
   left: 0.75rem;
   color: var(--app-domain-mid);
   font-size: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Speciale styling voor subvak markers */
+.subvak-marker {
+  color: var(--app-domain-mid);
+  font-weight: bold;
+  display: inline-block;
+  width: 1.2rem;
+  text-align: center;
 }
 
 .lessentabel tr.totaal-row {
@@ -322,20 +334,74 @@
     margin-top: 3rem;
   }
   
+  /* Verbeterde printstyling voor tabel */
+  .lessentabel {
+    width: 100% !important;
+    margin: 0.5cm auto !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    font-size: 9pt !important;
+    page-break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
   .lessentabel thead th {
     background: #f0f0f0 !important;
     color: black !important;
-    box-shadow: none;
+    box-shadow: none !important;
+    font-size: 9pt !important;
+    padding: 3px 5px !important;
   }
   
-  .lessentabel {
-    box-shadow: none;
-    border: 1px solid #ddd;
+  .lessentabel td {
+    padding: 3px 5px !important;
+    font-size: 9pt !important;
+  }
+  
+  .lessentabel tr.categorie-header th {
+    background: #e0e0e0 !important;
+    color: black !important;
+    font-weight: bold !important;
+    padding: 3px 5px !important;
+  }
+  
+  /* Subvakken in print */
+  .lessentabel tr.subvak td:first-child {
+    padding-left: 1rem !important;
+  }
+  
+  .lessentabel tr.subvak td:first-child::before {
+    left: 0.4rem !important;
+  }
+  
+  .subvak-marker {
+    width: 0.8rem !important;
   }
   
   .footnotes {
-    background: none;
-    border-left: 1px solid #ddd;
-    padding: 0.5rem 1rem;
+    background: none !important;
+    border-left: 1px solid #ddd !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 8pt !important;
+  }
+  
+  .footnotes h4 {
+    font-size: 9pt !important;
+  }
+  
+  .footnotes li {
+    font-size: 8pt !important;
+    margin-bottom: 2px !important;
+  }
+  
+  /* Print scaling classes voor automatische schaling */
+  #slidein.scaled-table .lessentabel {
+    font-size: 8pt !important;
+  }
+  
+  #slidein.scaled-table .lessentabel td,
+  #slidein.scaled-table .lessentabel th {
+    padding: 2px 4px !important;
   }
 }
