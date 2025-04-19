@@ -1,7 +1,12 @@
 // grid-builder.js
 import { mapDomein } from './config-module.js';
 
-export function renderGrid(data, target) {
+/**
+ * Bouwt het grid met alle domeinen en richtingen
+ * @param {Array} klassen - Array van klasobjecten
+ * @param {HTMLElement} container - Container element voor het grid
+ */
+export function buildGrid(klassen, container) {
   // Groepeer data per domein/graad/finaliteit/richting
   const dataMap = {};
   
@@ -11,7 +16,7 @@ export function renderGrid(data, target) {
   const domeinen = new Set();
   
   // Loop door alle items en bouw de structuur op
-  data.klassen.forEach(item => {
+  klassen.forEach(item => {
     const domein = mapDomein(item.domein);
     
     let graad = (item.graad || '').toString().trim().toUpperCase();
@@ -130,8 +135,17 @@ export function renderGrid(data, target) {
     });
     
     // Voeg domein block toe aan target
-    target.appendChild(domainBlock);
+    container.appendChild(domainBlock);
   });
+}
+
+/**
+ * Legacy functie die buildGrid aanroept met de juiste parameters
+ * @param {Object} data - Object met klassen en andere data
+ * @param {HTMLElement} target - Container element voor het grid
+ */
+export function renderGrid(data, target) {
+  buildGrid(data.klassen, target);
 }
 
 function createDomainBlock(domein) {
