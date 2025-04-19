@@ -8,7 +8,7 @@
   max-width: 800px;
   height: 100%;
   background: white;
-  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.2);
+  box-shadow: -4px 0 15px rgba(0,0,0,0.2);
   transform: translateX(100%);
   transition: transform 0.4s ease;
   overflow-y: auto;
@@ -23,27 +23,18 @@
 
 #overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0,0,0,0.5);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1000;
-  pointer-events: none;
+  opacity: 0; transition: opacity 0.3s ease;
+  z-index: 1000; pointer-events: none;
 }
-
 #overlay.active {
-  opacity: 1;
-  pointer-events: auto;
+  opacity: 1; pointer-events: auto;
 }
 
-/* De kleuren worden nu via data-attributes en CSS-variabelen toegepast */
 #slidein[data-domain] {
   --app-domain-base: var(--kleur-base);
-  --app-domain-mid: var(--kleur-mid);
-  --app-domain-light1: var(--kleur-light1);
   --app-domain-hover: var(--kleur-hover);
 }
 
@@ -54,7 +45,7 @@
   position: relative;
 }
 
-/* Sluitknop nu links en in domeinkleur */
+/* Sluitknop links en in domeinkleur */
 .close-btn {
   position: absolute;
   top: 0.5rem;
@@ -62,8 +53,7 @@
   right: auto;
   z-index: 2;
   font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
+  width: 40px; height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +62,6 @@
   color: var(--app-domain-base) !important;
   cursor: pointer;
 }
-
 .close-btn:hover {
   color: var(--app-domain-hover) !important;
 }
@@ -88,18 +77,14 @@
   gap: 1rem;
   margin: 1rem 0 1.5rem;
 }
-
 .action-buttons a,
 .action-buttons button {
   padding: 0.75rem 1.5rem;
   background: var(--app-domain-base);
   color: #fff;
-  border: none;
-  border-radius: 4px;
-  text-decoration: none;
-  cursor: pointer;
+  border: none; border-radius: 4px;
+  text-decoration: none; cursor: pointer;
 }
-
 .action-buttons a:hover,
 .action-buttons button:hover {
   background: var(--app-domain-hover);
@@ -111,16 +96,14 @@
   border-collapse: collapse;
   margin-bottom: 2rem;
 }
-
 .lessentabel th,
 .lessentabel td {
   border: 1px solid #ddd;
   padding: 0.5rem;
   text-align: left;
 }
-
 .lessentabel tr:nth-child(even) {
-  background: var(--app-domain-light1);
+  background: var(--app-domain-base);
 }
 
 /* Voetnoten */
@@ -128,47 +111,18 @@
   font-size: 0.9rem;
   margin-top: 1rem;
 }
-
 #footnotes li {
   margin-bottom: 0.5rem;
 }
 
-/* Datum en quote in slide-in */
-.print-footer {
-  display: none; /* alleen in print tonen */
-}
-
+/* Print‑footer (alleen in print) */
 @media print {
-  /* Print footer tonen */
   .print-footer {
     display: block !important;
-    text-align: center;
-    margin-top: 2rem;
+    text-align: center; margin-top: 2rem;
   }
-  
   .print-footer .datum,
   .print-footer .quote {
-    margin: 0.5rem 0;
-    font-size: 0.9rem;
-  }
-
-  /* Kleine fonts voor voetnoten in print */
-  #footnotes {
-    font-size: 8pt !important;
-    margin-bottom: 0.5rem !important;
-  }
-  
-  #footnotes li {
-    margin-bottom: 2px !important;
-  }
-  
-  /* Print scaling classes voor automatische schaling */
-  #slidein.scaled-table .lessentabel {
-    font-size: 8pt !important;
-  }
-  
-  #slidein.scaled-table .lessentabel td,
-  #slidein.scaled-table .lessentabel th {
-    padding: 2px 4px !important;
+    margin: 0.5rem 0; font-size: 0.9rem;
   }
 }
