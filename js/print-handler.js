@@ -1,5 +1,5 @@
 // print-handler.js
-// Geoptimaliseerde printlogica met professionele, geïntegreerde layout
+// Geoptimaliseerde printlogica met focus op A4-formaat en bestandsnaamconventie
 
 import { mapDomein, getDomeinMeta } from './config-module.js';
 
@@ -21,47 +21,60 @@ export function initPrintHandler(klas) {
 }
 
 /**
- * Trigger afdrukken met aangepaste voorbereidingen
+ * Bereidt de afdruk voor met specifieke instellingen voor A4 en bestandsnaam
  * @param {Object} klas - Klasobject met details voor de print
  */
 function triggerPrint(klas) {
-  // Bepaal domein-specifieke kleuren
-  const domeinKey = mapDomein(klas.domein);
-  const domeinMeta = getDomeinMeta(domeinKey);
-
+  // Genereer bestandsnaam met richting
+  const fileNameBase = klas.richting
+    .replace(/\//g, ' ')     // Vervang schuine streep door spatie
+    .replace(/\s+/g, '_')    // Vervang spaties door underscore
+    .replace(/[^a-zA-Z0-9_]/g, ''); // Verwijder speciale tekens
+  
+  const fileName = `Lessentabel_${fileNameBase}_${klas.klascode}.pdf`;
+  
   // Tijdelijke print container voorbereiden
-  const printContainer = createPrintContainer(klas, domeinMeta);
+  const printContainer = createPrintContainer(klas);
   document.body.appendChild(printContainer);
+
+  // Zet titel voor afdruk
+  document.title = fileName;
 
   // Trigger native print dialoog
   window.print();
 
   // Schoonmaken na afdrukken
   document.body.removeChild(printContainer);
+  
+  // Herstel oorspronkelijke titel
+  document.title = 'Lessentabellen GO Campus Redingenhof';
 }
 
 /**
- * Creëert een tijdelijke print container met alle benodigde inhoud
+ * Creëert een tijdelijke print container geoptimaliseerd voor A4
  * @param {Object} klas - Klasobject
- * @param {Object} domeinMeta - Domein-specifieke kleuren
  * @returns {HTMLElement} Print container element
  */
-function createPrintContainer(klas, domeinMeta) {
-  // Haal benodigde elementen op
+function createPrintContainer(klas) {
+  // Haal de nodige elementen op
   const tabelEl = document.getElementById('lessentabel-container');
   const voetEl = document.getElementById('footnotes');
   
-  // Haal logo op (met fallback)
-  const logoSrc = document.querySelector('.logo-print')?.src || 
-                  document.querySelector('.logo')?.src || 
-                  'https://images.squarespace-cdn.com/content/v1/670992d66064015802d7e5dc/5425e461-06b0-4530-9969-4068d5a5dfdc/Scherm%C2%ADafbeelding+2024-12-03+om+09.38.12.jpg?format=1500w';
+  // Bepaal domein-specifieke kleuren
+  const domeinKey = mapDomein(klas.domein);
+  const domeinMeta = getDomeinMeta(domeinKey);
 
-  // Genereer datum in lokaal formaat
+  // Genereer datum
   const dateStr = new Date().toLocaleDateString('nl-BE', { 
     day: '2-digit', 
     month: '2-digit', 
     year: 'numeric' 
   });
+
+  // Logo fallback
+  const logoSrc = document.querySelector('.logo-print')?.src || 
+                  document.querySelector('.logo')?.src || 
+                  'https://images.squarespace-cdn.com/content/v1/670992d66064015802d7e5dc/5425e461-06b0-4530-9969-4068d5a5dfdc/Scherm%C2%ADafbeelding+2024-12-03+om+09.38.12.jpg?format=1500w';
 
   // Maak print container
   const printContainer = document.createElement('div');
@@ -69,60 +82,62 @@ function createPrintContainer(klas, domeinMeta) {
   printContainer.classList.add('print-mode');
   printContainer.innerHTML = `
     <style>
-      #print-container {
-        font-family: 'Montserrat', Arial, sans-serif;
-        max-width: 210mm;
-        margin: 0 auto;
-        padding: 20mm;
-        box-sizing: border-box;
-        position: relative;
-      }
-      .print-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10mm;
-        border-bottom: 2px solid ${domeinMeta.base};
-        padding-bottom: 5mm;
-      }
-      .logo {
-        max-height: 25mm;
-        max-width: 50mm;
-      }
-      .title {
-        font-size: 14pt;
-        font-weight: bold;
-        color: ${domeinMeta.base};
-        text-transform: uppercase;
-      }
-      .date {
-        font-size: 10pt;
-        color: #666;
-      }
-      #lessentabel-container {
-        width: 100%;
-      }
-      .footnotes {
-        margin-top: 10mm;
-        font-size: 9pt;
-        color: #666;
-      }
-      .quote {
-        position: absolute;
-        bottom: 10mm;
-        left: 20mm;
-        font-style: italic;
-        color: ${domeinMeta.mid};
+      @media print {
+        @page { 
+          size: A4 portrait; 
+          margin: 10mm; 
+        }
+        body * { visibility: hidden; }
+        #print-container, #print-container * { 
+          visibility: visible; 
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+        #print-container {
+          width: 100%;
+          height: 100%;
+          display: block;
+          page-break-inside: avoid !important;
+        }
+        .print-content {
+          zoom: 0.9; /* Extra kleine zoom om alles te laten passen */
+        }
       }
     </style>
-    <div class="print-header">
-      <img src="${logoSrc}" alt="GO Campus Redingenhof Logo" class="logo">
-      <div class="title">${klas.richting}</div>
-      <div class="date">Afgedrukt op: ${dateStr}</div>
+    <div class="print-content">
+      <div style="
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        border-bottom: 2px solid ${domeinMeta.base};
+        padding-bottom: 5mm;
+        margin-bottom: 5mm;
+      ">
+        <img src="${logoSrc}" alt="Logo" style="max-height: 20mm; max-width: 50mm;">
+        <div style="
+          color: ${domeinMeta.base}; 
+          font-weight: bold; 
+          font-size: 14pt;
+        ">${klas.richting}</div>
+        <div style="font-size: 10pt; color: #666;">
+          Afgedrukt op: ${dateStr}
+        </div>
+      </div>
+      
+      ${tabelEl.outerHTML}
+      
+      ${voetEl ? voetEl.outerHTML : ''}
+      
+      <div style="
+        text-align: center; 
+        margin-top: 5mm; 
+        font-style: italic; 
+        color: ${domeinMeta.base};
+      ">
+        SAMEN VER!
+      </div>
     </div>
-    ${tabelEl.outerHTML}
-    ${voetEl ? voetEl.outerHTML : ''}
-    <div class="quote">SAMEN VER!</div>
   `;
 
   return printContainer;
