@@ -1,7 +1,7 @@
 // detail-view.js
 import { mapDomein, getDomeinMeta } from './config-module.js';
 import { generateLessentabel } from './table-generator.js';
-// Importeer de nieuwe print handler functionaliteit
+// Importeer alleen de initPrintHandler functie
 import { initPrintHandler } from './print-handler.js';
 
 // Globale variabelen voor event cleanup
@@ -43,7 +43,7 @@ export function renderSlidein(klas, lessen, voetnoten) {
     // Schakel luisteraars in voor auto-schaling bij resizen
     enableAutoScaling();
     
-    // Initialiseer de nieuwe print handler met de huidige klas
+    // Initialiseer de print handler met de huidige klas
     initPrintHandler(klas);
   } catch (error) {
     console.error('Fout bij renderen slidein:', error);
