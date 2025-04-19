@@ -4,6 +4,10 @@ import { mapDomein, getDomeinMeta } from './config-module.js';
 import { initPrintHandler } from './print-handler.js';
 import { generateLessentabel } from './table-generator.js';
 
+// Bewaar referentie naar de actieve scaling observer en handlers
+let activeScalingObserver = null;
+let activeResizeHandler = null;
+
 /**
  * Genereert en toont de slide-in infokader voor een geselecteerde klas.
  * @param {Object} klas - Het klasobject met richting, beschrijving, domein...
@@ -11,6 +15,9 @@ import { generateLessentabel } from './table-generator.js';
  * @param {Array} voetnoten - Alle voetnoten die bij deze richting horen
  */
 export function renderSlidein(klas, lessen, voetnoten) {
+  // Cleanup eventuele bestaande resources
+  cleanupActiveResources();
+  
   // Stel domein-specifieke styling en kleuren in
   setupDomeinStyling(klas);
   
@@ -40,6 +47,41 @@ export function renderSlidein(klas, lessen, voetnoten) {
 }
 
 /**
+ * Cleanup resources bij het wisselen of sluiten van slidein
+ */
+function cleanupActiveResources() {
+  // Cleanup van auto-scaling resources
+  if (activeScalingObserver) {
+    activeScalingObserver.disconnect();
+    activeScalingObserver = null;
+  }
+  
+  if (activeResizeHandler) {
+    window.removeEventListener('resize', activeResizeHandler);
+    activeResizeHandler = null;
+  }
+  
+  // Reset eventuele schaalstijlen
+  const slidein = document.getElementById('slidein');
+  if (slidein) {
+    slidein.classList.remove('scaled-table');
+    
+    const table = slidein.querySelector('.lessentabel');
+    if (table) {
+      table.style.transform = '';
+      table.style.fontSize = '';
+      table.style.marginBottom = '';
+      
+      // Reset cell padding
+      const cells = table.querySelectorAll('td, th');
+      cells.forEach(cell => {
+        cell.style.padding = '';
+      });
+    }
+  }
+}
+
+/**
  * Schakelt automatische schaling in voor lessentabellen
  * die te groot zijn voor de container
  */
@@ -47,35 +89,37 @@ function enableAutoScaling() {
   // Eerste schaling meteen toepassen
   detectAndScaleTable();
   
+  // Maak een nieuwe resize handler en bewaar deze
+  activeResizeHandler = detectAndScaleTable;
+  window.addEventListener('resize', activeResizeHandler);
+  
   // Observer om veranderingen in het DOM te detecteren
-  const observer = new MutationObserver(() => {
+  activeScalingObserver = new MutationObserver(() => {
     detectAndScaleTable();
   });
   
   // Observeer het lessentabel-container element
   const container = document.getElementById("lessentabel-container");
   if (container) {
-    observer.observe(container, { 
+    activeScalingObserver.observe(container, { 
       childList: true, 
       subtree: true,
       attributes: true
     });
   }
-  
-  // Luister naar resize events voor responsiviteit
-  window.addEventListener('resize', detectAndScaleTable);
-  
-  // Cleanup functie om resources vrij te geven
-  return () => {
-    observer.disconnect();
-    window.removeEventListener('resize', detectAndScaleTable);
-  };
 }
 
 /**
  * Detecteert of tabel te groot is en past schaal aan indien nodig
  */
 function detectAndScaleTable() {
+  // Controleer of we in printmodus zijn
+  const isPrintMode = document.body.classList.contains('print-mode');
+  if (isPrintMode) {
+    // In printmodus laten we print-handler.js de schaling afhandelen
+    return;
+  }
+  
   const container = document.getElementById("slidein");
   const table = document.querySelector(".lessentabel");
   
@@ -84,44 +128,22 @@ function detectAndScaleTable() {
   // Reset eerst eventuele transformaties
   table.style.transform = '';
   table.style.fontSize = '';
+  table.style.marginBottom = '';
   
-  // Bepaal of aanpassing nodig is voor printen
-  const isPrintMode = document.body.classList.contains('print-mode');
-  
-  // Voor printmodus gebruiken we andere maten (A4)
-  const maxHeight = isPrintMode ? 1000 : container.clientHeight - 200;
+  // Bepaal beschikbare hoogte (minus marges)
+  const maxHeight = container.clientHeight - 200;
   
   if (table.offsetHeight > maxHeight) {
     // Bereken schaalfactor
-    const scale = maxHeight / table.offsetHeight;
+    const scale = Math.max(0.5, maxHeight / table.offsetHeight); // Niet kleiner dan 50%
     
-    // Kies aanpak op basis van printmodus
-    if (isPrintMode) {
-      // Voor printen: pas fontgrootte aan en maak cellen compacter
-      const cells = table.querySelectorAll('td, th');
-      const baseSize = parseFloat(window.getComputedStyle(table).fontSize);
-      
-      // Maak cellen compacter voor print
-      cells.forEach(cell => {
-        cell.style.padding = '2px';
-      });
-      
-      // Pas de fontgrootte aan
-      const newSize = Math.max(6, Math.floor(baseSize * scale)); // Minimaal 6px
-      table.style.fontSize = `${newSize}px`;
-      
-      // Voeg een klasse toe om te indiceren dat deze tabel geschaald is
-      container.classList.add('scaled-table');
-      
-      // Maak ruimte voor de kleinere tabel
-      table.style.margin = '0.5cm auto';
-    } else {
-      // Voor scherm: gebruik transformaties voor vloeiende verkleining
-      table.style.transform = `scale(${scale})`;
-      table.style.transformOrigin = 'top center';
-      // Compenseer voor schaling door margin toe te voegen
-      table.style.marginBottom = `${table.offsetHeight * (1 - scale)}px`;
-    }
+    // Pas transformatie toe voor vloeiende verkleining
+    table.style.transform = `scale(${scale})`;
+    table.style.transformOrigin = 'top center';
+    
+    // Compenseer voor schaling door margin toe te voegen
+    const newMargin = Math.ceil(table.offsetHeight * (1 - scale));
+    table.style.marginBottom = `${newMargin}px`;
   } else {
     // Verwijder schalingsindicator als er geen schaling meer nodig is
     container.classList.remove('scaled-table');
@@ -225,18 +247,30 @@ function showSlidein() {
   // Zorg ervoor dat de sluitknop werkt
   const closeBtn = document.querySelector('.close-btn');
   if (closeBtn) {
-    // Maak een nieuwe knop aan om eventuele oude event listeners te verwijderen
+    // Verwijder eerst alle bestaande eventlisteners
     const newBtn = closeBtn.cloneNode(true);
     closeBtn.parentNode.replaceChild(newBtn, closeBtn);
     
     // Voeg nieuwe event listener toe
-    newBtn.addEventListener('click', () => {
+    newBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Controleer of we in printmodus zijn
+      if (document.body.classList.contains('print-mode')) {
+        console.log('Kan slidein niet sluiten tijdens print modus');
+        return; // Voorkom sluiten tijdens printen
+      }
+      
       if (window.LessentabellenApp && typeof window.LessentabellenApp.closeSlidein === 'function') {
         window.LessentabellenApp.closeSlidein();
       } else {
         // Fallback als de app niet beschikbaar is
         slideinEl.classList.remove("open");
         document.getElementById("overlay").classList.remove("active");
+        
+        // Voer cleanup uit
+        cleanupActiveResources();
       }
     });
   }
