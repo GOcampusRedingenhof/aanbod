@@ -5,60 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Lessentabellen GO Campus Redingenhof - Bekijk alle beschikbare richtingen en lessentabellen">
   <title>Lessentabellen GO Campus Redingenhof</title>
-  
-  <!-- CSS bestanden -->
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/detail-view.css">
   <link rel="stylesheet" href="css/print-styles.css">
-  
-  <!-- Google Fonts: Montserrat -->
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-  
+
   <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
   <div id="lessentabellen-container" class="lessentabellen-container">
     <h1 class="lessentabellen-title">Lessentabellen GO Campus Redingenhof</h1>
-    <p class="lessentabellen-intro slogan">
+    <p class="slogan">
       Ontdek hieronder ons uitgebreide aanbod. Klik op een richting voor meer details en het volledige uurrooster.
     </p>
-    
     <div class="lessentabellen-root">
-      <!-- Grid container voor alle domeinen/richtingen -->
       <div id="domains-container" class="domains-grid">
-        <!-- Wordt dynamisch ingevuld door JavaScript -->
         <div class="loader-spinner"></div>
       </div>
-      
-      <!-- Detail view slide-in panel -->
       <div id="slidein" class="lessentabellen-wrapper" tabindex="-1">
         <div class="detail-header">
           <button class="close-btn" aria-label="Sluiten">×</button>
           <h2 id="opleiding-titel"></h2>
           <p id="opleiding-beschrijving"></p>
         </div>
-        
         <div class="detail-content">
           <div class="action-buttons">
             <a id="brochure-link" href="#" target="_blank">Brochure</a>
             <button id="print-button" type="button">Afdrukken</button>
           </div>
-          
           <div id="lessentabel-container">
-            <table class="lessentabel">
-              <!-- Wordt door JS gevuld -->
-            </table>
+            <table class="lessentabel"></table>
           </div>
-          
-          <div id="footnotes">
-            <!-- Wordt door JS gevuld -->
-          </div>
+          <div id="footnotes"></div>
         </div>
-        
         <div class="print-footer">
           <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
           <div class="quote">SAMEN VER!</div>
@@ -66,11 +53,10 @@
       </div>
     </div>
   </div>
-  
-  <!-- Papa Parse voor CSV verwerking -->
+
+  <!-- CSV‐parser -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
-  
-  <!-- App JavaScript - ESM entrypoint -->
+  <!-- App entrypoint -->
   <script type="module" src="js/index.js"></script>
 </body>
 </html>
