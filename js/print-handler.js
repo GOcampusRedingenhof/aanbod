@@ -1,11 +1,17 @@
-// Nieuwe print-handler.js module
-import html2pdf from 'html2pdf.js';
+// 1Nieuwe print-handler.js module (zonder ES module import)
 
 /**
  * Genereert een PDF bestand van het lessentabel voor een specifieke klas
  * @param {Object} klas - Het klasobject met alle informatie
  */
 export function generatePDF(klas) {
+  // Controleer of html2pdf beschikbaar is
+  if (typeof window.html2pdf === 'undefined') {
+    console.error('html2pdf library niet gevonden. Zorg ervoor dat deze in index.html is geladen.');
+    alert('PDF genereren is niet beschikbaar. Neem contact op met de beheerder.');
+    return;
+  }
+
   // Stap 1: Capture huidige lessentabel en maak een kopie voor PDF generatie
   const slidein = document.getElementById('slidein');
   if (!slidein) {
@@ -43,8 +49,8 @@ export function generatePDF(klas) {
     }
   };
   
-  // Stap 6: Genereer de PDF
-  html2pdf()
+  // Stap 6: Genereer de PDF met de globale html2pdf functie
+  window.html2pdf()
     .set(options)
     .from(pdfContainer)
     .save()
