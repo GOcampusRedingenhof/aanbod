@@ -1,4 +1,4 @@
-/* 2css/print-styles.css — Printstijlen voor de Lessentabel-app */
+/* css/print-styles.css — Printstijlen voor de Lessentabel-app */
 
 @media print {
   /* Algemeen reset */
@@ -12,14 +12,20 @@
     print-color-adjust: exact !important;
   }
 
-  /* Verberg alle scherm‑UI-elementen; logo en quote worden in de achtergrond voorzien */
+  /* Verberg alle scherm‑UI-elementen; logo en quote in slidein separaat verbergen */
   header,
   footer,
   #print-button,
   .action-buttons,
   .close-btn,
-  .logo,
   .quote {
+    display: none !important;
+  }
+
+  /* Specifiek logo in slidein verbergen */
+  #slidein .logo,
+  #slidein img.logo,
+  #slidein #logo {
     display: none !important;
   }
 
