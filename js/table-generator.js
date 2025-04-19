@@ -15,6 +15,12 @@ export function generateLessentabel(lessen, hoofdKlas) {
   const klasCodes = [...new Set(lessen
     .filter(les => {
       // Zoek de klas info voor deze les
+      // Controleer of window.LessentabellenApp bestaat
+      if (!window.LessentabellenApp || !window.LessentabellenApp.klassen) {
+        console.error('LessentabellenApp of klassen niet beschikbaar!');
+        return false;
+      }
+      
       const klas = window.LessentabellenApp.klassen.find(k => k.klascode === les.klascode);
       // Behoud alleen lessen van klassen met dezelfde graad als hoofdklas
       return klas && klas.graad === hoofdKlas.graad;
@@ -224,6 +230,12 @@ function berekenTotalen(lessen, klasCodes) {
 function buildStageRow(klasCodes) {
   // Controleer of er überhaupt stage weken zijn in enige klas
   const heeftStageWeken = klasCodes.some(code => {
+    // Controleer of window.LessentabellenApp bestaat
+    if (!window.LessentabellenApp || !window.LessentabellenApp.klassen) {
+      console.error('LessentabellenApp of klassen niet beschikbaar voor stage check!');
+      return false;
+    }
+    
     // Zoek klas bij de code
     const klas = window.LessentabellenApp.klassen.find(k => k.klascode === code);
     // Controleer of er stage_weken zijn gedefinieerd
@@ -235,6 +247,12 @@ function buildStageRow(klasCodes) {
       <tr class="stage-row" style="font-weight:bold; border-top: 1px solid #000;">
         <td>Stage weken</td>
         ${klasCodes.map(code => {
+          // Controleer of window.LessentabellenApp bestaat
+          if (!window.LessentabellenApp || !window.LessentabellenApp.klassen) {
+            console.error('LessentabellenApp of klassen niet beschikbaar voor stage data!');
+            return '<td></td>';
+          }
+          
           // Zoek de juiste klas-info voor deze klascode
           const klas = window.LessentabellenApp.klassen.find(k => k.klascode === code);
           // Haal stageweken op indien beschikbaar
