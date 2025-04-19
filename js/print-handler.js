@@ -1,229 +1,232 @@
-// print-handler.js - Verbeterde versie
-// Module voor optimale printfunctionaliteit
+// print-handler.js - Vereenvoudigde versie (alleen PDF-generatie)
+// Deze module focust op betrouwbare PDF-generatie
 
 /**
- * Initialiseert de print handler voor een specifieke klas
+ * Initialiseert de handler voor een specifieke klas
  * @param {Object} klas - Het klasobject met alle informatie
  */
 export function initPrintHandler(klas) {
-  // Sla de klas op voor gebruik in print functies
+  // Sla de klas op voor gebruik in PDF functie
   window.currentPrintKlas = klas;
-  
-  // Zorg dat de printknop correct werkt
-  const printButton = document.getElementById('print-button');
-  if (printButton) {
-    // Verwijder oude event listeners door een nieuwe knop te maken
-    const newButton = printButton.cloneNode(true);
-    printButton.parentNode.replaceChild(newButton, printButton);
-    
-    // Voeg nieuwe event listener toe
-    newButton.addEventListener('click', () => {
-      printLessentabel();
-    });
-  }
 }
 
 /**
- * Start het printproces voor de huidige lessentabel
- */
-export function printLessentabel() {
-  try {
-    console.log('Printproces gestart');
-    
-    // Verkrijg huidige klas
-    const klas = window.currentPrintKlas;
-    
-    // Voeg print-mode class toe aan body
-    document.body.classList.add('print-mode');
-    
-    // Bereid slidein voor voor printen
-    const slidein = document.getElementById('slidein');
-    if (slidein) {
-      // Voeg print-optimalisatie classes toe
-      slidein.classList.add('print-optimized');
-      
-      // Detecteer automatisch of de tabel geschaald moet worden
-      optimizeTableForPrint();
-      
-      // Verberg UI elementen die niet nodig zijn bij printen
-      const closeBtn = document.querySelector('.close-btn');
-      if (closeBtn) closeBtn.style.display = 'none';
-      
-      const actionButtons = document.querySelector('.action-buttons');
-      if (actionButtons) actionButtons.style.display = 'none';
-      
-      // Voeg datum toe
-      const datumEl = document.getElementById('datum-print');
-      if (datumEl) {
-        try {
-          const nu = new Date();
-          const opties = { day: '2-digit', month: 'long', year: 'numeric' };
-          datumEl.textContent = nu.toLocaleDateString('nl-BE', opties);
-        } catch (error) {
-          console.warn('Fout bij formatteren datum:', error);
-          datumEl.textContent = new Date().toLocaleDateString();
-        }
-      }
-      
-      // Print na een korte vertraging om de DOM updates te verwerken
-      setTimeout(() => {
-        window.print();
-        
-        // Wacht even na het printen en ruim dan op
-        setTimeout(() => {
-          cleanupAfterPrinting();
-        }, 500);
-      }, 300);
-    } else {
-      console.error('Slidein element niet gevonden');
-      alert('Kan de lessentabel niet afdrukken. Probeer de pagina te verversen.');
-    }
-  } catch (error) {
-    console.error('Fout bij starten print proces:', error);
-    alert('Er is een fout opgetreden bij het afdrukken.');
-    cleanupAfterPrinting(); // Probeer toch op te ruimen
-  }
-}
-
-/**
- * Ruimt op na het afdrukken
- */
-export function cleanupAfterPrinting() {
-  try {
-    console.log('Opruimen na afdrukken');
-    
-    // Verwijder print-mode van body
-    document.body.classList.remove('print-mode');
-    
-    // Haal print-optimalisatie weg
-    const slidein = document.getElementById('slidein');
-    if (slidein) {
-      slidein.classList.remove('print-optimized');
-      slidein.classList.remove('scaled-table');
-      
-      // Reset tabel scaling
-      const table = slidein.querySelector('.lessentabel');
-      if (table) {
-        table.style.fontSize = '';
-        table.style.transform = '';
-        table.style.marginBottom = '';
-      }
-    }
-    
-    // Toon UI elementen weer
-    const closeBtn = document.querySelector('.close-btn');
-    if (closeBtn) closeBtn.style.removeProperty('display');
-    
-    const actionButtons = document.querySelector('.action-buttons');
-    if (actionButtons) actionButtons.style.removeProperty('display');
-  } catch (error) {
-    console.error('Fout bij opruimen na printen:', error);
-    
-    // Probeer toch basisopruiming te doen
-    document.body.classList.remove('print-mode');
-    document.querySelector('.close-btn')?.style.removeProperty('display');
-    document.querySelector('.action-buttons')?.style.removeProperty('display');
-  }
-}
-
-/**
- * Optimaliseert tabel voor afdrukken
- */
-function optimizeTableForPrint() {
-  try {
-    const slidein = document.getElementById('slidein');
-    const table = slidein.querySelector('.lessentabel');
-    
-    if (!table) return;
-    
-    // Reset eerst eventuele eerdere aanpassingen
-    table.style.fontSize = '';
-    table.style.transform = '';
-    
-    // Kijk naar de grootte van de tabel
-    const tableHeight = table.offsetHeight;
-    const maxHeight = 900; // ~A4 hoogte in pixels minus marges
-    
-    // Als tabel te groot is, schaal deze
-    if (tableHeight > maxHeight) {
-      const scale = Math.max(0.75, maxHeight / tableHeight);
-      slidein.classList.add('scaled-table');
-      
-      if (scale < 0.85) {
-        // Extra kleine lettergrootte voor heel grote tabellen
-        table.style.fontSize = '9pt';
-      }
-    }
-  } catch (error) {
-    console.warn('Fout bij optimaliseren tabel voor print:', error);
-  }
-}
-
-/**
- * Genereert een PDF bestand van de lessentabel
+ * Genereert een PDF bestand van de huidige lessentabel
+ * Met verbeterde inhoudsopname
  */
 export function generatePDF() {
-  if (typeof window.html2pdf === 'undefined') {
-    console.error('html2pdf library niet beschikbaar');
-    alert('PDF genereren is momenteel niet beschikbaar. De benodigde library ontbreekt.');
-    return;
-  }
-  
   try {
-    // Bereid slidein voor voor PDF export (vergelijkbaar met print)
-    const slidein = document.getElementById('slidein');
-    if (!slidein) {
-      alert('Kan geen PDF genereren. Probeer de pagina te verversen.');
+    // Controleer eerst of html2pdf beschikbaar is
+    if (typeof window.html2pdf === 'undefined') {
+      console.error('html2pdf library niet beschikbaar');
+      alert('PDF genereren is momenteel niet beschikbaar. Probeer de pagina te verversen.');
       return;
     }
     
     // Verkrijg huidige klas
-    const klas = window.currentPrintKlas;
+    const klas = window.currentPrintKlas || (window.LessentabellenApp && window.LessentabellenApp.getKlasByCode(window.LessentabellenApp.currentKlasCode));
+    
     if (!klas || !klas.richting) {
-      alert('Kan geen PDF genereren. Richting informatie ontbreekt.');
+      console.error('Geen geldige klas gevonden voor PDF generatie');
+      alert('Kan geen PDF genereren. Geen richtingsinformatie beschikbaar.');
       return;
     }
     
-    // Maak een kopie van het slidein element voor PDF generatie
-    const container = slidein.cloneNode(true);
-    container.style.position = 'absolute';
-    container.style.left = '-9999px';
-    container.style.transform = 'none';
-    document.body.appendChild(container);
+    console.log('PDF generatie gestart voor:', klas.richting);
     
-    // Verberg interactieve elementen
-    const closeBtn = container.querySelector('.close-btn');
-    if (closeBtn) closeBtn.remove();
+    // Haal de slidein container op
+    const slidein = document.getElementById('slidein');
+    if (!slidein) {
+      alert('Kan geen PDF genereren. Geen inhoud beschikbaar.');
+      return;
+    }
     
-    const actionButtons = container.querySelector('.action-buttons');
-    if (actionButtons) actionButtons.remove();
+    // Genereer een bestandsnaam gebaseerd op de richting
+    const fileName = `${klas.richting.replace(/[^\w\s-]/gi, '')}_Lessentabel.pdf`;
     
-    // Stel bestandsnaam in
-    const fileName = `${klas.richting.replace(/[^\w\s]/gi, '')}_Lessentabel.pdf`;
+    // Maak een nieuwe container specifiek voor de PDF
+    // Dit vermijdt problemen met stijlen en zichtbaarheid
+    const pdfContainer = document.createElement('div');
+    pdfContainer.style.position = 'absolute';
+    pdfContainer.style.left = '-9999px';
+    pdfContainer.style.width = '210mm'; // A4 breedte
+    pdfContainer.style.fontSize = '10pt';
+    pdfContainer.style.fontFamily = 'Montserrat, Arial, sans-serif';
+    
+    // Kopieer de relevante inhoud
+    // We bouwen deze handmatig op om problemen met verborgen elementen te vermijden
+    
+    // Titel sectie
+    const headerSection = document.createElement('div');
+    headerSection.style.textAlign = 'center';
+    headerSection.style.marginBottom = '20px';
+    
+    const titel = document.createElement('h1');
+    titel.textContent = klas.richting || 'Lessentabel';
+    titel.style.fontSize = '18pt';
+    titel.style.fontWeight = 'bold';
+    titel.style.margin = '0 0 10px 0';
+    
+    headerSection.appendChild(titel);
+    
+    // Voeg beschrijving toe als die er is
+    const beschrijvingEl = slidein.querySelector('#opleiding-beschrijving');
+    if (beschrijvingEl && beschrijvingEl.textContent.trim()) {
+      const beschrijving = document.createElement('p');
+      beschrijving.textContent = beschrijvingEl.textContent;
+      beschrijving.style.fontSize = '10pt';
+      beschrijving.style.marginBottom = '20px';
+      headerSection.appendChild(beschrijving);
+    }
+    
+    pdfContainer.appendChild(headerSection);
+    
+    // Lessentabel sectie
+    const tabelSection = document.createElement('div');
+    
+    // Kopieer de tabel, inclusief alle stijlen
+    const origineleTabel = slidein.querySelector('.lessentabel');
+    if (origineleTabel) {
+      const tabel = origineleTabel.cloneNode(true);
+      
+      // Zorg ervoor dat de tabel zichtbaar is en goed gestructureerd
+      tabel.style.width = '100%';
+      tabel.style.borderCollapse = 'collapse';
+      tabel.style.fontSize = '9pt';
+      tabel.style.marginBottom = '20px';
+      
+      // Stijl de cellen
+      const cellen = tabel.querySelectorAll('th, td');
+      cellen.forEach(cel => {
+        cel.style.border = '1px solid #ddd';
+        cel.style.padding = '4px 6px';
+        cel.style.textAlign = cel.tagName === 'TH' || cellen.indexOf(cel) === 0 ? 'left' : 'center';
+      });
+      
+      // Stijl de headers
+      const headers = tabel.querySelectorAll('th');
+      headers.forEach(header => {
+        header.style.backgroundColor = '#f0f0f0';
+        header.style.fontWeight = 'bold';
+      });
+      
+      // Stijl categorie headers
+      const categorieHeaders = tabel.querySelectorAll('.categorie-header th');
+      categorieHeaders.forEach(header => {
+        header.style.backgroundColor = '#e0e0e0';
+        header.style.textAlign = 'left';
+      });
+      
+      // Zorg dat subvakken juist worden weergegeven
+      const subvakken = tabel.querySelectorAll('.subvak td:first-child');
+      subvakken.forEach(subvak => {
+        subvak.style.paddingLeft = '15px';
+      });
+      
+      tabelSection.appendChild(tabel);
+    } else {
+      // Als er geen tabel is, toon een foutmelding
+      const foutmelding = document.createElement('p');
+      foutmelding.textContent = 'De lessentabel kon niet worden geladen.';
+      foutmelding.style.color = 'red';
+      tabelSection.appendChild(foutmelding);
+    }
+    
+    pdfContainer.appendChild(tabelSection);
+    
+    // Voetnoten sectie
+    const voetnotenOrigineel = slidein.querySelector('.footnotes');
+    if (voetnotenOrigineel) {
+      const voetnoten = voetnotenOrigineel.cloneNode(true);
+      voetnoten.style.fontSize = '8pt';
+      voetnoten.style.marginTop = '10px';
+      voetnoten.style.borderLeft = '3px solid #ddd';
+      voetnoten.style.paddingLeft = '10px';
+      pdfContainer.appendChild(voetnoten);
+    }
+    
+    // Datum footer
+    const footer = document.createElement('div');
+    footer.style.marginTop = '20px';
+    footer.style.fontSize = '8pt';
+    footer.style.color = '#666';
+    
+    const datum = document.createElement('p');
+    const now = new Date();
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    try {
+      datum.textContent = `Afgedrukt op: ${now.toLocaleDateString('nl-BE', options)}`;
+    } catch (error) {
+      datum.textContent = `Afgedrukt op: ${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
+    }
+    
+    footer.appendChild(datum);
+    pdfContainer.appendChild(footer);
+    
+    // Voeg branding toe
+    const branding = document.createElement('div');
+    branding.style.position = 'absolute';
+    branding.style.bottom = '10mm';
+    branding.style.right = '10mm';
+    branding.style.fontSize = '7pt';
+    branding.style.color = '#999';
+    branding.textContent = 'GO Campus Redingenhof';
+    pdfContainer.appendChild(branding);
+    
+    // Voeg de container toe aan de pagina voor html2pdf
+    document.body.appendChild(pdfContainer);
     
     // Configureer html2pdf
     const options = {
-      margin: 10,
+      margin: [15, 10, 15, 10], // top, right, bottom, left in mm
       filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      html2canvas: { 
+        scale: 2,
+        useCORS: true,
+        logging: false
+      },
+      jsPDF: { 
+        unit: 'mm', 
+        format: 'a4', 
+        orientation: 'portrait',
+        compress: true
+      }
     };
     
-    // Genereer PDF
-    window.html2pdf().set(options).from(container).save().then(() => {
-      // Cleanup
-      document.body.removeChild(container);
-    });
+    // Genereer de PDF
+    window.html2pdf()
+      .from(pdfContainer)
+      .set(options)
+      .save()
+      .then(() => {
+        // Cleanup
+        document.body.removeChild(pdfContainer);
+        console.log('PDF generatie succesvol voltooid');
+      })
+      .catch(err => {
+        console.error('Fout bij PDF generatie:', err);
+        
+        // Probeer de foutmelding te tonen voor debugging
+        if (typeof err === 'object') {
+          console.error('Fout details:', Object.keys(err).map(k => `${k}: ${err[k]}`).join(', '));
+        }
+        
+        alert('Er is een fout opgetreden bij het maken van de PDF. Probeer het opnieuw.');
+        
+        // Cleanup
+        if (document.body.contains(pdfContainer)) {
+          document.body.removeChild(pdfContainer);
+        }
+      });
   } catch (error) {
-    console.error('Fout bij genereren PDF:', error);
-    alert('Er is een fout opgetreden bij het maken van de PDF.');
+    console.error('Onverwachte fout bij PDF generatie:', error);
+    alert('Er is een onverwachte fout opgetreden bij het maken van de PDF.');
   }
 }
 
+// Exporteer alleen de benodigde functies
 export default {
   initPrintHandler,
-  printLessentabel,
-  cleanupAfterPrinting,
   generatePDF
 };
