@@ -1,5 +1,13 @@
 // js/print-handler.js
 
+// Bewaar globale referenties naar functies voor cleanup
+let activePrintHandlers = {
+  printButtonHandler: null,
+  beforePrintHandler: null,
+  afterPrintHandler: null,
+  safetyTimeout: null
+};
+
 /**
  * Initialiseert de print handler voor een specifieke klas
  * @param {Object} klas - Het klasobject met informatie over de richting
@@ -8,10 +16,13 @@ export function initPrintHandler(klas) {
   const printButton = document.querySelector('#print-button');
   if (!printButton) return;
 
-  // Voorkom dubbele event listeners
-  printButton.removeEventListener('click', handlePrintButtonClick);
-  window.removeEventListener('beforeprint', handleBeforePrint);
-  window.removeEventListener('afterprint', handleAfterPrint);
+  // Reinig eerst eventuele bestaande handlers
+  cleanupPrintHandlers();
+  
+  // Maak nieuwe handlers
+  activePrintHandlers.printButtonHandler = (e) => handlePrintButtonClick(e, klas);
+  activePrintHandlers.beforePrintHandler = (e) => handleBeforePrint(e, klas);
+  activePrintHandlers.afterPrintHandler = handleAfterPrint;
   
   // Zet klascode als data attribuut op de printknop
   printButton.dataset.klas = klas.klascode;
@@ -28,17 +39,49 @@ export function initPrintHandler(klas) {
     datumEl.textContent = datum;
   }
 
-  // Bind event listeners - gebruik named functions zodat we ze later kunnen verwijderen
-  printButton.addEventListener('click', handlePrintButtonClick);
-  window.addEventListener('beforeprint', handleBeforePrint);
-  window.addEventListener('afterprint', handleAfterPrint);
+  // Bind event listeners met nieuwe handlers
+  printButton.addEventListener('click', activePrintHandlers.printButtonHandler);
+  window.addEventListener('beforeprint', activePrintHandlers.beforePrintHandler);
+  window.addEventListener('afterprint', activePrintHandlers.afterPrintHandler);
+}
+
+/**
+ * Verwijdert alle actieve print handlers
+ */
+function cleanupPrintHandlers() {
+  // Verwijder button handler
+  if (activePrintHandlers.printButtonHandler) {
+    const printButton = document.querySelector('#print-button');
+    if (printButton) {
+      printButton.removeEventListener('click', activePrintHandlers.printButtonHandler);
+    }
+  }
   
-  // Safety timeout om te zorgen dat de UI altijd vrijgegeven wordt
-  window.printSafetyTimeout = null;
+  // Verwijder window handlers
+  if (activePrintHandlers.beforePrintHandler) {
+    window.removeEventListener('beforeprint', activePrintHandlers.beforePrintHandler);
+  }
+  
+  if (activePrintHandlers.afterPrintHandler) {
+    window.removeEventListener('afterprint', activePrintHandlers.afterPrintHandler);
+  }
+  
+  // Annuleer safety timeout
+  if (activePrintHandlers.safetyTimeout) {
+    clearTimeout(activePrintHandlers.safetyTimeout);
+  }
+  
+  // Reset alle handlers
+  activePrintHandlers = {
+    printButtonHandler: null,
+    beforePrintHandler: null,
+    afterPrintHandler: null,
+    safetyTimeout: null
+  };
 }
 
 // Event handler voor print button
-function handlePrintButtonClick(e) {
+function handlePrintButtonClick(e, klas) {
   e.preventDefault();
   e.stopPropagation();
   
@@ -46,48 +89,108 @@ function handlePrintButtonClick(e) {
   const originalState = saveUIState();
   
   try {
+    // Log event om debugging te vergemakkelijken
+    console.log('Print knop geklikt voor klas:', klas.klascode);
+    
     // Meld browser dat we gaan afdrukken
     document.body.classList.add('print-mode');
     
     // Bereid voor op printen
     prepareForPrint();
     
-    // Set a safety timeout to ensure UI is released even if afterprint never fires
-    clearTimeout(window.printSafetyTimeout);
-    window.printSafetyTimeout = setTimeout(() => {
-      if (document.body.classList.contains('print-mode')) {
-        console.log('Safety timeout: resetting UI after print');
-        restoreUIState(originalState);
-      }
+    // Set a safety timeout to ensure UI is released
+    clearTimeout(activePrintHandlers.safetyTimeout);
+    activePrintHandlers.safetyTimeout = setTimeout(() => {
+      console.log('Safety timeout: resetting UI after print');
+      
+      // Verwijder print-mode class
+      document.body.classList.remove('print-mode');
+      
+      // Volledige cleanup
+      restoreUIState(originalState);
+      cleanupPrintHandlers();
+      
     }, 5000); // 5 seconden timeout
     
     // Print met een kleine vertraging om de browser tijd te geven om de layout aan te passen
-    setTimeout(() => window.print(), 100);
+    setTimeout(() => {
+      try {
+        window.print();
+      } catch (printError) {
+        console.error('Fout tijdens printen:', printError);
+        // Bij fout direct opschonen
+        document.body.classList.remove('print-mode');
+        restoreUIState(originalState);
+      }
+    }, 200);
   } catch (error) {
-    console.error('Print error:', error);
+    console.error('Print voorbereiding error:', error);
     // Herstel UI bij fout
+    document.body.classList.remove('print-mode');
     restoreUIState(originalState);
   }
 }
 
 // Voordat het printdialoogvenster verschijnt
-function handleBeforePrint(e) {
+function handleBeforePrint(e, klas) {
+  console.log('beforeprint event met klas:', klas?.klascode);
+  
   if (!document.body.classList.contains('print-mode')) {
     // Als print werd gestart door browser (bijv. Ctrl+P) in plaats van onze knop
+    console.log('Print gestart door browser, niet via onze knop');
     document.body.classList.add('print-mode');
     prepareForPrint();
+    
+    // Stel safety timeout in
+    clearTimeout(activePrintHandlers.safetyTimeout);
+    activePrintHandlers.safetyTimeout = setTimeout(() => {
+      console.log('Safety timeout: resetting UI after browser-initiated print');
+      document.body.classList.remove('print-mode');
+      restoreUIState(saveUIState());
+    }, 5000);
   }
 }
 
 // Nadat het printdialoogvenster is gesloten
 function handleAfterPrint(e) {
-  console.log('Print dialog closed');
+  console.log('afterprint event gedetecteerd');
   
   // Annuleer veiligheids-timeout
-  clearTimeout(window.printSafetyTimeout);
+  clearTimeout(activePrintHandlers.safetyTimeout);
+  
+  // Verwijder printmodus
+  document.body.classList.remove('print-mode');
   
   // Herstel UI
   restoreUIState(saveUIState());
+  
+  // Wacht kort en voer dan volledige cleanup uit
+  setTimeout(() => {
+    // Extra check om er zeker van te zijn dat printmodus is verwijderd
+    document.body.classList.remove('print-mode');
+    
+    // Werk UI bij
+    const slidein = document.getElementById('slidein');
+    if (slidein) {
+      // Forceer herstel van slidein styles
+      slidein.style.padding = '';
+      slidein.classList.remove('scaled-for-print');
+      slidein.classList.remove('extreme');
+      
+      // Herstel tabel layout
+      const table = slidein.querySelector('.lessentabel');
+      if (table) {
+        table.style.fontSize = '';
+        table.style.transform = '';
+        
+        // Herstel cell padding
+        const cells = table.querySelectorAll('td, th');
+        cells.forEach(cell => {
+          cell.style.padding = '';
+        });
+      }
+    }
+  }, 100);
 }
 
 // Slaat de huidige UI-state op
