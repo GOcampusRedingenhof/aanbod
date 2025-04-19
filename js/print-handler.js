@@ -1,5 +1,4 @@
-// 1js/print-handler.js - Volledig vernieuwde versie
-// Verbeterde printfunctionaliteit voor de lessentabellen applicatie
+// js/print-handler.js - Optimized version with better browser compatibility
 
 /**
  * Print controller object voor centrale controle over het printproces
@@ -12,7 +11,8 @@ const PrintController = {
     isPrinting: false,
     originalTitle: document.title,
     originalScrollPos: 0,
-    printKlas: null
+    printKlas: null,
+    printTimeout: null
   },
   
   /**
@@ -26,7 +26,9 @@ const PrintController = {
     
     // Verwijder oude listeners om te voorkomen dat er meerdere worden gekoppeld
     const newBtn = printBtn.cloneNode(true);
-    printBtn.parentNode.replaceChild(newBtn, printBtn);
+    if (printBtn.parentNode) {
+      printBtn.parentNode.replaceChild(newBtn, printBtn);
+    }
     
     // Voeg nieuwe event listener toe
     newBtn.addEventListener('click', (e) => {
@@ -115,6 +117,12 @@ const PrintController = {
     // Reset print status
     this.state.isPrinting = false;
     
+    // Annuleer eventuele timeouts
+    if (this.state.printTimeout) {
+      clearTimeout(this.state.printTimeout);
+      this.state.printTimeout = null;
+    }
+    
     // Herstel document titel
     document.title = this.state.originalTitle;
     
@@ -127,6 +135,9 @@ const PrintController = {
     // Herstel slidein element
     this.restoreSlidein();
     
+    // Opnieuw initialiseren van de close-knop om de functionaliteit te herstellen
+    this.reinitializeCloseButton();
+    
     // Scroll terug naar originele positie
     window.scrollTo(0, this.state.originalScrollPos);
     
@@ -138,8 +149,14 @@ const PrintController = {
    * (dat niet door alle browsers wordt ondersteund)
    */
   startPrintTimeout() {
+    // Annuleer eventuele bestaande timeouts
+    if (this.state.printTimeout) {
+      clearTimeout(this.state.printTimeout);
+      this.state.printTimeout = null;
+    }
+    
     // Fallback mechanisme voor browsers die het afterprint event niet ondersteunen
-    setTimeout(() => {
+    this.state.printTimeout = setTimeout(() => {
       if (this.state.isPrinting) {
         console.log('Print timeout bereikt, handmatige cleanup');
         this.afterPrint();
@@ -314,8 +331,66 @@ const PrintController = {
     // laat het deze herstel-logica ook toepassen
     if (window.LessentabellenApp && 
         typeof window.LessentabellenApp.detectAndScaleTable === 'function') {
-      window.LessentabellenApp.detectAndScaleTable();
+      try {
+        window.LessentabellenApp.detectAndScaleTable();
+      } catch (error) {
+        console.warn('Kon tabelschaling niet herstellen:', error);
+      }
     }
+  },
+  
+  /**
+   * Initialiseert de close-knop opnieuw na het printen
+   * Dit lost het probleem op van vastlopende apps in verschillende browsers
+   */
+  reinitializeCloseButton() {
+    const closeBtn = document.querySelector('.close-btn');
+    if (!closeBtn) return;
+    
+    // Maak een kopie van de knop om alle oude event listeners te verwijderen
+    const newCloseBtn = closeBtn.cloneNode(true);
+    if (closeBtn.parentNode) {
+      closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+    }
+    
+    // Voeg nieuwe event listener toe met verbeterde foutafhandeling
+    newCloseBtn.addEventListener('click', () => {
+      try {
+        const slidein = document.getElementById('slidein');
+        const overlay = document.getElementById('overlay');
+        
+        if (slidein) slidein.classList.remove('open');
+        if (overlay) overlay.classList.remove('active');
+        
+        // Extra voorzorgsmaatregel: forceer normale weergave
+        document.body.classList.remove('print-mode');
+        
+        // Als de LessentabellenApp toegankelijk is, gebruik deze functie
+        if (window.LessentabellenApp && typeof window.LessentabellenApp.closeSlidein === 'function') {
+          window.LessentabellenApp.closeSlidein();
+        }
+      } catch (error) {
+        console.error('Fout bij sluiten slidein:', error);
+        
+        // Fallback: forceer sluiten bij fout
+        const slidein = document.getElementById('slidein');
+        const overlay = document.getElementById('overlay');
+        
+        if (slidein) {
+          slidein.classList.remove('open');
+          slidein.style.transform = 'translateX(100%)';
+        }
+        
+        if (overlay) {
+          overlay.classList.remove('active');
+          overlay.style.opacity = '0';
+          overlay.style.pointerEvents = 'none';
+        }
+        
+        // Reset documentmodus
+        document.body.classList.remove('print-mode');
+      }
+    });
   }
 };
 
