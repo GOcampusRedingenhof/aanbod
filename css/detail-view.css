@@ -25,9 +25,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 1000;
@@ -39,7 +39,7 @@
   pointer-events: auto;
 }
 
-/* De kleuren worden nu alleen via data-attributes en CSS variabelen toegepast */
+/* De kleuren worden nu via data-attributes en CSS-variabelen toegepast */
 #slidein[data-domain] {
   --app-domain-base: var(--kleur-base);
   --app-domain-mid: var(--kleur-mid);
@@ -54,55 +54,30 @@
   position: relative;
 }
 
+/* Sluitknop nu links en in domeinkleur */
 .close-btn {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 0.5rem;
+  left: 0.5rem;
+  right: auto;
+  z-index: 2;
   font-size: 1.5rem;
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--app-domain-base);
-  color: white;
+  background: transparent;
   border: none;
-  border-radius: 50%;
+  color: var(--app-domain-base) !important;
   cursor: pointer;
-  transition: all 0.2s;
-  z-index: 5;
 }
 
 .close-btn:hover {
-  background: var(--app-domain-mid);
-  transform: scale(1.1);
+  color: var(--app-domain-hover) !important;
 }
 
-.detail-header h2 {
-  font-size: 2rem;
-  margin: 0 0 1rem 0;
-  color: var(--app-domain-base);
-  padding-bottom: 0.75rem;
-  position: relative;
-  text-align: center;
-}
-
-.detail-header h2::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background: var(--app-domain-base);
-}
-
-.detail-header p {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto !important;
-  color: #4b5563;
+.detail-content {
   font-size: 1.05rem;
   line-height: 1.6;
 }
@@ -118,280 +93,72 @@
 .action-buttons button {
   padding: 0.75rem 1.5rem;
   background: var(--app-domain-base);
-  color: white;
+  color: #fff;
   border: none;
-  cursor: pointer;
+  border-radius: 4px;
   text-decoration: none;
-  transition: background 0.3s, transform 0.2s;
-  font-weight: 500;
+  cursor: pointer;
 }
 
 .action-buttons a:hover,
 .action-buttons button:hover {
-  background: var(--app-domain-mid);
-  transform: translateY(-2px);
+  background: var(--app-domain-hover);
 }
 
-/* Verbeterde lessentabel styling */
+/* Lessentabel styling */
 .lessentabel {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  border-radius: 0;
-  overflow: hidden;
-  font-size: 0.95rem;
+  margin-bottom: 2rem;
 }
 
-.lessentabel thead th {
-  background: linear-gradient(to bottom, var(--app-domain-base), var(--app-domain-mid));
-  color: white;
-  padding: 0.85rem 0.75rem;
-  text-align: center;
-  font-weight: 600;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.9rem;
-}
-
-.lessentabel th:first-child {
-  text-align: left;
-}
-
+.lessentabel th,
 .lessentabel td {
-  padding: 0.7rem 0.75rem;
-  border: 1px solid #e5e7eb;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.lessentabel td:first-child {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
   text-align: left;
-  font-weight: 500;
 }
 
-/* Categorie headers */
-.lessentabel tr.categorie-header th {
-  background: linear-gradient(to right, var(--app-domain-base), var(--app-domain-mid));
-  color: white;
-  font-weight: 600;
-  padding: 1rem 0.75rem;
-  font-size: 1rem;
-  text-align: left;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.lessentabel tr:nth-child(even) {
+  background: var(--app-domain-light1);
 }
 
-/* Vak type styling */
-.lessentabel tr.vak-header td {
-  font-weight: 600;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid var(--app-domain-mid);
-  border-left: 3px solid var(--app-domain-base);
-}
-
-/* Verbeterde subvak styling */
-.lessentabel tr.subvak td:first-child {
-  padding-left: 1.5rem !important;
-  position: relative;
-  color: var(--app-domain-base);
-}
-
-.lessentabel tr.subvak td:first-child::before {
-  content: "•";
-  position: absolute;
-  left: 0.75rem;
-  color: var(--app-domain-mid);
-  font-size: 1.2rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Speciale styling voor subvak markers */
-.subvak-marker {
-  color: var(--app-domain-mid);
-  font-weight: bold;
-  display: inline-block;
-  width: 1.2rem;
-  text-align: center;
-}
-
-.lessentabel tr.totaal-row {
-  border-top: 2px solid var(--app-domain-base);
-  font-weight: 600;
-}
-
-.lessentabel tr.totaal-row td {
-  background-color: rgba(0, 0, 0, 0.05);
-  font-size: 1.05rem;
-}
-
-.lessentabel tr.stage-row td {
-  font-weight: 600;
-  border-top: 2px solid var(--app-domain-mid);
-  background-color: rgba(0, 0, 0, 0.05);
-  color: var(--app-domain-base);
-}
-
-/* Verbeterde algemene tabel styling */
-.lessentabel {
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border: none;
-}
-
-.lessentabel td, .lessentabel th {
-  transition: background-color 0.2s;
-}
-
-/* Hover effect op rijen */
-.lessentabel tbody tr:hover:not(.categorie-header):not(.totaal-row):not(.stage-row) {
-  background-color: rgba(0, 0, 0, 0.08);
-}
-
-/* Zebra striping voor betere leesbaarheid */
-.lessentabel tbody tr:nth-child(even):not(.categorie-header):not(.vak-header):not(.totaal-row):not(.stage-row) {
-  background-color: rgba(0, 0, 0, 0.02);
-}
-
-/* Footnotes styling */
-.footnotes {
-  margin-top: 2rem;
-  padding: 1rem 1.5rem;
-  background: rgba(0, 0, 0, 0.03);
-  border-left: 4px solid var(--app-domain-mid);
-}
-
-.footnotes h4 {
-  font-size: 1.1rem;
-  margin: 0 0 0.75rem 0;
-  color: var(--app-domain-base);
-}
-
-.footnotes ul {
-  padding-left: 1.25rem;
-  margin: 0.5rem 0 0 0;
-  list-style-type: disc;
-}
-
-.footnotes li {
-  margin-bottom: 0.5rem;
+/* Voetnoten */
+#footnotes {
   font-size: 0.9rem;
-  line-height: 1.5;
+  margin-top: 1rem;
 }
 
-/* Responsive verbeteringen */
-@media (max-width: 768px) {
-  .detail-header h2 {
-    font-size: 1.5rem;
-  }
-  
-  .lessentabel {
-    font-size: 0.85rem;
-  }
-  
-  .lessentabel thead th,
-  .lessentabel td {
-    padding: 0.6rem 0.5rem;
-  }
-  
-  .action-buttons {
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .action-buttons a,
-  .action-buttons button {
-    text-align: center;
-  }
+#footnotes li {
+  margin-bottom: 0.5rem;
 }
 
-/* Printoptimalisatie */
+/* Datum en quote in slide-in */
+.print-footer {
+  display: none; /* alleen in print tonen */
+}
+
 @media print {
-  #overlay,
-  .close-btn,
-  .action-buttons {
-    display: none !important;
+  /* Print footer tonen */
+  .print-footer {
+    display: block !important;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .print-footer .datum,
+  .print-footer .quote {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
   }
 
-  #slidein {
-    position: static;
-    transform: none;
-    box-shadow: none;
-    max-width: none;
-    width: 100%;
-    height: auto;
-    padding: 0;
-  }
-  
-  .detail-header h2 {
-    font-size: 1.5rem;
-    margin-top: 3rem;
-  }
-  
-  /* Verbeterde printstyling voor tabel */
-  .lessentabel {
-    width: 100% !important;
-    margin: 0.5cm auto !important;
-    box-shadow: none !important;
-    border: 1px solid #ddd !important;
-    font-size: 9pt !important;
-    page-break-inside: avoid !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  .lessentabel thead th {
-    background: #f0f0f0 !important;
-    color: black !important;
-    box-shadow: none !important;
-    font-size: 9pt !important;
-    padding: 3px 5px !important;
-  }
-  
-  .lessentabel td {
-    padding: 3px 5px !important;
-    font-size: 9pt !important;
-  }
-  
-  .lessentabel tr.categorie-header th {
-    background: #e0e0e0 !important;
-    color: black !important;
-    font-weight: bold !important;
-    padding: 3px 5px !important;
-  }
-  
-  /* Subvakken in print */
-  .lessentabel tr.subvak td:first-child {
-    padding-left: 1rem !important;
-  }
-  
-  .lessentabel tr.subvak td:first-child::before {
-    left: 0.4rem !important;
-  }
-  
-  .subvak-marker {
-    width: 0.8rem !important;
-  }
-  
-  .footnotes {
-    background: none !important;
-    border-left: 1px solid #ddd !important;
-    padding: 0.5rem 1rem !important;
+  /* Kleine fonts voor voetnoten in print */
+  #footnotes {
     font-size: 8pt !important;
+    margin-bottom: 0.5rem !important;
   }
   
-  .footnotes h4 {
-    font-size: 9pt !important;
-  }
-  
-  .footnotes li {
-    font-size: 8pt !important;
+  #footnotes li {
     margin-bottom: 2px !important;
   }
   
