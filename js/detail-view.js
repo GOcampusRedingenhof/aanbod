@@ -34,6 +34,98 @@ export function renderSlidein(klas, lessen, voetnoten) {
   if (window.LessentabellenApp) {
     window.LessentabellenApp.currentKlasCode = klas.klascode;
   }
+  
+  // Schakel luisteraars in voor auto-schaling bij resizen
+  enableAutoScaling();
+}
+
+/**
+ * Schakelt automatische schaling in voor lessentabellen
+ * die te groot zijn voor de container
+ */
+function enableAutoScaling() {
+  // Eerste schaling meteen toepassen
+  detectAndScaleTable();
+  
+  // Observer om veranderingen in het DOM te detecteren
+  const observer = new MutationObserver(() => {
+    detectAndScaleTable();
+  });
+  
+  // Observeer het lessentabel-container element
+  const container = document.getElementById("lessentabel-container");
+  if (container) {
+    observer.observe(container, { 
+      childList: true, 
+      subtree: true,
+      attributes: true
+    });
+  }
+  
+  // Luister naar resize events voor responsiviteit
+  window.addEventListener('resize', detectAndScaleTable);
+  
+  // Cleanup functie om resources vrij te geven
+  return () => {
+    observer.disconnect();
+    window.removeEventListener('resize', detectAndScaleTable);
+  };
+}
+
+/**
+ * Detecteert of tabel te groot is en past schaal aan indien nodig
+ */
+function detectAndScaleTable() {
+  const container = document.getElementById("slidein");
+  const table = document.querySelector(".lessentabel");
+  
+  if (!container || !table) return;
+  
+  // Reset eerst eventuele transformaties
+  table.style.transform = '';
+  table.style.fontSize = '';
+  
+  // Bepaal of aanpassing nodig is voor printen
+  const isPrintMode = document.body.classList.contains('print-mode');
+  
+  // Voor printmodus gebruiken we andere maten (A4)
+  const maxHeight = isPrintMode ? 1000 : container.clientHeight - 200;
+  
+  if (table.offsetHeight > maxHeight) {
+    // Bereken schaalfactor
+    const scale = maxHeight / table.offsetHeight;
+    
+    // Kies aanpak op basis van printmodus
+    if (isPrintMode) {
+      // Voor printen: pas fontgrootte aan en maak cellen compacter
+      const cells = table.querySelectorAll('td, th');
+      const baseSize = parseFloat(window.getComputedStyle(table).fontSize);
+      
+      // Maak cellen compacter voor print
+      cells.forEach(cell => {
+        cell.style.padding = '2px';
+      });
+      
+      // Pas de fontgrootte aan
+      const newSize = Math.max(6, Math.floor(baseSize * scale)); // Minimaal 6px
+      table.style.fontSize = `${newSize}px`;
+      
+      // Voeg een klasse toe om te indiceren dat deze tabel geschaald is
+      container.classList.add('scaled-table');
+      
+      // Maak ruimte voor de kleinere tabel
+      table.style.margin = '0.5cm auto';
+    } else {
+      // Voor scherm: gebruik transformaties voor vloeiende verkleining
+      table.style.transform = `scale(${scale})`;
+      table.style.transformOrigin = 'top center';
+      // Compenseer voor schaling door margin toe te voegen
+      table.style.marginBottom = `${table.offsetHeight * (1 - scale)}px`;
+    }
+  } else {
+    // Verwijder schalingsindicator als er geen schaling meer nodig is
+    container.classList.remove('scaled-table');
+  }
 }
 
 /**
@@ -74,6 +166,24 @@ function populateBasicInfo(klas) {
   } else if (brochureLink) {
     // Verberg de brochure link als er geen URL is
     brochureLink.style.display = 'none';
+  }
+  
+  // Update de printknop met klasgegevens voor gebruik tijdens printen
+  const printButton = document.getElementById("print-button");
+  if (printButton) {
+    printButton.dataset.klas = klas.klascode;
+    printButton.dataset.richting = klas.richting;
+  }
+  
+  // Update het datum element in de footer met huidige datum
+  const datumEl = document.getElementById("datum-print");
+  if (datumEl) {
+    const nu = new Date();
+    datumEl.textContent = nu.toLocaleDateString('nl-BE', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
   }
 }
 
