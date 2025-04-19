@@ -6,7 +6,7 @@
   <meta name="description" content="Lessentabellen GO Campus Redingenhof - Bekijk alle beschikbare richtingen en lessentabellen">
   <title>Lessentabellen GO Campus Redingenhof</title>
 
-  <!-- CSS -->
+  <!-- 1CSS -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/detail-view.css">
@@ -21,42 +21,53 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <div id="lessentabellen-container" class="lessentabellen-container">
-    <h1 class="lessentabellen-title">Lessentabellen GO Campus Redingenhof</h1>
-    <p class="slogan">
-      Ontdek hieronder ons uitgebreide aanbod. Klik op een richting voor meer details en het volledige uurrooster.
-    </p>
-    <div class="lessentabellen-root">
-      <div id="domains-container" class="domains-grid">
-        <div class="loader-spinner"></div>
+  <!-- Print‑wrapper: in print tonen, rest verbergen -->
+  <div id="print-wrapper">
+    <!-- Achtergrondplaat als IMG, print altijd mee -->
+    <img 
+      class="print-bg" 
+      src="https://images.squarespace-cdn.com/content/670992d66064015802d7e5dc/20828b48-569c-42e4-abd5-51dbd409f5bb/SAMEN+VER%21+%281%29.png?content-type=image%2Fpng" 
+      alt="" aria-hidden="true"
+    >
+
+    <!-- Slide‑in panel, met titel, tabel, datum etc. -->
+    <div id="slidein" class="lessentabellen-wrapper" tabindex="-1" data-domain="">
+      <div class="detail-header">
+        <button class="close-btn" aria-label="Sluiten">×</button>
+        <h2 id="opleiding-titel">Richtingnaam</h2>
+        <p id="opleiding-beschrijving">Beschrijving van de richting…</p>
       </div>
-      <div id="slidein" class="lessentabellen-wrapper" tabindex="-1">
-        <div class="detail-header">
-          <button class="close-btn" aria-label="Sluiten">×</button>
-          <h2 id="opleiding-titel"></h2>
-          <p id="opleiding-beschrijving"></p>
+      <div class="detail-content">
+        <div class="action-buttons">
+          <button id="print-button">Afdrukken</button>
         </div>
-        <div class="detail-content">
-          <div class="action-buttons">
-            <a id="brochure-link" href="#" target="_blank">Brochure</a>
-            <button id="print-button" type="button">Afdrukken</button>
-          </div>
-          <div id="lessentabel-container">
-            <table class="lessentabel"></table>
-          </div>
-          <div id="footnotes"></div>
+        <div id="lessentabel-container">
+          <table class="lessentabel">
+            <thead>
+              <tr><th>Dag</th><th>Uur</th><th>Vak</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Maandag</td><td>08:00-09:00</td><td>Wiskunde</td></tr>
+              <!-- … -->
+            </tbody>
+          </table>
         </div>
-        <div class="print-footer">
-          <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
-          <div class="quote">SAMEN VER!</div>
+        <div id="footnotes">
+          <ul>
+            <li>Voetnoot 1</li>
+            <!-- … -->
+          </ul>
         </div>
+      </div>
+      <div class="print-footer">
+        <div class="datum">Afgedrukt op: <span id="datum-print">19 april 2025</span></div>
       </div>
     </div>
   </div>
 
-  <!-- CSV‐parser -->
+  <!-- PapaParse en jouw ESM entrypoint -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
-  <!-- App entrypoint -->
   <script type="module" src="js/index.js"></script>
 </body>
+
 </html>
