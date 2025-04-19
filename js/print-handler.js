@@ -3,7 +3,7 @@
 
 /**
  * Initialiseert de printfunctionaliteit op de print-knop
- * @param {Object} klas - Metadata voor titel en klascode
+ * @param {Object} klas - Metadata voor richting en klascode
  */
 export function initPrintHandler(klas) {
   const printBtn = document.querySelector('#print-button');
@@ -31,12 +31,20 @@ async function printKlas(klas) {
     cssText = await res.text();
   } catch (err) {
     console.warn('Kon print-styles.css niet laden, inline default gebruiken.', err);
-    cssText = `@page { size: A4 portrait; margin: 5mm; } body { font-family: Arial, sans-serif; font-size:9pt; }`;
-  }
+    cssText = `@page { size: A4 portrait; margin: 5mm; }
+body { font-family: Arial, sans-serif; font-size:9pt; }
+.print-header { display:flex; justify-content: space-between; align-items:center; border-bottom:1px solid #333; padding-bottom:4mm; margin-bottom:8mm; }
+.print-header .title { font-size:14pt; font-weight:bold; }
+.print-header .date { font-size:8pt; }
+table { width:100%; border-collapse:collapse; font-size:8pt; }
+thead th { background:#eaeaea; padding:4px; border:1px solid #555; }
+tbody td { padding:3px; border:1px solid #555; }
+.print-footer { position:fixed; bottom:0; width:100%; border-top:1px solid #333; text-align:right; font-size:7pt; padding-top:3mm; }
+`;  }
 
-  // Bouw bestandsnaam en zichtbare titel
-  const titleText = `Lessentabellen GO Campus Redingenhof - ${klas.richting} ${klas.klascode}`;
-  const fileName = titleText.replace(/\s+/g, '_') + '.pdf';
+  // Bouw zichtbare titel en bestandsnaam zonder 'Lessentabellen'
+  const titleText = `${klas.richting} ${klas.klascode}`;
+  const fileName = `GO_Campus_Redingenhof-${klas.richting}_${klas.klascode}.pdf`;
 
   // Bepaal content: lesentabel en voetnoten
   const tabelEl = document.getElementById('lessentabel-container');
@@ -49,12 +57,12 @@ async function printKlas(klas) {
 
   // Genereer header en footer
   const dateStr = new Date().toLocaleDateString('nl-BE', { day: '2-digit', month: '2-digit', year: 'numeric' });
-  const headerHTML = `<div class=\"print-header\">` +
-                     `<img class=\"logo-print\" src=\"${document.querySelector('.logo-print')?.src || ''}\" alt=\"Logo\">` +
-                     `<div class=\"title\">${titleText}</div>` +
-                     `<div class=\"date\">${dateStr}</div>` +
+  const headerHTML = `<div class="print-header">` +
+                     `<img class="logo-print" src="${document.querySelector('.logo-print')?.src || ''}" alt="Logo" style="height:40px; object-fit:contain">` +
+                     `<div class="title">${titleText}</div>` +
+                     `<div class="date">${dateStr}</div>` +
                      `</div>`;
-  const footerHTML = `<div class=\"print-footer\"><span class=\"page-number\"></span></div>`;
+  const footerHTML = `<div class="print-footer"><span class="page-number"></span></div>`;
 
   // Open nieuw venster en schrijf de volledige HTML
   const win = window.open('', '_blank');
@@ -62,12 +70,12 @@ async function printKlas(klas) {
     console.error('Kon nieuw venster niet openen voor print');
     return;
   }
-  win.document.write(`<!DOCTYPE html><html lang=\"nl\"><head><meta charset=\"UTF-8\">` +
+  win.document.write(`<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8">` +
                      `<title>${fileName}</title>` +
                      `<style>${cssText}</style>` +
                      `</head><body>` +
                      `${headerHTML}` +
-                     `<div class=\"print-container\">${contentHTML}</div>` +
+                     `<div class="print-container">${contentHTML}</div>` +
                      `${footerHTML}` +
                      `</body></html>`);
   win.document.close();
