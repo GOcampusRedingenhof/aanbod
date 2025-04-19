@@ -1,12 +1,10 @@
 // detail-view.js
-// Gerefactorde versie met betere scheiding van verantwoordelijkheden
 import { mapDomein, getDomeinMeta } from './config-module.js';
-import { initPrintHandler } from './print-handler.js';
 import { generateLessentabel } from './table-generator.js';
 
-// Bewaar referentie naar de actieve scaling observer en handlers
-let activeScalingObserver = null;
+// Globale variabelen voor event cleanup
 let activeResizeHandler = null;
+let activeObserver = null;
 
 /**
  * Genereert en toont de slide-in infokader voor een geselecteerde klas.
@@ -16,7 +14,7 @@ let activeResizeHandler = null;
  */
 export function renderSlidein(klas, lessen, voetnoten) {
   // Cleanup eventuele bestaande resources
-  cleanupActiveResources();
+  cleanupResources();
   
   // Stel domein-specifieke styling en kleuren in
   setupDomeinStyling(klas);
@@ -34,9 +32,6 @@ export function renderSlidein(klas, lessen, voetnoten) {
   // Toon het slidein paneel
   showSlidein();
   
-  // Initialiseer de print handler voor dit slidein met klas-informatie
-  initPrintHandler(klas);
-  
   // Bewaar huidige klascode in global LessentabellenApp
   if (window.LessentabellenApp) {
     window.LessentabellenApp.currentKlasCode = klas.klascode;
@@ -49,35 +44,32 @@ export function renderSlidein(klas, lessen, voetnoten) {
 /**
  * Cleanup resources bij het wisselen of sluiten van slidein
  */
-function cleanupActiveResources() {
-  // Cleanup van auto-scaling resources
-  if (activeScalingObserver) {
-    activeScalingObserver.disconnect();
-    activeScalingObserver = null;
-  }
-  
+function cleanupResources() {
+  // Verwijder eventuele bestaande resize handler
   if (activeResizeHandler) {
     window.removeEventListener('resize', activeResizeHandler);
     activeResizeHandler = null;
   }
   
-  // Reset eventuele schaalstijlen
+  // Verwijder eventuele observer
+  if (activeObserver) {
+    activeObserver.disconnect();
+    activeObserver = null;
+  }
+  
+  // Reset table scaling
+  const table = document.querySelector('.lessentabel');
+  if (table) {
+    table.style.transform = '';
+    table.style.fontSize = '';
+    table.style.marginBottom = '';
+  }
+  
+  // Reset schaal classes
   const slidein = document.getElementById('slidein');
   if (slidein) {
     slidein.classList.remove('scaled-table');
-    
-    const table = slidein.querySelector('.lessentabel');
-    if (table) {
-      table.style.transform = '';
-      table.style.fontSize = '';
-      table.style.marginBottom = '';
-      
-      // Reset cell padding
-      const cells = table.querySelectorAll('td, th');
-      cells.forEach(cell => {
-        cell.style.padding = '';
-      });
-    }
+    slidein.classList.remove('contains-scaled-table');
   }
 }
 
@@ -89,32 +81,28 @@ function enableAutoScaling() {
   // Eerste schaling meteen toepassen
   detectAndScaleTable();
   
-  // Maak een nieuwe resize handler en bewaar deze
+  // Maak handler voor window resize
   activeResizeHandler = detectAndScaleTable;
   window.addEventListener('resize', activeResizeHandler);
   
-  // Observer om veranderingen in het DOM te detecteren
-  activeScalingObserver = new MutationObserver(() => {
-    detectAndScaleTable();
-  });
-  
-  // Observeer het lessentabel-container element
-  const container = document.getElementById("lessentabel-container");
-  if (container) {
-    activeScalingObserver.observe(container, { 
-      childList: true, 
-      subtree: true,
-      attributes: true
-    });
+  // Observe dom changes
+  try {
+    const container = document.getElementById("lessentabel-container");
+    if (container) {
+      activeObserver = new MutationObserver(detectAndScaleTable);
+      activeObserver.observe(container, { 
+        childList: true, 
+        subtree: true,
+        attributes: true
+      });
+    }
+  } catch (err) {
+    console.error('Fout bij maken observer:', err);
   }
 }
 
 /**
  * Detecteert of tabel te groot is en past schaal aan indien nodig
- */
-/**
- * Detecteert of tabel te groot is en past schaal aan indien nodig.
- * Wordt alleen toegepast tijdens printen of wanneer de tabel echt te groot is voor het scherm.
  */
 function detectAndScaleTable() {
   const container = document.getElementById("slidein");
@@ -122,46 +110,32 @@ function detectAndScaleTable() {
   
   if (!container || !table) return;
   
-  // Controleer of we in printmodus zijn
-  const isPrintMode = document.body.classList.contains('print-mode');
-  
-  // Reset eerst eventuele transformaties om van een schone lei te beginnen
+  // Reset eerst eventuele transformaties
   table.style.transform = '';
   table.style.fontSize = '';
   table.style.marginBottom = '';
   
-  // In de normale weergave willen we alleen schalen als het echt nodig is
+  // Controleer of we in printmodus zijn
+  const isPrintMode = document.body.classList.contains('print-mode');
+  
+  // In normale weergave alleen schalen als de tabel echt te groot is
   if (!isPrintMode) {
-    // Bepaal beschikbare hoogte (minus marges voor header/footer)
-    const availableHeight = container.clientHeight - 250; // Extra marge voor veiligheid
+    // Bepaal beschikbare hoogte
+    const availableHeight = container.clientHeight - 200;
     
-    // Alleen schalen als de tabel VEEL groter is dan beschikbare ruimte (50% groter)
+    // Als tabel meer dan 50% te groot is, schalen
     if (table.offsetHeight > availableHeight * 1.5) {
-      console.log('Tabel is te groot voor normaal scherm, schalen toegepast');
+      // Bereken schaalfactor (niet kleiner dan 75%)
+      const scale = Math.max(0.75, availableHeight / table.offsetHeight);
       
-      // Bereken schaalfactor, maar niet kleiner dan 80% om leesbaarheid te behouden
-      const scale = Math.max(0.8, availableHeight / table.offsetHeight); 
-      
-      // Pas transformatie toe voor vloeiende verkleining
+      // Pas transformatie toe
       table.style.transform = `scale(${scale})`;
       table.style.transformOrigin = 'top center';
       
-      // Compenseer voor schaling door margin toe te voegen
+      // Compenseer voor schaling
       const newMargin = Math.ceil(table.offsetHeight * (1 - scale));
       table.style.marginBottom = `${newMargin}px`;
-      
-      // Voeg marker class toe voor styling
-      container.classList.add('contains-scaled-table');
-    } else {
-      // Als schaling niet nodig is, zorg dat alle markers worden verwijderd
-      container.classList.remove('contains-scaled-table');
-      container.classList.remove('scaled-table');
     }
-  } else {
-    // We zijn in printmodus, laat print-handler.js de schaling afhandelen
-    // Verwijder eventuele schermen-specifieke schaling
-    table.style.transform = '';
-    table.style.marginBottom = '';
   }
 }
 
@@ -189,11 +163,13 @@ function setupDomeinStyling(klas) {
  * @param {Object} klas - Het klasobject
  */
 function populateBasicInfo(klas) {
-  document.getElementById("opleiding-titel").textContent = klas.richting;
+  const titelEl = document.getElementById("opleiding-titel");
+  if (titelEl) titelEl.textContent = klas.richting;
   
   // Voorkom 'undefined' of 'null' bij ontbrekende beschrijving
   const beschrijving = klas.beschrijving || '';
-  document.getElementById("opleiding-beschrijving").textContent = beschrijving;
+  const beschrijvingEl = document.getElementById("opleiding-beschrijving");
+  if (beschrijvingEl) beschrijvingEl.textContent = beschrijving;
   
   // Optioneel: stel de brochure link in als die beschikbaar is
   const brochureLink = document.getElementById("brochure-link");
@@ -247,7 +223,8 @@ function addFootnotes(voetnoten) {
   }
   
   // Voeg voetnoten toe aan het document
-  document.getElementById("footnotes").innerHTML = voetHTML;
+  const footnotesEl = document.getElementById("footnotes");
+  if (footnotesEl) footnotesEl.innerHTML = voetHTML;
 }
 
 /**
@@ -256,37 +233,48 @@ function addFootnotes(voetnoten) {
 function showSlidein() {
   // Toon het slidein paneel
   const slideinEl = document.getElementById("slidein");
-  slideinEl.classList.add("open");
-  document.getElementById("overlay").classList.add("active");
+  if (slideinEl) slideinEl.classList.add("open");
+  
+  const overlayEl = document.getElementById("overlay");
+  if (overlayEl) overlayEl.classList.add("active");
   
   // Zorg ervoor dat de sluitknop werkt
   const closeBtn = document.querySelector('.close-btn');
   if (closeBtn) {
-    // Verwijder eerst alle bestaande eventlisteners
+    // Maak een nieuwe knop aan om eventuele oude event listeners te verwijderen
     const newBtn = closeBtn.cloneNode(true);
     closeBtn.parentNode.replaceChild(newBtn, closeBtn);
     
     // Voeg nieuwe event listener toe
-    newBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      // Controleer of we in printmodus zijn
-      if (document.body.classList.contains('print-mode')) {
-        console.log('Kan slidein niet sluiten tijdens print modus');
-        return; // Voorkom sluiten tijdens printen
-      }
-      
+    newBtn.addEventListener('click', () => {
       if (window.LessentabellenApp && typeof window.LessentabellenApp.closeSlidein === 'function') {
         window.LessentabellenApp.closeSlidein();
       } else {
         // Fallback als de app niet beschikbaar is
         slideinEl.classList.remove("open");
         document.getElementById("overlay").classList.remove("active");
-        
-        // Voer cleanup uit
-        cleanupActiveResources();
       }
     });
   }
+}
+
+// Initialiseer print handler (minimale versie)
+export function initPrintHandler(klas) {
+  const printButton = document.getElementById("print-button");
+  if (!printButton) return;
+  
+  // Verwijder eerst eventuele bestaande eventlisteners
+  const newPrintBtn = printButton.cloneNode(true);
+  printButton.parentNode.replaceChild(newPrintBtn, printButton);
+  
+  // Voeg eenvoudige click handler toe
+  newPrintBtn.addEventListener('click', () => {
+    if (window.LessentabellenApp && window.LessentabellenApp.startPrintProcess) {
+      window.LessentabellenApp.startPrintProcess(klas);
+    } else {
+      // Fallback als app niet beschikbaar is
+      document.body.classList.add('print-mode');
+      window.print();
+    }
+  });
 }
