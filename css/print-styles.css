@@ -1,23 +1,24 @@
 /* css/print-styles.css */
 
-/* 𝟏) Verberg achtergrond en slide‑in niet in schermmodus */
-body::after {
-  display: none !important; /* default: geen achtergrond */
+/* 1) Schermmodus: verberg print‑achtergrond */
+@media screen {
+  body::before {
+    display: none !important;
+  }
 }
 
-/* 𝟐) Alleen bij print: */
+/* 2) Printmodus: */
 @media print {
-  /* — Basisreset — */
+  /* Basisreset */
   body {
     margin: 0 !important;
     padding: 0 !important;
-    font-size: 10pt !important;
-    color: #000 !important;
     background: none !important;
+    color: #000 !important;
   }
 
-  /* — Achtergrondplaat als full-bleed layer — */
-  body::after {
+  /* Achtergrondplaat full‑bleed */
+  body::before {
     content: "";
     position: fixed;
     top: 0; left: 0;
@@ -26,50 +27,53 @@ body::after {
       url("https://images.squarespace-cdn.com/content/670992d66064015802d7e5dc/20828b48-569c-42e4-abd5-51dbd409f5bb/SAMEN+VER%21+%281%29.png?content-type=image%2Fpng")
       center/cover no-repeat !important;
     opacity: 1 !important;
-    display: block !important;
     z-index: -1 !important;
   }
 
-  /* — Verberg grid en loader — */
-  #lessentabellen-container,
+  /* Verberg grid en loader, titel/slogan */
   #domains-container,
-  .loader-spinner {
+  .loader-spinner,
+  .lessentabellen-title,
+  .slogan {
     display: none !important;
   }
 
-  /* — Toon slide‑in als volledige pagina — */
+  /* Toon slide‑in als volledige pagina */
   #slidein {
-    position: static !important;
+    display: block !important;
+    position: relative !important;
     transform: none !important;
     overflow: visible !important;
-    display: block !important;
-    page-break-before: avoid !important;
+    background: #fff !important;
     margin: 1cm !important;
-    background: transparent !important;
-    visibility: visible !important;
+    padding: 1cm !important;
+    page-break-before: avoid !important;
+    z-index: 1 !important;
   }
   #overlay {
     display: none !important;
   }
 
-  /* — Toon titel + beschrijving — */
+  /* Toon header/titel/beschrijving */
   .detail-header,
   #opleiding-titel,
   #opleiding-beschrijving {
     display: block !important;
     visibility: visible !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.5rem !important;
   }
 
-  /* — Verberg actie‑knoppen in print — */
+  /* Verberg actieknoppen in print */
   .action-buttons {
     display: none !important;
   }
 
-  /* — Lessentabel — */
+  /* Lessentabel styling */
   .lessentabel {
+    display: table !important;
     width: 100% !important;
     border-collapse: collapse !important;
+    margin-bottom: 1rem !important;
     page-break-inside: avoid !important;
   }
   .lessentabel thead {
@@ -84,12 +88,16 @@ body::after {
   }
   .lessentabel th,
   .lessentabel td {
+    display: table-cell !important;
     border: 1px solid #000 !important;
-    padding: 0.3rem !important;
+    padding: 4px !important;
+    background: #fff !important;
+    color: #000 !important;
     font-size: 9pt !important;
+    text-align: left !important;
   }
 
-  /* — Voetnoten — */
+  /* Voetnoten */
   #footnotes {
     display: block !important;
     font-size: 8pt !important;
@@ -100,7 +108,7 @@ body::after {
     margin-bottom: 0.3rem !important;
   }
 
-  /* — Datum onderaan — */
+  /* Datum onderaan */
   .print-footer {
     display: block !important;
     text-align: center !important;
