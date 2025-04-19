@@ -1,135 +1,75 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8">
-  <title>PDF Generator — Domeinen</title>
-  <!-- PapaParse voor CSV, html2pdf voor PDF-export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <style>
-    body { font-family: sans-serif; margin: 1em; }
-    input, button { margin: 0.5em; }
-    #content { display: block; margin-top: 1em; }
-    section { page-break-after: always; margin-bottom: 2cm; }
-    h1 { text-align: center; margin-bottom: 1em; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 1em; }
-    th, td { border: 1px solid #333; padding: 0.3em; font-size: 10pt; }
-    th { background: #eee; }
-    footer { position: fixed; bottom: 0.5cm; left: 1cm; font-size: 8pt; }
-    @page { size: A4 portrait; margin: 1cm; }
-    #pdf-links { margin-top: 1em; }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opleidingsaanbod</title>
+  <!-- Core styles -->
+  <link rel="stylesheet" href="css/grid.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Print‑specifieke styles -->
+  <link rel="stylesheet" href="css/print-styles.css">
 </head>
 <body>
-  <h2>PDF Generator per Domein</h2>
-  <p>Selecteer eerst de CSV-bestanden en klik dan op genereren.</p>
-  <div>
-    <label>Klassen CSV: <input type="file" id="klassenFile" accept=".csv"></label>
-    <label>Lessentabel CSV: <input type="file" id="lessenFile" accept=".csv"></label>
-  </div>
-  <button id="generateBtn" disabled>Genereer PDF’s</button>
-  <div id="content"></div>
-  <div id="pdf-links"></div>
+  <!-- Hoofdcontent, te verbergen in print -->
+  <header id="index">
+    <img src="images/logo.png" alt="Schoollogo" class="logo">
+    <h1 class="slogan">Samen verder in leren</h1>
+    <button id="print-button" type="button">Print aanbod</button>
+  </header>
 
-  <script>
-    let klassenData = null, lessenData = null;
-    function readFile(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = e => resolve(e.target.result);
-        reader.onerror = reject;
-        reader.readAsText(file);
-      });
-    }
-    document.getElementById('klassenFile').addEventListener('change', async e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const text = await readFile(file);
-      klassenData = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
-      checkReady();
+  <!-- Grid met klassen (wordt door JS gevuld) -->
+  <main>
+    <div id="grid"></div>
+  </main>
+
+  <!-- Overlay en slide‑in infokader -->
+  <div id="overlay" class="overlay"></div>
+  <aside id="slidein" class="slidein">
+    <!-- Sluitknop -->
+    <button class="close-btn" aria-label="Sluit">&#10005;</button>
+
+    <!-- Inhoud van de slide‑in -->
+    <div class="slidein-content">
+      <h2 id="richting-titel"></h2>
+      <div id="omschrijving"></div>
+      <!-- Container voor de lessentabel -->
+      <div id="tabel-container">
+        <table class="lessentabel">
+          <!-- wordt gevuld door table-generator.js -->
+        </table>
+      </div>
+    </div>
+
+    <!-- Eventuele extra actieknoppen -->
+    <div class="action-buttons">
+      <button id="export-pdf" type="button">Exporteer PDF</button>
+    </div>
+
+    <!-- Footer met datum voor print -->
+    <footer>
+      <div id="datum-print"></div>
+    </footer>
+  </aside>
+
+  <!-- Voetnoten onderaan -->
+  <section id="footnotes"></section>
+
+  <!-- Modules importeren en initialiseren -->
+  <script type="module" src="js/index.js"></script>
+  <script type="module">
+    import initPrintHandler from './js/print-handler.js';
+    import gridBuilder       from './js/grid-builder.js';
+    import loader            from './js/loader.js';
+    import appController     from './js/app-controller.js';
+
+    // Data inladen en app opstarten
+    loader.loadData().then(({ klassen, lessen, voetnoten }) => {
+      gridBuilder.buildGrid(klassen);
+      appController.setup({ klassen, lessen, voetnoten });
+      // Initieer de print‑handler voor de huidige klas
+      initPrintHandler(appController.currentKlas);
     });
-    document.getElementById('lessenFile').addEventListener('change', async e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const text = await readFile(file);
-      lessenData = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
-      checkReady();
-    });
-    function checkReady() {
-      if (klassenData && lessenData) {
-        document.getElementById('generateBtn').disabled = false;
-      }
-    }
-
-    async function generate() {
-      const btn = document.getElementById('generateBtn');
-      btn.disabled = true;
-      btn.textContent = 'Bezig...';
-
-      // Map klas_id naar info
-      const klasseMap = {};
-      klassenData.forEach(k => { klasseMap[k.klas_id] = k; });
-      const merged = lessenData.map(l => ({ ...l, ...klasseMap[l.klas_id] }));
-      const domains = {};
-      merged.forEach(r => {
-        if (!r.domein || !r.richting) return;
-        domains[r.domein] = domains[r.domein] || {};
-        domains[r.domein][r.richting] = domains[r.domein][r.richting] || [];
-        domains[r.domein][r.richting].push(r);
-      });
-
-      const container = document.getElementById('content');
-      container.innerHTML = '';
-      const today = new Date().toLocaleDateString('nl-BE');
-
-      for (const [domein, richtingen] of Object.entries(domains)) {
-        for (const [richting, rows] of Object.entries(richtingen)) {
-          const sec = document.createElement('section');
-          const h = document.createElement('h1'); h.textContent = domein + ' — ' + richting;
-          sec.appendChild(h);
-
-          const cols = Object.keys(rows[0] || {});
-          const table = document.createElement('table');
-          const thead = document.createElement('thead');
-          const trHead = document.createElement('tr');
-          cols.forEach(c => { const th = document.createElement('th'); th.textContent = c; trHead.appendChild(th); });
-          thead.appendChild(trHead);
-          table.appendChild(thead);
-
-          const tbody = document.createElement('tbody');
-          rows.forEach(rw => {
-            const tr = document.createElement('tr');
-            cols.forEach(c => { const td = document.createElement('td'); td.textContent = rw[c] || ''; tr.appendChild(td); });
-            tbody.appendChild(tr);
-          });
-          table.appendChild(tbody);
-          sec.appendChild(table);
-
-          const footer = document.createElement('footer');
-          footer.textContent = 'Afdrukdatum: ' + today;
-          sec.appendChild(footer);
-
-          container.appendChild(sec);
-        }
-      }
-
-      const linksContainer = document.getElementById('pdf-links');
-      linksContainer.innerHTML = '<h3>Download links:</h3>';
-      for (const domein of Object.keys(domains)) {
-        const opt = { margin: 1, filename: domein + '-aanbod.pdf' };
-        const pdfBlob = await html2pdf().set(opt).from(container).outputPdf('blob');
-        const url = URL.createObjectURL(pdfBlob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = opt.filename;
-        link.textContent = `Download ${opt.filename}`;
-        link.style.display = 'block';
-        linksContainer.appendChild(link);
-      }
-
-      btn.textContent = 'Genereer PDF’s';
-    }
-    document.getElementById('generateBtn').addEventListener('click', generate);
   </script>
 </body>
 </html>
