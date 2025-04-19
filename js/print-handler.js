@@ -1,4 +1,4 @@
-// print-handler.js
+// js/print-handler.js
 
 /**
  * Start het printproces voor een klas en leerling
@@ -14,19 +14,24 @@ export function startPrintProcess(klas, naam = 'Onbekend') {
     year: 'numeric'
   });
 
+  // Pas documenttitel aan voor correcte PDF-bestandsnaam
   document.title = `lessentabel_${klas}`;
 
+  // Vul footer automatisch in
   if (footer) {
     footer.textContent = `Klas: ${klas} · Naam: ${naam} · Geprint op ${datum}`;
   }
 
+  // Schaal inhoud als die te groot is voor 1 A4
   if (container && container.scrollHeight > 1000) {
     container.style.transform = 'scale(0.95)';
     container.style.transformOrigin = 'top left';
   }
 
+  // Start print
   window.print();
 
+  // Reset schaal na print
   setTimeout(() => {
     if (container) {
       container.style.transform = '';
@@ -35,7 +40,7 @@ export function startPrintProcess(klas, naam = 'Onbekend') {
 }
 
 /**
- * Activeer de printknop
+ * Activeer de printknop en verbind met startPrintProcess
  */
 export function initPrintHandler() {
   const printButton = document.querySelector('#print-button');
