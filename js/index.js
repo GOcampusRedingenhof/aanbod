@@ -4,7 +4,7 @@ import appController from './app-controller.js';
 import { buildGrid } from './grid-builder.js';
 import { renderSlidein } from './detail-view.js';
 // Importeer alleen de benodigde functies uit print-handler.js
-import { initPrintHandler, generatePDF } from './print-handler.js';
+import { initPrintHandler, generateHTML } from './print-handler.js';
 
 class LessentabellenAppClass {
   constructor() {
@@ -30,10 +30,13 @@ class LessentabellenAppClass {
         overlay.addEventListener('click', () => this.closeSlidein());
       }
       
-      // Initialiseer PDF download knop
+      // Initialiseer HTML download knop
       const downloadButton = document.getElementById('download-pdf-button');
       if (downloadButton) {
-        downloadButton.addEventListener('click', () => this.generatePDF());
+        // Update de tekstlabel van de knop om HTML te weerspiegelen
+        downloadButton.querySelector('svg + span') ? downloadButton.querySelector('svg + span').textContent = 'Afdrukbare versie' : null;
+        // Houd de label "Download PDF" als er geen span is
+        downloadButton.addEventListener('click', () => this.generateHTML());
       }
     });
   }
@@ -178,17 +181,17 @@ class LessentabellenAppClass {
   }
   
   /**
-   * Genereert een PDF bestand van de huidige lessentabel
+   * Genereert een afdrukbare HTML-versie van de huidige lessentabel
    */
-  generatePDF() {
+  generateHTML() {
     try {
-      console.log('PDF generatie gestart');
+      console.log('HTML generatie gestart');
       
-      // Gebruik de geëxporteerde generatePDF functie
-      generatePDF();
+      // Gebruik de geëxporteerde generateHTML functie
+      generateHTML();
     } catch (error) {
-      console.error('Fout bij genereren PDF:', error);
-      alert('Er is een fout opgetreden bij het maken van de PDF.');
+      console.error('Fout bij genereren HTML:', error);
+      alert('Er is een fout opgetreden bij het maken van de afdrukbare versie.');
     }
   }
   
