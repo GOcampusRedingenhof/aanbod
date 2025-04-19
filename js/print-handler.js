@@ -2,7 +2,7 @@
 // Centraliseert alle printfunctionaliteit voor de lessentabellen-app
 
 /**
- * Guard om te voorkomen dat de print‑dialog tweemaal opent
+ * Guard om te voorkomen dat de print‑dialoog tweemaal opent
  */
 let isPrinting = false;
 
@@ -20,18 +20,18 @@ export function initPrintHandler(klas) {
 }
 
 /**
- * Start het printproces, stelt de titel in en bindt éénmalige afterprint cleanup
+ * Start het printproces: guard, dynamische titel, print‑mode en éénmalige afterprint cleanup
  * @param {Object} klas
  */
 export function startPrintProcess(klas) {
-  if (isPrinting) return;
+  if (isPrinting) return;        // bij annuleren niet opnieuw triggeren
   isPrinting = true;
 
-  // Zet print‑mode op de body (voor print‑CSS)
+  // Zet print‑mode (voor CSS)
   document.body.classList.add('print-mode');
   window.printModeStartTime = Date.now();
 
-  // Dynamische document.title voor PDF‑bestandsnaam
+  // Dynamische document.title voor juiste PDF‑naam
   if (klas.richting) {
     document.title = `${klas.richting}-aanbod`;
   }
@@ -39,22 +39,22 @@ export function startPrintProcess(klas) {
   // Eénmalige afterprint-handler
   window.onafterprint = () => {
     cleanupAfterPrinting();
-    window.onafterprint = null;  // handler weer verwijderen
-    isPrinting = false;          // opnieuw printen weer toestaan
+    window.onafterprint = null;   // handler verwijderen
+    isPrinting = false;           // opnieuw printen weer toestaan
   };
 
-  // Trigger de print‑dialog
+  // Trigger de print‑dialoog
   window.print();
 }
 
 /**
- * Herstelt de UI na printing: sluitknop, actieknoppen en CSS‑state
+ * Herstelt de UI na het printen: close‑knop, actieknoppen en CSS‑state
  */
 export function cleanupAfterPrinting() {
-  // Verwijder print‑mode (werkt samen met je @media print rules)
+  // Verwijder print‑mode (werkt met je @media print rules)
   document.body.classList.remove('print-mode');
 
-  // Herstel de sluitknop en actieknoppen
+  // Herstel de close‑knop en actieknoppen in de slide‑in
   const slidein = document.getElementById('slidein');
   if (slidein) {
     const closeBtn = slidein.querySelector('.close-btn');
@@ -68,7 +68,7 @@ export function cleanupAfterPrinting() {
   window.printModeStartTime = 0;
 }
 
-// Exporteer als default voor gemakkelijke import
+// Default export voor eenvoudige import
 export default {
   initPrintHandler,
   startPrintProcess,
