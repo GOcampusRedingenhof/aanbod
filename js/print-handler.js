@@ -1,5 +1,5 @@
 // print-handler.js
-// Robuuste printlogica: header, content en footer genereren en direct afdrukken op één pagina
+// Verbeterde printlogica via een verborgen iframe, behoudt originele pagina en event handlers
 
 /**
  * Initialiseert de printfunctionaliteit op de print-knop
@@ -17,52 +17,53 @@ export function initPrintHandler(klas) {
 }
 
 /**
- * Print de pagina met gegenereerde header en footer op één A4
+ * Print de pagina in een verborgen iframe, behoudt originele pagina-intact
  * @param {Object} klas
  */
 function printKlas(klas) {
-  // Zorg dat we bovenaan beginnen
-  window.scrollTo(0, 0);
-
-  const originalHTML = document.body.innerHTML;
-  const originalTitle = document.title;
-
   // Bouw titel en datum
   const dateStr = new Date().toLocaleDateString('nl-BE', { day: '2-digit', month: '2-digit', year: 'numeric' });
   const titleText = `Lessentabel ${klas.richting} ${klas.klascode}`;
 
-  // Genereer header HTML
+  // Genereer header, content en footer HTML
   const logoImg = document.querySelector('.logo')?.outerHTML || '';
-  const headerHTML = `
-    <div class="print-header">
-      ${logoImg}
-      <div class="title">${titleText}</div>
-      <div class="date">${dateStr}</div>
-    </div>`;
-
-  // Zoek container met de tabel of content
+  const headerHTML = `<div class="print-header">${logoImg}<div class="title">${titleText}</div><div class="date">${dateStr}</div></div>`;
   const contentSource = document.querySelector('.print-container')
     || document.getElementById('content')
     || document.querySelector('main')
     || document.querySelector('.grid')
     || document.querySelector('table');
   if (!contentSource) {
-    console.error('Content container niet gevonden voor print');
+    console.error('Print content container niet gevonden');
     return;
   }
   const containerHTML = `<div class="print-container">${contentSource.outerHTML}</div>`;
-
-  // Genereer footer HTML
   const footerHTML = `<div class="print-footer"><span class="page-number"></span></div>`;
 
-  // Vervang body met enkel print-structuur
-  document.body.innerHTML = headerHTML + containerHTML + footerHTML;
-  document.title = titleText;
+  // Maak verborgen iframe
+  const iframe = document.createElement('iframe');
+  iframe.style.position = 'fixed';
+  iframe.style.width = '0';
+  iframe.style.height = '0';
+  iframe.style.border = '0';
+  document.body.appendChild(iframe);
 
-  // Trigger print
-  window.print();
+  const doc = iframe.contentWindow.document;
+  doc.open();
+  doc.write(
+    `<!DOCTYPE html><html><head><title>${titleText}</title>` +
+    // Link naar print stylesheet
+    `<link rel="stylesheet" href="css/print.css" media="all">` +
+    `</head><body>` +
+    headerHTML + containerHTML + footerHTML +
+    `</body></html>`
+  );
+  doc.close();
 
-  // Herstel originele site-structuur
-  document.body.innerHTML = originalHTML;
-  document.title = originalTitle;
+  // Print en verwijder iframe
+  iframe.contentWindow.focus();
+  iframe.contentWindow.print();
+  setTimeout(() => {
+    document.body.removeChild(iframe);
+  }, 1000);
 }
