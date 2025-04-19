@@ -14,14 +14,6 @@ let activeObserver = null;
  */
 export function renderSlidein(klas, lessen, voetnoten) {
   try {
-    // Controleer of klas geldig is
-    if (!klas || !klas.klascode) {
-      console.error('Ongeldige klas object ontvangen:', klas);
-      throw new Error('Ongeldige klas data');
-    }
-    
-    console.log(`Render slidein voor klas: ${klas.klascode} (${klas.richting || 'onbekend'})`);
-    
     // Cleanup eventuele bestaande resources
     cleanupResources();
     
@@ -33,13 +25,7 @@ export function renderSlidein(klas, lessen, voetnoten) {
     
     // Genereer en vul de lessentabel
     const lesHTML = generateLessentabel(lessen, klas);
-    const container = document.getElementById("lessentabel-container");
-    
-    if (container) {
-      container.innerHTML = lesHTML;
-    } else {
-      console.error('Lessentabel container niet gevonden in DOM');
-    }
+    document.getElementById("lessentabel-container").innerHTML = lesHTML;
 
     // Voeg eventuele voetnoten toe
     addFootnotes(voetnoten);
@@ -57,8 +43,6 @@ export function renderSlidein(klas, lessen, voetnoten) {
     
     // Initialiseer de print handler met de huidige klas
     setupPrintHandler(klas);
-    
-    console.log('Slidein succesvol gerenderd');
   } catch (error) {
     console.error('Fout bij renderen slidein:', error);
     // Probeer toch basis content te tonen bij fouten
@@ -68,8 +52,6 @@ export function renderSlidein(klas, lessen, voetnoten) {
         <div class="error-message">
           Er is een fout opgetreden bij het laden van de lessentabel. 
           Probeer het opnieuw of neem contact op met de beheerder.
-          <br><br>
-          Foutinformatie: ${error.message || 'Onbekende fout'}
         </div>
       `;
     }
@@ -80,53 +62,39 @@ export function renderSlidein(klas, lessen, voetnoten) {
 }
 
 /**
- * Verbeterde functie voor het initialiseren van de print handler
+ * Initialiseer de print handler voor een specifieke klas
  * @param {Object} klas - Het klasobject
  */
 function setupPrintHandler(klas) {
   try {
-    console.log('Setting up print handler voor klas:', klas?.klascode);
-    
-    // Bewaar de klas in een global variabele voor print-handler.js
+    // Sla de huidige klas op in een globale variabele voor de print handler
     window.currentPrintKlas = klas;
     
-    // Probeer de print-handler module te laden
-    import('./print-handler.js')
-      .then(module => {
-        if (typeof module.initPrintHandler === 'function') {
-          module.initPrintHandler(klas);
-        } else {
-          console.error('Print handler module geladen maar initPrintHandler functie ontbreekt');
-        }
-      })
-      .catch(error => {
-        console.error('Fout bij laden print handler module:', error);
-      });
-    
-    // Zorg dat de downloadknop werkt, ook zonder modules
+    // Zorg dat de downloadknop werkt
     const downloadBtn = document.getElementById('download-pdf-button');
     if (downloadBtn) {
-      // Vervang de bestaande button om memory leaks te voorkomen
+      // Maak een nieuwe button om memory leaks te voorkomen
       const newBtn = downloadBtn.cloneNode(true);
       downloadBtn.parentNode.replaceChild(newBtn, downloadBtn);
       
       // Voeg nieuwe event listener toe
       newBtn.addEventListener('click', () => {
+        // Controleer of LessentabellenApp beschikbaar is
         if (window.LessentabellenApp && typeof window.LessentabellenApp.generateHTML === 'function') {
           window.LessentabellenApp.generateHTML();
         } else {
-          // Fallback: probeer print handler direct aan te roepen
+          // Fallback: laad print-handler.js dynamisch
           import('./print-handler.js')
             .then(module => {
               if (typeof module.generateHTML === 'function') {
                 module.generateHTML();
               } else {
-                alert('Print functionaliteit niet beschikbaar. Ververs de pagina en probeer opnieuw.');
+                alert('Print functionaliteit niet beschikbaar.');
               }
             })
             .catch(error => {
-              console.error('Fout bij laden print handler voor download:', error);
-              alert('Kon print functionaliteit niet laden: ' + error.message);
+              console.error('Fout bij laden print-handler.js:', error);
+              alert('Er is een fout opgetreden bij het laden van de print-functionaliteit.');
             });
         }
       });
@@ -411,5 +379,5 @@ function showSlidein() {
   }
 }
 
-// Exporteer alleen de belangrijkste functie
+// Exporteer de renderSlidein functie
 export default renderSlidein;
