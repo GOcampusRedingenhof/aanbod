@@ -1,115 +1,260 @@
-/* css/print-styles.css */
+/* css/print-styles.css - Verbeterde versie */
 
 /* 1) Schermmodus: verberg de print‑achtergrond */
 @media screen {
   .print-bg {
     display: none !important;
   }
+  
+  /* Verbergen van print-specifieke elementen in schermmodus */
+  .print-footer {
+    display: none !important;
+  }
 }
 
 /* 2) Printmodus: */
 @media print {
-  /* — Basis reset — */
+  /* — Basis reset met !important om zeker te zijn — */
   body {
     margin: 0 !important;
     padding: 0 !important;
     background: none !important;
     color: #000 !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+  }
+  
+  /* Algemene print regels - alles voor eerste instantie verbergen */
+  body * {
+    visibility: hidden !important;
+  }
+  
+  /* Forceer paginaformaat en marges */
+  @page {
+    size: A4 portrait !important;
+    margin: 1.5cm !important;
   }
 
   /* — Full‑bleed achtergrond via <img> — */
   .print-bg {
     display: block !important;
     position: fixed !important;
-    top: 0; left: 0;
+    top: 0 !important; 
+    left: 0 !important;
     width: 210mm !important;
     height: 297mm !important;
     object-fit: cover !important;
     z-index: -1 !important;
+    visibility: visible !important;
   }
 
-  /* — Verberg grid, loader, titel & slogan — */
+  /* — Verberg elementen die niet nodig zijn in print — */
   #domains-container,
   .loader-spinner,
   .lessentabellen-title,
-  .slogan {
+  .slogan,
+  .close-btn,
+  .action-buttons,
+  #overlay {
     display: none !important;
+    visibility: hidden !important;
   }
 
   /* — Slide‑in als pagina — */
-  #slidein {
+  .lessentabellen-container {
+    visibility: visible !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  
+  #slidein,
+  #slidein.open,
+  .print-mode #slidein {
     display: block !important;
     position: relative !important;
     transform: none !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
     overflow: visible !important;
     background: #fff !important;   /* wit vlak voor leesbaarheid */
     margin: 0 !important;
-    padding: 1cm !important;
+    padding: 0.5cm !important;
     page-break-before: avoid !important;
     z-index: 1 !important;
+    box-shadow: none !important;
+    visibility: visible !important;
+    border: none !important;
   }
-  #overlay {
-    display: none !important;
+  
+  /* Maak alle inhoud van slidein zichtbaar */
+  #slidein *,
+  #slidein .detail-header,
+  #slidein .detail-content,
+  #slidein #lessentabel-container,
+  #slidein #opleiding-titel,
+  #slidein #opleiding-beschrijving,
+  #slidein .lessentabel,
+  #slidein #footnotes,
+  #slidein .print-footer {
+    visibility: visible !important;
   }
 
   /* — Toon header/titel/beschrijving — */
-  .detail-header,
-  #opleiding-titel,
-  #opleiding-beschrijving {
-    display: block !important;
-    visibility: visible !important;
-    margin-bottom: 0.5rem !important;
+  .detail-header {
+    margin-bottom: 2rem !important;
+    border-bottom: 1px solid #aaa !important;
+    padding-bottom: 0.5rem !important;
   }
-
-  /* — Verberg actieknoppen in print — */
-  .action-buttons {
-    display: none !important;
+  
+  #opleiding-titel {
+    text-align: center !important;
+    font-size: 18pt !important;
+    font-weight: bold !important;
+    margin: 1cm 0 0.5cm !important;
+    padding: 0 !important;
+    color: var(--app-domain-base, #000) !important;
+  }
+  
+  #opleiding-beschrijving {
+    text-align: center !important;
+    font-size: 12pt !important;
+    margin: 0 0 1cm !important;
+    padding: 0 !important;
   }
 
   /* — Lessentabel styling — */
+  #lessentabel-container {
+    overflow: visible !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
   .lessentabel {
     display: table !important;
     width: 100% !important;
     border-collapse: collapse !important;
-    margin-bottom: 1rem !important;
+    margin: 0 0 1rem !important;
     page-break-inside: avoid !important;
+    font-size: 10pt !important;
+    visibility: visible !important;
+    transform: none !important;
   }
+  
   .lessentabel thead {
     display: table-header-group !important;
   }
+  
   .lessentabel tbody {
     display: table-row-group !important;
   }
+  
   .lessentabel tr {
     display: table-row !important;
+    page-break-inside: avoid !important;
   }
+  
   .lessentabel th,
   .lessentabel td {
     display: table-cell !important;
     border: 1px solid #000 !important;
-    padding: 4px !important;
-    background: #fff !important;
+    padding: 4px 6px !important;
+    background-color: transparent !important;
     color: #000 !important;
-    font-size: 9pt !important;
+    font-size: 10pt !important;
     text-align: left !important;
+    page-break-inside: avoid !important;
+  }
+  
+  /* Categorie headers in tabel */
+  .lessentabel tr.categorie-header th {
+    background-color: #f0f0f0 !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+  }
+  
+  /* Totaal rij in tabel */
+  .lessentabel tr.totaal-row td,
+  .lessentabel tr.stage-row td {
+    font-weight: bold !important;
+    border-top: 2px solid #000 !important;
+  }
+  
+  /* Subvak indentatie */
+  .lessentabel tr.subvak td:first-child {
+    padding-left: 15px !important;
   }
 
   /* — Voetnoten — */
   #footnotes {
     display: block !important;
-    font-size: 8pt !important;
-    margin-top: 1rem !important;
+    font-size: 9pt !important;
+    margin: 1rem 0 !important;
     page-break-inside: avoid !important;
+    border-top: 1px solid #ddd !important;
+    padding-top: 0.5rem !important;
   }
+  
+  #footnotes h4 {
+    font-size: 10pt !important;
+    margin: 0 0 0.5rem !important;
+  }
+  
+  #footnotes ul {
+    margin: 0 !important;
+    padding: 0 0 0 1.5rem !important;
+  }
+  
   #footnotes li {
     margin-bottom: 0.3rem !important;
   }
 
-  /* — Datum onderaan — */
+  /* — Print footer — */
   .print-footer {
     display: block !important;
+    visibility: visible !important;
+    position: relative !important;
     text-align: center !important;
-    margin-top: 1rem !important;
+    margin-top: 2rem !important;
+    padding-top: 0.5rem !important;
+    border-top: 1px solid #ddd !important;
     font-size: 8pt !important;
+  }
+  
+  .print-footer .datum {
+    display: block !important;
+    margin: 0.5rem 0 !important;
+  }
+  
+  /* — Specifieke aanpassingen voor domeinkleuren in print — */
+  #slidein[data-domain] .lessentabel thead tr th {
+    background-color: #f0f0f0 !important;
+    color: #000 !important;
+  }
+  
+  /* Betere zichtbaarheid voor lichtere kleuren */
+  #slidein[data-domain="maatschappij-welzijn"] .lessentabel thead tr th,
+  #slidein[data-domain="sport-topsport"] .lessentabel thead tr th {
+    border: 1px solid #000 !important;
+  }
+  
+  /* School logo bovenaan */
+  .logo-print {
+    display: block !important;
+    max-width: 150px !important;
+    height: auto !important;
+    margin: 0 auto 1rem !important;
+    visibility: visible !important;
   }
 }
