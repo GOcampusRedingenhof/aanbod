@@ -1,58 +1,35 @@
-@media print {
-  body {
-    margin: 0;
-    padding: 1cm;
-    font-size: 10pt;
-    color: #000;
-    background: none;
-  }
+window.LessentabellenApp = {
+  startPrintProcess: function (klas, naam = 'Onbekend') {
+    const container = document.querySelector('.print-container');
+    const footer = document.querySelector('.print-footer span');
+    const datum = new Date().toLocaleDateString('nl-BE', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
 
-  .print-header {
-    display: block;
-    margin-bottom: 1rem;
-  }
+    // Titel voor print-bestandsnaam
+    document.title = `lessentabel_${klas}`;
 
-  .print-logo {
-    height: 40px;
-  }
+    // Footer invullen
+    if (footer) {
+      footer.textContent = `Klas: ${klas} · Naam: ${naam} · Geprint op ${datum}`;
+    }
 
-  .print-footer {
-    display: block;
-    position: fixed;
-    bottom: 1cm;
-    left: 1cm;
-    right: 1cm;
-    text-align: right;
-    font-size: 10pt;
-    color: #333;
-  }
+    // Schaal bij te grote inhoud (optioneel, afhankelijk van layout)
+    if (container && container.scrollHeight > 1000) {
+      container.style.transform = 'scale(0.95)';
+      container.style.transformOrigin = 'top left';
+    }
 
-  #print-button,
-  nav,
-  footer,
-  .domains-grid,
-  .slide-in,
-  .screen-only {
-    display: none !important;
-  }
+    // Start print
+    window.print();
 
-  #print-content, .print-container {
-    display: block;
-    width: 100%;
-    max-height: 25cm;
-    overflow: hidden;
-    page-break-inside: avoid;
+    // Reset zoom na print
+    setTimeout(() => {
+      if (container) {
+        container.style.transform = '';
+      }
+    }, 1000);
   }
-
-  @page {
-    size: A4 portrait;
-    margin: 1cm;
-  }
-}
-
-@media screen {
-  .print-header,
-  .print-footer {
-    display: none;
-  }
-}
+};
