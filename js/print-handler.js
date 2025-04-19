@@ -1,4 +1,4 @@
-// print-handler.js - Verbeterde versie voor betrouwbare print functionaliteit
+// print-handler.js - Verbeterde versie zonder inline CSS
 
 /**
  * Houdt de huidige klas vast voor printen
@@ -12,10 +12,15 @@ let currentPrintKlas = null;
  */
 export function initPrintHandler(klas) {
   try {
-    // Sla de klas lokaal op in deze module (niet meer op window object)
+    if (!klas || !klas.klascode) {
+      console.error('Ongeldige klas data ontvangen in initPrintHandler:', klas);
+      return;
+    }
+    
+    // Sla de klas lokaal op in deze module
     currentPrintKlas = klas;
     
-    console.log(`Print handler geïnitialiseerd voor klas: ${klas?.klascode || 'onbekend'}`);
+    console.log(`Print handler geïnitialiseerd voor klas: ${klas.klascode} (${klas.richting || 'onbekend'})`);
     
     // Initialiseer de print knop
     const printButton = document.getElementById('download-pdf-button');
@@ -39,17 +44,25 @@ export function generateHTML() {
   try {
     console.log('HTML generatie gestart...');
     
-    if (!currentPrintKlas) {
+    if (!currentPrintKlas || !currentPrintKlas.klascode) {
       // Probeer de klas op een alternatieve manier te vinden
-      if (window.LessentabellenApp && window.LessentabellenApp.currentKlasCode) {
+      if (window.currentPrintKlas && window.currentPrintKlas.klascode) {
+        currentPrintKlas = window.currentPrintKlas;
+        console.log('Klas gevonden via window.currentPrintKlas:', currentPrintKlas.klascode);
+      } else if (window.LessentabellenApp && window.LessentabellenApp.currentKlasCode) {
         const klasCode = window.LessentabellenApp.currentKlasCode;
-        currentPrintKlas = window.LessentabellenApp.getKlasByCode?.(klasCode) || 
-                           window.LessentabellenApp.klassen?.find(k => k.klascode === klasCode);
+        console.log('Probeert klas te vinden met klascode:', klasCode);
         
-        console.log(`Klas hersteld met alternatieve methode: ${currentPrintKlas?.klascode || 'mislukt'}`);
+        if (typeof window.LessentabellenApp.getKlasByCode === 'function') {
+          currentPrintKlas = window.LessentabellenApp.getKlasByCode(klasCode);
+          console.log('Klas gevonden via getKlasByCode:', currentPrintKlas?.klascode);
+        } else if (window.LessentabellenApp.klassen && Array.isArray(window.LessentabellenApp.klassen)) {
+          currentPrintKlas = window.LessentabellenApp.klassen.find(k => k.klascode === klasCode);
+          console.log('Klas gevonden via klassen array:', currentPrintKlas?.klascode);
+        }
       }
       
-      if (!currentPrintKlas) {
+      if (!currentPrintKlas || !currentPrintKlas.klascode) {
         console.error('Geen klas informatie beschikbaar voor printen');
         alert('Er kon geen informatie over de huidige richting worden gevonden. Probeer de pagina te verversen en selecteer de richting opnieuw.');
         return;
@@ -77,150 +90,17 @@ export function generateHTML() {
       return;
     }
     
+    // Bepaal het pad naar het CSS bestand
+    const cssPath = 'css/print-export.css';
+    
     // Bereid HTML content voor
     let htmlContent = `
     <!DOCTYPE html>
     <html lang="nl">
     <head>
       <meta charset="UTF-8">
-      <title>${currentPrintKlas.richting || 'Lessentabel'} - Lessentabel</title>
-      <style>
-        @media print {
-          @page {
-            size: A4 portrait;
-            margin: 1.5cm;
-          }
-        }
-        
-        body {
-          font-family: Arial, Helvetica, sans-serif;
-          line-height: 1.5;
-          color: #000;
-          background-color: #fff;
-          margin: 0;
-          padding: 20px;
-          position: relative;
-        }
-        
-        .container {
-          max-width: 210mm;
-          margin: 0 auto;
-          background: #fff;
-          padding: 10mm;
-          box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        
-        h1 {
-          text-align: center;
-          font-size: 24px;
-          margin-bottom: 20px;
-          color: #333;
-        }
-        
-        .description {
-          text-align: center;
-          margin-bottom: 30px;
-          font-size: 14px;
-        }
-        
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-bottom: 30px;
-          page-break-inside: avoid;
-          font-size: 12px;
-        }
-        
-        th, td {
-          border: 1px solid #333;
-          padding: 8px;
-          text-align: left;
-        }
-        
-        th {
-          background-color: #f0f0f0;
-          font-weight: bold;
-        }
-        
-        tr.categorie-header th {
-          background-color: #e0e0e0;
-          text-align: left;
-        }
-        
-        tr:nth-child(even) {
-          background-color: #f9f9f9;
-        }
-        
-        tr.totaal-row td {
-          font-weight: bold;
-          border-top: 2px solid #333;
-        }
-        
-        tr.stage-row td {
-          font-weight: bold;
-          background-color: #f5f5f5;
-        }
-        
-        .subvak td:first-child {
-          padding-left: 20px;
-        }
-        
-        .footer {
-          margin-top: 30px;
-          font-size: 10px;
-          color: #666;
-          display: flex;
-          justify-content: space-between;
-        }
-        
-        .footnotes {
-          margin-top: 20px;
-          padding: 10px;
-          border-left: 3px solid #ddd;
-          font-size: 11px;
-        }
-        
-        .footnotes h4 {
-          margin-top: 0;
-          font-size: 13px;
-        }
-        
-        .footnotes ul {
-          padding-left: 20px;
-          margin: 0;
-        }
-        
-        .print-button {
-          position: fixed;
-          top: 10px;
-          right: 10px;
-          padding: 8px 15px;
-          background: #007bff;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 14px;
-          z-index: 1000;
-          box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        @media print {
-          .print-button {
-            display: none;
-          }
-          
-          body {
-            padding: 0;
-            background: none;
-          }
-          
-          .container {
-            box-shadow: none;
-            padding: 0;
-          }
-        }
-      </style>
+      <title>${currentPrintKlas.richting || 'Lessentabel'} - GO Campus Redingenhof</title>
+      <link rel="stylesheet" href="${cssPath}">
     </head>
     <body>
       <button class="print-button" onclick="window.print()">Afdrukken</button>
@@ -246,11 +126,16 @@ export function generateHTML() {
     }
     
     // Voeg footer toe
-    const datum = new Date().toLocaleDateString('nl-BE', {
-      day: '2-digit',
-      month: 'long', 
-      year: 'numeric'
-    });
+    let datum;
+    try {
+      datum = new Date().toLocaleDateString('nl-BE', {
+        day: '2-digit',
+        month: 'long', 
+        year: 'numeric'
+      });
+    } catch (error) {
+      datum = new Date().toLocaleDateString();
+    }
     
     htmlContent += `
         <div class="footer">
@@ -272,9 +157,8 @@ export function generateHTML() {
               }
               
               // Als tabel te hoog is, probeer pagina-einde te voorkomen
-              const containerHeight = window.innerHeight - 200; // Roughly account for margins
+              const containerHeight = window.innerHeight - 200;
               if (table.offsetHeight > containerHeight) {
-                // Font size further adjustment if needed
                 if (table.offsetHeight > containerHeight * 1.2) {
                   table.style.fontSize = '9px';
                 }
@@ -284,6 +168,24 @@ export function generateHTML() {
             console.error('Fout bij aanpassen tabelgrootte:', e);
           }
         }
+        
+        // Fallback als het externe CSS bestand niet kan worden geladen
+        window.addEventListener('error', function(e) {
+          if (e.target && (e.target.nodeName === 'LINK' || e.target.nodeName === 'STYLE')) {
+            console.warn('Kon extern CSS bestand niet laden, gebruiken we inline CSS');
+            
+            // Voeg basis inline CSS toe als fallback
+            var style = document.createElement('style');
+            style.textContent = 'body{font-family:Arial;line-height:1.5}' +
+                               '.container{max-width:210mm;margin:0 auto}' +
+                               'table{width:100%;border-collapse:collapse}' +
+                               'th,td{border:1px solid #333;padding:8px}' +
+                               'th{background:#f0f0f0}' +
+                               '.print-button{position:fixed;top:10px;right:10px;padding:8px;background:#007bff;color:white}' +
+                               '@media print{.print-button{display:none}}';
+            document.head.appendChild(style);
+          }
+        }, true);
       </script>
     </body>
     </html>
@@ -298,7 +200,7 @@ export function generateHTML() {
     
   } catch (error) {
     console.error('Onverwachte fout bij HTML generatie:', error);
-    alert('Er is een onverwachte fout opgetreden bij het genereren van de HTML.');
+    alert('Er is een onverwachte fout opgetreden bij het genereren van de HTML: ' + error.message);
   }
 }
 
