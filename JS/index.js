@@ -1,4 +1,4 @@
-// index.js: Centrale module voor Lessentabellen App
+// 2index.js: Centrale module voor Lessentabellen App
 
 import appController from './app-controller.js';
 import { buildGrid } from './grid-builder.js';
