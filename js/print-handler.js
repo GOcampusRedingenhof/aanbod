@@ -1,7 +1,8 @@
-// js/print-handler.js — Verbeterde en complete printhandler-module
+// js/print-handler.js — Printhandler met PDF-export via html2pdf.js
+// Vereist: <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> in index.html
 
 /**
- * Globale variabelen om timeouts en backupstate te beheren
+ * Globale variabelen om backupstate en timeouts te beheren
  */
 let printTimeoutId = null;
 
@@ -12,41 +13,22 @@ let printTimeoutId = null;
 export function initPrintHandler(klas) {
   const printButton = document.getElementById('print-button');
   if (!printButton) return;
-  printButton.addEventListener('click', () => {
-    startPrintProcess(klas);
-  });
+  printButton.addEventListener('click', () => startPrintProcess(klas));
 }
 
 /**
- * Start de volledige printworkflow: backup, UI-aanpassingen, print-dialog en cleanup
- * @param {Object} klas - Klas met eigenschappen zoals richting
+ * Start de print- of PDF-export workflow
+ * @param {Object} klas
  */
 export function startPrintProcess(klas) {
-  // Backup maken (optioneel uitbreiden naar scrollpositie, classes …)
-  window.printStateBackup = {
-    title: document.title
-  };
+  // Backup maken (bv. originele title)
+  window.printStateBackup = { title: document.title };
   document.body.classList.add('print-mode');
 
-  // Dynamisch document.title voor betere PDF-bestandsnaam
-  if (klas.richting) {
-    document.title = `${klas.richting}-aanbod`;
-  }
+  // Dynamisch title voor PDF-bestandsnaam
+  if (klas.richting) document.title = `${klas.richting}-aanbod`;
 
-  // beforeprint en afterprint handlers om cleanup te garanderen
-  const beforePrintHandler = () => {
-    window.removeEventListener('beforeprint', beforePrintHandler);
-  };
-  window.addEventListener('beforeprint', beforePrintHandler);
-
-  const afterPrintHandler = () => {
-    window.removeEventListener('afterprint', afterPrintHandler);
-    // Laat de browser eerst printen, daarna cleanup
-    setTimeout(cleanupAfterPrinting, 500);
-  };
-  window.addEventListener('afterprint', afterPrintHandler);
-
-  // UI-elementen verbergen voor een schone print
+  // Verberg UI-elementen in slidein
   const slidein = document.getElementById('slidein');
   if (slidein) {
     const closeBtn = slidein.querySelector('.close-btn');
@@ -54,32 +36,37 @@ export function startPrintProcess(klas) {
     const actionButtons = slidein.querySelector('.action-buttons');
     if (actionButtons) actionButtons.style.display = 'none';
     slidein.classList.add('print-optimized');
-
-    // Tabel schalen bij veel regels
-    const table = slidein.querySelector('.lessentabel');
-    if (table) {
-      const rows = table.querySelectorAll('tbody tr').length;
-      if (rows > 30) {
-        table.style.fontSize = '9pt';
-        slidein.classList.add('scaled-table');
-      }
-    }
   }
 
-  // Open printdialoog
-  try {
-    window.print();
-  } catch (error) {
-    console.error('Fout tijdens printen:', error);
+  // PDF export met html2pdf.js
+  const element = document.getElementById('slidein');
+  if (!element || typeof html2pdf !== 'function') {
+    console.error('PDF-export vereist html2pdf.js en #slidein-element.');
     cleanupAfterPrinting();
+    return;
   }
+
+  const options = {
+    margin:       0.5,
+    filename:     `${klas.richting}-aanbod.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(options).from(element).save()
+    .then(() => cleanupAfterPrinting())
+    .catch(err => {
+      console.error('PDF-fout:', err);
+      cleanupAfterPrinting();
+    });
 }
 
 /**
- * Ruimt na het printen alles weer op: timeouts, CSS, knoppen
+ * Ruimt na export of fout op: herstelt UI en title
  */
 export function cleanupAfterPrinting() {
-  // Timeouts annuleren
+  // Annuleer timeouts
   if (printTimeoutId) {
     clearTimeout(printTimeoutId);
     printTimeoutId = null;
@@ -89,28 +76,24 @@ export function cleanupAfterPrinting() {
     window.safetyPrintTimeoutId = null;
   }
 
-  // Verwijder printmode
+  // Haal print-mode weg
   document.body.classList.remove('print-mode');
 
-  // Herstel UI-elementen
+  // Herstel UI in slidein
   try {
     const slidein = document.getElementById('slidein');
     if (slidein) {
-      // Sluitknop terugzetten
       const restoredClose = slidein.querySelector('.close-btn');
-      if (restoredClose) {
-        restoredClose.style.display = '';
-        // Eventlistener voor sluiten wordt direct in showSlidein opnieuw gebonden
-      }
-      // Actieknoppen terugzetten
+      if (restoredClose) restoredClose.style.display = '';
       const actionButtons = slidein.querySelector('.action-buttons');
       if (actionButtons) actionButtons.style.display = '';
+      slidein.classList.remove('print-optimized');
     }
   } catch (error) {
-    console.error('Fout bij herstel UI na print:', error);
+    console.error('Fout bij herstel UI na export:', error);
   }
 
-  // Zet document.title terug (optioneel)
+  // Zet title terug
   if (window.printStateBackup && window.printStateBackup.title) {
     document.title = window.printStateBackup.title;
   }
@@ -118,14 +101,14 @@ export function cleanupAfterPrinting() {
 }
 
 /**
- * Forcerende UI-reset bij ernstige fouten
+ * Forcerende reset bij ernstige fouten
  */
 function forceResetUI() {
-  console.warn('Forceer UI reset vanwege fouten');
+  console.warn('Forceer UI reset wegens fouten');
   document.body.classList.remove('print-mode');
   const slidein = document.getElementById('slidein');
   if (slidein) {
-    slidein.classList.remove('print-optimized', 'scaled-table', 'open');
+    slidein.classList.remove('print-optimized', 'open');
     const closeBtn = slidein.querySelector('.close-btn');
     if (closeBtn) closeBtn.style.display = '';
     const actionButtons = slidein.querySelector('.action-buttons');
@@ -135,7 +118,6 @@ function forceResetUI() {
   if (overlay) overlay.classList.remove('active');
 }
 
-// Exporteer de publieke API
 export default {
   initPrintHandler,
   startPrintProcess,
