@@ -1,4 +1,5 @@
-// print-handler.js - Vereenvoudigde versie met betrouwbare PDF-generatie
+// Eenvoudige PDF generator die alleen essentiële content gebruikt
+// Deze oplossing vermijdt complexiteit en werkt betrouwbaarder
 
 /**
  * Initialiseert de handler voor een specifieke klas
@@ -10,171 +11,137 @@ export function initPrintHandler(klas) {
 }
 
 /**
- * Genereert een PDF bestand van de huidige lessentabel
- * Deze versie is vereenvoudigd en meer robuust
+ * Genereert een PDF van de lessentabel op een zeer eenvoudige, betrouwbare manier
  */
 export function generatePDF() {
   try {
-    // Controleer eerst of html2pdf beschikbaar is
+    // Basisvalidatie
     if (typeof window.html2pdf === 'undefined') {
-      console.error('html2pdf library niet beschikbaar');
-      alert('PDF genereren is momenteel niet beschikbaar. Probeer de pagina te verversen.');
+      alert('PDF genereren is niet beschikbaar. Laad de pagina opnieuw.');
       return;
     }
     
-    // Verkrijg huidige klas
-    const klas = window.currentPrintKlas || (window.LessentabellenApp && window.LessentabellenApp.getKlasByCode(window.LessentabellenApp.currentKlasCode));
-    
+    // Haal huidige klas op
+    const klas = window.currentPrintKlas;
     if (!klas || !klas.richting) {
-      console.error('Geen geldige klas gevonden voor PDF generatie');
-      alert('Kan geen PDF genereren. Geen richtingsinformatie beschikbaar.');
+      alert('Kon geen richtingsinformatie vinden.');
       return;
     }
     
     console.log('PDF generatie gestart voor:', klas.richting);
     
-    // Genereer een bestandsnaam gebaseerd op de richting
-    const fileName = `${klas.richting.replace(/[^\w\s-]/gi, '')}_Lessentabel.pdf`;
+    // Haal originele DOM elementen op
+    const titelElement = document.getElementById('opleiding-titel');
+    const beschrijvingElement = document.getElementById('opleiding-beschrijving');
+    const tabelElement = document.querySelector('.lessentabel');
     
-    // Eenvoudigere aanpak: gebruik direct de bestaande slidein DOM
-    // Dit is betrouwbaarder dan het handmatig opbouwen van een nieuwe DOM
-    const slidein = document.getElementById('slidein');
-    if (!slidein) {
-      alert('Kan geen PDF genereren. Geen inhoud beschikbaar.');
+    if (!tabelElement) {
+      alert('Kon geen lessentabel vinden om te exporteren.');
       return;
     }
     
-    // Maak een diepe kopie van het slidein element voor de PDF
-    const pdfContainer = slidein.cloneNode(true);
+    // STAP 1: Maak een zeer eenvoudig nieuw document voor de PDF
+    const container = document.createElement('div');
+    container.style.width = '190mm';
+    container.style.padding = '10mm';
+    container.style.fontFamily = 'Arial, sans-serif';
     
-    // Bereid de container voor op PDF export
-    preparePDFContainer(pdfContainer);
+    // STAP 2: Kopieer alleen de essentiële content
+    // Titel
+    const titel = document.createElement('h1');
+    titel.textContent = titelElement ? titelElement.textContent : klas.richting;
+    titel.style.fontSize = '18pt';
+    titel.style.textAlign = 'center';
+    titel.style.marginBottom = '10mm';
+    container.appendChild(titel);
     
-    // Voeg het tijdelijk toe aan de DOM, maar verborgen
-    document.body.appendChild(pdfContainer);
-    
-    // Configureer html2pdf met eenvoudigere opties
-    const html2pdfOptions = {
-      margin: 10,
-      filename: fileName,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { 
-        scale: 2,
-        useCORS: true,
-        logging: true // Enable logging voor debug
-      },
-      jsPDF: { 
-        unit: 'mm', 
-        format: 'a4', 
-        orientation: 'portrait'
-      }
-    };
-    
-    // Toon debug informatie
-    console.log('PDF container is toegevoegd aan DOM:', document.body.contains(pdfContainer));
-    console.log('PDF container inhoud lengte:', pdfContainer.innerHTML.length);
-    console.log('Eerste 100 tekens van PDF container:', pdfContainer.innerHTML.substring(0, 100));
-    
-    // Genereer de PDF met eenvoudigere methode
-    window.html2pdf()
-      .from(pdfContainer)
-      .set(html2pdfOptions)
-      .save()
-      .then(() => {
-        // Cleanup
-        if (document.body.contains(pdfContainer)) {
-          document.body.removeChild(pdfContainer);
-        }
-        console.log('PDF generatie succesvol voltooid');
-      })
-      .catch(err => {
-        console.error('Fout bij PDF generatie:', err);
-        alert('Er is een fout opgetreden bij het maken van de PDF. Probeer het opnieuw.');
-        
-        // Cleanup
-        if (document.body.contains(pdfContainer)) {
-          document.body.removeChild(pdfContainer);
-        }
-      });
-  } catch (error) {
-    console.error('Onverwachte fout bij PDF generatie:', error);
-    alert('Er is een onverwachte fout opgetreden bij het maken van de PDF.');
-  }
-}
-
-/**
- * Bereidt de container voor op PDF export door onnodige elementen te verwijderen
- * en styling aan te passen
- * @param {HTMLElement} container - De container om voor te bereiden
- */
-function preparePDFContainer(container) {
-  // Verwijder onnodige elementen
-  const elementsToRemove = container.querySelectorAll('.close-btn, .action-buttons');
-  elementsToRemove.forEach(element => {
-    if (element && element.parentNode) {
-      element.parentNode.removeChild(element);
+    // Beschrijving (indien beschikbaar)
+    if (beschrijvingElement && beschrijvingElement.textContent.trim()) {
+      const beschrijving = document.createElement('p');
+      beschrijving.textContent = beschrijvingElement.textContent;
+      beschrijving.style.fontSize = '12pt';
+      beschrijving.style.marginBottom = '10mm';
+      beschrijving.style.textAlign = 'center';
+      container.appendChild(beschrijving);
     }
-  });
-  
-  // Reset positioning en styling zodat alles zichtbaar is
-  container.style.position = 'absolute';
-  container.style.left = '-9999px';
-  container.style.width = '210mm'; // A4 width
-  container.style.height = 'auto';
-  container.style.transform = 'none';
-  container.style.transition = 'none';
-  container.style.opacity = '1';
-  container.style.visibility = 'visible';
-  container.style.overflow = 'visible';
-  container.style.zIndex = '-1000';
-  container.style.margin = '0';
-  container.style.padding = '20px';
-  
-  // Zorg dat alle tekst zwart is
-  const textElements = container.querySelectorAll('p, h1, h2, h3, td, th, li, span');
-  textElements.forEach(element => {
-    element.style.color = '#000';
-  });
-  
-  // Zorg dat tabel zichtbaar en goed geformatteerd is
-  const table = container.querySelector('.lessentabel');
-  if (table) {
-    table.style.borderCollapse = 'collapse';
-    table.style.width = '100%';
-    table.style.margin = '20px 0';
     
-    // Voeg border toe aan alle cellen
-    const cells = table.querySelectorAll('th, td');
-    cells.forEach(cell => {
-      cell.style.border = '1px solid #000';
-      cell.style.padding = '4px';
-    });
+    // STAP 3: Bouw een nieuwe, eenvoudige tabel
+    const tableHTML = tabelElement.outerHTML;
+    const tabelWrapper = document.createElement('div');
+    tabelWrapper.innerHTML = tableHTML;
     
-    // Zorg dat de header cellen een achtergrondkleur hebben
-    const headerCells = table.querySelectorAll('th');
-    headerCells.forEach(cell => {
-      cell.style.backgroundColor = '#e0e0e0';
-      cell.style.fontWeight = 'bold';
-    });
-  }
-  
-  // Voeg datum toe onderaan als die nog niet bestaat
-  const dateEl = container.querySelector('#datum-print');
-  if (!dateEl || !dateEl.textContent) {
+    // Simplificeer tabelstijl
+    const newTable = tabelWrapper.querySelector('table');
+    if (newTable) {
+      newTable.style.width = '100%';
+      newTable.style.borderCollapse = 'collapse';
+      newTable.style.marginBottom = '10mm';
+      
+      // Simplificeer celstijlen
+      const cells = newTable.querySelectorAll('th, td');
+      cells.forEach(cell => {
+        cell.style.border = '1px solid black';
+        cell.style.padding = '3mm';
+        cell.style.fontSize = '10pt';
+      });
+      
+      // Headers donkerder maken
+      const headers = newTable.querySelectorAll('th');
+      headers.forEach(header => {
+        header.style.backgroundColor = '#e0e0e0';
+        header.style.fontWeight = 'bold';
+      });
+      
+      container.appendChild(newTable);
+    }
+    
+    // STAP 4: Voeg datum toe
     const footer = document.createElement('div');
-    footer.style.marginTop = '20px';
+    footer.textContent = `Afgedrukt op: ${new Date().toLocaleDateString()}`;
+    footer.style.marginTop = '10mm';
     footer.style.fontSize = '8pt';
     footer.style.color = '#666';
-    footer.style.textAlign = 'left';
-    
-    const now = new Date();
-    footer.textContent = `Afgedrukt op: ${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
-    
     container.appendChild(footer);
+    
+    // STAP 5: Voeg tijdelijk toe aan document body (maar verborgen)
+    container.style.position = 'absolute';
+    container.style.left = '-9999px';
+    document.body.appendChild(container);
+    
+    // Log voor debugging
+    console.log('PDF container toegevoegd:', container);
+    console.log('PDF container heeft tabeldata:', !!container.querySelector('table'));
+    
+    // STAP 6: Genereer PDF met minimale opties
+    const fileName = `${klas.richting.replace(/[^\w\s-]/gi, '')}_Lessentabel.pdf`;
+    
+    // Zeer eenvoudige configuratie
+    const options = {
+      margin: 10,
+      filename: fileName,
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    
+    window.html2pdf()
+      .from(container)
+      .set(options)
+      .save()
+      .then(() => {
+        console.log('PDF generatie succesvol');
+        document.body.removeChild(container);
+      })
+      .catch(err => {
+        console.error('PDF generatie fout:', err);
+        document.body.removeChild(container);
+        alert('Er is een fout opgetreden bij het maken van de PDF.');
+      });
+    
+  } catch (error) {
+    console.error('Onverwachte fout bij PDF generatie:', error);
+    alert('Er is een onverwachte fout opgetreden.');
   }
 }
 
-// Exporteer alleen de benodigde functies
 export default {
   initPrintHandler,
   generatePDF
