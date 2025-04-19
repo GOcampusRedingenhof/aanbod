@@ -43,7 +43,10 @@
   }
 
   #slidein {
-    position: static !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
     transform: none !important;
     box-shadow: none !important;
     max-width: none !important;
@@ -59,7 +62,7 @@
   .lessentabellen-wrapper {
     display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
     overflow: visible;
     page-break-inside: avoid;
     break-inside: avoid;
@@ -73,6 +76,8 @@
     font-size: 9pt;
     margin: 0.5cm auto !important;
     table-layout: fixed;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   .lessentabel th,
@@ -111,12 +116,20 @@
     max-width: 100% !important;
   }
 
+  .detail-header {
+    margin-bottom: 0.5cm !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
   .footnotes {
     font-size: 8pt !important;
     margin-top: 0.3cm !important;
     padding: 5px !important;
     background: none !important;
     border-top: 1px solid #ccc !important;
+    page-break-before: avoid !important;
+    break-before: avoid !important;
   }
 
   .footnotes ul {
@@ -131,7 +144,7 @@
   /* Automatisch schalen van tabellen die te groot zijn */
   @page {
     size: A4 portrait;
-    margin: 1cm;
+    margin: 0.5cm;  /* Kleinere marges voor meer ruimte */
   }
 
   /* Hulpselector om te meten hoeveel content er is */
@@ -175,11 +188,81 @@
   .print-scale-60 .lessentabel {
     font-size: 6pt !important;
   }
+  
+  /* Specifieke optimalisaties voor verschillende tabelgroottes */
+  .scaled-for-print .lessentabel {
+    font-size: 8pt !important;
+  }
+  
+  .scaled-for-print .lessentabel td,
+  .scaled-for-print .lessentabel th {
+    padding: 2px 3px !important;
+  }
+  
+  /* Hoge tabellen nog kleiner maken */
+  .scaled-for-print.extreme .lessentabel {
+    font-size: 7pt !important;
+  }
+  
+  .scaled-for-print.extreme .lessentabel td,
+  .scaled-for-print.extreme .lessentabel th {
+    padding: 1px 2px !important;
+  }
+  
+  /* Voorkom dat pagina's worden opgesplitst op ongewenste plaatsen */
+  #lessentabel-container {
+    page-break-before: auto !important;
+    page-break-after: auto !important;
+    page-break-inside: avoid !important;
+    break-before: auto !important;
+    break-after: auto !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Minimaliseer witruimte */
+  body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+  
+  /* Logo en datum optimalisatie */
+  .logo-print {
+    display: block !important;
+    height: 30px !important;
+    margin: 0 0 0.3cm 0 !important;
+  }
+  
+  .datum {
+    display: block !important;
+    font-size: 7pt !important;
+    margin: 0.2cm 0 0 0 !important;
+  }
+  
+  .quote {
+    display: block !important;
+    font-size: 8pt !important;
+    margin: 0.2cm 0 0 0 !important;
+  }
+  
+  /* Voor extreem grote tabellen */
+  #overlay, #domains-container, #domains-grid {
+    display: none !important;
+  }
 }
 
 @media screen {
   .print-header,
   .print-footer {
     display: none;
+  }
+  
+  .scaled-for-print,
+  .print-scale-80,
+  .print-scale-70,
+  .print-scale-60 {
+    /* Reset deze classes bij schermweergave */
   }
 }
