@@ -1,4 +1,4 @@
-// js/print-handler.js — Verbeterde en complete printhandler-module
+// 2js/print-handler.js — Verbeterde en complete printhandler-module
 
 /**
  * Globale variabelen om timeouts en backupstate te beheren
