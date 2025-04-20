@@ -5,12 +5,14 @@
 
 // Elementen cache
 const elements = {
+  graadSelect: null,
   richtingSelect: null,
   loadBtn: null,
   printBtn: null,
   tableContainer: null,
+  graadTitel: null,
   richtingTitel: null,
-  richtingGraad: null,
+  finaliteitTitel: null,
   tableContent: null,
   footnotes: null,
   datum: null,
@@ -22,12 +24,14 @@ const elements = {
  */
 function initUI() {
   // Elementen ophalen
+  elements.graadSelect = document.getElementById('graad-select');
   elements.richtingSelect = document.getElementById('richting-select');
   elements.loadBtn = document.getElementById('load-btn');
   elements.printBtn = document.getElementById('print-btn');
   elements.tableContainer = document.getElementById('table-container');
+  elements.graadTitel = document.getElementById('graad-titel');
   elements.richtingTitel = document.getElementById('richting-titel');
-  elements.richtingGraad = document.getElementById('richting-graad');
+  elements.finaliteitTitel = document.getElementById('finaliteit-titel');
   elements.tableContent = document.getElementById('table-content');
   elements.footnotes = document.getElementById('footnotes');
   elements.datum = document.getElementById('datum');
@@ -54,7 +58,12 @@ function initUI() {
     });
   }
   
-  // Event listener voor enter toets in dropdown
+  // Event listener voor graad dropdown om richtingen te filteren
+  if (elements.graadSelect) {
+    elements.graadSelect.addEventListener('change', handleGraadSelectChange);
+  }
+  
+  // Event listener voor enter toets in dropdowns
   if (elements.richtingSelect) {
     elements.richtingSelect.addEventListener('keypress', event => {
       if (event.key === 'Enter') {
@@ -65,66 +74,143 @@ function initUI() {
 }
 
 /**
- * Vult de dropdown met alle beschikbare richtingen
- * @param {Array} richtingen - Array met richtingen objecten
+ * Vult de dropdowns met graden en richtingen
+ * @param {Object} graadRichtingen - Object met graden en bijbehorende richtingen
  */
-function populateRichtingenDropdown(richtingen) {
-  if (!elements.richtingSelect) return;
+function populateGraadRichtingenDropdown(graadRichtingen) {
+  if (!elements.graadSelect) return;
   
-  elements.richtingSelect.innerHTML = window.TableGenerator.generateRichtingenDropdown(richtingen);
+  // Graad dropdown vullen
+  elements.graadSelect.innerHTML = '<option value="">--Selecteer een graad--</option>';
+  
+  Object.keys(graadRichtingen).forEach(graad => {
+    const option = document.createElement('option');
+    option.value = graad;
+    option.textContent = graad;
+    elements.graadSelect.appendChild(option);
+  });
+  
+  // Richtingen dropdown wordt gevuld bij het selecteren van een graad
+  elements.richtingSelect.innerHTML = '<option value="">--Selecteer eerst een graad--</option>';
+}
+
+/**
+ * Event handler voor verandering in graad dropdown
+ */
+function handleGraadSelectChange() {
+  if (!elements.graadSelect || !elements.richtingSelect) return;
+  
+  const selectedGraad = elements.graadSelect.value;
+  
+  // Reset richtingen dropdown
+  if (!selectedGraad) {
+    elements.richtingSelect.innerHTML = '<option value="">--Selecteer eerst een graad--</option>';
+    elements.richtingSelect.disabled = true;
+    return;
+  }
+  
+  // Haal beschikbare richtingen op voor geselecteerde graad
+  const graadRichtingen = window.LessentabellenPrinterApp.data.graadRichtingen[selectedGraad];
+  
+  if (!graadRichtingen || !graadRichtingen.richtingen) {
+    elements.richtingSelect.innerHTML = '<option value="">--Geen richtingen gevonden--</option>';
+    elements.richtingSelect.disabled = true;
+    return;
+  }
+  
+  // Richtingen dropdown vullen
+  elements.richtingSelect.innerHTML = '<option value="">--Selecteer een richting--</option>';
+  elements.richtingSelect.disabled = false;
+  
+  // Sorteer richtingen alfabetisch
+  const sortedRichtingen = Object.values(graadRichtingen.richtingen).sort((a, b) => 
+    a.naam.localeCompare(b.naam)
+  );
+  
+  // Voeg richtingen toe aan dropdown
+  sortedRichtingen.forEach(richting => {
+    const option = document.createElement('option');
+    option.value = richting.code;
+    option.textContent = richting.naam;
+    elements.richtingSelect.appendChild(option);
+  });
 }
 
 /**
  * Event handler voor de "Toon lessentabel" knop
  */
 async function handleLoadButtonClick() {
-  if (!elements.richtingSelect) return;
+  if (!elements.graadSelect || !elements.richtingSelect) return;
   
-  const selectedKlasCode = elements.richtingSelect.value;
+  const selectedGraad = elements.graadSelect.value;
+  const selectedRichting = elements.richtingSelect.value;
   
-  if (!selectedKlasCode) {
-    alert('Selecteer eerst een richting.');
+  if (!selectedGraad) {
+    alert('Selecteer eerst een graad.');
     return;
   }
   
-  await loadLessentabel(selectedKlasCode);
+  if (!selectedRichting) {
+    alert('Selecteer een richting.');
+    return;
+  }
+  
+  await loadLessentabelVoorGraadRichting(selectedGraad, selectedRichting);
 }
 
 /**
- * Laadt en toont de lessentabel voor de opgegeven klascode
- * @param {string} klascode - De klascode waarvoor de tabel moet worden getoond
+ * Laadt en toont de lessentabel voor de opgegeven graad en richting
+ * @param {string} graad - De graadcode
+ * @param {string} richtingCode - De richtingcode
  */
-async function loadLessentabel(klascode) {
+async function loadLessentabelVoorGraadRichting(graad, richtingCode) {
   try {
+    // Controleer of graad en richting bestaan
+    const graadData = window.LessentabellenPrinterApp.data.graadRichtingen[graad];
+    if (!graadData || !graadData.richtingen[richtingCode]) {
+      showError(`Geen data gevonden voor graad ${graad} en richting ${richtingCode}`);
+      return;
+    }
+    
     // Toon laadindicator
     elements.tableContent.innerHTML = '<div class="loading">Lessentabel wordt geladen...</div>';
     
-    // Laad alle benodigde data
-    const klassen = await window.DataLoader.getKlassen();
-    const lessentabel = await window.DataLoader.getLessentabel();
-    const voetnoten = await window.DataLoader.getVoetnoten();
+    // Haal richting data op
+    const richtingData = graadData.richtingen[richtingCode];
+    const klasCodes = richtingData.klassen;
     
-    // Zoek de geselecteerde klas
-    const klas = window.DataLoader.findKlasByCode(klassen, klascode);
-    
-    if (!klas) {
-      showError(`Geen klas gevonden met code ${klascode}`);
+    if (!klasCodes || klasCodes.length === 0) {
+      showError(`Geen lessentabel gevonden voor ${richtingData.naam} in ${graad}`);
       return;
     }
     
     // Stel domein kleur in
-    const domein = klas.domein ? klas.domein.toLowerCase() : 'stem';
+    const domein = richtingData.domein ? richtingData.domein.toLowerCase() : 'stem';
     setDomainColor(domein);
     
-    // Haal lessen en voetnoten op voor deze klas
-    const lessen = window.DataLoader.getLessenForKlas(lessentabel, klascode);
-    const klasVoetnoten = window.DataLoader.getVoetnotenForKlas(voetnoten, klascode);
+    // Laad alle benodigde data voor elke klas
+    const klassen = window.LessentabellenPrinterApp.data.klassen;
+    const lessentabel = window.LessentabellenPrinterApp.data.lessentabel;
+    const voetnoten = window.LessentabellenPrinterApp.data.voetnoten;
     
-    // Update UI met klas informatie
-    updateKlasInfo(klas);
+    // Verzamel alle klasdataobjecten
+    const klasDataObjecten = klasCodes.map(klasCode => {
+      const klas = window.DataLoader.findKlasByCode(klassen, klasCode);
+      const lessen = window.DataLoader.getLessenForKlas(lessentabel, klasCode);
+      const klasVoetnoten = window.DataLoader.getVoetnotenForKlas(voetnoten, klasCode);
+      
+      return {
+        klas,
+        lessen,
+        voetnoten: klasVoetnoten
+      };
+    });
     
-    // Genereer de lessentabel
-    elements.tableContent.innerHTML = window.TableGenerator.generateLessentabel(klas, lessen, klasVoetnoten);
+    // Update UI met richting informatie
+    updateGraadRichtingInfo(graad, richtingData);
+    
+    // Genereer de volledige lessentabel voor de graad en richting
+    elements.tableContent.innerHTML = window.TableGenerator.generateGraadRichtingLessentabel(klasDataObjecten);
     
     // Maak tabel en container zichtbaar
     elements.tableContainer.style.display = 'block';
@@ -136,26 +222,30 @@ async function loadLessentabel(klascode) {
 }
 
 /**
- * Update de weergave met informatie over de geselecteerde klas
- * @param {Object} klas - Het klas object
+ * Update de weergave met informatie over de geselecteerde graad en richting
+ * @param {string} graad - De graad
+ * @param {Object} richtingData - Het richtingsobject
  */
-function updateKlasInfo(klas) {
-  if (elements.richtingTitel) {
-    elements.richtingTitel.textContent = klas.richting || 'Onbekende richting';
+function updateGraadRichtingInfo(graad, richtingData) {
+  if (elements.graadTitel) {
+    elements.graadTitel.textContent = graad;
   }
   
-  if (elements.richtingGraad) {
-    // Stel graad en finaliteit in
-    let graadDisplay = (klas.graad || '').toString().trim();
-    const finaliteit = (klas.finaliteit || '').toString().trim();
+  if (elements.richtingTitel) {
+    elements.richtingTitel.textContent = richtingData.naam || 'Onbekende richting';
+  }
+  
+  if (elements.finaliteitTitel) {
+    // Stel finaliteit in
+    const finaliteit = (richtingData.finaliteit || '').toString().trim();
     
     if (finaliteit) {
       // Eerste letter capitaliseren
       const finaliteitDisplay = finaliteit.charAt(0).toUpperCase() + finaliteit.slice(1);
-      graadDisplay += ` - ${finaliteitDisplay}`;
+      elements.finaliteitTitel.textContent = `Finaliteit: ${finaliteitDisplay}`;
+    } else {
+      elements.finaliteitTitel.textContent = '';
     }
-    
-    elements.richtingGraad.textContent = graadDisplay;
   }
 }
 
@@ -206,6 +296,6 @@ function handleDomainButtonClick(event) {
 // Maak de UI controller globaal beschikbaar
 window.UIController = {
   init: initUI,
-  populateRichtingenDropdown,
-  loadLessentabel
+  populateGraadRichtingenDropdown,
+  loadLessentabelVoorGraadRichting
 };
