@@ -1,4 +1,4 @@
-/* Vervang de huidige print-styles.css met deze eenvoudige versie */
+/* print-styles.css - Vereenvoudigde en verbeterde versie */
 @media print {
   /* Basisregels voor A4-formaat */
   @page {
@@ -6,38 +6,114 @@
     margin: 1.5cm;
   }
   
+  body {
+    background: white !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    color: black !important;
+  }
+  
   /* Verberg elementen die niet nodig zijn voor printen */
-  .close-btn, .action-buttons, #overlay, #domains-container,
-  .lessentabellen-title, .slogan, .logo-print {
+  .close-btn, 
+  .action-buttons, 
+  #overlay, 
+  #domains-container,
+  .lessentabellen-title, 
+  .slogan {
     display: none !important;
   }
-  
-  /* Zorg dat de table correct schaalt naar A4 */
-  .lessentabel {
-    width: 100% !important;
-    font-size: 9pt !important;
-    border-collapse: collapse !important;
-  }
-  
-  /* Fix table wijdte */
-  .lessentabel th, .lessentabel td {
-    padding: 3px !important;
-    border: 1px solid black !important;
-  }
-  
-  /* Zorg dat het slidein-element volledig zichtbaar is */
+
+  /* Stel absolute positionering uit voor printen */
   #slidein {
     position: static !important;
     transform: none !important;
     width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    overflow: visible !important;
     box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
   
-  /* Datum onderin pagina */
+  /* Opleiding titel centreren */
+  #opleiding-titel {
+    text-align: center !important;
+    font-size: 18pt !important;
+    margin: 0 0 1cm 0 !important;
+    color: black !important;
+    border-bottom: 1px solid #ccc !important;
+    padding-bottom: 0.5cm !important;
+  }
+  
+  /* Beschrijving tekst */
+  #opleiding-beschrijving {
+    font-size: 11pt !important;
+    margin-bottom: 1cm !important;
+    text-align: center !important;
+  }
+  
+  /* Tabel vormgeving */
+  .lessentabel {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-bottom: 1cm !important;
+    font-size: 10pt !important;
+  }
+  
+  .lessentabel th,
+  .lessentabel td {
+    border: 1px solid black !important;
+    padding: 0.2cm !important;
+    text-align: left !important;
+  }
+  
+  .lessentabel th {
+    background-color: #f3f3f3 !important;
+    font-weight: bold !important;
+  }
+  
+  /* Categorie headers */
+  .categorie-header th {
+    text-transform: uppercase !important;
+    background-color: #eaeaea !important;
+  }
+  
+  /* Subvakken iets inspringen */
+  .subvak td:first-child {
+    padding-left: 0.4cm !important;
+  }
+  
+  /* Totaalrij vet maken */
+  .totaal-row td {
+    font-weight: bold !important;
+    border-top: 2px solid black !important;
+  }
+  
+  /* Print-footer tonen */
   .print-footer {
     display: block !important;
-    margin-top: 1rem !important;
-    text-align: center !important;
+    margin-top: 1cm !important;
     font-size: 9pt !important;
+    text-align: right !important;
+    border-top: 1px solid #ccc !important;
+    padding-top: 0.5cm !important;
+  }
+  
+  /* Voetnoten */
+  .footnotes {
+    font-size: 9pt !important;
+    margin-top: 0.5cm !important;
+    border-top: 1px solid #ddd !important;
+    padding-top: 0.5cm !important;
+  }
+  
+  .footnotes ul {
+    padding-left: 0.5cm !important;
+  }
+  
+  /* Verwijder eventuele transform-schalering */
+  .lessentabel {
+    transform: none !important;
+    margin-bottom: 0 !important;
   }
 }
