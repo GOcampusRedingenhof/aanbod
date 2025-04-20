@@ -104,7 +104,8 @@
     
     // Basisstructuur voor data
     const richtingen = [];
-    const lessentabel = {};
+    // CORRECTIE: Initialiseer als array in plaats van object
+    let lessentabel = [];
     
     // Functie voor het laden van CSV-bestanden
     async function loadCSV(url) {
@@ -249,7 +250,8 @@
         
         // Bewaar data voor gebruik
         richtingen.push(...klassenData);
-        lessentabel.push(...lessentabelData);
+        // CORRECTIE: Gebruik rechtstreeks de array uit loadCSV
+        lessentabel = lessentabelData;
         
         // Vul dropdown met unieke richtingen
         const selectElement = document.getElementById('richting-select');
