@@ -13,7 +13,7 @@ const LessentabellenPrinterApp = {
     klassen: [],
     lessentabel: [],
     voetnoten: [],
-    richtingen: []
+    graadRichtingen: {} // Gegroepeerd per graad
   },
   
   /**
@@ -57,25 +57,77 @@ const LessentabellenPrinterApp = {
       this.data.lessentabel = lessentabel;
       this.data.voetnoten = voetnoten;
       
-      // Genereer lijst met unieke richtingen
-      this.data.richtingen = window.DataLoader.getAlleRichtingen(klassen);
+      // Genereer graden en richtingen structuur
+      this.data.graadRichtingen = this.organizeByGraad(klassen);
       
-      // Vul de dropdown met richtingen
-      window.UIController.populateRichtingenDropdown(this.data.richtingen);
+      // Vul de dropdown met graden en richtingen
+      window.UIController.populateGraadRichtingenDropdown(this.data.graadRichtingen);
       
       // Log succesvolle data-lading
-      console.log(`Data geladen: ${klassen.length} klassen, ${lessentabel.length} vakken, ${this.data.richtingen.length} richtingen`);
+      console.log(`Data geladen: ${klassen.length} klassen, ${lessentabel.length} vakken, ${Object.keys(this.data.graadRichtingen).length} graden`);
       
       // Kies standaard kleur (STEM)
       setDomainColor('stem');
       
-      // Controleer URL parameters om automatisch een richting te laden
+      // Controleer URL parameters om automatisch een graad/richting te laden
       this.checkUrlParameters();
       
     } catch (error) {
       console.error('Fout bij laden data:', error);
       showError('De data kon niet worden geladen. Controleer je internetverbinding.');
     }
+  },
+  
+  /**
+   * Organiseert klassen per graad en richting
+   * @param {Array} klassen - Array met alle klasobjecten
+   * @returns {Object} - Object met graden en bijbehorende richtingen
+   */
+  organizeByGraad(klassen) {
+    const graadMap = {};
+    
+    // Groepeer richtingen per graad
+    klassen.forEach(klas => {
+      if (!klas.graad || !klas.richtingcode) return;
+      
+      const graad = klas.graad.trim().toUpperCase();
+      
+      if (!graadMap[graad]) {
+        graadMap[graad] = { richtingen: {}, naam: graad };
+      }
+      
+      if (!graadMap[graad].richtingen[klas.richtingcode]) {
+        graadMap[graad].richtingen[klas.richtingcode] = {
+          code: klas.richtingcode,
+          naam: klas.richting,
+          domein: klas.domein,
+          finaliteit: klas.finaliteit,
+          klassen: []
+        };
+      }
+      
+      graadMap[graad].richtingen[klas.richtingcode].klassen.push(klas.klascode);
+    });
+    
+    // Sorteer de graden in logische volgorde
+    const sortedGraadMap = {};
+    const graadVolgorde = ['EERSTE GRAAD', 'TWEEDE GRAAD', 'DERDE GRAAD', 'ZEVENDE JAAR'];
+    
+    // Voeg eerst de bekende graden toe in de juiste volgorde
+    graadVolgorde.forEach(graad => {
+      if (graadMap[graad]) {
+        sortedGraadMap[graad] = graadMap[graad];
+      }
+    });
+    
+    // Voeg overige graden toe
+    Object.keys(graadMap).forEach(graad => {
+      if (!sortedGraadMap[graad]) {
+        sortedGraadMap[graad] = graadMap[graad];
+      }
+    });
+    
+    return sortedGraadMap;
   },
   
   /**
@@ -89,24 +141,16 @@ const LessentabellenPrinterApp = {
   },
   
   /**
-   * Controleert URL parameters om automatisch een richting te laden
+   * Controleert URL parameters om automatisch een graad en richting te laden
    */
   checkUrlParameters() {
     try {
       const urlParams = new URLSearchParams(window.location.search);
-      const klascode = urlParams.get('klas');
+      const graad = urlParams.get('graad');
+      const richting = urlParams.get('richting');
       
-      if (klascode) {
-        // Stel de dropdown in op de juiste waarde
-        const richtingSelect = document.getElementById('richting-select');
-        if (richtingSelect) {
-          richtingSelect.value = klascode;
-          
-          // Als de waarde geldig is, laad de lessentabel
-          if (richtingSelect.value === klascode) {
-            window.UIController.loadLessentabel(klascode);
-          }
-        }
+      if (graad && richting) {
+        window.UIController.loadLessentabelVoorGraadRichting(graad, richting);
       }
     } catch (error) {
       console.warn('URL parameters konden niet worden verwerkt:', error);
