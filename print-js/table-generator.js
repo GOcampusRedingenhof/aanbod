@@ -4,32 +4,70 @@
  */
 
 /**
- * Genereert een complete HTML-tabel met lesgegevens
- * @param {Object} klas - Het klasobject waarvoor de tabel wordt gegenereerd
- * @param {Array} lessen - Array met lessen voor deze klas
- * @param {Array} voetnoten - Array met voetnoten voor deze klas
+ * Genereert een complete HTML-tabel met lesgegevens voor meerdere klassen in dezelfde richting
+ * @param {Array} klasDataObjecten - Array met objecten die klas, lessen en voetnoten bevatten
  * @returns {string} - HTML-string met de gegenereerde tabel
  */
-function generateLessentabel(klas, lessen, voetnoten) {
+function generateGraadRichtingLessentabel(klasDataObjecten) {
+  // Controleer of er klassen zijn
+  if (!klasDataObjecten || klasDataObjecten.length === 0) {
+    return '<div class="error-message">Geen lesgegevens gevonden.</div>';
+  }
+  
+  // Verzamel unieke klascodes voor kolomkoppen
+  const klasCodes = klasDataObjecten.map(obj => obj.klas ? obj.klas.klascode : '').filter(Boolean);
+  
   // Begin met het genereren van de lessentabel
-  let html = `<table class="lessentabel">
+  let html = `<table class="lessentabel multi-column">
     <thead>
       <tr>
         <th>Vak</th>
-        <th>Uren</th>
+        ${klasCodes.map(code => `<th>${code}</th>`).join('')}
       </tr>
     </thead>
     <tbody>`;
   
-  // Groepeer lessen per categorie
+  // Verzamel alle unieke vakken over alle klassen
+  const alleVakken = new Set();
+  const vakMap = {};
+  
+  // Verzamel vakken per klas
+  klasDataObjecten.forEach((obj, index) => {
+    if (!obj.lessen) return;
+    
+    obj.lessen.forEach(les => {
+      alleVakken.add(les.vak);
+      
+      // Maak mapping van vak naar categorie
+      if (!vakMap[les.vak]) {
+        vakMap[les.vak] = {
+          categorie: les.categorie || 'Onbekend',
+          subvak: les.subvak === true || les.subvak === 'WAAR',
+          urenPerKlas: {}
+        };
+      }
+      
+      // Sla uren op per klascode
+      if (obj.klas && obj.klas.klascode) {
+        vakMap[les.vak].urenPerKlas[obj.klas.klascode] = les.uren || '-';
+      }
+    });
+  });
+  
+  // Groepeer vakken per categorie
   const categorieën = {};
   
-  lessen.forEach(les => {
-    const categorie = les.categorie || 'Onbekend';
+  Object.keys(vakMap).forEach(vak => {
+    const categorie = vakMap[vak].categorie;
     if (!categorieën[categorie]) {
       categorieën[categorie] = [];
     }
-    categorieën[categorie].push(les);
+    
+    categorieën[categorie].push({
+      vak: vak,
+      subvak: vakMap[vak].subvak,
+      urenPerKlas: vakMap[vak].urenPerKlas
+    });
   });
   
   // Sorteer categorieën in logische volgorde (basisvorming eerst)
@@ -40,65 +78,89 @@ function generateLessentabel(klas, lessen, voetnoten) {
     return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
   });
   
-  // Bereken totaal lesuren voor onderaan de tabel
-  let totaalUren = 0;
+  // Bereken totaal lesuren per klas
+  const totaalUrenPerKlas = {};
+  klasCodes.forEach(code => {
+    totaalUrenPerKlas[code] = 0;
+  });
   
   // Loop door elke categorie
   sortedCategories.forEach(categorie => {
     html += `
       <tr class="categorie-header">
-        <th colspan="2">${categorie.toUpperCase()}</th>
+        <th colspan="${klasCodes.length + 1}">${categorie.toUpperCase()}</th>
       </tr>
     `;
     
     // Sorteer vakken alfabetisch binnen een categorie
-    const vakken = categorieën[categorie].sort((a, b) => 
-      a.vak.localeCompare(b.vak)
-    );
+    const vakken = categorieën[categorie].sort((a, b) => a.vak.localeCompare(b.vak));
     
     // Groepeer vakken en subvakken
     const gegroepeerdeVakken = groepeerVakkenEnSubvakken(vakken);
     
     // Voeg vakken en subvakken toe aan de tabel
-    gegroepeerdeVakken.forEach(les => {
-      // Bepaal of dit een subvak is
-      const isSubvak = les.subvak === true || les.subvak === 'WAAR';
+    gegroepeerdeVakken.forEach(vak => {
+      const isSubvak = vak.subvak;
       const rowClass = isSubvak ? 'subvak' : '';
       
       // Voeg het vak toe aan de tabel
-      html += `
-        <tr class="${rowClass}">
-          <td>${les.vak}</td>
-          <td>${les.uren || '-'}</td>
-        </tr>
-      `;
+      html += `<tr class="${rowClass}">
+        <td>${vak.vak}</td>`;
       
-      // Tel uren op voor het totaal (alleen als het een getal is)
-      if (les.uren && !isNaN(parseFloat(String(les.uren).replace(',', '.')))) {
-        totaalUren += parseFloat(String(les.uren).replace(',', '.'));
-      }
+      // Voeg kolommen toe voor elke klas
+      klasCodes.forEach(code => {
+        const uren = vak.urenPerKlas[code] || '-';
+        html += `<td>${uren}</td>`;
+        
+        // Tel uren op voor totaal (alleen als het een getal is)
+        if (uren && !isNaN(parseFloat(String(uren).replace(',', '.')))) {
+          totaalUrenPerKlas[code] += parseFloat(String(uren).replace(',', '.'));
+        }
+      });
+      
+      html += `</tr>`;
     });
   });
   
-  // Rond het totaal af op 1 decimaal
-  totaalUren = Math.round(totaalUren * 10) / 10;
+  // Rond totalen af op 1 decimaal
+  Object.keys(totaalUrenPerKlas).forEach(code => {
+    totaalUrenPerKlas[code] = Math.round(totaalUrenPerKlas[code] * 10) / 10;
+  });
   
   // Voeg totaalrij toe
   html += `
     <tr class="totaal-row">
       <td>Lestijden per week</td>
-      <td>${totaalUren}</td>
-    </tr>
   `;
   
+  klasCodes.forEach(code => {
+    html += `<td>${totaalUrenPerKlas[code]}</td>`;
+  });
+  
+  html += `</tr>`;
+  
   // Voeg stageweken toe indien aanwezig
-  if (klas.stage_weken && klas.stage_weken.trim() !== '') {
+  const stageInfo = {};
+  let heeftStage = false;
+  
+  klasDataObjecten.forEach(obj => {
+    if (obj.klas && obj.klas.klascode && obj.klas.stage_weken && obj.klas.stage_weken.trim() !== '') {
+      stageInfo[obj.klas.klascode] = obj.klas.stage_weken;
+      heeftStage = true;
+    }
+  });
+  
+  if (heeftStage) {
     html += `
       <tr class="stage-row">
         <td>Stage weken</td>
-        <td>${klas.stage_weken}</td>
-      </tr>
     `;
+    
+    klasCodes.forEach(code => {
+      html += `<td>${stageInfo[code] || '-'}</td>`;
+    });
+    
+    html += `</tr>`;
   }
   
   // Sluit de tabel af
@@ -108,8 +170,19 @@ function generateLessentabel(klas, lessen, voetnoten) {
   `;
   
   // Voeg voetnoten toe indien aanwezig
-  if (voetnoten && voetnoten.length > 0) {
-    html += generateFootnotes(voetnoten);
+  const alleVoetnoten = [];
+  klasDataObjecten.forEach(obj => {
+    if (obj.voetnoten && obj.voetnoten.length > 0) {
+      obj.voetnoten.forEach(voetnoot => {
+        if (voetnoot.tekst && voetnoot.tekst.trim() !== '') {
+          alleVoetnoten.push(`${obj.klas.klascode}: ${voetnoot.tekst}`);
+        }
+      });
+    }
+  });
+  
+  if (alleVoetnoten.length > 0) {
+    html += generateCombinedFootnotes(alleVoetnoten);
   }
   
   return html;
@@ -117,7 +190,7 @@ function generateLessentabel(klas, lessen, voetnoten) {
 
 /**
  * Groepeert vakken en subvakken zodat subvakken onder hun hoofdvakken verschijnen
- * @param {Array} vakken - Array met lesitems
+ * @param {Array} vakken - Array met vakitems
  * @returns {Array} - Gesorteerde array met vakken
  */
 function groepeerVakkenEnSubvakken(vakken) {
@@ -129,8 +202,8 @@ function groepeerVakkenEnSubvakken(vakken) {
   
   // Sorteer daarna zodat subvakken onder hoofdvakken komen
   result.sort((a, b) => {
-    const aIsSubvak = a.subvak === true || a.subvak === 'WAAR';
-    const bIsSubvak = b.subvak === true || b.subvak === 'WAAR';
+    const aIsSubvak = a.subvak;
+    const bIsSubvak = b.subvak;
     
     // Als a en b beide subvakken zijn of beide hoofdvakken, behoud alfabetische volgorde
     if (aIsSubvak === bIsSubvak) {
@@ -174,71 +247,31 @@ function generateFootnotes(voetnoten) {
 }
 
 /**
- * Genereert een dropdown-menu met alle beschikbare richtingen
- * @param {Array} richtingen - Array met alle unieke richtingen
- * @param {string} selectedCode - Optioneel: code van de geselecteerde richting
- * @returns {string} - HTML-string met het dropdown-menu
+ * Genereert HTML voor gecombineerde voetnoten van meerdere klassen
+ * @param {Array} voetnoten - Array met voetnoot strings
+ * @returns {string} - HTML-string met voetnoten
  */
-function generateRichtingenDropdown(richtingen, selectedCode = '') {
-  let html = '<option value="">--Selecteer een richting--</option>';
-  
-  // Sorteer richtingen op graad en binnen elke graad alfabetisch
-  const graadVolgorde = ['EERSTE GRAAD', 'TWEEDE GRAAD', 'DERDE GRAAD', 'ZEVENDE JAAR'];
-  
-  // Groepeer richtingen per graad
-  const richtingenPerGraad = {};
-  
-  richtingen.forEach(richting => {
-    const graad = (richting.graad || '').toString().trim().toUpperCase();
-    if (!richtingenPerGraad[graad]) {
-      richtingenPerGraad[graad] = [];
-    }
-    richtingenPerGraad[graad].push(richting);
-  });
-  
-  // Voor elke graad in de juiste volgorde:
-  graadVolgorde.forEach(graad => {
-    if (richtingenPerGraad[graad] && richtingenPerGraad[graad].length > 0) {
-      html += `<optgroup label="${graad}">`;
-      
-      // Sorteer richtingen binnen deze graad alfabetisch
-      richtingenPerGraad[graad].sort((a, b) => a.naam.localeCompare(b.naam));
-      
-      // Voeg elke richting toe aan deze optgroup
-      richtingenPerGraad[graad].forEach(richting => {
-        const selected = richting.klascode === selectedCode ? 'selected' : '';
-        html += `<option value="${richting.klascode}" ${selected}>${richting.naam}</option>`;
-      });
-      
-      html += '</optgroup>';
-    }
-  });
-  
-  // Voeg overige richtingen toe (zonder graad of met onbekende graad)
-  const overigeGraden = Object.keys(richtingenPerGraad).filter(
-    graad => !graadVolgorde.includes(graad)
-  );
-  
-  if (overigeGraden.length > 0) {
-    html += `<optgroup label="Overige">`;
-    
-    overigeGraden.forEach(graad => {
-      richtingenPerGraad[graad].sort((a, b) => a.naam.localeCompare(b.naam));
-      
-      richtingenPerGraad[graad].forEach(richting => {
-        const selected = richting.klascode === selectedCode ? 'selected' : '';
-        html += `<option value="${richting.klascode}" ${selected}>${richting.naam}</option>`;
-      });
-    });
-    
-    html += '</optgroup>';
+function generateCombinedFootnotes(voetnoten) {
+  if (!voetnoten || voetnoten.length === 0) {
+    return '';
   }
+  
+  // Verwijder duplicaten
+  const uniqueVoetnoten = [...new Set(voetnoten)];
+  
+  let html = '<div class="footnotes"><h3>Voetnoten</h3><ul>';
+  
+  uniqueVoetnoten.forEach(voetnoot => {
+    html += `<li>${voetnoot}</li>`;
+  });
+  
+  html += '</ul></div>';
   
   return html;
 }
 
 // Maak de functies globaal beschikbaar 
 window.TableGenerator = {
-  generateLessentabel,
-  generateRichtingenDropdown
+  generateGraadRichtingLessentabel,
+  generateFootnotes
 };
