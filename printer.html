@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eenvoudige Lessentabel Printer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .controls {
+      margin-bottom: 30px;
+      padding: 15px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+    }
+    select, button {
+      padding: 8px 12px;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    .categorie-header th {
+      background-color: #e0e0e0;
+      text-transform: uppercase;
+    }
+    .subvak td:first-child {
+      padding-left: 20px;
+    }
+    .totaal-row td {
+      font-weight: bold;
+      border-top: 2px solid black;
+    }
+    .datum {
+      text-align: right;
+      font-size: 12px;
+      margin-top: 30px;
+    }
+    @media print {
+      .controls {
+        display: none;
+      }
+      body {
+        padding: 0;
+      }
+      table {
+        font-size: 10pt;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <h1>Lessentabellen Printer</h1>
+    <div>
+      <label for="richting-select">Kies richting:</label>
+      <select id="richting-select">
+        <option value="">--Selecteer een richting--</option>
+      </select>
+      <button id="load-btn">Toon lessentabel</button>
+      <button id="print-btn">Afdrukken</button>
+    </div>
+  </div>
+  
+  <div id="table-container">
+    <h2 id="richting-titel"></h2>
+    <div id="table-content"></div>
+    <div class="datum">Afgedrukt op: <span id="datum"></span></div>
+  </div>
+
+  <script>
+    // Update de datum
+    document.getElementById('datum').textContent = new Date().toLocaleDateString('nl-BE');
+    
+    // Basisstructuur voor data
+    const richtingen = [];
+    const lessentabel = {};
+    
+    // Functie voor het laden van CSV-bestanden
+    async function loadCSV(url) {
+      const response = await fetch(url);
+      const text = await response.text();
+      return parseCSV(text);
+    }
+    
+    // Eenvoudige CSV parser
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      const headers = lines[0].split(',').map(h => h.trim());
+      
+      return lines.slice(1).map(line => {
+        const values = line.split(',');
+        return headers.reduce((obj, header, index) => {
+          // Basis type conversie
+          let value = values[index] ? values[index].trim() : '';
+          if (value === 'WAAR') value = true;
+          else if (value === 'ONWAAR') value = false;
+          
+          obj[header] = value;
+          return obj;
+        }, {});
+      });
+    }
+    
+    // Functie voor het genereren van een lessentabel
+    function generateTable(klascode) {
+      // Vind de klas
+      const klas = richtingen.find(r => r.klascode === klascode);
+      if (!klas) return '<p>Geen gegevens gevonden voor deze richting.</p>';
+      
+      // Filter lessen voor deze klas
+      const lessen = lessentabel.filter(les => les.klascode === klascode);
+      
+      // Groepeer lessen per categorie
+      const categorieën = {};
+      lessen.forEach(les => {
+        const categorie = les.categorie || 'Onbekend';
+        if (!categorieën[categorie]) {
+          categorieën[categorie] = [];
+        }
+        categorieën[categorie].push(les);
+      });
+      
+      // Begin met bouwen van tabel
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th style="width:60%;">Vak</th>
+              <th style="width:40%;">Uren</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      
+      // Sorteer categorieën: basisvorming eerst, specifiek daarna
+      const volgorde = ['basisvorming', 'specifiek gedeelte', 'vrije ruimte'];
+      const sortedCategories = Object.keys(categorieën).sort((a, b) => {
+        const indexA = volgorde.indexOf(a.toLowerCase());
+        const indexB = volgorde.indexOf(b.toLowerCase());
+        return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+      });
+      
+      // Loop door elke categorie
+      sortedCategories.forEach(categorie => {
+        html += `
+          <tr class="categorie-header">
+            <th colspan="2">${categorie.toUpperCase()}</th>
+          </tr>
+        `;
+        
+        // Sorteer lessen alfabetisch op vaknaam binnen elke categorie
+        const sortedLessen = categorieën[categorie].sort((a, b) => 
+          a.vak.localeCompare(b.vak)
+        );
+        
+        // Normale vakken
+        sortedLessen.filter(les => !les.subvak).forEach(les => {
+          html += `
+            <tr>
+              <td>${les.vak}</td>
+              <td>${les.uren || '-'}</td>
+            </tr>
+          `;
+        });
+        
+        // Subvakken met inspringing
+        sortedLessen.filter(les => les.subvak).forEach(les => {
+          html += `
+            <tr class="subvak">
+              <td>• ${les.vak}</td>
+              <td>${les.uren || '-'}</td>
+            </tr>
+          `;
+        });
+      });
+      
+      // Bereken totaal aantal uren
+      let totaal = 0;
+      lessen.forEach(les => {
+        if (les.uren && !isNaN(parseFloat(String(les.uren).replace(',', '.')))) {
+          totaal += parseFloat(String(les.uren).replace(',', '.'));
+        }
+      });
+      
+      // Voeg totaalrij toe
+      html += `
+        <tr class="totaal-row">
+          <td>Lestijden per week</td>
+          <td>${Math.round(totaal * 10) / 10}</td>
+        </tr>
+      `;
+      
+      // Voeg stage-rij toe indien van toepassing
+      if (klas.stage_weken) {
+        html += `
+          <tr>
+            <td>Stage weken</td>
+            <td>${klas.stage_weken}</td>
+          </tr>
+        `;
+      }
+      
+      // Sluit de tabel
+      html += `
+          </tbody>
+        </table>
+      `;
+      
+      return html;
+    }
+    
+    // Laad data en vul dropdown
+    async function initializeApp() {
+      try {
+        // Laad data
+        const klassenData = await loadCSV('data/klassen.csv');
+        const lessentabelData = await loadCSV('data/lessentabel.csv');
+        
+        // Bewaar data voor gebruik
+        richtingen.push(...klassenData);
+        lessentabel.push(...lessentabelData);
+        
+        // Vul dropdown met unieke richtingen
+        const selectElement = document.getElementById('richting-select');
+        
+        // Verzamel unieke richtingen (voorkom duplicaten)
+        const uniqueRichtingen = [];
+        const richtingSet = new Set();
+        
+        klassenData.forEach(klas => {
+          const key = `${klas.richtingcode}-${klas.richting}`;
+          if (!richtingSet.has(key)) {
+            richtingSet.add(key);
+            uniqueRichtingen.push({
+              code: klas.klascode,
+              richting: klas.richting,
+              graad: klas.graad
+            });
+          }
+        });
+        
+        // Sorteer richtingen op graad en dan alfabetisch
+        uniqueRichtingen.sort((a, b) => {
+          // Sorteer eerst op graad
+          const graadOrder = {'EERSTE GRAAD': 1, 'TWEEDE GRAAD': 2, 'DERDE GRAAD': 3, 'ZEVENDE JAAR': 4};
+          const graadA = graadOrder[a.graad] || 99;
+          const graadB = graadOrder[b.graad] || 99;
+          
+          if (graadA !== graadB) return graadA - graadB;
+          
+          // Dan alfabetisch op richting
+          return a.richting.localeCompare(b.richting);
+        });
+        
+        // Voeg opties toe aan dropdown
+        uniqueRichtingen.forEach(item => {
+          const option = document.createElement('option');
+          option.value = item.code;
+          option.textContent = `${item.graad} - ${item.richting}`;
+          selectElement.appendChild(option);
+        });
+        
+        // Event listeners
+        document.getElementById('load-btn').addEventListener('click', function() {
+          const selectedCode = selectElement.value;
+          if (!selectedCode) {
+            alert('Selecteer eerst een richting.');
+            return;
+          }
+          
+          // Toon richting titel
+          const klas = richtingen.find(r => r.klascode === selectedCode);
+          document.getElementById('richting-titel').textContent = klas.richting;
+          
+          // Genereer tabel
+          document.getElementById('table-content').innerHTML = generateTable(selectedCode);
+        });
+        
+        document.getElementById('print-btn').addEventListener('click', function() {
+          window.print();
+        });
+        
+      } catch (error) {
+        console.error('Fout bij laden data:', error);
+        document.getElementById('table-content').innerHTML = 
+          '<p>Er is een fout opgetreden bij het laden van de data. Controleer of de CSV-bestanden correct zijn.</p>';
+      }
+    }
+    
+    // Start de applicatie
+    initializeApp();
+  </script>
+</body>
+</html>
