@@ -1,0 +1,117 @@
+/* controls.css - Stijlen voor besturingselementen */
+
+/* Hoofdcontainer voor besturingselementen */
+.controls {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Rij met besturingselementen */
+.control-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+/* Dropdown-menu's en knoppen */
+select, button {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+/* Specifieke stijlen voor dropdown-menu's */
+select {
+  min-width: 300px;
+  background-color: white;
+  cursor: pointer;
+  appearance: none; /* Verwijdert standaard browser-styling */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+
+select:hover {
+  border-color: #aaa;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--domain-color);
+  box-shadow: 0 0 0 2px rgba(var(--domain-color), 0.1);
+}
+
+/* Specifieke stijlen voor knoppen */
+button {
+  background-color: var(--domain-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background-color: var(--domain-hover);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* Domeinselector */
+.domain-selector {
+  margin-top: 10px;
+}
+
+.domain-selector label {
+  margin-right: 10px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.domain-selector button {
+  padding: 6px 12px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+/* Responsieve aanpassingen */
+@media (max-width: 768px) {
+  .control-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  select {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .domain-selector button {
+    margin-bottom: 8px;
+  }
+}
