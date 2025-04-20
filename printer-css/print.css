@@ -1,0 +1,132 @@
+/* print.css - Stijlen specifiek voor afdrukken */
+
+@media print {
+  /* Basisregels voor paginaformaat */
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+  
+  /* Basisstijlen voor afdrukken */
+  body {
+    padding: 0;
+    margin: 0;
+    background: white;
+    font-size: 11pt;
+    line-height: 1.3;
+  }
+  
+  /* Verberg elementen die niet nodig zijn voor afdrukken */
+  .controls {
+    display: none !important;
+  }
+  
+  /* Reset container stijlen voor afdrukken */
+  .table-container {
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    background: white;
+  }
+  
+  /* Titels en graadadanduidingen */
+  .richting-titel {
+    font-size: 18pt;
+    text-align: center;
+    color: black !important;
+    border-bottom-color: #666 !important;
+    margin-bottom: 0.5cm;
+  }
+  
+  .richting-graad {
+    font-size: 14pt;
+    text-align: center;
+    margin-bottom: 0.7cm;
+  }
+  
+  /* Tabelstijlen voor afdrukken */
+  table {
+    width: 100% !important;
+    font-size: 10pt;
+    border-collapse: collapse;
+    page-break-inside: auto;
+  }
+  
+  /* Zorg dat rijkoppen herhaald worden op elke pagina */
+  thead {
+    display: table-header-group;
+  }
+  
+  /* Voorkom dat rijen opgesplitst worden over pagina's */
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  
+  th, td {
+    border: 1px solid black !important;
+    padding: 0.2cm !important;
+  }
+  
+  /* Categorieheaders in grijstinten voor afdrukken */
+  .categorie-header th {
+    background-color: #e0e0e0 !important;
+    color: black !important;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  /* Totaalrij en stagerij in grijstinten */
+  .totaal-row td {
+    border-top: 2px solid black !important;
+    background-color: #f0f0f0 !important;
+  }
+  
+  .stage-row td {
+    background-color: #f8f8f8 !important;
+  }
+  
+  /* Subvakken met inspringing */
+  .subvak td:first-child {
+    padding-left: 0.4cm !important;
+  }
+  
+  /* Voetnoten */
+  .footnotes {
+    font-size: 9pt;
+    margin-top: 0.5cm;
+    border-top: 1px solid #ccc;
+    padding-top: 0.3cm;
+  }
+  
+  .footnotes h3 {
+    font-size: 10pt;
+    margin-bottom: 0.2cm;
+    color: black !important;
+  }
+  
+  /* Datum onderaan */
+  .datum {
+    margin-top: 0.7cm;
+    font-size: 9pt;
+    text-align: right;
+    color: #666;
+  }
+  
+  /* Voorkom dat afbeeldingen (zoals logo's) afgebroken worden */
+  img {
+    page-break-inside: avoid;
+  }
+  
+  /* Paginaonderbreking voorkomen na bepaalde elementen */
+  h1, h2, h3, h4, h5, h6, .richting-titel, .richting-graad {
+    page-break-after: avoid;
+  }
+  
+  /* Zorg ervoor dat er geen achtergrondkleuren naar wit versteld worden door de browser */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
