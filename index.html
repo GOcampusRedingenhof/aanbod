@@ -3,84 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lessentabellen GO Campus Redingenhof">
+  <meta name="description" content="Lessentabellen GO Campus Redingenhof - Bekijk alle beschikbare richtingen en lessentabellen">
   <title>Lessentabellen GO Campus Redingenhof</title>
-
-  <!-- CSS -->
+  
+  <!-- CSS bestanden -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/grid.css">
   <link rel="stylesheet" href="css/detail-view.css">
   <link rel="stylesheet" href="css/print-styles.css">
-
-  <!-- Fonts -->
+  
+  <!-- Google Fonts: Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Papa Parse voor CSV parsing -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <!-- Overlay voor slidein -->
-  <div id="overlay"></div>
-
   <div id="lessentabellen-container" class="lessentabellen-container">
     <h1 class="lessentabellen-title">Lessentabellen GO Campus Redingenhof</h1>
-    <p class="lessentabellen-intro">Klik op een richting om de lessentabel te bekijken en af te drukken.</p>
-
+    <p class="lessentabellen-intro">Ontdek hieronder ons uitgebreide studieaanbod. Klik op een richting voor meer details en het volledige uurrooster.</p>
+    
     <div class="lessentabellen-root">
+      <!-- Grid container voor alle domeinen/richtingen -->
       <div id="domains-container" class="domains-grid">
-        <!-- Hier komen de domeinen en richtingen -->
+        <!-- Wordt dynamisch ingevuld door JavaScript -->
         <div class="loader-spinner"></div>
       </div>
 
-      <!-- Slidein panel voor detail-weergave -->
-      <div id="slidein" class="lessentabellen-wrapper" tabindex="-1" data-domain="">
+      <!-- Detail view slide-in panel -->
+      <div id="slidein" class="lessentabellen-wrapper" tabindex="-1">
         <div class="detail-header">
           <button class="close-btn" aria-label="Sluiten">×</button>
           <h2 id="opleiding-titel"></h2>
           <p id="opleiding-beschrijving"></p>
         </div>
+        
         <div class="detail-content">
           <div class="action-buttons">
-            <button id="print-button" type="button">Afdrukken</button>
+            <a id="brochure-link" href="#" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l9 2-9-18-9 18 9-2z"/></svg>
+              Brochure
+            </a>
+            <button id="print-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              Afdrukken
+            </button>
           </div>
+          
           <div id="lessentabel-container">
-            <!-- Hier komt de tabel -->
+            <!-- Wordt dynamisch ingevuld door JavaScript -->
           </div>
+          
           <div id="footnotes">
-            <!-- Hier komen de voetnoten -->
+            <!-- Wordt dynamisch ingevuld door JavaScript -->
           </div>
         </div>
-        <div class="print-footer">
-          <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
-        </div>
+        
+        <!-- Logo voor printversie -->
+        <img class="logo-print" src="https://images.squarespace-cdn.com/content/v1/670992d66064015802d7e5dc/5425e461-06b0-4530-9969-4068d5a5dfdc/Scherm%C2%ADafbeelding+2024-12-03+om+09.38.12.jpg?format=1500w" alt="Redingenhof logo">
+        
+        <!-- Datum en quote voor printversie -->
+        <div class="datum">Afgedrukt op: <span id="datum-print"></span></div>
+        <div class="quote">SAMEN VER!</div>
       </div>
+
+      <!-- Overlay voor achtergrond dimmen -->
+      <div id="overlay"></div>
     </div>
   </div>
 
-  <!-- App entrypoint -->
-  <script type="module">
-    import LessentabellenApp from './js/index.js';
-    
-    // App is al geïnitialiseerd in index.js
-    console.log('Lessentabellen app geladen');
-  </script>
+  <!-- Papa Parse voor CSV verwerking -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   
-  <!-- Vereenvoudigde fallback voor browsers zonder module support -->
-  <script nomodule>
-    document.getElementById('domains-container').innerHTML = `
-      <div class="error-message">
-        <h3>Uw browser ondersteunt moderne JavaScript modules niet</h3>
-        <p>Gebruik een recente versie van Chrome, Firefox, Edge of Safari om deze toepassing te gebruiken.</p>
-      </div>
-    `;
+  <!-- App JavaScript - gebruik de nieuwe modulaire structuur -->
+  <script type="module" src="js/index.js"></script>
+
+  <!-- Centraal error handler script -->
+  <script>
+  // Deze functie vangt globale fouten op
+  window.addEventListener('error', function(event) {
+    console.error('Globale fout:', event.error);
+    // Probeer UI te resetten als er een fout is tijdens printen
+    if (document.body.classList.contains('print-mode')) {
+      document.body.classList.remove('print-mode');
+      console.warn('Print-mode verwijderd vanwege een fout');
+      
+      // Herstel UI-elementen
+      const closeBtn = document.querySelector('.close-btn');
+      if (closeBtn) closeBtn.style.display = '';
+      
+      const actionButtons = document.querySelector('.action-buttons');
+      if (actionButtons) actionButtons.style.display = '';
+      
+      // Reset styling van slidein
+      const slidein = document.getElementById('slidein');
+      if (slidein) {
+        slidein.style.padding = '';
+        slidein.classList.remove('scaled-for-print');
+        slidein.classList.remove('extreme');
+        slidein.classList.remove('print-optimized');
+        slidein.classList.remove('scaled-table');
+        
+        // Herstel tabel styling
+        const table = slidein.querySelector('.lessentabel');
+        if (table) {
+          table.style.fontSize = '';
+          table.style.transform = '';
+          table.style.marginBottom = '';
+        }
+      }
+    }
+  });
+  
+  // We delegeren de print events naar onze centrale printmodule
+  window.addEventListener('beforeprint', function(event) {
+    console.log('Globale beforeprint event gedetecteerd');
+    // We sturen dit door naar de print-handler module
+    // De module handelt dit zelf af
+  });
+  
+  window.addEventListener('afterprint', function(event) {
+    console.log('Globale afterprint event gedetecteerd');
+    // We laten de print-handler module dit afhandelen
+    // Alleen als er geen handler actief is, doen we een fallback cleanup
+    if (document.body.classList.contains('print-mode')) {
+      // Controleer of er een cleanup functie beschikbaar is in de app
+      if (window.LessentabellenApp && typeof window.LessentabellenApp.cleanupAfterPrinting === 'function') {
+        window.LessentabellenApp.cleanupAfterPrinting();
+      } else {
+        // Fallback: eenvoudige cleanup
+        document.body.classList.remove('print-mode');
+      }
+    }
+  });
+  
+  // Safety timeout om vastlopen te voorkomen
+  document.addEventListener('DOMContentLoaded', function() {
+    // Controleer periodiek of print-mode vast is blijven zitten
+    setInterval(function() {
+      if (document.body.classList.contains('print-mode')) {
+        // Check hoe lang print-mode al actief is
+        const printModeStart = window.printModeStartTime || 0;
+        const now = Date.now();
+        
+        // Als print-mode langer dan 30 seconden actief is, forceer reset
+        if (printModeStart > 0 && (now - printModeStart > 30000)) {
+          console.warn('Print-mode zit vast, forceer reset');
+          
+          // Reset print mode
+          document.body.classList.remove('print-mode');
+          window.printModeStartTime = 0;
+          
+          // Probeer de cleanup functie aan te roepen als die bestaat
+          if (window.LessentabellenApp && typeof window.LessentabellenApp.cleanupAfterPrinting === 'function') {
+            window.LessentabellenApp.cleanupAfterPrinting();
+          } else {
+            // Anders basis UI elementen herstellen
+            const closeBtn = document.querySelector('.close-btn');
+            if (closeBtn) closeBtn.style.display = '';
+            
+            const actionButtons = document.querySelector('.action-buttons');
+            if (actionButtons) actionButtons.style.display = '';
+            
+            // Reset slidein styling
+            const slidein = document.getElementById('slidein');
+            if (slidein) {
+              slidein.style.padding = '';
+              slidein.classList.remove('scaled-for-print');
+              slidein.classList.remove('extreme');
+              slidein.classList.remove('print-optimized');
+              slidein.classList.remove('scaled-table');
+              
+              // Herstel tabel styling
+              const table = slidein.querySelector('.lessentabel');
+              if (table) {
+                table.style.fontSize = '';
+                table.style.transform = '';
+                table.style.marginBottom = '';
+                
+                // Herstel cel padding
+                const cells = table.querySelectorAll('td, th');
+                if (cells) {
+                  cells.forEach(cell => {
+                    if (cell) cell.style.padding = '';
+                  });
+                }
+              }
+            }
+          }
+        }
+      } else {
+        // Reset timer als print-mode niet actief is
+        window.printModeStartTime = 0;
+      }
+    }, 5000); // Controleer elke 5 seconden
+  });
   </script>
-<div style="text-align: center; margin: 20px 0;">
-  <a href="printer.html" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #0C8464; color: white; text-decoration: none; border-radius: 4px; font-family: 'Montserrat', sans-serif; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-    <span style="margin-right: 8px;">🖨️</span> Open Lessentabellen Printer
-  </a>
-</div>
 </body>
 </html>

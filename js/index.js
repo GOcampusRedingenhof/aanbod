@@ -3,6 +3,8 @@
 import appController from './app-controller.js';
 import { buildGrid } from './grid-builder.js';
 import { renderSlidein } from './detail-view.js';
+// Importeer functies uit onze verbeterde print-handler module
+import { startPrintProcess, cleanupAfterPrinting } from './print-handler.js';
 
 class LessentabellenAppClass {
   constructor() {
@@ -27,17 +29,6 @@ class LessentabellenAppClass {
       if (overlay) {
         overlay.addEventListener('click', () => this.closeSlidein());
       }
-      
-      // BELANGRIJK: Print knop event handler
-      const printButton = document.getElementById('print-button');
-      if (printButton) {
-        printButton.addEventListener('click', () => this.handlePrint());
-      }
-    });
-    
-    // Afhandeling voor het print event
-    window.addEventListener('afterprint', () => {
-      this.cleanupAfterPrint();
     });
   }
 
@@ -55,15 +46,14 @@ class LessentabellenAppClass {
         container.innerHTML = `<div class="loader-spinner"></div>`;
       }
       
-      // Laad alle data parallel om sneller te starten
-      const klassenData = await fetch('data/klassen.csv').then(r => r.text());
-      const lessentabelData = await fetch('data/lessentabel.csv').then(r => r.text());
-      const footnotesData = await fetch('data/voetnoten.csv').then(r => r.text());
+      // Initialiseer app controller en haal data op
+      await appController.initialize();
+      const { klassen, lessentabel, footnotes } = appController.getData();
       
-      // Parse de CSV data
-      this.klassen = this.parseCSV(klassenData);
-      this.lessentabel = this.parseCSV(lessentabelData);
-      this.footnotes = this.parseCSV(footnotesData);
+      // Bewaar data in het app object
+      this.klassen = klassen;
+      this.lessentabel = lessentabel;
+      this.footnotes = footnotes;
       
       console.log(`Data geladen: ${this.klassen.length} klassen, ${this.lessentabel.length} lesvakken`);
       
@@ -74,27 +64,6 @@ class LessentabellenAppClass {
     } catch (error) {
       this.handleInitError(error);
     }
-  }
-  
-  /**
-   * Eenvoudige CSV parser als fallback
-   */
-  parseCSV(text) {
-    const lines = text.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
-    
-    return lines.slice(1).map(line => {
-      const values = line.split(',');
-      return headers.reduce((obj, header, index) => {
-        // Basis type conversie
-        let value = values[index]?.trim() || '';
-        if (value === 'WAAR') value = true;
-        else if (value === 'ONWAAR') value = false;
-        
-        obj[header] = value;
-        return obj;
-      }, {});
-    });
   }
 
   /**
@@ -139,31 +108,41 @@ class LessentabellenAppClass {
       const klas = this.klassen.find(k => k.klascode === klascode);
       
       if (klas) {
-        // Alle klassen in dezelfde richting als de geselecteerde klas
-        const klassenInZelfdeRichting = this.klassen.filter(k => 
+        // Alle klassen in dezelfde graad en met dezelfde richtingcode als de geselecteerde klas
+        const klassenInZelfdeGraad = this.klassen.filter(k => 
+          k.graad === klas.graad && 
           k.richtingcode === klas.richtingcode
         );
         
-        // Haal alle klasnummers op van dezelfde richting
-        const klascodesInRichting = klassenInZelfdeRichting.map(k => k.klascode);
+        console.log(`Gevonden: ${klassenInZelfdeGraad.length} klassen in dezelfde graad (${klas.graad})`);
         
-        // Haal alle lessen op die bij deze richting horen
-        const lessenVoorRichting = this.lessentabel.filter(les => 
-          klascodesInRichting.includes(les.klascode)
+        // Haal alle klasnummers op van dezelfde graad
+        const klascodesInGraad = klassenInZelfdeGraad.map(k => k.klascode);
+        
+        // Haal alle lessen op die bij deze klassen horen
+        const lessenVoorGraad = this.lessentabel.filter(les => 
+          klascodesInGraad.includes(les.klascode)
         );
         
-        // Filter lessen voor deze specifieke klas
-        const lessenVoorKlas = this.lessentabel.filter(les => 
-          les.klascode === klascode
-        );
+        console.log(`Gevonden: ${lessenVoorGraad.length} lessen voor deze graad`);
         
         // Haal voetnoten op specifiek voor deze klas
         const voetnotenVoorKlas = this.footnotes.filter(f => f.klascode === klascode);
 
         // Render het slidein met alle gegevens
-        renderSlidein(klas, lessenVoorKlas, voetnotenVoorKlas);
+        renderSlidein(klas, lessenVoorGraad, voetnotenVoorKlas);
       } else {
         console.error(`Geen klas gevonden met code ${klascode}`);
+        
+        // Toon een foutmelding aan de gebruiker
+        const container = document.getElementById('lessentabel-container');
+        if (container) {
+          container.innerHTML = `
+            <div class="error-message">
+              Deze richting kon niet worden geladen. Probeer een andere richting of ververs de pagina.
+            </div>
+          `;
+        }
       }
     } catch (error) {
       console.error('Fout bij openen slidein:', error);
@@ -185,58 +164,62 @@ class LessentabellenAppClass {
       this.currentKlasCode = null;
     } catch (error) {
       console.error('Fout bij sluiten slidein:', error);
+      
+      // Forceer sluiten bij fout
+      document.getElementById("slidein")?.classList.remove("open");
+      document.getElementById("overlay")?.classList.remove("active");
     }
   }
   
   /**
-   * Afdrukken van de huidige lessentabel
+   * Start het printproces voor een specifieke klas
+   * @param {Object} klas - Het klasobject om af te drukken
    */
-  handlePrint() {
+  startPrintProcess(klas) {
     try {
-      // Voeg print class toe
+      console.log('Print proces gestart voor klas', klas?.klascode);
+      
+      // Gebruik de geïmporteerde functie uit print-handler.js
+      startPrintProcess(klas);
+    } catch (error) {
+      console.error('Fout bij starten printproces:', error);
+      
+      // Fallback: probeer eenvoudig printen als de module faalt
       document.body.classList.add('print-mode');
       
-      // Verberg knoppen en overlay
-      const closeBtn = document.querySelector('.close-btn');
-      const actionButtons = document.querySelector('.action-buttons');
-      const overlay = document.getElementById('overlay');
+      // Verberg interactieve elementen
+      document.querySelector('.close-btn')?.style.setProperty('display', 'none');
+      document.querySelector('.action-buttons')?.style.setProperty('display', 'none');
       
-      if (closeBtn) closeBtn.style.display = 'none';
-      if (actionButtons) actionButtons.style.display = 'none';
-      if (overlay) overlay.classList.remove('active');
-      
-      // Update datum
-      const datumEl = document.getElementById('datum-print');
-      if (datumEl) {
-        const now = new Date();
-        datumEl.textContent = now.toLocaleDateString('nl-BE', {
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric'
-        });
-      }
-      
-      // Start afdrukken
-      setTimeout(() => window.print(), 200);
-    } catch (error) {
-      console.error('Fout bij printen:', error);
-      // Probeer toch te printen
+      // Druk af
       window.print();
+      
+      // Herstel UI
+      setTimeout(() => {
+        document.body.classList.remove('print-mode');
+        document.querySelector('.close-btn')?.style.removeProperty('display');
+        document.querySelector('.action-buttons')?.style.removeProperty('display');
+      }, 1000);
     }
   }
   
   /**
-   * Opruimen na afdrukken
+   * Ruimt op na het afdrukken
    */
-  cleanupAfterPrint() {
-    document.body.classList.remove('print-mode');
-    
-    // Herstel UI elementen
-    const closeBtn = document.querySelector('.close-btn');
-    const actionButtons = document.querySelector('.action-buttons');
-    
-    if (closeBtn) closeBtn.style.removeProperty('display');
-    if (actionButtons) actionButtons.style.removeProperty('display');
+  cleanupAfterPrinting() {
+    try {
+      console.log('Opruimen na afdrukken');
+      
+      // Gebruik de geïmporteerde functie uit print-handler.js
+      cleanupAfterPrinting();
+    } catch (error) {
+      console.error('Fout bij opruimen na printen:', error);
+      
+      // Fallback cleanup
+      document.body.classList.remove('print-mode');
+      document.querySelector('.close-btn')?.style.removeProperty('display');
+      document.querySelector('.action-buttons')?.style.removeProperty('display');
+    }
   }
 
   /**
@@ -255,6 +238,26 @@ class LessentabellenAppClass {
         <button onclick="window.location.reload()" class="reload-btn">Pagina verversen</button>
       </div>
     `;
+  }
+  
+  /**
+   * Hulpfunctie om een klas op te halen op basis van klascode
+   * @param {string} klascode - De klascode om op te zoeken
+   * @returns {Object|null} - Het klasobject of null als niet gevonden
+   */
+  getKlasByCode(klascode) {
+    if (!klascode || !this.klassen || this.klassen.length === 0) return null;
+    return this.klassen.find(k => k.klascode === klascode) || null;
+  }
+  
+  /**
+   * Hulpfunctie om lessen op te halen voor een specifieke klascode
+   * @param {string} klascode - De klascode om lessen voor op te halen
+   * @returns {Array} - Array van lessen voor deze klascode
+   */
+  getLessenForKlas(klascode) {
+    if (!klascode || !this.lessentabel || this.lessentabel.length === 0) return [];
+    return this.lessentabel.filter(les => les.klascode === klascode);
   }
 }
 

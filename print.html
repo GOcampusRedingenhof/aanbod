@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Generator voor lessentabellen - GOcampus Redingenhof" />
+  <title>Lessentabellen Generator v33</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main>
+    <section id="controls" class="filter-panel">
+      <h2>SELECTEER JE OPTIES</h2>
+      <div class="filter-grid">
+        <div class="filter-group">
+          <label for="domain-select">DOMEIN:</label>
+          <select id="domain-select"><option value="">— Alle domeinen —</option></select>
+        </div>
+        <div class="filter-group">
+          <label for="grade-select">GRAAD:</label>
+          <select id="grade-select"><option value="">— Alle graden —</option></select>
+        </div>
+        <div class="filter-group">
+          <label for="finality-select">FINALITEIT:</label>
+          <select id="finality-select"><option value="">— Alle finaliteiten —</option></select>
+        </div>
+        <div class="filter-group">
+          <label for="richting-select">RICHTING:</label>
+          <select id="richting-select"><option value="">— Selecteer richting —</option></select>
+        </div>
+      </div>
+      <div class="button-group">
+        <button id="render-btn" class="primary-button">TOON TABEL</button>
+        <button id="print-btn" class="secondary-button">PRINT</button>
+      </div>
+    </section>
+
+    <section id="loading-indicator" class="loading hidden">
+      <div class="spinner"></div>
+      <p>Data wordt geladen…</p>
+    </section>
+
+    <section id="table-container" class="table-section">
+      <div class="welcome-message">
+        <h2>Welkom bij de Lessentabellen Generator</h2>
+        <p>Selecteer een domein, graad, finaliteit en richting.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 GOcampus Redingenhof. Alle rechten voorbehouden.</p>
+    <p>Versie 3.3</p>
+  </footer>
+
+  <!-- PapaParse voor CSV‑parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <script type="module" src="js/script.js"></script>
+</body>
+</html>

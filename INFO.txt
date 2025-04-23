@@ -1,0 +1,9 @@
+Version v19 – Final checklist
+
+✔ Table width constrained to 18cm, table auto-scalable, font-size reduced.
+✔ PNG now covers full A4 area: object-fit:cover, wrapper min-height:29.7cm.
+✔ SPECIFIEK GEDEELTE: fixed grouping logic to include group header hours and subrows of subvak entries.
+✔ Updated CSS for professional touches: dotted subrow borders, adjusted paddings.
+✔ INFO.txt and AI.txt structured as checklist.
+
+Please test print preview for table width and inclusion of specific section hours.

@@ -1,119 +1,179 @@
-/* print-styles.css - Vereenvoudigde en verbeterde versie */
+/* css/print-styles.css - Vereenvoudigde versie */
+
+/* Alleen printstijlen */
 @media print {
-  /* Basisregels voor A4-formaat */
-  @page {
-    size: A4;
-    margin: 1.5cm;
-  }
-  
+  /* Reset body */
   body {
-    background: white !important;
-    font-family: Arial, Helvetica, sans-serif !important;
-    color: black !important;
-  }
-  
-  /* Verberg elementen die niet nodig zijn voor printen */
-  .close-btn, 
-  .action-buttons, 
-  #overlay, 
-  #domains-container,
-  .lessentabellen-title, 
-  .slogan {
-    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 10pt !important;
+    color: #000 !important;
+    background: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  /* Stel absolute positionering uit voor printen */
+  /* Elementen verbergen die niet geprint moeten worden */
+  #print-button,
+  nav,
+  footer,
+  .domains-grid,
+  .close-btn,
+  .action-buttons,
+  #overlay,
+  #domains-container {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Reset slidein styles voor printen */
   #slidein {
     position: static !important;
     transform: none !important;
-    width: 100% !important;
-    max-width: none !important;
-    height: auto !important;
-    overflow: visible !important;
     box-shadow: none !important;
+    max-width: none !important;
+    width: 100% !important;
+    height: auto !important;
     padding: 0 !important;
     margin: 0 !important;
+    overflow: visible !important;
   }
-  
-  /* Opleiding titel centreren */
-  #opleiding-titel {
-    text-align: center !important;
-    font-size: 18pt !important;
-    margin: 0 0 1cm 0 !important;
-    color: black !important;
-    border-bottom: 1px solid #ccc !important;
-    padding-bottom: 0.5cm !important;
+
+  /* Content containers */
+  .print-container,
+  .lessentabellen-wrapper,
+  .detail-content {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
-  
-  /* Beschrijving tekst */
-  #opleiding-beschrijving {
-    font-size: 11pt !important;
-    margin-bottom: 1cm !important;
-    text-align: center !important;
-  }
-  
-  /* Tabel vormgeving */
+
+  /* Tabelstijlen voor printen */
   .lessentabel {
     width: 100% !important;
+    max-width: 100% !important;
     border-collapse: collapse !important;
-    margin-bottom: 1cm !important;
-    font-size: 10pt !important;
+    font-size: 9pt !important;
+    margin: 0.5cm auto !important;
+    border: 1px solid #999 !important;
   }
-  
+
   .lessentabel th,
   .lessentabel td {
-    border: 1px solid black !important;
-    padding: 0.2cm !important;
-    text-align: left !important;
-  }
-  
-  .lessentabel th {
-    background-color: #f3f3f3 !important;
-    font-weight: bold !important;
-  }
-  
-  /* Categorie headers */
-  .categorie-header th {
-    text-transform: uppercase !important;
-    background-color: #eaeaea !important;
-  }
-  
-  /* Subvakken iets inspringen */
-  .subvak td:first-child {
-    padding-left: 0.4cm !important;
-  }
-  
-  /* Totaalrij vet maken */
-  .totaal-row td {
-    font-weight: bold !important;
-    border-top: 2px solid black !important;
-  }
-  
-  /* Print-footer tonen */
-  .print-footer {
-    display: block !important;
-    margin-top: 1cm !important;
+    padding: 3px !important;
+    border: 1px solid #999 !important;
     font-size: 9pt !important;
-    text-align: right !important;
-    border-top: 1px solid #ccc !important;
-    padding-top: 0.5cm !important;
   }
-  
+
+  .lessentabel thead th {
+    background: #f0f0f0 !important;
+    color: black !important;
+    font-weight: bold !important;
+  }
+
+  .categorie-header th {
+    background: #e0e0e0 !important;
+    color: black !important;
+    font-weight: bold !important;
+  }
+
+  /* Titelstijlen voor printen */
+  #opleiding-titel {
+    font-size: 16pt !important;
+    margin-top: 0.5cm !important;
+    margin-bottom: 0.3cm !important;
+    text-align: center !important;
+    color: black !important;
+  }
+
+  #opleiding-beschrijving {
+    font-size: 9pt !important;
+    margin-bottom: 0.3cm !important;
+    text-align: center !important;
+    color: black !important;
+  }
+
   /* Voetnoten */
   .footnotes {
-    font-size: 9pt !important;
-    margin-top: 0.5cm !important;
-    border-top: 1px solid #ddd !important;
-    padding-top: 0.5cm !important;
+    font-size: 8pt !important;
+    margin-top: 0.3cm !important;
+    padding: 5px !important;
+    background: none !important;
+    border-top: 1px solid #ccc !important;
+    color: black !important;
+  }
+
+  /* Paginainstellingen */
+  @page {
+    size: A4 portrait;
+    margin: 0.5cm;
   }
   
-  .footnotes ul {
-    padding-left: 0.5cm !important;
+  /* Styling voor specifieke rijtypen */
+  .vak-header td {
+    background-color: #f5f5f5 !important;
+    font-weight: bold !important;
   }
   
-  /* Verwijder eventuele transform-schalering */
-  .lessentabel {
-    transform: none !important;
-    margin-bottom: 0 !important;
+  .subvak td:first-child {
+    padding-left: 10px !important;
+  }
+  
+  .totaal-row td {
+    font-weight: bold !important;
+    border-top: 2px solid #000 !important;
+  }
+  
+  .stage-row td {
+    border-top: 1px solid #000 !important;
+    background-color: #f5f5f5 !important;
+  }
+
+  /* Branding */
+  .logo-print {
+    display: block !important;
+    height: 30px !important;
+    margin: 0 0 0.3cm 0 !important;
+  }
+  
+  .datum {
+    display: block !important;
+    font-size: 7pt !important;
+    margin: 0.2cm 0 0 0 !important;
+    text-align: right !important;
+    color: #333 !important;
+  }
+  
+  .quote {
+    display: block !important;
+    font-size: 8pt !important;
+    margin: 0.2cm 0 0 0 !important;
+    text-align: left !important;
+    font-weight: bold !important;
+    color: #333 !important;
+  }
+}
+
+/* Schermversie styles - zorgt dat print elementen niet zichtbaar zijn in browser */
+@media screen {
+  .print-header,
+  .print-footer,
+  .logo-print,
+  .datum,
+  .quote {
+    display: none !important;
+  }
+  
+  body:not(.print-mode) #slidein {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  
+  body:not(.print-mode) .close-btn, 
+  body:not(.print-mode) .action-buttons a,
+  body:not(.print-mode) .action-buttons button {
+    transition: all 0.25s !important;
   }
 }
