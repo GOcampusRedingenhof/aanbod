@@ -3,33 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <title>Print Infokader</title>
-  <!-- Kies je eigen print-CSS of gebruik hieronder een basisstijl -->
-  <link rel="stylesheet" href="css/print-styles.css">
+
+  <!-- Print-opmaak -->
   <style>
-    body {
-      margin: 2cm;
-      font-family: 'Montserrat', sans-serif;
+    @media print {
+      body {
+        margin: 2cm !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 10pt !important;
+        color: #000 !important;
+        background: white !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .logo {
+        display: block !important;
+        margin: 0 auto 1cm auto !important;
+        max-width: 5cm !important;
+      }
+
+      .titel {
+        font-size: 16pt !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        margin-bottom: 1cm !important;
+      }
+
+      .lessentabel {
+        width: 100% !important;
+        max-height: 20cm !important;
+        overflow: hidden !important;
+        page-break-inside: avoid !important;
+        border-collapse: collapse !important;
+        font-size: 9pt !important;
+        border: 1px solid #999 !important;
+        margin: 0 auto 1cm auto !important;
+      }
+
+      .lessentabel th,
+      .lessentabel td {
+        border: 1px solid #999 !important;
+        padding: 4px !important;
+      }
+
+      .banner {
+        display: block !important;
+        margin: 2cm auto 0 auto !important;
+        width: 100% !important;
+        max-width: 18cm !important;
+      }
     }
   </style>
 </head>
+
 <body class="print-preview">
+  <!-- Logo bovenaan -->
+  <img src="ae0db03c-08b0-4ed4-b019-c0ba9e8553ba.png" class="logo" alt="GO! campus Redingenhof logo">
+
+  <!-- Dynamische richtingtitel -->
+  <div class="titel" id="richting-titel"></div>
+
+  <!-- Inhoud van infokader -->
   <div id="print-content"></div>
 
+  <!-- Banner onderaan -->
+  <img src="https://images.squarespace-cdn.com/content/670992d66064015802d7e5dc/ef0fe42d-578e-41dd-ba80-bcb23fd4b3e7/SAMEN+VER%21+%283%29.png?content-type=image%2Fpng" class="banner" alt="Samen Ver!">
+
+  <!-- Script voor dynamische inhoud en titel -->
   <script>
-    // Lees de opgeslagen infokader-inhoud
-    const content = localStorage.getItem('infokaderContent')
-      || '<p><em>Geen inhoud gevonden om te printen.</em></p>';
+    // Lees infokader-inhoud en richtingtitel uit localStorage
+    const content = localStorage.getItem('infokaderContent') || '<p><em>Geen inhoud gevonden om te printen.</em></p>';
     document.getElementById('print-content').innerHTML = content;
 
-    // Print zodra de pagina volledig geladen is
-    window.onload = () => {
-      window.print();
-    };
+    const richtingTitel = localStorage.getItem('richtingTitel') || 'Richting Onbekend';
+    document.getElementById('richting-titel').innerText = richtingTitel;
 
-    // Sluit het venster na het printen
-    window.onafterprint = () => {
-      window.close();
-    };
+    // Bestandsnaam dynamisch
+    document.title = richtingTitel + ' - GO! campus Redingenhof';
+
+    // Print automatisch
+    window.onload = () => { window.print(); };
+    window.onafterprint = () => { window.close(); };
   </script>
 </body>
 </html>
