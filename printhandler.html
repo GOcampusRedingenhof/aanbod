@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Print Infokader</title>
+  <!-- Kies je eigen print-CSS of gebruik hieronder een basisstijl -->
+  <link rel="stylesheet" href="css/print-styles.css">
+  <style>
+    body {
+      margin: 2cm;
+      font-family: 'Montserrat', sans-serif;
+    }
+  </style>
+</head>
+<body class="print-preview">
+  <div id="print-content"></div>
+
+  <script>
+    // Lees de opgeslagen infokader-inhoud
+    const content = localStorage.getItem('infokaderContent')
+      || '<p><em>Geen inhoud gevonden om te printen.</em></p>';
+    document.getElementById('print-content').innerHTML = content;
+
+    // Print zodra de pagina volledig geladen is
+    window.onload = () => {
+      window.print();
+    };
+
+    // Sluit het venster na het printen
+    window.onafterprint = () => {
+      window.close();
+    };
+  </script>
+</body>
+</html>
