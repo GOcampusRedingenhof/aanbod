@@ -130,7 +130,7 @@ class LessentabellenAppClass {
         const voetnotenVoorKlas = this.footnotes.filter(f => f.klascode === klascode);
 
         // Render het slidein met alle gegevens
-        renderSlidein(klas, lessenVoorGraad, voetnotenVoorKlas);
+        renderSlidein(klas, lessenVoorGraad, voetnotenVoorKlas, klassenInZelfdeGraad);
       } else {
         console.error(`Geen klas gevonden met code ${klascode}`);
         

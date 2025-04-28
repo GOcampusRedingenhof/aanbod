@@ -14,7 +14,7 @@ let activeObserver = null;
  * @param {Array} lessen - Alle lesitems van alle klassen in de richting
  * @param {Array} voetnoten - Alle voetnoten die bij deze richting horen
  */
-export function renderSlidein(klas, lessen, voetnoten) {
+export function renderSlidein(klas, lessen, voetnoten, klassenInRichting) {
   try {
     // Cleanup eventuele bestaande resources
     cleanupResources();
@@ -26,7 +26,7 @@ export function renderSlidein(klas, lessen, voetnoten) {
     populateBasicInfo(klas);
     
     // Genereer en vul de lessentabel
-    const lesHTML = generateLessentabel(lessen, klas);
+    const lesHTML = generateLessentabel(lessen, klas, klassenInRichting);
     document.getElementById("lessentabel-container").innerHTML = lesHTML;
 
     // Voeg eventuele voetnoten toe

@@ -12,7 +12,7 @@ import {
  * @param {Object} klasData Metadata van de geselecteerde klas (o.a. klascode, stage_weken)
  * @returns {string}        De complete HTML-string van de tabel
  */
-export function generateLessentabel(lessen, klasData) {
+export function generateLessentabel(lessen, klasData, klassenInRichting) {
   // 1) bepaal de richtingcode (tekst na de cijfers in klascode)
   const direction = klasData.klascode.replace(/^\d+/, '');
 
@@ -20,7 +20,7 @@ export function generateLessentabel(lessen, klasData) {
   const klasCodes = Array.from(new Set(
     lessen
       .map(l => l.klascode)
-      .filter(c => c.replace(/^\d+/, '') === direction)
+      .filter(c => c.replace(/^[0-9]+/, '') === direction)
   ));
 
   // 3) sorteer numeriek op graad
@@ -29,6 +29,14 @@ export function generateLessentabel(lessen, klasData) {
     if (na !== nb) return na - nb;
     return a.localeCompare(b);
   });
+
+  // Mapping klascode -> stage_weken
+  const stageMap = {};
+  if (Array.isArray(klassenInRichting)) {
+    klassenInRichting.forEach(k => {
+      stageMap[k.klascode] = k.stage_weken;
+    });
+  }
 
   // 4) bouw de header
   const header = `
@@ -44,7 +52,7 @@ export function generateLessentabel(lessen, klasData) {
 
   // 6) footer-rows
   const totalRow = addTotalRow(lessen, klasCodes);
-  const stageRow = addStageRow(klasData, klasCodes);
+  const stageRow = addStageRow(stageMap, klasCodes);
 
   // 7) return de complete tabel
   return `

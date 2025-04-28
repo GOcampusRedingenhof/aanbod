@@ -50,7 +50,7 @@ export function addBasisvormingSection(lessen, klasCodes) {
 
     html += `
       <tr class="vak-row${isSub ? ' subvak-row subvak' : ''}">
-        <td>${vak}</td>
+        <td>${isSub ? '► ' : ''}${vak}</td>
         ${cells}
       </tr>`;
   });
@@ -94,7 +94,7 @@ export function addSpecifiekSection(lessen, klasCodes) {
 
     html += `
       <tr class="vak-row${isSub ? ' subvak-row subvak' : ''}">
-        <td>${vak}</td>
+        <td>${isSub ? '► ' : ''}${vak}</td>
         ${cells}
       </tr>`;
   });
@@ -126,15 +126,13 @@ export function addTotalRow(lessen, klasCodes) {
 /**
  * 4) Stage-rij: label + per klas het aantal weken of leeg.
  */
-export function addStageRow(klasData, klasCodes) {
-  if (!klasData || klasData.stage_weken == null) return '';
+export function addStageRow(stageMap, klasCodes) {
   const codes = Array.isArray(klasCodes) ? klasCodes : [klasCodes];
-  const cells = codes
-    .map(code =>
-      code === klasData.klascode
-        ? `<td>${formatUren(klasData.stage_weken)} weken</td>`
-        : `<td></td>`
-    )
-    .join('');
+  // Verzamel per klas het aantal weken (of leeg)
+  const values = codes.map(code => stageMap && stageMap[code] != null && String(stageMap[code]).trim() !== '' && String(stageMap[code]).trim() !== '-' ? String(stageMap[code]).trim() : '');
+  // Toon de rij alleen als minstens één waarde niet leeg is en > 0
+  const hasAny = values.some(v => !isNaN(parseFloat(v)) && parseFloat(v) > 0);
+  if (!hasAny) return '';
+  const cells = values.map(v => v && !isNaN(parseFloat(v)) && parseFloat(v) > 0 ? `<td>${v} weken</td>` : '<td></td>').join('');
   return `<tr class="stage-row"><th>Aantal stageweken</th>${cells}</tr>`;
 }

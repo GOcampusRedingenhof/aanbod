@@ -1,4 +1,4 @@
-  klascode,vak,categorie,type,subvak,optie,uren
+klascode,vak,categorie,type,subvak,optie,uren
 5APDA,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 5APDA,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 5APDA,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
@@ -12,9 +12,9 @@
 5APDA,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 5APDA,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
 5APDA,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-5APDA,Informaticawetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+5APDA,► Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,4
 5APDA,Digitaal ondersteuner,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-5APDA,Applicatie- en datatechnieken,specifiek gedeelte,vak,WAAR,ONWAAR,7
+5APDA,► Applicatie- en datatechnieken,specifiek gedeelte,vak,WAAR,ONWAAR,8
 6APDA,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 6APDA,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6APDA,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
@@ -28,21 +28,21 @@
 6APDA,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 6APDA,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
 6APDA,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-6APDA,Informaticawetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
+6APDA,► Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,4
 6APDA,Digitaal ondersteuner,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-6APDA,Applicatie- en datatechnieken,specifiek gedeelte,vak,WAAR,ONWAAR,7
+6APDA,► Applicatie- en datatechnieken,specifiek gedeelte,vak,WAAR,ONWAAR,8
 5ASWW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-5ASWW,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,2
-5ASWW,STEM (1),basisvorming,vak,ONWAAR,ONWAAR,4
-5ASWW,MTC (2),basisvorming,vak,ONWAAR,ONWAAR,4
+5ASWW,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
+5ASWW,STEM (1),basisvorming,vak,WAAR,ONWAAR,4
+5ASWW,MTC (2),basisvorming,vak,WAAR,ONWAAR,4
 5ASWW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
-5ASWW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+5ASWW,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 5ASWW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 5ASWW,Basiszorg en ondersteuning,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 5ASWW,Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,4
 5ASWW,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,6
 5ASWW,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,4
-5ASWW,Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
+5ASWW,Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,4
 5AUTO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 5AUTO,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
 5AUTO,STEM (1),basisvorming,vak,WAAR,ONWAAR,4
@@ -160,7 +160,7 @@
 6BO,Financiële algebra (wiskunde),specifiek gedeelte,vak,WAAR,ONWAAR,1
 6BO,Algemene economie,specifiek gedeelte,vak,WAAR,ONWAAR,2
 6BO,Bedrijfswetenschappen incl. mini-onderneming,specifiek gedeelte,vak,WAAR,ONWAAR,3
-6BO,Toegepaste economie/toegepaste informatica incl. mini-onderneming,specifiek gedeelte,vak,WAAR,ONWAAR,6
+6BO,Toegepaste economie/toegepaste informatica incl. mini-onderneming,specifiek gedeelte,vak,WAAR,ONWAAR,8
 3BW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 3BW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 3BW,Engels,basisvorming,vak,ONWAAR,ONWAAR,3
@@ -174,9 +174,9 @@
 3BW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 3BW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 3BW,Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-3BW,Economie,specifiek gedeelte,vak,WAAR,ONWAAR,3
-3BW,Bedrijfswetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,3
-3BW,Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,2
+3BW,► Economie,specifiek gedeelte,vak,WAAR,ONWAAR,3
+3BW,► Bedrijfswetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,3
+3BW,► Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,2
 4BW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 4BW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 4BW,Engels,basisvorming,vak,ONWAAR,ONWAAR,3
@@ -190,9 +190,9 @@
 4BW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 4BW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 4BW,Bedrijfswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-4BW,Economie,specifiek gedeelte,vak,WAAR,ONWAAR,3
-4BW,Bedrijfswetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,3
-4BW,Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,2
+4BW,► Economie,specifiek gedeelte,vak,WAAR,ONWAAR,3
+4BW,► Bedrijfswetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,3
+4BW,► Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,2
 5BIN,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 5BIN,PAV,basisvorming,vak,ONWAAR,ONWAAR,
 5BIN,STEM (1),basisvorming,vak,WAAR,ONWAAR,4
@@ -228,6 +228,72 @@
 5CO,Economie (algemeen),specifiek gedeelte,vak,WAAR,ONWAAR,2
 5CO,Bedrijfswetenschappen incl. mini-onderneming,specifiek gedeelte,vak,WAAR,ONWAAR,4
 5CO,Toegepaste economie/toegepaste informatica incl. mini-onderneming,specifiek gedeelte,vak,WAAR,ONWAAR,8
+5DUA-ASWW,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+5DUA-ASWW,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+5DUA-ASWW,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5DUA-ASWW,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+6DUA-ASWW,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+6DUA-ASWW,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+6DUA-ASWW,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6DUA-ASWW,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+5DUA-AUTO,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+5DUA-AUTO,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+5DUA-AUTO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5DUA-AUTO,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+6DUA-AUTO,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+6DUA-AUTO,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+6DUA-AUTO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6DUA-AUTO,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+5DUA-BIN,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+5DUA-BIN,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+5DUA-BIN,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5DUA-BIN,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+6DUA-BIN,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+6DUA-BIN,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+6DUA-BIN,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6DUA-BIN,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+5DUA-ELINS,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+5DUA-ELINS,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+5DUA-ELINS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5DUA-ELINS,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+6DUA-ELINS,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+6DUA-ELINS,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+6DUA-ELINS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6DUA-ELINS,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+5DUA-FIETS,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+5DUA-FIETS,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+5DUA-FIETS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5DUA-FIETS,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+6DUA-FIETS,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+6DUA-FIETS,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+6DUA-FIETS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6DUA-FIETS,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+5DUA-HZ,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+5DUA-HZ,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+5DUA-HZ,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5DUA-HZ,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+6DUA-HZ,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+6DUA-HZ,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+6DUA-HZ,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6DUA-HZ,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+5DUA-KW,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+5DUA-KW,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+5DUA-KW,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+5DUA-KW,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+6DUA-KW,BGV Beroepsgerichte vorming,basisvorming,vak,ONWAAR,ONWAAR,6
+6DUA-KW,PAV,basisvorming,vak,ONWAAR,ONWAAR,8
+6DUA-KW,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
+6DUA-KW,Werkplekleren,basisvorming,vak,ONWAAR,ONWAAR,22
+7DUA-SPAUTO,BGV Beroepsgerichte vorming,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+7DUA-SPAUTO,Werkplekleren,specifiek gedeelte,vak,ONWAAR,ONWAAR,32
+7DUA-SPEM,BGV Beroepsgerichte vorming,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+7DUA-SPEM,Werkplekleren,specifiek gedeelte,vak,ONWAAR,ONWAAR,32
+7DUA-BUKU,BGV Beroepsgerichte vorming,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+7DUA-BUKU,Werkplekleren,specifiek gedeelte,vak,ONWAAR,ONWAAR,32
+7DUA-SHPAAR,BGV Beroepsgerichte vorming,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+7DUA-SHPAAR,Werkplekleren,specifiek gedeelte,vak,ONWAAR,ONWAAR,32
+7DUA-VZORG,BGV Beroepsgerichte vorming,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
+7DUA-VZORG,Werkplekleren,specifiek gedeelte,vak,ONWAAR,ONWAAR,32
 3ELEK,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 3ELEK,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
 3ELEK,STEM (1),basisvorming,vak,WAAR,ONWAAR,
@@ -267,7 +333,7 @@
 6ELINS,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 6ELINS,Elektrische installaties,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
 3EMT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-3EMT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+3EMT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 3EMT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 3EMT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 3EMT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
@@ -278,30 +344,30 @@
 3EMT,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
 3EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 3EMT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-3EMT,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-3EMT,Elektromechanische technieken,specifiek gedeelte,vak,OWAAR,ONWAAR,
-3EMT,Mechanica,specifiek gedeelte,vak,WAAR,ONWAAR,2
-3EMT,Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
-3EMT,STEM Engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
-3EMT,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,8
-4EMT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+3EMT,► Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+3EMT,► Mechanica,specifiek gedeelte,vak,WAAR,ONWAAR,2
+3EMT,► Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
+3EMT,► STEM Engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
+3EMT,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+3EMT,► Elektromechanische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,8
+4EMT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 4EMT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 4EMT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 4EMT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 4EMT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
 4EMT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
-4EMT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+4EMT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,4
 4EMT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-4EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-4EMT,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
-4EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
+4EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+4EMT,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,-
+4EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 4EMT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-4EMT,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-4EMT,Elektromechanische technieken,specifiek gedeelte,vak,ONWAAR,ONWAAR,8
-4EMT,Mechanica,specifiek gedeelte,vak,WAAR,ONWAAR,2
-4EMT,Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
-4EMT,STEM Engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
-4EMT,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,8
+4EMT,► Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,-
+4EMT,► Mechanica,specifiek gedeelte,vak,WAAR,ONWAAR,2
+4EMT,► Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
+4EMT,► STEM Engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
+4EMT,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
+4EMT,► Elektromechanische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,8
 5EMT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 5EMT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 5EMT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -314,12 +380,12 @@
 5EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
 5EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 5EMT,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
-5EMT,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-5EMT,Mechanica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-5EMT,Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-5EMT,STEM Engineering,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+5EMT,► Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5EMT,► Mechanica,specifiek gedeelte,vak,WAAR,ONWAAR,2
+5EMT,► Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
+5EMT,► STEM Engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5EMT,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-5EMT,Elektromechanische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,7
+5EMT,► Elektromechanische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,8
 6EMT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 6EMT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6EMT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -332,12 +398,12 @@
 6EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
 6EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 6EMT,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
-6EMT,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-6EMT,Mechanica,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-6EMT,Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-6EMT,STEM Engineering,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+6EMT,► Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6EMT,► Mechanica,specifiek gedeelte,vak,WAAR,ONWAAR,2
+6EMT,► Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
+6EMT,► STEM Engineering,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6EMT,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-6EMT,Elektromechanische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,7
+6EMT,► Elektromechanische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,8
 3GRATECH,Godsdienst en zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 3GRATECH,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 3GRATECH,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -387,7 +453,7 @@
 5GRAFI,Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5GRAFI,Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5GRAFI,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-5GRAFI,Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,11
+5GRAFI,Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,12
 6GRAFI,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 6GRAFI,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6GRAFI,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -400,10 +466,10 @@
 6GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
 6GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 6GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
-6GRAFI,Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6GRAFI,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 6GRAFI,Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6GRAFI,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-6GRAFI,Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,11
+6GRAFI,Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,12
 3HSZ,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 3HSZ,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
 3HSZ,STEM (1),basisvorming,vak,WAAR,ONWAAR,
@@ -474,9 +540,9 @@
 5ICW,Nederlands,specifiek gedeelte,vak,ONWAAR,ONWAAR,-
 5ICW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5ICW,Informatica- en communicatiewetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-5ICW,Elektronica,specifiek gedeelte,vak,WAAR,ONWAAR,1
-5ICW,Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
-5ICW,Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,8
+5ICW,► Elektronica,specifiek gedeelte,vak,WAAR,ONWAAR,1
+5ICW,► Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
+5ICW,► Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,8
 6ICW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 6ICW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6ICW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
@@ -491,9 +557,9 @@
 6ICW,Nederlands,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 6ICW,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 6ICW,Informatica- en communicatiewetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-6ICW,Elektronica,specifiek gedeelte,vak,WAAR,ONWAAR,1
-6ICW,Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
-6ICW,Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,8
+6ICW,► Elektronica,specifiek gedeelte,vak,WAAR,ONWAAR,1
+6ICW,► Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
+6ICW,► Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,8
 5KW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 5KW,PAV,basisvorming,vak,ONWAAR,ONWAAR,
 5KW,STEM (1),basisvorming,vak,WAAR,ONWAAR,4
@@ -625,7 +691,7 @@
 6OOS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 6OOS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 6OOS,"Onthaal, organisatie en sales",specifiek gedeelte,vak,ONWAAR,ONWAAR,
-6OOS,Toegepaste Economie/Toeg. Inform.,specifiek gedeelte,vak,WAAR,ONWAAR,10
+6OOS,Toegepaste economie/Toegepaste informatica,specifiek gedeelte,vak,WAAR,ONWAAR,10
 6OOS,Frans,specifiek gedeelte,vak,WAAR,ONWAAR,2
 6OOS,Engels,specifiek gedeelte,vak,WAAR,ONWAAR,2
 6OOS,Duits,specifiek gedeelte,vak,WAAR,ONWAAR,2
@@ -643,7 +709,7 @@
 5OB,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
 5OB,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 5OB,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
-5OB,Pedagogiek,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
+5OB,Pedagogiek,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5OB,Opvoeding en begeleiding,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 5OB,Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5OB,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,1
@@ -666,7 +732,7 @@
 6OB,Opvoeding en begeleiding,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 6OB,Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6OB,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,1
-6OB,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
+6OB,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,7
 6OB,Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,1
 3OL,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 3OL,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
@@ -711,15 +777,11 @@
 6PRO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 6PRO,Preventief onderhoud machines en installaties,specifiek gedeelte,vak,ONWAAR,ONWAAR,18
 7SCHAKEL,Nederlands,basisvorming,vak,ONWAAR,WAAR,6
-7SCHAKEL,Engels,basisvorming,vak,ONWAAR,WAAR,3
-7SCHAKEL,Frans,basisvorming,vak,ONWAAR,WAAR,4
+7SCHAKEL,Engels (1 wisseluur),basisvorming,vak,ONWAAR,WAAR,3.5
+7SCHAKEL,Frans (1 wisseluur),basisvorming,vak,ONWAAR,WAAR,3.5
 7SCHAKEL,Wiskunde,basisvorming,vak,ONWAAR,WAAR,7
-7SCHAKEL,Natuurwetenschappen,basisvorming,vak,ONWAAR,WAAR,4
-7SCHAKEL,Economie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-7SCHAKEL,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-7SCHAKEL,Gedragswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-7SCHAKEL,Bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
-7SCHAKEL,Vrije ruimte,vrije ruimte,vak,ONWAAR,ONWAAR,4
+7SCHAKEL,Natuurwetenschappen,basisvorming,vak,ONWAAR,WAAR,6
+7SCHAKEL,Socio en economische wetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,6
 3SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 3SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 3SPORT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -778,7 +840,7 @@
 5SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 5SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 6SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-6SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
+6SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6SPORT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 6SPORT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 6SPORT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
@@ -890,10 +952,10 @@
 6TOE,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 6TOE,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
 6TOE,Toerisme ,specifiek gedeelte,vak,ONWAAR,ONWAAR,
-6TOE,Engels,specifiek gedeelte,vak,WAAR,WAAR,1
-6TOE,Frans,specifiek gedeelte,vak,WAAR,WAAR,1
-6TOE,Toeristische geografie,specifiek gedeelte,vak,WAAR,ONWAAR,2
-6TOE,Toerisme,specifiek gedeelte,vak,WAAR,ONWAAR,6
+6TOE,Engels,specifiek gedeelte,vak,WAAR,WAAR,2
+6TOE,Frans,specifiek gedeelte,vak,WAAR,WAAR,2
+6TOE,Toeristische geografie,specifiek gedeelte,vak,WAAR,ONWAAR,3
+6TOE,Toerisme,specifiek gedeelte,vak,WAAR,ONWAAR,8
 3TOPEC,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 3TOPEC,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 3TOPEC,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -1018,7 +1080,7 @@
 6TS,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
 6TS,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 6TS,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
-6TS,Geschiedenis (incl. burgerschap),basisvorming,vak,ONWAAR,ONWAAR,2
+6TS,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
 6TS,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 6TS,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 6TS,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1

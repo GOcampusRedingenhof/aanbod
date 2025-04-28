@@ -2,6 +2,7 @@ klascode,richtingcode,richting,graad,domein,finaliteit,stage_weken
 5APDA,APDA,Applicatie- en datatechnieken,DERDE GRAAD,STEM,dubbele finaliteit,2 
 6APDA,APDA,Applicatie- en datatechnieken,DERDE GRAAD,STEM,dubbele finaliteit,2 
 5ASWW,ASWW,"Assistentie in wonen, zorg en welzijn",DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,6 
+
 5AUTO,AUTO,Onderhoudsmechanica auto,DERDE GRAAD,STEM,arbeidsmarkt,4 
 6AUTO,AUTO,Onderhoudsmechanica auto,DERDE GRAAD,STEM,arbeidsmarkt,4 
 5BZO,BZO,Basiszorg en ondersteuning,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,6 
@@ -15,6 +16,26 @@ klascode,richtingcode,richting,graad,domein,finaliteit,stage_weken
 5BIN,BIN,Binnenschrijnwerk en interieur,DERDE GRAAD,STEM,arbeidsmarkt,4 
 6BIN,BIN,Binnenschrijnwerk en interieur,DERDE GRAAD,STEM,arbeidsmarkt,4 
 5CO,CO,Commerciële Organisatie,DERDE GRAAD,Economie & Organisatie,doorstroom, 
+5DUA-ASWW,DUA-ASWW,"Assistentie in wonen, zorg en welzijn Duaal",DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,
+5DUA-AUTO,DUA-AUTO,Onderhoudsmechanica auto Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+6DUA-AUTO,DUA-AUTO,Onderhoudsmechanica auto Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+5DUA-BIN,DUA-BIN,Binnenschrijnwerk en interieur Duaal,DERDE GRAAD,STEM,arbeidsmarkt, 
+6DUA-BIN,DUA-BIN,Binnenschrijnwerk en interieur Duaal,DERDE GRAAD,STEM,arbeidsmarkt, 
+5DUA-ELINS,DUA-ELINS,Elektrische installaties Duaal,DERDE GRAAD,STEM,arbeidsmarkt, 
+6DUA-ELINS,DUA-ELINS,Elektrische installaties Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+5DUA-FIETS,DUA-FIETS,Fietshersteller Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+6DUA-FIETS,DUA-FIETS,Fietshersteller Duaal,DERDE GRAAD,STEM,arbeidsmarkt, 
+5DUA-HZ,HZ,Haarverzorging Duaal,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,4 
+6DUA-HZ,HZ,Haarverzorging Duaal,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,4 
+5DUA-KW,DUA-KW,Koetswerk Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+6DUA-KW,DUA-KW,Koetswerk Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+5DUA-OOS,DUA-OOS,Onthaal Organisatie & Sales Duaal,DERDE GRAAD,Economie & Organisatie,arbeidsmarkt,
+6DUA-OOS,DUA-OOS,Onthaal Organisatie & Sales Duaal,DERDE GRAAD,Economie & Organisatie,arbeidsmarkt,
+7DUA-SPAUTO,DUA-SPAUTO,Onderhoudsmechanica personenwagens en lichte bedrijfsvoertuigen duaal,ZEVENDE JAAR,STEM,arbeidsmarkt,
+7DUA-BUKU,DUA-BUKU,Buitenschrijnwerk kunststoffen/PVC duaal,ZEVENDE JAAR,STEM,arbeidsmarkt,
+7DUA-SPEM,DUA-SPEM,Elektromecanicien duaal,ZEVENDE JAAR,STEM,arbeidsmarkt,
+7DUA-SHPAAR,DUA-SPHAAR,Kapper-stylist duaal,ZEVENDE JAAR,Maatschappij & Welzijn,arbeidsmarkt,
+7DUA-VZORG,DUA-VZORG,Verzorgende zorgkundige duaal,ZEVENDE JAAR,Maatschappij & Welzijn,arbeidsmarkt,
 3ELEK,ELEK,Elektriciteit,TWEEDE GRAAD,STEM,arbeidsmarkt,
 4ELEK,ELEK,Elektriciteit,TWEEDE GRAAD,STEM,arbeidsmarkt,
 5ELINS,ELINS,Elektrische installaties,DERDE GRAAD,STEM,arbeidsmarkt,4 
@@ -60,8 +81,8 @@ klascode,richtingcode,richting,graad,domein,finaliteit,stage_weken
 4SPW,SPW,Sportwetenschappen,TWEEDE GRAAD,Sport & Topsport,doorstroom,
 5SPW,SPW,Sportwetenschappen,DERDE GRAAD,Sport & Topsport,doorstroom,
 6SPW,SPW,Sportwetenschappen,DERDE GRAAD,Sport & Topsport,doorstroom,
-5TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,doorstroom,0
-6TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,doorstroom,5
+5TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,dubbele finaliteit,2
+6TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,dubbele finaliteit,5
 3TOPEC,TOPEC,Topsport economie,TWEEDE GRAAD,Sport & Topsport,doorstroom,
 4TOPEC,TOPEC,Topsport economie,TWEEDE GRAAD,Sport & Topsport,doorstroom,
 5TOPEC,TOPEC,Topsport economie,DERDE GRAAD,Sport & Topsport,doorstroom,
@@ -76,10 +97,5 @@ klascode,richtingcode,richting,graad,domein,finaliteit,stage_weken
 6TS,TS,Topsport,DERDE GRAAD,Sport & Topsport,dubbele finaliteit,
 3ZW,ZW,Zorg en welzijn,TWEEDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,
 4ZW,ZW,Zorg en welzijn,TWEEDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,
-7SPAUTO,SPAUTO,Onderhoudsmechanica personenwagens en lichte bedrijfsvoertuigen duaal,ZEVENDE JAAR,STEM,arbeidsmarkt,12
-7BUKU,BUKU,Buitenschrijnwerk kunststoffen/PVC duaal,ZEVENDE JAAR,STEM,arbeidsmarkt,12
-7SPEM,SPEM,Elektromecanicien duaal,ZEVENDE JAAR,STEM,arbeidsmarkt,12
 1OKAN,OKAN,Onthaalonderwijs voor anderstalige nieuwkomers,,OKAN,,
 2OKAN,OKAN,Schakelklassen,,OKAN,,
-7SHPAAR,SPHAAR,Kapper-stylist duaal,ZEVENDE JAAR,Maatschappij & Welzijn,arbeidsmarkt,12
-7VZORG,VZORG,Verzorgende zorgkundige duaal,ZEVENDE JAAR,Maatschappij & Welzijn,arbeidsmarkt,12
