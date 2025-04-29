@@ -82,11 +82,13 @@ export function getDomeinMeta(domeinKey) {
   return domainColors[domeinKey] || domainColors['eerste-graad'];
 }
 
-// 5. CSV-paden (voor loader.js)
+// Dynamisch base pad bepalen voor data-bestanden
+const GITHUB_CDN_BASE = 'https://cdn.jsdelivr.net/gh/GOcampusRedingenhof/aanbod@main/';
+
 export const csvUrls = {
-  klassen: 'data/klassen.csv',
-  lessentabel: 'data/lessentabel.csv',
-  voetnoten: 'data/voetnoten.csv'
+  klassen: GITHUB_CDN_BASE + 'data/klassen.csv',
+  lessentabel: GITHUB_CDN_BASE + 'data/lessentabel.csv',
+  voetnoten: GITHUB_CDN_BASE + 'data/voetnoten.csv'
 };
 
 /**
