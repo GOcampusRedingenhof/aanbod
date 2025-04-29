@@ -67,7 +67,7 @@
   margin: 0;
   font-size: 2.25rem;
   font-weight: 700;
-  color: var(--app-domain-base);
+  color: var(--domain-base, #0C8464);
   text-align: center;
   position: relative;
   padding-bottom: 0.75rem;
@@ -144,7 +144,7 @@
 .action-buttons button {
   padding: 0.75rem 1.5rem;
   background: var(--app-domain-base);
-  color: white;
+  color: var(--domain-textBtn, var(--domain-text, #fff)) !important;
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -302,44 +302,25 @@
   border-left: 4px solid var(--app-domain-mid, #48A787);
 }
 
-/* ----- Subvak styling ----- */
+/* ----- Subvak styling: centraal via domein-variabelen ----- */
+.lessentabel tr.subvak-row td,
 .lessentabel tr.subvak-row td:first-child {
-  position: relative;
-  /* ruimte voor marker + tekst */
-  padding-left: 1.8em !important;
-  /* italics + kleur */
+  color: var(--domain-base, #2B2243) !important;
   font-style: italic;
-  color: var(--app-domain-base, #0C8464) !important;
-  /* betere tekstwrap */
-  white-space: normal;
-  word-break: break-word;
-  hyphens: auto;
 }
-
-.lessentabel tr.subvak-row td:first-child::before {
-  /* pijl + eventuele NBSP’s */
-  content: '';
-  /* positionering */
-  position: absolute;
-  left: 0.4em;
-  top: 50%;
-  transform: translateY(-50%);
-  /* styling */
-  font-size: 1.1em;
-  font-weight: bold;
-  color: var(--app-domain-base, #0C8464);
-  /* alleen hier voegen we extra marge toe vóór de tekst */
-  margin-right: 1.2em;  /* ← speel met deze waarde */
+.lessentabel tr.subvak-row td:first-child::before,
+.subvak-marker {
+  color: var(--domain-mid, #254A87) !important;
 }
-
-/* Zorg dat subvak-row altijd lichter is */
 .lessentabel tr.subvak-row {
-  background: rgba(12,132,100,0.06);
+  background: color-mix(in srgb, var(--domain-base, #2B2243) 6%, #fff 94%) !important;
 }
 
-/* Subvakken: alle kolommen in domeinkleur (optioneel) */
-.lessentabel tr.subvak-row td {
-  color: var(--app-domain-base, #0C8464) !important;
+/* Verwijder domeinspecifieke overrides voor subvakken */
+.lessentabel.domein-stem tr.subvak-row td,
+.lessentabel.domein-stem tr.subvak-row {
+  color: unset !important;
+  background: unset !important;
 }
 
 /* Extra: subvak-row achtergrond subtiel lichter */
@@ -509,16 +490,21 @@
 
 /* Donkerpaarse organisatiekleur toepassen op tekst in detailvenster */
 .lessentabellen-wrapper,
-.lessentabellen-wrapper h2,
 .lessentabellen-wrapper .action-buttons a,
 .lessentabellen-wrapper .action-buttons button,
 .lessentabellen-wrapper .detail-header,
-.lessentabellen-wrapper .detail-header h2,
 .lessentabellen-wrapper .detail-header p {
-  color: #2B2243 !important; /* Donkerpaars, organisatiekleur */
+  color: var(--domain-textBtn, var(--domain-text, #2B2243)) !important;
+}
+
+/* Forceer de domeinkleur op de titel in de detailview */
+.lessentabellen-wrapper #opleiding-titel {
+  color: var(--domain-base, #0C8464) !important;
 }
 
 /* Zorg dat iconen in buttons ook paars zijn */
-.lessentabellen-wrapper .action-buttons svg {
-  stroke: #2B2243 !important;
+.action-buttons a svg,
+.action-buttons button svg {
+  stroke: var(--domain-textBtn, var(--domain-text, #2B2243)) !important;
+  color: var(--domain-textBtn, var(--domain-text, #2B2243)) !important;
 }

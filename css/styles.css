@@ -1,3 +1,9 @@
+/*
+ * Gebruik altijd CSS-variabelen (zoals --domain-base, --domain-text, --domain-btn-text) voor domeinspecifieke kleuren.
+ * Nooit hardcoded kleuren in componenten, knoppen of titels!
+ * Zie ook de centrale JS-configuratie (domainColors) voor de juiste waarden.
+ */
+
 :root {
   /* Algemene campuskleur */
   --campus-kleur: #2B2243;
@@ -33,8 +39,11 @@
   --okan-licht1: #F0B94E;
   --okan-licht2: #F9D38A;
 
-  --header-tekst: #fff;
-  --sport-header-tekst: #2B2243;
+  /* Generieke variabelen voor actief domein */
+  --domain-base: #2B2243;
+  --domain-mid: #254A87;
+  --domain-text: #fff;
+  --domain-hover: #F3764A;
 }
 
 /**
@@ -211,21 +220,15 @@
   visibility: visible !important;
 }
 
-/* Close knop */
-.lessentabellen-root #slidein .close-btn {
-  background: var(--app-domain-base) !important;
-  color: #fff !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+/* Close-knop in domeinkleur */
+.lessentabellen-root .close-btn {
+  background: var(--domain-base, #2B2243) !important;
+  color: var(--domain-text, #fff) !important;
   border: none;
-  border-radius: 50%;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
 }
-
-.lessentabellen-root #slidein .close-btn:hover {
-  background: var(--app-domain-mid, var(--app-domain-base)) !important;
-  color: #fff !important;
-  transform: scale(1.08);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+.lessentabellen-root .close-btn:hover {
+  background: var(--domain-mid, #254A87) !important;
+  color: var(--domain-text, #fff) !important;
 }
 
 /* Actie‑knoppen */
@@ -239,8 +242,8 @@
 
 .lessentabellen-root .action-buttons a,
 .lessentabellen-root .action-buttons button {
-  background: var(--app-domain-mid);
-  color: #fff;
+  background: var(--domain-base);
+  color: var(--domain-text);
   padding: 0.75rem 1.25rem !important;
   border-radius: 0; /* Aangepast naar rechte hoeken */
   border: none;
@@ -263,8 +266,8 @@
 
 .lessentabellen-root .action-buttons a:hover,
 .lessentabellen-root .action-buttons button:hover {
-  transform: translateY(-2px);
-  background: var(--app-domain-base);
+  background: var(--domain-mid);
+  color: var(--domain-text);
 }
 
 /* Lessentabel stijlen */
@@ -284,6 +287,19 @@
   border-radius: 0; /* Aangepast naar rechte hoeken */
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+/* Lessentabel header in domeinkleur */
+.lessentabellen-root #lessentabel-container thead th,
+.lessentabellen-root .lessentabel thead th {
+  background: var(--domain-base, #2B2243);
+  color: var(--domain-text, #fff);
+}
+
+/* Lessentabel zebra striping in lichte domeinkleur */
+.lessentabellen-root #lessentabel-container tbody tr:nth-child(even),
+.lessentabellen-root .lessentabel tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--domain-base, #2B2243) 8%, #fff 92%);
 }
 
 .lessentabellen-root #lessentabel-container th,
@@ -353,7 +369,7 @@
   margin: 0.5rem 0 1.25rem !important;
   font-size: 2.25rem;
   font-weight: 700;
-  color: var(--app-domain-base);
+  color: var(--domain-base);
   position: relative;
   padding-bottom: 0.75rem;
 }
@@ -366,7 +382,7 @@
   transform: translateX(-50%);
   width: 80px;
   height: 3px;
-  background: var(--app-domain-base);
+  background: var(--domain-base);
   border-radius: 0; /* Aangepast naar rechte hoeken */
 }
 
@@ -597,18 +613,11 @@
 }
 
 /* --- SUBVAK-BLOK: duidelijke driehoek en inspringing --- */
-.lessentabellen-root .subvak-row td:first-child::before {
-  content: "▸";
-  margin-right: 0.5rem;
-  color: #2B2243;
-  font-weight: bold;
-}
-
 .lessentabellen-root .subvak-row td {
-  padding-left: 2.5rem;
-  font-style: italic;
-  color: #2B2243;
-  background: rgba(250, 250, 250, 0.8);
+  color: var(--domain-base, #2B2243);
+}
+.lessentabellen-root .subvak-row td:first-child::before {
+  color: var(--domain-mid, #254A87);
 }
 
 /* Overschrijf witte kopteksten enkel voor Sport */
@@ -633,4 +642,11 @@
   font-style: italic;
   font-weight: 500; /* iets vetter zonder te zwaar te ogen */
   text-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+.finaliteit-blok h4 {
+  color: var(--domain-base, #2B2243);
+}
+.lessentabellen-root .domain-block[data-domain="sport-topsport"] .finaliteit-blok h4,
+.lessentabellen-root .domain-block[data-domain="sport"] .finaliteit-blok h4 {
+  color: #2B2243 !important;
 }

@@ -1,5 +1,5 @@
 // detail-view.js
-import { mapDomein, getDomeinMeta } from './config-module.js';
+import { mapDomein, getDomeinMeta, setActiveDomainColors } from './config-module.js';
 import { generateLessentabel } from './table-generator.js';
 // Importeer de nieuwe print handler functionaliteit
 import { initPrintHandler } from './print-handler.js';
@@ -189,28 +189,20 @@ function detectAndScaleTable() {
 function setupDomeinStyling(klas) {
   try {
     const domeinKey = mapDomein(klas.domein);
-    
     // Update het slidein element met de juiste domein data voor styling
     const slideinEl = document.getElementById("slidein");
     if (slideinEl) {
       slideinEl.dataset.domain = domeinKey;
-      
-      // Haal de domein kleuren op en pas ze toe als CSS variabelen
-      const domeinMeta = getDomeinMeta(domeinKey);
-      slideinEl.style.setProperty('--app-domain-base', domeinMeta.base);
-      slideinEl.style.setProperty('--app-domain-mid', domeinMeta.mid);
-      slideinEl.style.setProperty('--app-domain-light1', domeinMeta.light1);
-      slideinEl.style.setProperty('--app-domain-hover', domeinMeta.hover);
+      // Zet centrale domein-variabelen op :root
+      setActiveDomainColors(domeinKey);
     }
   } catch (error) {
     console.error('Fout bij instellen domein styling:', error);
     // Als er een fout is, gebruik fallback kleuren
     const slideinEl = document.getElementById("slidein");
     if (slideinEl) {
-      slideinEl.style.setProperty('--app-domain-base', '#333333');
-      slideinEl.style.setProperty('--app-domain-mid', '#666666');
-      slideinEl.style.setProperty('--app-domain-light1', '#999999');
-      slideinEl.style.setProperty('--app-domain-hover', '#cccccc');
+      // Zet fallback kleuren op :root
+      setActiveDomainColors('eerste-graad');
     }
   }
 }
@@ -239,13 +231,24 @@ function populateBasicInfo(klas) {
         // Verberg de brochure link als er geen URL is
         brochureLink.style.display = 'none';
       }
+      // Zet de textBtn kleur direct op de link
+      if (klas.domein) {
+        const domeinKey = mapDomein(klas.domein);
+        const domeinMeta = getDomeinMeta(domeinKey);
+        brochureLink.style.setProperty('--domain-textBtn', domeinMeta.textBtn || '#fff');
+      }
     }
-    
     // Update de printknop met klasgegevens voor gebruik tijdens printen
     const printButton = document.getElementById("print-button");
     if (printButton) {
       printButton.dataset.klas = klas.klascode;
       printButton.dataset.richting = klas.richting;
+      // Zet de textBtn kleur direct op de button
+      if (klas.domein) {
+        const domeinKey = mapDomein(klas.domein);
+        const domeinMeta = getDomeinMeta(domeinKey);
+        printButton.style.setProperty('--domain-textBtn', domeinMeta.textBtn || '#fff');
+      }
     }
     
     // Update het datum element in de footer met huidige datum

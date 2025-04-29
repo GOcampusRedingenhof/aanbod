@@ -1,4 +1,5 @@
 // js/print-handler.js — uitgebreide print-handler met safety timeouts en cleanup
+import { mapDomein, getDomeinMeta, setActiveDomainColors } from './config-module.js';
 
 /**
  * Globale timeout IDs
@@ -22,7 +23,34 @@ export function initPrintHandler(klas) {
     e.preventDefault();
     e.stopPropagation();
     try {
-      startPrintProcess(klas);
+      // Verzamel de relevante HTML uit het infokader
+      const slidein = document.getElementById('slidein');
+      let content = '';
+      if (slidein) {
+        // Titel
+        let titel = slidein.querySelector('#opleiding-titel')?.outerHTML || '';
+        // Voeg class page-title toe aan de titel voor printkleur
+        if (titel) {
+          titel = titel.replace('<h2 ', '<h2 class="page-title" ');
+        }
+        // Beschrijving
+        const beschrijving = slidein.querySelector('#opleiding-beschrijving')?.outerHTML || '';
+        // Lessentabel
+        const tabel = slidein.querySelector('#lessentabel-container')?.innerHTML || '';
+        // Voetnoten
+        const footnotes = slidein.querySelector('#footnotes')?.outerHTML || '';
+        // Domeinkleur ophalen
+        const domeinKey = mapDomein(klas.domein);
+        setActiveDomainColors(domeinKey);
+        const domeinMeta = getDomeinMeta(domeinKey);
+        // CSS-variabelen voor print
+        const styleVars = `<style>body, .print-preview { --domein-kleur: ${domeinMeta.base}; --domein-kleur-licht: ${domeinMeta.light1}; --app-domain-base: ${domeinMeta.base}; }</style>`;
+        content = `${styleVars}${titel}${beschrijving}${tabel}${footnotes}`;
+      }
+      // Sla op in localStorage
+      localStorage.setItem('infokaderContent', content);
+      // Open de centrale print handler in een nieuw tabblad
+      window.open('printhandler.html', '_blank');
     } catch (err) {
       console.error('Fout bij starten printproces:', err);
       cleanupAfterPrinting();

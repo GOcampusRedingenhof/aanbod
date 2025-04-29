@@ -1,5 +1,5 @@
 // grid-builder.js
-import { mapDomein } from './config-module.js';
+import { mapDomein, setActiveDomainColors } from './config-module.js';
 
 /**
  * Bouwt het grid met alle domeinen en richtingen
@@ -18,6 +18,7 @@ export function buildGrid(klassen, container) {
   // Loop door alle items en bouw de structuur op
   klassen.forEach(item => {
     const domein = mapDomein(item.domein);
+    setActiveDomainColors(domein);
     
     let graad = (item.graad || '').toString().trim().toUpperCase();
     
