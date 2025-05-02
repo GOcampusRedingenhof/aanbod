@@ -72,6 +72,7 @@
   border-bottom: none;
   position: relative;
   overflow: hidden;
+  text-transform: uppercase; /* TOEGEVOEGD: zorgt voor hoofdletters */
 }
 
 /* Subtiel accent pattern voor titels */
@@ -92,116 +93,135 @@
   display: none;
 }
 
-/* EXACTE HUISSTIJLKLEUREN PER DOMEIN MET GRADIENTS */
-/* STEM */
-.lessentabellen-root .domain-block[data-domain="stem"] h2 {
-  background: linear-gradient(to right, #0C8464, #48A787);
-}
-
-.lessentabellen-root .domain-block[data-domain="stem"] .finaliteit-blok li a {
-  background: #0C8464;
-}
-
-.lessentabellen-root .domain-block[data-domain="stem"] .finaliteit-blok h4 {
-  color: #0C8464;
-  border-color: #0C8464;
-}
-
 /* EERSTE GRAAD */
 .lessentabellen-root .domain-block[data-domain="eerste-graad"] h2 {
-  background: linear-gradient(to right, #ED4E13, #F3764A);
+  background: linear-gradient(to right,
+    var(--eerste-donker),
+    var(--eerste-licht1)
+  );
+}
+.lessentabellen-root .domain-block[data-domain="eerste-graad"]
+  .finaliteit-blok li a {
+  background: var(--eerste-donker);
+}
+.lessentabellen-root .domain-block[data-domain="eerste-graad"]
+  .finaliteit-blok h4 {
+  color: var(--eerste-donker);
+  border-color: var(--eerste-donker);
 }
 
-.lessentabellen-root .domain-block[data-domain="eerste-graad"] .finaliteit-blok li a {
-  background: #ED4E13;
+/* STEM */
+.lessentabellen-root .domain-block[data-domain="stem"] h2 {
+  background: linear-gradient(to right,
+    var(--stem-donker),
+    var(--stem-licht1)
+  );
+}
+.lessentabellen-root .domain-block[data-domain="stem"]
+  .finaliteit-blok li a {
+  background: var(--stem-donker);
+}
+.lessentabellen-root .domain-block[data-domain="stem"]
+  .finaliteit-blok h4 {
+  color: var(--stem-donker);
+  border-color: var(--stem-donker);
 }
 
-.lessentabellen-root .domain-block[data-domain="eerste-graad"] .finaliteit-blok h4 {
-  color: #ED4E13;
-  border-color: #ED4E13;
-}
-
-/* SPORT & TOPSPORT - verbeterd contrast met originele tinten */
+/* Sport & Topsport */
 .lessentabellen-root .domain-block[data-domain="sport-topsport"] h2,
 .lessentabellen-root .domain-block[data-domain="topsport"] h2 {
-  background: linear-gradient(to right, #6ABCD6, #A2E4FF);
-  color: #1f2937; /* Donkere tekst voor beter contrast op lichtblauwe achtergrond */
-  text-shadow: none;
+  background: linear-gradient(to right,
+    var(--sport-donker),
+    var(--sport-licht2)
+  );
+}
+.lessentabellen-root .domain-block[data-domain="sport-topsport"]
+  .finaliteit-blok li a,
+.lessentabellen-root .domain-block[data-domain="topsport"]
+  .finaliteit-blok li a {
+  background: var(--sport-donker);
+}
+.lessentabellen-root .domain-block[data-domain="sport-topsport"]
+  .finaliteit-blok h4,
+.lessentabellen-root .domain-block[data-domain="topsport"]
+  .finaliteit-blok h4 {
+  color: var(--sport-licht1);
+  border-color: var(--sport-licht1);
 }
 
-.lessentabellen-root .domain-block[data-domain="sport-topsport"] .finaliteit-blok li a,
-.lessentabellen-root .domain-block[data-domain="topsport"] .finaliteit-blok li a {
-  background: #6ABCD6;
-}
-
-.lessentabellen-root .domain-block[data-domain="sport-topsport"] .finaliteit-blok h4,
-.lessentabellen-root .domain-block[data-domain="topsport"] .finaliteit-blok h4 {
-  color: #6ABCD6;
-  border-color: #6ABCD6;
-}
-
-/* MAATSCHAPPIJ & WELZIJN - Originele huisstijlkleuren */
+/* Maatschappij & Welzijn */
 .lessentabellen-root .domain-block[data-domain="maatschappij-welzijn"] h2 {
-  background: linear-gradient(to right, #E399BB, #EFBACD);
-  color: #1f2937; /* Donkere tekst voor beter contrast op roze achtergrond */
-  text-shadow: none;
+  background: linear-gradient(to right,
+    var(--maatschappij-donker),
+    var(--maatschappij-licht1)
+  );
+}
+.lessentabellen-root .domain-block[data-domain="maatschappij-welzijn"]
+  .finaliteit-blok li a {
+  background: var(--maatschappij-donker);
+}
+.lessentabellen-root .domain-block[data-domain="maatschappij-welzijn"]
+  .finaliteit-blok h4 {
+  color: var(--maatschappij-donker);
+  border-color: var(--maatschappij-donker);
 }
 
-.lessentabellen-root .domain-block[data-domain="maatschappij-welzijn"] .finaliteit-blok li a {
-  background: #E399BB;
-  color: #1f2937 !important; /* Donkere tekst voor beter contrast */
-}
-
-.lessentabellen-root .domain-block[data-domain="maatschappij-welzijn"] .finaliteit-blok h4 {
-  color: #E399BB;
-  border-color: #E399BB;
-}
-
-/* ECONOMIE & ORGANISATIE */
+/* Economie & Organisatie */
 .lessentabellen-root .domain-block[data-domain="economie-organisatie"] h2 {
-  background: linear-gradient(to right, #2B2243, #254a87);
+  background: linear-gradient(to right,
+    var(--economie-donker),
+    var(--economie-licht1)
+  );
 }
-
-.lessentabellen-root .domain-block[data-domain="economie-organisatie"] .finaliteit-blok li a {
-  background: #2B2243;
+.lessentabellen-root .domain-block[data-domain="economie-organisatie"]
+  .finaliteit-blok li a {
+  background: var(--economie-donker);
 }
-
-.lessentabellen-root .domain-block[data-domain="economie-organisatie"] .finaliteit-blok h4 {
-  color: #2B2243;
-  border-color: #2B2243;
+.lessentabellen-root .domain-block[data-domain="economie-organisatie"]
+  .finaliteit-blok h4 {
+  color: var(--economie-donker);
+  border-color: var(--economie-donker);
 }
 
 /* OKAN */
 .lessentabellen-root .domain-block[data-domain="okan"] h2 {
-  background: linear-gradient(to right, #E5A021, #F0B94E);
+  background: linear-gradient(to right,
+    var(--okan-donker),
+    var(--okan-licht1)
+  );
+}
+.lessentabellen-root .domain-block[data-domain="okan"]
+  .finaliteit-blok li a {
+  background: var(--okan-donker);
+}
+.lessentabellen-root .domain-block[data-domain="okan"]
+  .finaliteit-blok h4 {
+  color: var(--okan-donker);
+  border-color: var(--okan-donker);
 }
 
-.lessentabellen-root .domain-block[data-domain="okan"] .finaliteit-blok li a {
-  background: #E5A021;
-}
-
-.lessentabellen-root .domain-block[data-domain="okan"] .finaliteit-blok h4 {
-  color: #E5A021;
-  border-color: #E5A021;
-}
-
-/* SCHAKELJAAR (gebruikt economie kleur) */
+/* Schakeljaar (gebruikt economie-kleuren) */
 .lessentabellen-root .domain-block[data-domain="schakeljaar"] h2 {
-  background: linear-gradient(to right, #2B2243, #254a87);
+  background: linear-gradient(to right,
+    var(--economie-donker),
+    var(--economie-licht1)
+  );
 }
-
-.lessentabellen-root .domain-block[data-domain="schakeljaar"] .finaliteit-blok li a {
-  background: #2B2243;
+.lessentabellen-root .domain-block[data-domain="schakeljaar"]
+  .finaliteit-blok li a {
+  background: var(--economie-donker);
 }
-
-.lessentabellen-root .domain-block[data-domain="schakeljaar"] .finaliteit-blok h4 {
-  color: #2B2243;
-  border-color: #2B2243;
+.lessentabellen-root .domain-block[data-domain="schakeljaar"]
+  .finaliteit-blok h4 {
+  color: var(--economie-donker);
+  border-color: var(--economie-donker);
 }
 
 /* Premium stijl voor graad headers */
 .lessentabellen-root .tweede-graad-title,
-.lessentabellen-root .derde-graad-title {
+.lessentabellen-root .derde-graad-title,
+.lessentabellen-root .zevende-jaar-title,
+.lessentabellen-root .eerste-graad-title {
   display: flex;
   align-items: center;
   margin: 0 !important;
@@ -211,14 +231,19 @@
   border-bottom: 1px solid rgba(0,0,0,0.07);
 }
 
+/* Alle graadtitels - consistent in kapitalen */
 .lessentabellen-root .tweede-graad-title h3,
-.lessentabellen-root .derde-graad-title h3 {
+.lessentabellen-root .derde-graad-title h3,
+.lessentabellen-root .zevende-jaar-title h3,
+.lessentabellen-root .eerste-graad-title h3,
+.lessentabellen-root .okan-title h3,
+.lessentabellen-root .schakeljaar-title h3 {
   font-size: 1rem;
   font-weight: 600;
   color: #1f2937;
   margin: 0 !important;
   padding: 0 !important;
-  text-transform: uppercase;
+  text-transform: uppercase; /* Zorgt ervoor dat alles in hoofdletters wordt weergegeven */
   letter-spacing: 0.5px;
   border-left: none;
 }
@@ -421,4 +446,62 @@
   .lessentabellen-root .domain-block[data-domain="topsport"] .finaliteit-blok li a {
     border: 1px solid #000;
   }
+}
+
+/**
+ * Flexibele oplossing voor lege graad- en finaliteitslabels
+ * Werkt met data-attributen in plaats van specifieke domeinnamen
+ */
+
+/* Verberg lege graad headers */
+.lessentabellen-root [data-leeg="true"] h3,
+.lessentabellen-root [data-leeg="true"] {
+  visibility: hidden;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border: none !important;
+}
+
+/* Verberg lege finaliteit headers */
+.lessentabellen-root .finaliteit-blok h4[data-leeg="true"] {
+  visibility: hidden;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border: none !important;
+}
+
+/* Stijlen voor finaliteitsblokken zonder finaliteit */
+.lessentabellen-root .finaliteit-blok[data-leeg-finaliteit="true"] {
+  margin-top: 0 !important;
+  padding-top: 0.5rem !important;
+}
+
+/* Betere spacing voor richtingen in lege finaliteitsblokken */
+.lessentabellen-root .finaliteit-blok[data-leeg-finaliteit="true"] ul {
+  margin-top: 0.5rem !important;
+}
+
+/* Graad containers zonder graad label */
+.lessentabellen-root .graad-container[data-no-graad="true"] {
+  padding-top: 0.75rem !important;
+}
+
+/* Zorg dat finaliteitsblokken niet te veel spacing hebben bovenaan */
+.lessentabellen-root .graad-container[data-no-graad="true"] .finaliteit-blok:first-child {
+  margin-top: 0 !important;
+}
+
+/* Sport-topsport grid: standaardkleur en hover-effect */
+.lessentabellen-root .domein-sport-topsport .finaliteit-blok li a {
+  background: #6ABCD6 !important;
+  color: #fff !important;
+}
+.lessentabellen-root .domein-sport-topsport .finaliteit-blok li a:hover,
+.lessentabellen-root .domein-sport-topsport .finaliteit-blok li a:focus {
+  background: #5698B2 !important;
+  color: #fff !important;
 }

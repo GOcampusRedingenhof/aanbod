@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Print Infokader</title>
+  <link rel="stylesheet" href="css/print-styles.css">
+</head>
+<body class="print-preview">
+  <header class="print-header">
+    <img
+      src="https://images.squarespace-cdn.com/content/670992d66064015802d7e5dc/ee72d601-7dd6-4c7d-9dc7-096df06c4ef0/RedingenhofLOGOzwart.png?content-type=image/png"
+      alt="Campus Redingenhof Logo"
+      class="print-logo"
+    >
+    </header>
+  <div id="print-content"></div>
+  <img
+    src="https://images.squarespace-cdn.com/content/670992d66064015802d7e5dc/ef0fe42d-578e-41dd-ba80-bcb23fd4b3e7/SAMEN+VER%21+%283%29.png?content-type=image/png"
+    alt="Samen ver!"
+    class="print-banner"
+  >
+  <script>
+    const content = localStorage.getItem('infokaderContent') || '<p><em>Geen inhoud gevonden om te printen.</em></p>';
+    document.getElementById('print-content').innerHTML = content;
+    window.onload = () => window.print();
+    window.onafterprint = () => window.close();
+  </script>
+</body>
+</html>

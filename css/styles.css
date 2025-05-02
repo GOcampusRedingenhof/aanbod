@@ -1,8 +1,143 @@
+/*
+ * Gebruik altijd CSS-variabelen (zoals --domain-base, --domain-text, --domain-btn-text) voor domeinspecifieke kleuren.
+ * Nooit hardcoded kleuren in componenten, knoppen of titels!
+ * Zie ook de centrale JS-configuratie (domainColors) voor de juiste waarden.
+ */
+
+:root {
+  /* Algemene campuskleur */
+  --campus-kleur: #2B2243;
+
+  /* Eerste graad */
+  --eerste-donker: #ED4E13;
+  --eerste-licht1: #F3764A;
+  --eerste-licht2: #F8A588;
+
+  /* STEM */
+  --stem-donker: #0C8464;
+  --stem-licht1: #48A787;
+  --stem-licht2: #89CCB2;
+
+  /* Sport & Topsport */
+  --sport-donker: #6ABCD6;
+  --sport-licht1: #A2E4FF;
+  --sport-licht2: #C6F0FF;
+  --sport-licht3: #E4F9FF;
+
+  /* Maatschappij & Welzijn */
+  --maatschappij-donker: #E399BB;
+  --maatschappij-licht1: #EFBACD;
+  --maatschappij-licht2: #F7D9E4;
+
+  /* Economie & Organisatie */
+  --economie-donker: #2B2243;
+  --economie-licht1: #254A87;
+  --economie-licht2: #5084C2;
+
+  /* OKAN */
+  --okan-donker: #E5A021;
+  --okan-licht1: #F0B94E;
+  --okan-licht2: #F9D38A;
+
+  /* Generieke variabelen voor actief domein */
+  --domain-base: #2B2243;
+  --domain-mid: #254A87;
+  --domain-text: #fff;
+  --domain-hover: #F3764A;
+}
+
 /**
  * Dynamische Lessentabellen v3.2.0 - Functionaliteits CSS
  * Bevat alle functionele CSS zonder grid-specific styling
  * @copyright 2025 GO Campus Redingenhof
  */
+
+/* Achtergrondpatroon per domein */
+.lessentabellen-root .domein-sport {
+  background: repeating-linear-gradient(135deg, #A2E4FF, #A2E4FF 10px, #C6F0FF 10px, #C6F0FF 20px);
+  color: #002B3D;
+}
+
+.lessentabellen-root .domein-stem {
+  background: repeating-linear-gradient(135deg, #0C8464, #0C8464 10px, #48A787 10px, #48A787 20px);
+  color: white;
+}
+
+.lessentabellen-root .domein-welzijn {
+  background: repeating-linear-gradient(135deg, #E399BB, #E399BB 10px, #EFBACD 10px, #EFBACD 20px);
+  color: #2B2243;
+}
+
+.lessentabellen-root .domein-economie {
+  background: repeating-linear-gradient(135deg, #2B2243, #2B2243 10px, #5084C2 10px, #5084C2 20px);
+  color: white;
+}
+
+.lessentabellen-root .domein-okan {
+  background: repeating-linear-gradient(135deg, #E5A021, #E5A021 10px, #F9D38A 10px, #F9D38A 20px);
+  color: #2B2243;
+}
+
+/* Secties zoals BASISVORMING, SPECIFIEK GEDEELTE */
+.lessentabellen-root .section-row td {
+  text-transform: uppercase;
+  font-weight: bold;
+  background: rgba(0, 43, 61, 0.1);
+  border-top: 2px solid #2B2243;
+  border-bottom: 2px solid #2B2243;
+  padding: 0.8rem 1rem;
+  color: #2B2243;
+}
+
+/* Gewone vakken */
+.lessentabellen-root .vak-row td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  font-size: 0.95rem;
+  color: #333;
+  background: rgba(255,255,255,0.6);
+}
+
+/* Totaalrij */
+.lessentabellen-root .total-row td {
+  text-transform: uppercase;
+  font-weight: bold;
+  background: rgba(0, 43, 61, 0.1);
+  border-top: 2px solid #2B2243;
+  color: #2B2243;
+  padding: 1rem;
+}
+
+/* Stage-weken */
+.lessentabellen-root .stage-row td {
+  text-transform: uppercase;
+  font-weight: bold;
+  background: rgba(0, 43, 61, 0.1);
+  color: #0C8464;
+  padding: 1rem;
+  border-top: 2px solid #0C8464;
+}
+
+/* Tabel consistent max 800px */
+.table-wrapper, #lessentabel-container {
+  max-width: 800px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.footnotes {
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  box-sizing: border-box;
+}
+
+.footnotes li {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
 
 /* Reset en basisstijlen */
 .lessentabellen-root {
@@ -85,29 +220,15 @@
   visibility: visible !important;
 }
 
-/* Close knop */
+/* Close-knop in domeinkleur */
 .lessentabellen-root .close-btn {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  font-size: 1.75rem;
-  background: rgba(0,0,0,0.1);
-  color: #333;
+  background: var(--domain-base, #2B2243) !important;
+  color: var(--domain-text, #fff) !important;
   border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
 .lessentabellen-root .close-btn:hover {
-  background: rgba(0,0,0,0.15);
-  transform: scale(1.05);
+  background: var(--domain-mid, #254A87) !important;
+  color: var(--domain-text, #fff) !important;
 }
 
 /* Actie‑knoppen */
@@ -121,8 +242,8 @@
 
 .lessentabellen-root .action-buttons a,
 .lessentabellen-root .action-buttons button {
-  background: var(--app-domain-mid);
-  color: #fff;
+  background: var(--domain-base);
+  color: var(--domain-text);
   padding: 0.75rem 1.25rem !important;
   border-radius: 0; /* Aangepast naar rechte hoeken */
   border: none;
@@ -145,8 +266,8 @@
 
 .lessentabellen-root .action-buttons a:hover,
 .lessentabellen-root .action-buttons button:hover {
-  transform: translateY(-2px);
-  background: var(--app-domain-base);
+  background: var(--domain-mid);
+  color: var(--domain-text);
 }
 
 /* Lessentabel stijlen */
@@ -168,6 +289,19 @@
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
+/* Lessentabel header in domeinkleur */
+.lessentabellen-root #lessentabel-container thead th,
+.lessentabellen-root .lessentabel thead th {
+  background: var(--domain-base, #2B2243);
+  color: var(--domain-text, #fff);
+}
+
+/* Lessentabel zebra striping in lichte domeinkleur */
+.lessentabellen-root #lessentabel-container tbody tr:nth-child(even),
+.lessentabellen-root .lessentabel tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--domain-base, #2B2243) 8%, #fff 92%);
+}
+
 .lessentabellen-root #lessentabel-container th,
 .lessentabellen-root #lessentabel-container td {
   padding: 0.75rem 1rem !important;
@@ -183,9 +317,9 @@
 }
 
 .lessentabellen-root #lessentabel-container thead tr {
-  background: linear-gradient(to bottom, var(--app-domain-base), var(--app-domain-mid));
-  color: #fff;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  background: transparent; /* Patroon zichtbaar */
+  color: inherit; /* Kleur van domein blijft */
+  text-shadow: none;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -213,15 +347,11 @@
 
 /* Details Styling */
 .lessentabellen-root .footnotes {
-  margin-top: 1.5rem !important;
-  font-size: 0.85rem;
-  font-style: italic;
-  color: var(--app-domain-base);
-  line-height: 1.6;
-  padding: 1rem !important;
-  background: var(--app-domain-light1);
-  border-radius: 0; /* Aangepast naar rechte hoeken */
-  opacity: 0.9;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 2rem !important;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .lessentabellen-root #opleiding-beschrijving {
@@ -239,7 +369,7 @@
   margin: 0.5rem 0 1.25rem !important;
   font-size: 2.25rem;
   font-weight: 700;
-  color: var(--app-domain-base);
+  color: var(--domain-base);
   position: relative;
   padding-bottom: 0.75rem;
 }
@@ -252,7 +382,7 @@
   transform: translateX(-50%);
   width: 80px;
   height: 3px;
-  background: var(--app-domain-base);
+  background: var(--domain-base);
   border-radius: 0; /* Aangepast naar rechte hoeken */
 }
 
@@ -480,4 +610,43 @@
   font-size: 10px;
   z-index: 99990;
   opacity: 0.6;
+}
+
+/* --- SUBVAK-BLOK: duidelijke driehoek en inspringing --- */
+.lessentabellen-root .subvak-row td {
+  color: var(--domain-base, #2B2243);
+}
+.lessentabellen-root .subvak-row td:first-child::before {
+  color: var(--domain-mid, #254A87);
+}
+
+/* Overschrijf witte kopteksten enkel voor Sport */
+.lessentabellen-root .domein-sport .lessentabel thead th {
+    color: #2B2243 !important;
+}
+
+/* Specifiek: overschrijf witte kopteksten enkel voor sport-topsport */
+#slidein[data-domain="sport-topsport"] .lessentabel thead th {
+    color: #2B2243 !important;
+}
+
+#slidein[data-domain="sport-topsport"] .lessentabel .section-row th {
+  background-color: #E4F9FF;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-opacity='0.02'%3E%3Cpath d='M50 0 L100 100 L0 100 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 20px 20px; /* Past de grootte van de driehoeken aan */
+  color: #6ABCD6;
+  font-weight: bold;
+}
+#slidein[data-domain="sport-topsport"] .lessentabel .subvak-row td {
+  color: #6ABCD6 !important;
+  font-style: italic;
+  font-weight: 500; /* iets vetter zonder te zwaar te ogen */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+.finaliteit-blok h4 {
+  color: var(--domain-base, #2B2243);
+}
+.lessentabellen-root .domain-block[data-domain="sport-topsport"] .finaliteit-blok h4,
+.lessentabellen-root .domain-block[data-domain="sport"] .finaliteit-blok h4 {
+  color: #2B2243 !important;
 }

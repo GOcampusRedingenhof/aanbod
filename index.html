@@ -79,32 +79,127 @@
   
   <!-- App JavaScript - gebruik de nieuwe modulaire structuur -->
   <script type="module" src="js/index.js"></script>
-<!-- Voeg deze script tag toe net vóór de sluit-tag van body (</body>) -->
-<script>
-  // Print events
-  window.addEventListener('beforeprint', function() {
-    console.log('beforeprint event gedetecteerd');
-    // Extra check: forceer printmodus als die nog niet actief is
-    if (!document.body.classList.contains('print-mode') && 
-        window.LessentabellenApp && 
-        window.LessentabellenApp.currentKlasCode) {
+
+  <!-- Centraal error handler script -->
+  <script>
+  // Deze functie vangt globale fouten op
+  window.addEventListener('error', function(event) {
+    console.error('Globale fout:', event.error);
+    // Probeer UI te resetten als er een fout is tijdens printen
+    if (document.body.classList.contains('print-mode')) {
+      document.body.classList.remove('print-mode');
+      console.warn('Print-mode verwijderd vanwege een fout');
       
-      const klas = window.LessentabellenApp.klassen.find(
-        k => k.klascode === window.LessentabellenApp.currentKlasCode
-      );
-      if (klas) {
-        window.LessentabellenApp.startPrintProcess(klas);
+      // Herstel UI-elementen
+      const closeBtn = document.querySelector('.close-btn');
+      if (closeBtn) closeBtn.style.display = '';
+      
+      const actionButtons = document.querySelector('.action-buttons');
+      if (actionButtons) actionButtons.style.display = '';
+      
+      // Reset styling van slidein
+      const slidein = document.getElementById('slidein');
+      if (slidein) {
+        slidein.style.padding = '';
+        slidein.classList.remove('scaled-for-print');
+        slidein.classList.remove('extreme');
+        slidein.classList.remove('print-optimized');
+        slidein.classList.remove('scaled-table');
+        
+        // Herstel tabel styling
+        const table = slidein.querySelector('.lessentabel');
+        if (table) {
+          table.style.fontSize = '';
+          table.style.transform = '';
+          table.style.marginBottom = '';
+        }
       }
     }
   });
   
-  window.addEventListener('afterprint', function() {
-    console.log('afterprint event gedetecteerd');
-    if (document.body.classList.contains('print-mode') && 
-        window.LessentabellenApp) {
-      window.LessentabellenApp.cleanupAfterPrinting();
+  // We delegeren de print events naar onze centrale printmodule
+  window.addEventListener('beforeprint', function(event) {
+    console.log('Globale beforeprint event gedetecteerd');
+    // We sturen dit door naar de print-handler module
+    // De module handelt dit zelf af
+  });
+  
+  window.addEventListener('afterprint', function(event) {
+    console.log('Globale afterprint event gedetecteerd');
+    // We laten de print-handler module dit afhandelen
+    // Alleen als er geen handler actief is, doen we een fallback cleanup
+    if (document.body.classList.contains('print-mode')) {
+      // Controleer of er een cleanup functie beschikbaar is in de app
+      if (window.LessentabellenApp && typeof window.LessentabellenApp.cleanupAfterPrinting === 'function') {
+        window.LessentabellenApp.cleanupAfterPrinting();
+      } else {
+        // Fallback: eenvoudige cleanup
+        document.body.classList.remove('print-mode');
+      }
     }
   });
-</script>
+  
+  // Safety timeout om vastlopen te voorkomen
+  document.addEventListener('DOMContentLoaded', function() {
+    // Controleer periodiek of print-mode vast is blijven zitten
+    setInterval(function() {
+      if (document.body.classList.contains('print-mode')) {
+        // Check hoe lang print-mode al actief is
+        const printModeStart = window.printModeStartTime || 0;
+        const now = Date.now();
+        
+        // Als print-mode langer dan 30 seconden actief is, forceer reset
+        if (printModeStart > 0 && (now - printModeStart > 30000)) {
+          console.warn('Print-mode zit vast, forceer reset');
+          
+          // Reset print mode
+          document.body.classList.remove('print-mode');
+          window.printModeStartTime = 0;
+          
+          // Probeer de cleanup functie aan te roepen als die bestaat
+          if (window.LessentabellenApp && typeof window.LessentabellenApp.cleanupAfterPrinting === 'function') {
+            window.LessentabellenApp.cleanupAfterPrinting();
+          } else {
+            // Anders basis UI elementen herstellen
+            const closeBtn = document.querySelector('.close-btn');
+            if (closeBtn) closeBtn.style.display = '';
+            
+            const actionButtons = document.querySelector('.action-buttons');
+            if (actionButtons) actionButtons.style.display = '';
+            
+            // Reset slidein styling
+            const slidein = document.getElementById('slidein');
+            if (slidein) {
+              slidein.style.padding = '';
+              slidein.classList.remove('scaled-for-print');
+              slidein.classList.remove('extreme');
+              slidein.classList.remove('print-optimized');
+              slidein.classList.remove('scaled-table');
+              
+              // Herstel tabel styling
+              const table = slidein.querySelector('.lessentabel');
+              if (table) {
+                table.style.fontSize = '';
+                table.style.transform = '';
+                table.style.marginBottom = '';
+                
+                // Herstel cel padding
+                const cells = table.querySelectorAll('td, th');
+                if (cells) {
+                  cells.forEach(cell => {
+                    if (cell) cell.style.padding = '';
+                  });
+                }
+              }
+            }
+          }
+        }
+      } else {
+        // Reset timer als print-mode niet actief is
+        window.printModeStartTime = 0;
+      }
+    }, 5000); // Controleer elke 5 seconden
+  });
+  </script>
 </body>
 </html>

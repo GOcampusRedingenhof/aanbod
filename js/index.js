@@ -1,147 +1,271 @@
-// index.js
-// Hoofdmodule die alle modules samenbrengt en de applicatie start
+// index.js: Centrale module voor Lessentabellen App
 
-// Importeer de controller die alles aanstuurt
 import appController from './app-controller.js';
+import { buildGrid } from './grid-builder.js';
+import { renderSlidein } from './detail-view.js';
+// Importeer functies uit onze verbeterde print-handler module
+import { startPrintProcess, cleanupAfterPrinting } from './print-handler.js';
 
-// Importeer ondersteunende modules voor reference
-import './detail-view.js';
-import './table-generator.js';
-import './print-handler.js';
-import './grid-builder.js';
-import './loader.js';
-import './config-module.js';
-
-// Voeg event listeners toe voor applicatie levenscyclus
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('Lessentabellen App wordt gestart...');
-  
-  // Start de applicatie via de controller
-  appController.init().then(() => {
-    console.log('Lessentabellen App succesvol geïnitialiseerd!');
-  }).catch(error => {
-    console.error('Fout bij initialiseren van de app:', error);
-  });
-});
-
-// Definieer een globale error handler om onverwachte fouten netjes af te handelen
-window.addEventListener('error', (event) => {
-  console.error('Onverwachte fout in applicatie:', event.error);
-  
-  // Toon een gebruikersvriendelijke foutmelding als de app al geïnitialiseerd is
-  if (appController.isInitialized) {
-    const errorContainer = document.createElement('div');
-    errorContainer.className = 'error-message';
-    errorContainer.textContent = 'Er is een onverwachte fout opgetreden. Probeer de pagina te verversen.';
+class LessentabellenAppClass {
+  constructor() {
+    this.currentKlasCode = null;
+    this.klassen = [];
+    this.lessentabel = [];
+    this.footnotes = [];
+    this.isInitialized = false;
     
-    // Voeg de foutmelding toe aan de pagina
-    const container = document.querySelector('.lessentabellen-container');
-    if (container) {
-      container.prepend(errorContainer);
+    this.initEventListeners();
+  }
+
+  /**
+   * Initialiseer event listeners
+   */
+  initEventListeners() {
+    document.addEventListener('DOMContentLoaded', () => this.init());
+    
+    // Overlay klik binding toevoegen voor sluiten slidein
+    document.addEventListener('DOMContentLoaded', () => {
+      const overlay = document.getElementById('overlay');
+      if (overlay) {
+        overlay.addEventListener('click', () => this.closeSlidein());
+      }
+    });
+  }
+
+  /**
+   * Initialiseer de app en laad data
+   */
+  async init() {
+    try {
+      // Voorkom dubbele initialisatie
+      if (this.isInitialized) return;
+      
+      // Toon een loading indicatie
+      const container = document.getElementById('domains-container');
+      if (container) {
+        container.innerHTML = `<div class="loader-spinner"></div>`;
+      }
+      
+      // Initialiseer app controller en haal data op
+      await appController.initialize();
+      const { klassen, lessentabel, footnotes } = appController.getData();
+      
+      // Bewaar data in het app object
+      this.klassen = klassen;
+      this.lessentabel = lessentabel;
+      this.footnotes = footnotes;
+      
+      console.log(`Data geladen: ${this.klassen.length} klassen, ${this.lessentabel.length} lesvakken`);
+      
+      // Markeer als geïnitialiseerd
+      this.isInitialized = true;
+      
+      this.setupUI();
+    } catch (error) {
+      this.handleInitError(error);
     }
   }
-});
 
-/**
- * Print fixes voor lege pagina's
- */
+  /**
+   * Configureer de gebruikersinterface na initialisatie
+   */
+  setupUI() {
+    const container = document.getElementById('domains-container');
+    if (!container) return;
+    
+    container.innerHTML = ''; // Clear container
+    buildGrid(this.klassen, container);
+    this.bindDomainEvents();
+  }
 
-// Helper function om de printweergave te verbeteren
-function enhancePrintRendering() {
-  // Fixes voor lege pagina's bij afdrukken
-  let styleTag = document.getElementById('print-fixes-style');
-  
-  if (!styleTag) {
-    styleTag = document.createElement('style');
-    styleTag.id = 'print-fixes-style';
-    styleTag.textContent = `
-      @media print {
-        /* Voorkom lege pagina's door verborgen divs */
-        body * {
-          visibility: hidden;
-        }
+  /**
+   * Voeg event listeners toe aan domein knoppen
+   */
+  bindDomainEvents() {
+    try {
+      const buttons = document.querySelectorAll("[data-code]");
+      buttons.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const code = btn.getAttribute("data-code");
+          this.openSlidein(code);
+        });
+      });
+    } catch (error) {
+      console.error('Fout bij binden van domein events:', error);
+    }
+  }
+
+  /**
+   * Open het slidein paneel voor een specifieke klascode
+   * @param {string} klascode - De klascode om te openen
+   */
+  openSlidein(klascode) {
+    try {
+      this.currentKlasCode = klascode; // Bewaar huidige klascode
+      
+      // Zoek de klas op basis van klascode
+      const klas = this.klassen.find(k => k.klascode === klascode);
+      
+      if (klas) {
+        // Alle klassen in dezelfde graad en met dezelfde richtingcode als de geselecteerde klas
+        const klassenInZelfdeGraad = this.klassen.filter(k => 
+          k.graad === klas.graad && 
+          k.richtingcode === klas.richtingcode
+        );
         
-        #slidein, #slidein * {
-          visibility: visible !important;
-        }
+        console.log(`Gevonden: ${klassenInZelfdeGraad.length} klassen in dezelfde graad (${klas.graad})`);
         
-        #slidein {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: auto;
-          overflow: visible !important;
-          padding: 0 !important;
-          margin: 0 !important;
-        }
+        // Haal alle klasnummers op van dezelfde graad
+        const klascodesInGraad = klassenInZelfdeGraad.map(k => k.klascode);
         
-        /* Page breaks controle */
-        table { page-break-inside: auto !important; }
-        tr { page-break-inside: avoid !important; page-break-after: auto !important; }
-        thead { display: table-header-group; }
-        tfoot { display: table-footer-group; }
+        // Haal alle lessen op die bij deze klassen horen
+        const lessenVoorGraad = this.lessentabel.filter(les => 
+          klascodesInGraad.includes(les.klascode)
+        );
         
-        /* Voorkom dat lege elementen pagina's toevoegen */
-        .version-indicator, .loader-spinner, .close-btn, 
-        .action-buttons, #overlay, #domains-container {
-          display: none !important;
-          height: 0 !important;
-          max-height: 0 !important;
-          overflow: hidden !important;
-        }
+        console.log(`Gevonden: ${lessenVoorGraad.length} lessen voor deze graad`);
         
-        /* Compactere marges */
-        @page {
-          size: A4 portrait;
-          margin: 1.5cm 1cm 1.8cm 1cm;
+        // Haal voetnoten op specifiek voor deze klas
+        const voetnotenVoorKlas = this.footnotes.filter(f => f.klascode === klascode);
+
+        // Render het slidein met alle gegevens
+        renderSlidein(klas, lessenVoorGraad, voetnotenVoorKlas, klassenInZelfdeGraad);
+      } else {
+        console.error(`Geen klas gevonden met code ${klascode}`);
+        
+        // Toon een foutmelding aan de gebruiker
+        const container = document.getElementById('lessentabel-container');
+        if (container) {
+          container.innerHTML = `
+            <div class="error-message">
+              Deze richting kon niet worden geladen. Probeer een andere richting of ververs de pagina.
+            </div>
+          `;
         }
       }
-    `;
+    } catch (error) {
+      console.error('Fout bij openen slidein:', error);
+    }
+  }
+
+  /**
+   * Sluit het slidein paneel
+   */
+  closeSlidein() {
+    try {
+      const slidein = document.getElementById("slidein");
+      const overlay = document.getElementById("overlay");
+      
+      if (slidein) slidein.classList.remove("open");
+      if (overlay) overlay.classList.remove("active");
+      
+      // Reset huidige klas
+      this.currentKlasCode = null;
+    } catch (error) {
+      console.error('Fout bij sluiten slidein:', error);
+      
+      // Forceer sluiten bij fout
+      document.getElementById("slidein")?.classList.remove("open");
+      document.getElementById("overlay")?.classList.remove("active");
+    }
+  }
+  
+  /**
+   * Start het printproces voor een specifieke klas
+   * @param {Object} klas - Het klasobject om af te drukken
+   */
+  startPrintProcess(klas) {
+    try {
+      console.log('Print proces gestart voor klas', klas?.klascode);
+      
+      // Gebruik de geïmporteerde functie uit print-handler.js
+      startPrintProcess(klas);
+    } catch (error) {
+      console.error('Fout bij starten printproces:', error);
+      
+      // Fallback: probeer eenvoudig printen als de module faalt
+      document.body.classList.add('print-mode');
+      
+      // Verberg interactieve elementen
+      document.querySelector('.close-btn')?.style.setProperty('display', 'none');
+      document.querySelector('.action-buttons')?.style.setProperty('display', 'none');
+      
+      // Druk af
+      window.print();
+      
+      // Herstel UI
+      setTimeout(() => {
+        document.body.classList.remove('print-mode');
+        document.querySelector('.close-btn')?.style.removeProperty('display');
+        document.querySelector('.action-buttons')?.style.removeProperty('display');
+      }, 1000);
+    }
+  }
+  
+  /**
+   * Ruimt op na het afdrukken
+   */
+  cleanupAfterPrinting() {
+    try {
+      console.log('Opruimen na afdrukken');
+      
+      // Gebruik de geïmporteerde functie uit print-handler.js
+      cleanupAfterPrinting();
+    } catch (error) {
+      console.error('Fout bij opruimen na printen:', error);
+      
+      // Fallback cleanup
+      document.body.classList.remove('print-mode');
+      document.querySelector('.close-btn')?.style.removeProperty('display');
+      document.querySelector('.action-buttons')?.style.removeProperty('display');
+    }
+  }
+
+  /**
+   * Handler voor initialisatiefouten
+   * @param {Error} error - De opgetreden fout
+   */
+  handleInitError(error) {
+    console.error('App initialisatie mislukt:', error);
+    const container = document.getElementById('domains-container');
+    if (!container) return;
     
-    document.head.appendChild(styleTag);
+    container.innerHTML = `
+      <div class="error-message">
+        <h3>De lessentabellen konden niet worden geladen</h3>
+        <p>Probeer de pagina te verversen. Als het probleem aanhoudt, neem dan contact op met de beheerder.</p>
+        <button onclick="window.location.reload()" class="reload-btn">Pagina verversen</button>
+      </div>
+    `;
+  }
+  
+  /**
+   * Hulpfunctie om een klas op te halen op basis van klascode
+   * @param {string} klascode - De klascode om op te zoeken
+   * @returns {Object|null} - Het klasobject of null als niet gevonden
+   */
+  getKlasByCode(klascode) {
+    if (!klascode || !this.klassen || this.klassen.length === 0) return null;
+    return this.klassen.find(k => k.klascode === klascode) || null;
+  }
+  
+  /**
+   * Hulpfunctie om lessen op te halen voor een specifieke klascode
+   * @param {string} klascode - De klascode om lessen voor op te halen
+   * @returns {Array} - Array van lessen voor deze klascode
+   */
+  getLessenForKlas(klascode) {
+    if (!klascode || !this.lessentabel || this.lessentabel.length === 0) return [];
+    return this.lessentabel.filter(les => les.klascode === klascode);
   }
 }
 
-// Verbeterde beforeprint handler
-window.addEventListener('beforeprint', () => {
-  // Controleer of er een open slidein is
-  const slidein = document.getElementById('slidein');
-  if (slidein && slidein.classList.contains('open')) {
-    // Voeg printmodus toe als deze nog niet actief is
-    if (!document.body.classList.contains('print-mode')) {
-      document.body.classList.add('print-mode');
-      
-      // Toepassen van extra print-fixes voor lege pagina's
-      enhancePrintRendering();
-      
-      // Zorg dat datum correct wordt weergegeven
-      const datumElement = document.querySelector('.datum');
-      if (datumElement) {
-        const span = document.getElementById("datum-print");
-        if (span) {
-          const today = new Date();
-          span.textContent = today.toLocaleDateString("nl-BE", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric"
-          });
-        }
-      }
-    }
-  }
-});
+// Instantieer de app class
+const LessentabellenApp = new LessentabellenAppClass();
 
-// Herstel normale weergave na afdrukken
-window.addEventListener('afterprint', () => {
-  document.body.classList.remove('print-mode');
-  
-  // Verwijder de tijdelijke print-fixes
-  const styleTag = document.getElementById('print-fixes-style');
-  if (styleTag) {
-    styleTag.remove();
-  }
-});
+// Maak de app globaal beschikbaar voor HTML access
+window.LessentabellenApp = LessentabellenApp;
 
-// Exporteer de app controller voor externe toegang
-export default appController;
+// Export voor module gebruik
+export default LessentabellenApp;

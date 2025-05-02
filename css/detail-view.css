@@ -54,40 +54,26 @@
   position: relative;
 }
 
-.close-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
+.detail-header-flex {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: var(--app-domain-base);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s;
-  z-index: 5;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.close-btn:hover {
-  background: var(--app-domain-mid);
-  transform: scale(1.1);
-}
-
-.detail-header h2 {
-  font-size: 2rem;
-  margin: 0 0 1rem 0;
-  color: var(--app-domain-base);
-  padding-bottom: 0.75rem;
-  position: relative;
+.detail-header-flex h2 {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--domain-base, #0C8464);
   text-align: center;
+  position: relative;
+  padding-bottom: 0.75rem;
 }
 
-.detail-header h2::after {
+.detail-header-flex h2::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -96,6 +82,46 @@
   width: 60px;
   height: 3px;
   background: var(--app-domain-base);
+}
+
+.close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--app-domain-base);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  font-size: 1.25rem;
+  margin-left: 1rem;
+  flex-shrink: 0;
+}
+
+.close-btn:hover {
+  background: var(--app-domain-mid, var(--app-domain-base));
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+}
+
+.close-btn .close-label {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0.02em;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+@media (max-width: 600px) {
+  .close-btn .close-label {
+    display: none;
+  }
 }
 
 .detail-header p {
@@ -118,7 +144,7 @@
 .action-buttons button {
   padding: 0.75rem 1.5rem;
   background: var(--app-domain-base);
-  color: white;
+  color: var(--domain-textBtn, var(--domain-text, #fff)) !important;
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -132,10 +158,24 @@
   transform: translateY(-2px);
 }
 
-/* Verbeterde lessentabel styling */
+/* Kolombreedtes lessentabel 4:2:2 */
 .lessentabel {
+  table-layout: fixed;
   width: 100%;
-  border-collapse: collapse;
+  max-width: 700px;
+}
+.lessentabel th:first-child,
+.lessentabel td:first-child {
+  width: 57%;
+}
+.lessentabel th:nth-child(2),
+.lessentabel td:nth-child(2),
+.lessentabel th:nth-child(3),
+.lessentabel td:nth-child(3) {
+  width: 21.5%;
+}
+
+.lessentabel {
   margin: 1.5rem 0;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   border-radius: 0;
@@ -194,18 +234,35 @@
   border-left: 3px solid var(--app-domain-base);
 }
 
-.lessentabel tr.subvak td:first-child {
-  padding-left: 1.5rem;
+/* ------------------ */
+/* Verbeterde subvak styling: driehoekje altijd zichtbaar, selector robuuster */
+/* ------------------ */
+.lessentabel tr.subvak-row td:first-child {
   position: relative;
-  color: var(--app-domain-base);
+  padding-left: 1.8em !important;
+  font-style: italic;
+  color: var(--app-domain-base, #0C8464) !important;
+  white-space: normal;
+  word-break: break-word;
+  hyphens: auto;
 }
 
-.lessentabel tr.subvak td:first-child::before {
-  content: "•";
-  position: absolute;
-  left: 0.75rem;
+.lessentabel tr.subvak-row td:first-child::before {
+  content: '';
+  display: none;
+}
+
+/* Zorg dat subvak-row altijd lichter is */
+.lessentabel tr.subvak-row {
+  background: rgba(12,132,100,0.06);
+}
+
+.subvak-marker {
   color: var(--app-domain-mid);
-  font-size: 1.2rem;
+  font-weight: bold;
+  display: inline-block;
+  width: 1.2rem;
+  text-align: center;
 }
 
 .lessentabel tr.totaal-row {
@@ -224,6 +281,114 @@
   background-color: rgba(0, 0, 0, 0.05);
   color: var(--app-domain-base);
 }
+
+/* ----- Sectie-headers ----- */
+.lessentabel tr.section-row th {
+  background: var(--app-domain-light1, #f3f3f3);
+  color: var(--app-domain-base, #333);
+  border: none;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  box-shadow: none;
+}
+
+/* Linkse accentlijn per sectie */
+.lessentabel tr.section-basisvorming th {
+  border-left: 4px solid var(--app-domain-base, #0C8464);
+}
+.lessentabel tr.section-specifiek th {
+  border-left: 4px solid var(--app-domain-mid, #48A787);
+}
+
+/* ----- Subvak styling: centraal via domein-variabelen ----- */
+.lessentabel tr.subvak-row td,
+.lessentabel tr.subvak-row td:first-child {
+  color: var(--domain-base, #2B2243) !important;
+  font-style: italic;
+}
+.lessentabel tr.subvak-row td:first-child::before,
+.subvak-marker {
+  color: var(--domain-mid, #254A87) !important;
+}
+.lessentabel tr.subvak-row {
+  background: color-mix(in srgb, var(--domain-base, #2B2243) 6%, #fff 94%) !important;
+}
+
+/* Verwijder domeinspecifieke overrides voor subvakken */
+.lessentabel.domein-stem tr.subvak-row td,
+.lessentabel.domein-stem tr.subvak-row {
+  color: unset !important;
+  background: unset !important;
+}
+
+/* Extra: subvak-row achtergrond subtiel lichter */
+.lessentabel tr.subvak-row {
+  background: rgba(12,132,100,0.06); /* fallback, wordt overschreven door domeinkleur */
+}
+.lessentabellen-wrapper[data-domain] .lessentabel tr.subvak-row {
+  background: rgba(var(--app-domain-base-rgb, 12,132,100),0.06);
+}
+
+/* Domeinspecifiek achtergrondpatroon voor lessentabel */
+.lessentabel.domein-stem {
+  background: linear-gradient(135deg, #0C8464 0%, #48A787 100%);
+}
+.lessentabel.domein-maatschappij-welzijn {
+  background: linear-gradient(135deg, #E399BB 0%, #EFBACD 100%);
+}
+.lessentabel.domein-economie-organisatie {
+  background: linear-gradient(135deg, #2B2243 0%, #254a87 100%);
+}
+.lessentabel.domein-sport {
+  background: linear-gradient(135deg, #6ABCD6 0%, #A2E4FF 100%);
+}
+
+/* Sport: tekstkleur aanpassen voor contrast */
+.lessentabel.domein-sport,
+.lessentabel.domein-sport th,
+.lessentabel.domein-sport td {
+  color: #2B2243 !important; /* Donker organisatiekleur voor beter contrast */
+}
+.lessentabel.domein-sport thead th {
+  color: #002B3D !important;
+  background: linear-gradient(to bottom, #A2E4FF, #6ABCD6);
+}
+
+/* Titels in hoofdletters behouden */
+.lessentabel thead th,
+.lessentabel tr.section-row th {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Borderless look & schaduw */
+.lessentabel,
+.lessentabel th,
+.lessentabel td {
+  border: none !important;
+}
+.lessentabel {
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Tabelkop altijd hoofdletters */
+.lessentabel thead th {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Domeinkleuren via CSS variable (voorbeeld: .domein-stem) */
+.domein-stem {
+  --app-domain-base: var(--color-stem-gradient-start, #0C8464);
+  --app-domain-mid: var(--color-stem-gradient-end, #48A787);
+  --app-domain-light1: var(--color-stem-block-bg, #0C8464);
+  --app-domain-hover: #d7f5ea;
+}
+/* Voeg voor andere domeinen soortgelijke variabelen toe indien gewenst */
 
 /* Verbeterde algemene tabel styling */
 .lessentabel {
@@ -249,10 +414,14 @@
 
 /* Footnotes styling */
 .footnotes {
-  margin-top: 2rem;
+  width: 100%;
+  max-width: 700px;
+  margin: 2rem 0 0 0;
+  box-sizing: border-box;
   padding: 1rem 1.5rem;
   background: rgba(0, 0, 0, 0.03);
   border-left: 4px solid var(--app-domain-mid);
+  padding-left: 2.25rem !important; /* Meer ruimte tussen border en tekst */
 }
 
 .footnotes h4 {
@@ -262,11 +431,10 @@
 }
 
 .footnotes ul {
-  padding-left: 1.25rem;
-  margin: 0.5rem 0 0 0;
-  list-style-type: disc;
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
 }
-
 .footnotes li {
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
@@ -299,43 +467,44 @@
   }
 }
 
-/* Printoptimalisatie */
-@media print {
-  #overlay,
-  .close-btn,
-  .action-buttons {
-    display: none !important;
-  }
+/* ── Slide-in container fixed to 800px, no horizontal scroll ───────── */
+#slidein #lessentabel-container {
+  max-width: 800px;
+  margin: 0 auto;
+  overflow-x: hidden !important;
+  padding: 0 !important;
+}
 
-  #slidein {
-    position: static;
-    transform: none;
-    box-shadow: none;
-    max-width: none;
-    width: 100%;
-    height: auto;
-    padding: 0;
-  }
-  
-  .detail-header h2 {
-    font-size: 1.5rem;
-    margin-top: 3rem;
-  }
-  
-  .lessentabel thead th {
-    background: #f0f0f0 !important;
-    color: black !important;
-    box-shadow: none;
-  }
-  
-  .lessentabel {
-    box-shadow: none;
-    border: 1px solid #ddd;
-  }
-  
-  .footnotes {
-    background: none;
-    border-left: 1px solid #ddd;
-    padding: 0.5rem 1rem;
-  }
+/* ── Lessentabel always 100% of that container, no inline scaling ──── */
+#slidein #lessentabel-container .lessentabel {
+  width: 100% !important;
+  table-layout: fixed !important;
+  word-break: break-word !important;
+  transform: none !important;  /* override any leftover inline scale() */
+}
+
+/* ── Center footnotes under the table ───────────────────────────────── */
+#slidein #footnotes .footnotes {
+  margin: 2rem auto 0 !important;
+}
+
+/* Donkerpaarse organisatiekleur toepassen op tekst in detailvenster */
+.lessentabellen-wrapper,
+.lessentabellen-wrapper .action-buttons a,
+.lessentabellen-wrapper .action-buttons button,
+.lessentabellen-wrapper .detail-header,
+.lessentabellen-wrapper .detail-header p {
+  color: var(--domain-textBtn, var(--domain-text, #2B2243)) !important;
+}
+
+/* Forceer de domeinkleur op de titel in de detailview */
+.lessentabellen-wrapper #opleiding-titel {
+  color: var(--domain-base, #0C8464) !important;
+}
+
+/* Zorg dat iconen in buttons ook paars zijn */
+.action-buttons a svg,
+.action-buttons button svg {
+  stroke: var(--domain-textBtn, var(--domain-text, #2B2243)) !important;
+  color: var(--domain-textBtn, var(--domain-text, #2B2243)) !important;
 }

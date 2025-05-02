@@ -1,64 +1,101 @@
 klascode,richtingcode,richting,graad,domein,finaliteit,stage_weken
-5APDA,APDA,Applicatie- en datatechnieken,DERDE GRAAD,STEM,dubbele finaliteit,2.0
-6APDA,APDA,Applicatie- en datatechnieken,DERDE GRAAD,STEM,dubbele finaliteit,2.0
-5ASWW,ASWW,"Assistentie in wonen, zorg en welzijn",DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,6.0
-5BZO,BZO,Basiszorg en ondersteuning,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,6.0
-6BZO,BZO,Basiszorg en ondersteuning,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,10.0
-5BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,doorstroom,2.0
-6BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,doorstroom,2.0
+5APDA,APDA,Applicatie- en datatechnieken,DERDE GRAAD,STEM,dubbele finaliteit,2 
+6APDA,APDA,Applicatie- en datatechnieken,DERDE GRAAD,STEM,dubbele finaliteit,2 
+5ASWW,ASWW,"Assistentie in wonen, zorg en welzijn",DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,6 
+
+5AUTO,AUTO,Onderhoudsmechanica auto,DERDE GRAAD,STEM,arbeidsmarkt,4 
+6AUTO,AUTO,Onderhoudsmechanica auto,DERDE GRAAD,STEM,arbeidsmarkt,4 
+5BZO,BZO,Basiszorg en ondersteuning,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,6 
+6BZO,BZO,Basiszorg en ondersteuning,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,10 
+3BO,BO,Bedrijf en Organisatie,TWEEDE GRAAD,Economie & Organisatie,dubbele finaliteit,
+4BO,BO,Bedrijf en Organisatie,TWEEDE GRAAD,Economie & Organisatie,dubbele finaliteit,
+5BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,dubbele finaliteit, 
+6BO,BO,Bedrijf en Organisatie,DERDE GRAAD,Economie & Organisatie,dubbele finaliteit,2 
 3BW,BW,Bedrijfswetenschappen,TWEEDE GRAAD,Economie & Organisatie,doorstroom,
 4BW,BW,Bedrijfswetenschappen,TWEEDE GRAAD,Economie & Organisatie,doorstroom,
-5BIN,BIN,Binnenschrijnwerk en interieur,DERDE GRAAD,STEM,arbeidsmarkt,4.0
-6BIN,BIN,Binnenschrijnwerk en interieur,DERDE GRAAD,STEM,arbeidsmarkt,4.0
-5CO,CO,Commerciële Organisatie,DERDE GRAAD,Economie & Organisatie,doorstroom,2.0
+5BIN,BIN,Binnenschrijnwerk en interieur,DERDE GRAAD,STEM,arbeidsmarkt,4 
+6BIN,BIN,Binnenschrijnwerk en interieur,DERDE GRAAD,STEM,arbeidsmarkt,4 
+5CO,CO,Commerciële Organisatie,DERDE GRAAD,Economie & Organisatie,doorstroom, 
+5DUA-ASWW,DUA-ASWW,"Assistentie in wonen, zorg en welzijn Duaal",DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,
+5DUA-AUTO,DUA-AUTO,Onderhoudsmechanica auto Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+6DUA-AUTO,DUA-AUTO,Onderhoudsmechanica auto Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+5DUA-BIN,DUA-BIN,Binnenschrijnwerk en interieur Duaal,DERDE GRAAD,STEM,arbeidsmarkt, 
+6DUA-BIN,DUA-BIN,Binnenschrijnwerk en interieur Duaal,DERDE GRAAD,STEM,arbeidsmarkt, 
+5DUA-ELINS,DUA-ELINS,Elektrische installaties Duaal,DERDE GRAAD,STEM,arbeidsmarkt, 
+6DUA-ELINS,DUA-ELINS,Elektrische installaties Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+5DUA-FIETS,DUA-FIETS,Fietshersteller Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+6DUA-FIETS,DUA-FIETS,Fietshersteller Duaal,DERDE GRAAD,STEM,arbeidsmarkt, 
+5DUA-HZ,HZ,Haarverzorging Duaal,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,4 
+6DUA-HZ,HZ,Haarverzorging Duaal,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,4 
+5DUA-KW,DUA-KW,Koetswerk Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+6DUA-KW,DUA-KW,Koetswerk Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
+5DUA-OOS,DUA-OOS,Onthaal Organisatie & Sales Duaal,DERDE GRAAD,Economie & Organisatie,arbeidsmarkt,
+6DUA-OOS,DUA-OOS,Onthaal Organisatie & Sales Duaal,DERDE GRAAD,Economie & Organisatie,arbeidsmarkt,
+7DUA-SPAUTO,DUA-SPAUTO,Onderhoudsmechanica personenwagens en lichte bedrijfsvoertuigen duaal,ZEVENDE JAAR,STEM,arbeidsmarkt,
+7DUA-BUKU,DUA-BUKU,Buitenschrijnwerk kunststoffen/PVC duaal,ZEVENDE JAAR,STEM,arbeidsmarkt,
+7DUA-SPEM,DUA-SPEM,Elektromecanicien duaal,ZEVENDE JAAR,STEM,arbeidsmarkt,
+7DUA-SHPAAR,DUA-SPHAAR,Kapper-stylist duaal,ZEVENDE JAAR,Maatschappij & Welzijn,arbeidsmarkt,
+7DUA-VZORG,DUA-VZORG,Verzorgende zorgkundige duaal,ZEVENDE JAAR,Maatschappij & Welzijn,arbeidsmarkt,
 3ELEK,ELEK,Elektriciteit,TWEEDE GRAAD,STEM,arbeidsmarkt,
 4ELEK,ELEK,Elektriciteit,TWEEDE GRAAD,STEM,arbeidsmarkt,
-5ELINS,ELINS,Elektrische installaties,DERDE GRAAD,STEM,arbeidsmarkt,4.0
-6ELINS,ELINS,Elektrische installaties,DERDE GRAAD,STEM,arbeidsmarkt,4.0
-5EMT,EMT,Elektromechanische technieken,DERDE GRAAD,STEM,dubbele finaliteit,2.0
-6EMT,EMT,Elektromechanische technieken,DERDE GRAAD,STEM,dubbele finaliteit,2.0
+5ELINS,ELINS,Elektrische installaties,DERDE GRAAD,STEM,arbeidsmarkt,4 
+6ELINS,ELINS,Elektrische installaties,DERDE GRAAD,STEM,arbeidsmarkt,4 
+3EMT,EMT,Elektromechanische technieken,TWEEDE GRAAD,STEM,dubbele finaliteit,
+4EMT,EMT,Elektromechanische technieken,TWEEDE GRAAD,STEM,dubbele finaliteit,
+5EMT,EMT,Elektromechanische technieken,DERDE GRAAD,STEM,dubbele finaliteit,2 
+6EMT,EMT,Elektromechanische technieken,DERDE GRAAD,STEM,dubbele finaliteit,2 
 3GRATECH,GRATECH,Grafische technieken,TWEEDE GRAAD,STEM,dubbele finaliteit,
 4GRATECH,GRATECH,Grafische technieken,TWEEDE GRAAD,STEM,dubbele finaliteit,
-5GRAFI,GRAFI,Grafische technieken,DERDE GRAAD,STEM,dubbele finaliteit,2.0
-6GRAFI,GRAFI,Grafische technieken,DERDE GRAAD,STEM,dubbele finaliteit,2.0
+5GRAFI,GRAFI,Grafische technieken,DERDE GRAAD,STEM,dubbele finaliteit,2 
+6GRAFI,GRAFI,Grafische technieken,DERDE GRAAD,STEM,dubbele finaliteit,2 
 3HSZ,HSZ,Haar- en schoonheidsverzorging,TWEEDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,
 4HSZ,HSZ,Haar- en schoonheidsverzorging,TWEEDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,
-5HZ,HZ,Haarverzorging,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,4.0
-6HZ,HZ,Haarverzorging,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,4.0
+5HZ,HZ,Haarverzorging,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,4 
+6HZ,HZ,Haarverzorging,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,4 
 3HOUT,HOUT,Hout,TWEEDE GRAAD,STEM,arbeidsmarkt,
 4HOUT,HOUT,Hout,TWEEDE GRAAD,STEM,arbeidsmarkt,
 5ICW,ICW,Informatica- en communicatiewetenschappen,DERDE GRAAD,STEM,doorstroom,
 6ICW,ICW,Informatica- en communicatiewetenschappen,DERDE GRAAD,STEM,doorstroom,
-5KW,KW,Koetswerk,DERDE GRAAD,STEM,arbeidsmarkt,4.0
-6KW,KW,Koetswerk,DERDE GRAAD,STEM,arbeidsmarkt,4.0
+5KW,KW,Koetswerk,DERDE GRAAD,STEM,arbeidsmarkt,4 
+6KW,KW,Koetswerk,DERDE GRAAD,STEM,arbeidsmarkt,4 
 3MECH,MECH,Mechanica,TWEEDE GRAAD,STEM,arbeidsmarkt,
 4MECH,MECH,Mechanica,TWEEDE GRAAD,STEM,arbeidsmarkt,
 3MW,MW,Maatschappij en welzijn,TWEEDE GRAAD,Maatschappij & Welzijn,dubbele finaliteit,
 4MW,MW,Maatschappij en welzijn,TWEEDE GRAAD,Maatschappij & Welzijn,dubbele finaliteit,
 3MWW,MWW,Maatschappij- en welzijnswetenschappen,TWEEDE GRAAD,Maatschappij & Welzijn,doorstroom,
 4MWW,MWW,Maatschappij- en welzijnswetenschappen,TWEEDE GRAAD,Maatschappij & Welzijn,doorstroom,
-3OOS,OOS,"Onthaal, organisatie & sales",TWEEDE GRAAD,Economie & Organisatie,arbeidsmarkt,
-6OOS,OOS,"Onthaal, organisatie & sales",TWEEDE GRAAD,Economie & Organisatie,arbeidsmarkt,
-5OB,OB,Opvoeding en begeleiding,DERDE GRAAD,Maatschappij & Welzijn,dubbele finaliteit,3.0
-6OB,OB,Opvoeding en begeleiding,DERDE GRAAD,Maatschappij & Welzijn,dubbele finaliteit,5.0
+5OOS,OOS,Onthaal Organisatie & Sales,DERDE GRAAD,Economie & Organisatie,arbeidsmarkt,4
+6OOS,OOS,Onthaal Organisatie & Sales,DERDE GRAAD,Economie & Organisatie,arbeidsmarkt,5
+5OB,OB,Opvoeding en begeleiding,DERDE GRAAD,Maatschappij & Welzijn,dubbele finaliteit,3 
+6OB,OB,Opvoeding en begeleiding,DERDE GRAAD,Maatschappij & Welzijn,dubbele finaliteit,5 
 3OL,OL,Organisatie en Logistiek,TWEEDE GRAAD,Economie & Organisatie,arbeidsmarkt,
 4OL,OL,Organisatie en Logistiek,TWEEDE GRAAD,Economie & Organisatie,arbeidsmarkt,
-5PRO,PRO,Preventief onderhoud machines en installaties,DERDE GRAAD,STEM,arbeidsmarkt,4.0
-6PRO,PRO,Preventief onderhoud machines en installaties,DERDE GRAAD,STEM,arbeidsmarkt,4.0
-7SCHAKEL,SCHAKEL,Schakeljaar,DERDE GRAAD,Schakeljaar,arbeidsmarkt,
+5PRO,PRO,Preventief onderhoud machines en installaties,DERDE GRAAD,STEM,arbeidsmarkt,4 
+6PRO,PRO,Preventief onderhoud machines en installaties,DERDE GRAAD,STEM,arbeidsmarkt,4 
+7SCHAKEL,SCHAKEL,Schakeljaar,,Schakeljaar,,
 3SPORT,SPORT,Sport,TWEEDE GRAAD,Sport & Topsport,dubbele finaliteit,
 4SPORT,SPORT,Sport,TWEEDE GRAAD,Sport & Topsport,dubbele finaliteit,
 5SPORT,SPORT,Sportbegeleiding,DERDE GRAAD,Sport & Topsport,dubbele finaliteit,
 6SPORT,SPORT,Sportbegeleiding,DERDE GRAAD,Sport & Topsport,dubbele finaliteit,
+3SPW,SPW,Sportwetenschappen,TWEEDE GRAAD,Sport & Topsport,doorstroom,
+4SPW,SPW,Sportwetenschappen,TWEEDE GRAAD,Sport & Topsport,doorstroom,
 5SPW,SPW,Sportwetenschappen,DERDE GRAAD,Sport & Topsport,doorstroom,
 6SPW,SPW,Sportwetenschappen,DERDE GRAAD,Sport & Topsport,doorstroom,
-5TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,doorstroom,
-6TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,doorstroom,
+5TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,dubbele finaliteit,2
+6TOE,TOE,Toerisme,DERDE GRAAD,Economie & Organisatie,dubbele finaliteit,5
+3TOPEC,TOPEC,Topsport economie,TWEEDE GRAAD,Sport & Topsport,doorstroom,
+4TOPEC,TOPEC,Topsport economie,TWEEDE GRAAD,Sport & Topsport,doorstroom,
 5TOPEC,TOPEC,Topsport economie,DERDE GRAAD,Sport & Topsport,doorstroom,
 6TOPEC,TOPEC,Topsport economie,DERDE GRAAD,Sport & Topsport,doorstroom,
 3TOPNW,TOPNW,Topsport Natuurwetenschappen,TWEEDE GRAAD,Sport & Topsport,doorstroom,
 4TOPNW,TOPNW,Topsport Natuurwetenschappen,TWEEDE GRAAD,Sport & Topsport,doorstroom,
 5TOPWET,TOPWET,Topsport-Wetenschappen,DERDE GRAAD,Sport & Topsport,doorstroom,
 6TOPWET,TOPWET,Topsport-Wetenschappen,DERDE GRAAD,Sport & Topsport,doorstroom,
+3TS,TS,Topsport,TWEEDE GRAAD,Sport & Topsport,dubbele finaliteit,
+4TS,TS,Topsport,TWEEDE GRAAD,Sport & Topsport,dubbele finaliteit,
+5TS,TS,Topsport,DERDE GRAAD,Sport & Topsport,dubbele finaliteit,
+6TS,TS,Topsport,DERDE GRAAD,Sport & Topsport,dubbele finaliteit,
 3ZW,ZW,Zorg en welzijn,TWEEDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,
 4ZW,ZW,Zorg en welzijn,TWEEDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,
+1OKAN,OKAN,Onthaalonderwijs voor anderstalige nieuwkomers,,OKAN,,
+2OKAN,OKAN,Schakelklassen,,OKAN,,
