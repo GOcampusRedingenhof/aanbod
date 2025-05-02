@@ -88,14 +88,14 @@ export default class DataLoader {
   }
 
   async getKlassen() {
-    return this.loadCSV('data/klassen.csv');
+    return this.loadCSV('https://cdn.jsdelivr.net/gh/GOcampusRedingenhof/aanbod@main/data/klassen.csv');
   }
 
   async getLessentabel() {
-    return this.loadCSV('data/lessentabel.csv');
+    return this.loadCSV('https://cdn.jsdelivr.net/gh/GOcampusRedingenhof/aanbod@main/data/lessentabel.csv');
   }
 
   async getFootnotes() {
-    return this.loadCSV('data/voetnoten.csv');
+    return this.loadCSV('https://cdn.jsdelivr.net/gh/GOcampusRedingenhof/aanbod@main/data/voetnoten.csv');
   }
 }
