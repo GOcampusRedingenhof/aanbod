@@ -1,101 +1,46 @@
-// loader.js
-export default class DataLoader {
-  constructor(config = {}) {
-    this.cache = new Map();
-    this.config = {
-      cacheTimeout: 1000 * 60 * 60, // 1 uur cache
-      parseOptions: {
-        header: true,
-        dynamicTyping: true,
-        skipEmptyLines: true
-      },
-      ...config
-    };
 
-    // Fallback parsing methode als Papaparse niet beschikbaar is
-    this.fallbackParse = this.fallbackParse.bind(this);
-  }
-
-  async loadCSV(url) {
-    // Check cache eerst
-    const cachedData = this.getCachedData(url);
-    if (cachedData) return cachedData;
-
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error(`Kon CSV niet laden: ${url}`);
-      
-      const text = await response.text();
-      const parsed = this.parseCSV(text);
-      
-      // Cache resultaat
-      this.cacheData(url, parsed);
-      
-      return parsed;
-    } catch (error) {
-      console.error(`CSV laden mislukt voor ${url}:`, error);
-      throw error;
+async function fetchCSV(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Fout bij laden: ${url}`);
     }
+    const data = await response.text();
+    return data.split('\n').map(row => row.split(';'));
+  } catch (error) {
+    console.error(`Error fetching CSV from ${url}:`, error);
+    throw error;
   }
+}
 
-  parseCSV(text) {
-    // Probeer Papaparse eerst
-    if (typeof Papa !== 'undefined') {
-      return Papa.parse(text, this.config.parseOptions).data;
-    }
-    
-    // Fallback parsing methode
-    return this.fallbackParse(text);
-  }
+export async function getKlassen() {
+  const url = 'https://cdn.jsdelivr.net/gh/GOcampusRedingenhof/aanbod@main/data/klassen.csv';
+  const rows = await fetchCSV(url);
+  const headers = rows[0];
+  return rows.slice(1).filter(r => r.length === headers.length).map(row =>
+    Object.fromEntries(headers.map((h, i) => [h.trim(), row[i].trim()]))
+  );
+}
 
-  fallbackParse(text) {
-    const lines = text.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
-    
-    return lines.slice(1).map(line => {
-      const values = line.split(',').map(v => v.trim());
-      return headers.reduce((obj, header, index) => {
-        // Basis type conversie
-        let value = values[index];
-        if (value === 'WAAR') value = true;
-        else if (value === 'ONWAAR') value = false;
-        else if (!isNaN(parseFloat(value))) value = parseFloat(value);
-        
-        obj[header] = value;
-        return obj;
-      }, {});
-    });
-  }
+export async function getLessentabel() {
+  const url = 'https://cdn.jsdelivr.net/gh/GOcampusRedingenhof/aanbod@main/data/lessentabel.csv';
+  const rows = await fetchCSV(url);
+  const headers = rows[0];
+  return rows.slice(1).filter(r => r.length === headers.length).map(row =>
+    Object.fromEntries(headers.map((h, i) => [h.trim(), row[i].trim()]))
+  );
+}
 
-  getCachedData(url) {
-    const cached = this.cache.get(url);
-    if (!cached) return null;
-    
-    // Check of cache verlopen is
-    if (Date.now() - cached.timestamp > this.config.cacheTimeout) {
-      this.cache.delete(url);
-      return null;
-    }
-    
-    return cached.data;
-  }
-
-  cacheData(url, data) {
-    this.cache.set(url, {
-      data,
-      timestamp: Date.now()
-    });
-  }
-
-  async getKlassen() {
-    return this.loadCSV('https://cdn.jsdelivr.net/gh/GOcampusRedingenhof/aanbod@main/data/klassen.csv');
-  }
-
-  async getLessentabel() {
-    return this.loadCSV('https://cdn.jsdelivr.net/gh/GOcampusRedingenhof/aanbod@main/data/lessentabel.csv');
-  }
-
-  async getFootnotes() {
-    return this.loadCSV('https://cdn.jsdelivr.net/gh/GOcampusRedingenhof/aanbod@main/data/voetnoten.csv');
+export async function getFootnotes() {
+  const url = 'https://cdn.jsdelivr.net/gh/GOcampusRedingenhof/aanbod@main/data/voetnoten.csv';
+  try {
+    const rows = await fetchCSV(url);
+    const headers = rows[0];
+    return rows.slice(1).filter(r => r.length === headers.length).map(row =>
+      Object.fromEntries(headers.map((h, i) => [h.trim(), row[i].trim()]))
+    );
+  } catch (e) {
+    console.warn('Voetnoten konden niet worden geladen, lege lijst wordt gebruikt:', e);
+    return [];
   }
 }
