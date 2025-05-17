@@ -24,8 +24,10 @@ klascode,richtingcode,richting,graad,domein,finaliteit,stage_weken
 6DUA-ELINS,DUA-ELINS,Elektrische installaties Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
 5DUA-FIETS,DUA-FIETS,Fietshersteller Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
 6DUA-FIETS,DUA-FIETS,Fietshersteller Duaal,DERDE GRAAD,STEM,arbeidsmarkt, 
-5DUA-HZ,HZ,Haarverzorging Duaal,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,4 
-6DUA-HZ,HZ,Haarverzorging Duaal,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,4 
+5DUA-HZ,HZ,Haarverzorging Duaal,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt,
+6DUA-HZ,HZ,Haarverzorging Duaal,DERDE GRAAD,Maatschappij & Welzijn,arbeidsmarkt, 
+5DUA-LOG,LOG,Logistiek Duaal,TWEEDE GRAAD,Economie & Organisatie,arbeidsmarkt, 
+6DUA-LOG,LOG,Logistiek Duaal,DERDE GRAAD,Economie & Organisatie,arbeidsmarkt,
 5DUA-KW,DUA-KW,Koetswerk Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
 6DUA-KW,DUA-KW,Koetswerk Duaal,DERDE GRAAD,STEM,arbeidsmarkt,
 5DUA-OOS,DUA-OOS,Onthaal Organisatie & Sales Duaal,DERDE GRAAD,Economie & Organisatie,arbeidsmarkt,
