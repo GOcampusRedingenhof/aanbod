@@ -52,25 +52,25 @@ klascode,vak,categorie,type,subvak,optie,uren
 5BZO,STEM (1),basisvorming,vak,ONWAAR,ONWAAR,4
 5BZO,MTC (2),basisvorming,vak,ONWAAR,ONWAAR,4
 5BZO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
-5BZO,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+5BZO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 5BZO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 5BZO,Basiszorg en ondersteuning,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 5BZO,Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,4
-5BZO,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,4
-5BZO,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,5
+5BZO,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,6
+5BZO,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,4
 5BZO,Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,4
 6BZO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 6BZO,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,
 6BZO,STEM (1),basisvorming,vak,WAAR,ONWAAR,4
 6BZO,MTC (2),basisvorming,vak,WAAR,ONWAAR,5
 6BZO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
-6BZO,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+6BZO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 6BZO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 6BZO,Basiszorg en ondersteuning,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 6BZO,Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,3
 6BZO,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,4
 6BZO,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
-6BZO,Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
+6BZO,Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,4
 3BO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
 3BO,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 3BO,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
