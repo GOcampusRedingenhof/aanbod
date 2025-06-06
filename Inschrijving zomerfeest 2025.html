@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inschrijving Zomerfeest 2025 - GO! Campus Redingenhof</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .app-container {
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(43, 34, 67, 0.1);
+            overflow: hidden;
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, #2b2243 0%, #254a87 100%);
+            color: white;
+            padding: 30px 20px 25px;
+            text-align: center;
+        }
+
+        .app-header h1 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .app-header .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .app-content {
+            padding: 25px 20px;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .step-number {
+            background: #2b2243;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2b2243;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .payment-option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(43, 34, 67, 0.1);
+        }
+
+        .payment-option.selected {
+            background: linear-gradient(135deg, #0c8464 0%, #0a7055 100%);
+            border-color: #0c8464;
+            color: white;
+        }
+
+        .payment-option .emoji {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .payment-option .title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .payment-option .price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2b2243;
+        }
+
+        .payment-option.selected .price {
+            color: white;
+        }
+
+        .food-selection {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e399bb15 0%, #e399bb25 100%);
+            border-radius: 12px;
+            border: 1px solid #e399bb40;
+        }
+
+        .food-selection.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .food-selection h4 {
+            color: #2b2243;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .food-option {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .food-option:hover {
+            border-color: #2b2243;
+            transform: translateY(-1px);
+        }
+
+        .food-option.selected {
+            background: #2b2243;
+            border-color: #2b2243;
+            color: white;
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2b2243;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #2b2243;
+            box-shadow: 0 0 0 3px rgba(43, 34, 67, 0.1);
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn:not(:disabled):hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0c8464 0%, #0a7055 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(12, 132, 100, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #ed4e13 0%, #d63d0c 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(237, 78, 19, 0.3);
+        }
+
+        .registration-success {
+            display: none;
+            background: linear-gradient(135deg, #0c846415 0%, #0c846425 100%);
+            border: 1px solid #0c846440;
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .registration-success.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .registration-success .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .registration-success h3 {
+            color: #0c8464;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .registration-success p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .payment-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #e9ecef;
+        }
+
+        .payment-section h4 {
+            color: #2b2243;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .payment-summary {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+            font-weight: 600;
+            color: #2b2243;
+            border-top: 1px solid #e9ecef;
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        .qr-container {
+            display: none;
+            text-align: center;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+        }
+
+        .qr-code-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .final-success {
+            display: none;
+            background: linear-gradient(135deg, #4caf5015 0%, #4caf5025 100%);
+            border: 2px solid #4caf50;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .final-success.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .final-success .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .final-success h3 {
+            color: #2e7d32;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .final-success p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .bank-info {
+            background: linear-gradient(135deg, #254a8715 0%, #254a8725 100%);
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 20px;
+            border: 1px solid #254a8740;
+        }
+
+        .bank-info h4 {
+            color: #2b2243;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .bank-info h4::before {
+            content: "💳";
+            margin-right: 8px;
+        }
+
+        .bank-info p {
+            color: #666;
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 480px) {
+            .app-container {
+                margin: 0;
+                border-radius: 0;
+                min-height: 100vh;
+            }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-header">
+            <h1>Inschrijving Zomerfeest 2025</h1>
+            <div class="subtitle">GO! Campus Redingenhof</div>
+        </div>
+        
+        <div class="app-content">
+            <!-- Stap 1: Formule kiezen -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Kies je formule</div>
+                </div>
+                <div class="payment-grid">
+                    <div class="payment-option" data-amount="7" data-type="apero">
+                        <span class="emoji">🍻</span>
+                        <div class="title">Apero</div>
+                        <div class="price">€7</div>
+                    </div>
+                    <div class="payment-option" data-amount="15" data-type="all-in">
+                        <span class="emoji">🍽️</span>
+                        <div class="title">All-in</div>
+                        <div class="price">€15</div>
+                    </div>
+                </div>
+
+                <div class="food-selection" id="foodSelection">
+                    <h4>Kies je menu:</h4>
+                    <div class="food-grid">
+                        <div class="food-option" data-food="vlees">
+                            🥩 Vlees
+                        </div>
+                        <div class="food-option" data-food="vegetarisch">
+                            🥗 Vegetarisch
+                        </div>
+                        <div class="food-option" data-food="halal">
+                            🥙 Halal
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stap 2: Gegevens invullen -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Je gegevens</div>
+                </div>
+                <div class="input-group">
+                    <label class="input-label" for="userName">Volledige naam *</label>
+                    <input type="text" id="userName" class="input-field" placeholder="Voer je voor- en achternaam in">
+                </div>
+                <div class="input-group">
+                    <label class="input-label" for="userEmail">E-mailadres *</label>
+                    <input type="email" id="userEmail" class="input-field" placeholder="je.naam@voorbeeld.be">
+                </div>
+            </div>
+
+            <!-- Stap 3: Inschrijven -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Inschrijven</div>
+                </div>
+                <button class="btn btn-primary" id="registerButton" disabled>
+                    ✅ Schrijf me in voor het Zomerfeest!
+                </button>
+            </div>
+
+            <!-- Registratie succesvol -->
+            <div class="registration-success" id="registrationSuccess">
+                <div class="icon">🎉</div>
+                <h3>Je bent ingeschreven!</h3>
+                <p>Geweldig! Je bent geregistreerd. Betaal nu om je plaats definitief te maken.</p>
+                
+                <div class="payment-section">
+                    <div class="step-header" style="margin-bottom: 20px;">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Betaling</div>
+                    </div>
+                    <h4>🏦 Betaal om je plaats definitief te maken</h4>
+                    
+                    <div class="payment-summary">
+                        <div class="summary-row">
+                            <span>Naam:</span>
+                            <span id="summaryName">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>E-mail:</span>
+                            <span id="summaryEmail">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Formule:</span>
+                            <span id="summaryType">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Menu:</span>
+                            <span id="summaryFood">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Te betalen:</span>
+                            <span id="summaryAmount">-</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-secondary" id="generateQR">
+                        📱 Genereer QR-Code voor betaling
+                    </button>
+                    <button class="btn btn-primary" id="paidButton">
+                        ✅ Ik heb al betaald
+                    </button>
+
+                    <!-- QR Code Container -->
+                    <div class="qr-container" id="qrContainer">
+                        <h4>Scan met je banking app:</h4>
+                        <div class="qr-code-box" id="qrCodeBox">
+                            <!-- QR code komt hier -->
+                        </div>
+                        <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">
+                            Na betaling klik je op "Ik heb al betaald" hierboven
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Finale bevestiging -->
+            <div class="final-success" id="finalSuccess">
+                <div class="icon">🎊</div>
+                <h3>Inschrijving compleet!</h3>
+                <p>Je inschrijving is definitief bevestigd. We zien je graag op het Zomerfeest 2025!</p>
+            </div>
+
+            <!-- Bank info -->
+            <div class="bank-info">
+                <h4>Alternatieve betaling</h4>
+                <p><strong>IBAN:</strong> BE22 4226 1641 4147</p>
+                <p><strong>Mededeling:</strong> Je volledige naam + Zomerfeest 2025</p>
+                <p><strong>Na overschrijving:</strong> Klik op "Ik heb al betaald"</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedAmount = null;
+        let selectedType = null;
+        let selectedFood = null;
+        let hasRegistered = false;
+        let hasConfirmedPayment = false;
+
+        // Google Forms configuratie
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdyPOqN4ZgfUV3-WX2UX7UqHq3YSElFNaVdZ3lTsPX-fK159Q/formResponse';
+
+        // Entry IDs van je Google Form
+        const FORM_FIELDS = {
+            name: 'entry.432490664',
+            email: 'entry.1996782342',
+            type: 'entry.1116609467',
+            amount: 'entry.1151987243',
+            food: 'entry.1960058974'
+        };
+
+        // Formule selectie
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                if (hasRegistered) return;
+                
+                document.querySelectorAll('.payment-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                this.classList.add('selected');
+                selectedAmount = this.dataset.amount;
+                selectedType = this.dataset.type;
+                
+                const foodSelection = document.getElementById('foodSelection');
+                if (selectedType === 'all-in') {
+                    foodSelection.classList.add('show');
+                    selectedFood = null;
+                    document.querySelectorAll('.food-option').forEach(food => {
+                        food.classList.remove('selected');
+                    });
+                } else {
+                    foodSelection.classList.remove('show');
+                    selectedFood = null;
+                }
+                
+                checkFormValidity();
+            });
+        });
+
+        // Food selectie
+        document.querySelectorAll('.food-option').forEach(option => {
+            option.addEventListener('click', function() {
+                if (hasRegistered) return;
+                
+                document.querySelectorAll('.food-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                this.classList.add('selected');
+                selectedFood = this.dataset.food;
+                checkFormValidity();
+            });
+        });
+
+        // Input validatie
+        document.getElementById('userName').addEventListener('input', checkFormValidity);
+        document.getElementById('userEmail').addEventListener('input', checkFormValidity);
+
+        function checkFormValidity() {
+            const name = document.getElementById('userName').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const registerBtn = document.getElementById('registerButton');
+            
+            let isValid = false;
+            
+            const emailValid = email.length > 0 && email.includes('@') && email.includes('.');
+            
+            if (selectedAmount && name.length > 0 && emailValid && !hasRegistered) {
+                if (selectedType === 'all-in') {
+                    isValid = selectedFood !== null;
+                } else {
+                    isValid = true;
+                }
+            }
+            
+            registerBtn.disabled = !isValid;
+        }
+
+        function updateSummary() {
+            const name = document.getElementById('userName').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const typeText = selectedType === 'apero' ? 'Apero (€7)' : 'All-in (€15)';
+            const foodText = selectedFood ? 
+                (selectedFood === 'vlees' ? 'Vlees' : 
+                 selectedFood === 'vegetarisch' ? 'Vegetarisch' : 'Halal') : 'Geen';
+            
+            document.getElementById('summaryName').textContent = name;
+            document.getElementById('summaryEmail').textContent = email;
+            document.getElementById('summaryType').textContent = typeText;
+            document.getElementById('summaryFood').textContent = selectedType === 'all-in' ? foodText : 'N/A';
+            document.getElementById('summaryAmount').textContent = '€' + selectedAmount;
+        }
+
+        function sendToGoogleForms() {
+            const name = document.getElementById('userName').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            
+            const paymentData = {
+                name: name,
+                email: email,
+                type: selectedType === 'apero' ? 'Apero 7 euro' : 'All-in 15 euro',
+                amount: selectedAmount,
+                food: selectedFood ? 
+                    (selectedFood === 'vlees' ? 'Vlees' : 
+                     selectedFood === 'vegetarisch' ? 'Vegetarisch' : 'Halal') : ''
+            };
+
+            // AJAX submit naar Google Forms
+            const formData = new FormData();
+            formData.append(FORM_FIELDS.name, paymentData.name);
+            formData.append(FORM_FIELDS.email, paymentData.email);
+            formData.append(FORM_FIELDS.type, paymentData.type);
+            formData.append(FORM_FIELDS.amount, paymentData.amount);
+            formData.append(FORM_FIELDS.food, paymentData.food || '');
+
+            // Verstuur in achtergrond
+            fetch(GOOGLE_FORM_URL, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'
+            }).catch(() => {
+                // Fout negeren - Google Forms accepteert meestal wel
+                console.log('Data naar Google Forms verzonden');
+            });
+        }
+
+        function generateSimpleQR(data) {
+            const size = 200;
+            const url = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(data)}`;
+            
+            const img = document.createElement('img');
+            img.src = url;
+            img.style.maxWidth = '100%';
+            img.style.height = 'auto';
+            img.alt = 'QR Code voor betaling';
+            
+            return img;
+        }
+
+        // Register button - DIRECT Google Forms versturen bij inschrijving
+        document.getElementById('registerButton').addEventListener('click', function() {
+            if (hasRegistered) return;
+            
+            hasRegistered = true;
+            this.disabled = true;
+            this.innerHTML = '✅ Ingeschreven!';
+            
+            // DIRECT naar Google Forms versturen bij inschrijving
+            sendToGoogleForms();
+            
+            updateSummary();
+            document.getElementById('registrationSuccess').classList.add('visible');
+            
+            setTimeout(() => {
+                document.getElementById('registrationSuccess').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            }, 300);
+        });
+
+        // Generate QR button
+        document.getElementById('generateQR').addEventListener('click', function() {
+            const name = document.getElementById('userName').value.trim();
+            const iban = 'BE22422616414147';
+            
+            let description = name + ' - Zomerfeest 2025 - ' + (selectedType === 'apero' ? 'Apero' : 'All-in');
+            if (selectedType === 'all-in' && selectedFood) {
+                const foodText = selectedFood === 'vlees' ? 'Vlees' : 
+                                selectedFood === 'vegetarisch' ? 'Vegetarisch' : 'Halal';
+                description += ' (' + foodText + ')';
+            }
+            
+            const epcData = `BCD\n002\n1\nSCT\n\n\n${iban}\nEUR${selectedAmount}\n\n${description}\n`;
+            
+            const qrCodeBox = document.getElementById('qrCodeBox');
+            qrCodeBox.innerHTML = '';
+            qrCodeBox.appendChild(generateSimpleQR(epcData));
+            
+            document.getElementById('qrContainer').style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('qrContainer').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            }, 300);
+        });
+
+        // Paid button - alleen finale bevestiging
+        document.getElementById('paidButton').addEventListener('click', function() {
+            if (hasConfirmedPayment) return;
+            
+            hasConfirmedPayment = true;
+            this.disabled = true;
+            this.innerHTML = '✅ Betaling bevestigd!';
+            
+            document.getElementById('generateQR').disabled = true;
+            
+            document.getElementById('finalSuccess').classList.add('show');
+            
+            setTimeout(() => {
+                document.getElementById('finalSuccess').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
