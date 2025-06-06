@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Weekrooster Planner</title>
+  <style>
+    body {
+      font-family: Aptos, Verdana, sans-serif;
+      background-color: #F5F4F8;
+      color: #2B2243;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      text-align: center;
+      vertical-align: top;
+    }
+    th {
+      background-color: #2B2243;
+      color: white;
+    }
+    .blokje {
+      display: inline-block;
+      padding: 0.2rem 0.4rem;
+      margin: 0.1rem;
+      border-radius: 4px;
+      color: white;
+      font-size: 0.85rem;
+      cursor: move;
+    }
+    .pauze {
+      background-color: #eeeeee !important;
+      border: 1px dashed #999;
+    }
+    .blokje.pauze-blok {
+      background-color: #cccccc !important;
+      color: #444;
+    }
+    #blokjes {
+      margin-bottom: 1rem;
+    }
+    input[type="number"], input[type="text"] {
+      padding: 0.3rem;
+      font-size: 1rem;
+      border-radius: 0.3rem;
+      border: 1px solid #ccc;
+      margin-right: 0.5rem;
+    }
+    button {
+      padding: 0.4rem 1rem;
+      background-color: #2B2243;
+      color: white;
+      border: none;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      margin-right: 0.5rem;
+    }
+    button:hover {
+      background-color: #443866;
+    }
+    ul {
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Weekrooster Planner</h1>
+    <p>Sleep medewerker-blokjes in de gewenste tijdsblokken. Rijen zijn tijdsblokken, kolommen zijn weekdagen. Gebruik grijze blokjes voor pauze per medewerker.</p>
+
+    <label for="ft-target">Aanwezig op school:</label>
+    <input type="number" id="ft-target" value="33" min="0" onchange="calculateUren()"> klokuren.
+    <div id="blokjes"></div>
+    <table id="rooster">
+      <thead>
+        <tr>
+          <th>Tijd</th>
+          <th>Ma</th>
+          <th>Di</th>
+          <th>Wo</th>
+          <th>Do</th>
+          <th>Vr</th>
+        </tr>
+      </thead>
+      <tbody id="rooster-body"></tbody>
+    </table>
+    <div id="result"></div>
+    <label for="filename">Bestandsnaam:</label>
+    <input type="text" id="filename" placeholder="lessenrooster-week24">
+    <button onclick="exportRooster()">Exporteer Rooster</button>
+    <input type="file" id="fileInput" onchange="importRooster(event)">
+  </div>
+
+  <script>const voorafIngeladenRooster = {"Ma_08.00\u201308.30": [{"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}], "Di_08.00\u201308.30": [{"naam": "Ruth", "pauze": false}, {"naam": "Dirk", "pauze": false}], "Wo_08.00\u201308.30": [{"naam": "Ilse", "pauze": false}, {"naam": "Inge", "pauze": false}], "Do_08.00\u201308.30": [{"naam": "Inne", "pauze": false}, {"naam": "Inge", "pauze": false}], "Vr_08.00\u201308.30": [{"naam": "Ruth", "pauze": false}, {"naam": "Ilse", "pauze": false}], "Ma_08.30\u201309.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Cindy", "pauze": false}], "Di_08.30\u201309.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Cindy", "pauze": false}], "Wo_08.30\u201309.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Cindy", "pauze": false}, {"naam": "Inge", "pauze": false}], "Do_08.30\u201309.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Inge", "pauze": false}, {"naam": "Cindy", "pauze": false}, {"naam": "Ruth", "pauze": false}], "Vr_08.30\u201309.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Inge", "pauze": false}], "Ma_09.30\u201310.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Cindy", "pauze": false}], "Di_09.30\u201310.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Cindy", "pauze": false}], "Wo_09.30\u201310.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Inge", "pauze": false}, {"naam": "Cindy", "pauze": false}], "Do_09.30\u201310.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Inge", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Cindy", "pauze": false}, {"naam": "Dirk", "pauze": false}], "Vr_09.30\u201310.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Inge", "pauze": false}], "Ma_10.30\u201311.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Cindy", "pauze": false}], "Di_10.30\u201311.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Cindy", "pauze": false}], "Wo_10.30\u201311.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Inge", "pauze": false}, {"naam": "Cindy", "pauze": false}, {"naam": "Dirk C", "pauze": false}], "Do_10.30\u201311.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Inge", "pauze": false}], "Vr_10.30\u201311.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Inge", "pauze": false}], "Ma_11.30\u201312.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Inne", "pauze": true}, {"naam": "Dirk", "pauze": true}, {"naam": "Ruth", "pauze": true}, {"naam": "Cindy", "pauze": false}], "Di_11.30\u201312.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": true}, {"naam": "Dirk", "pauze": true}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": true}, {"naam": "Cindy", "pauze": false}], "Wo_11.30\u201312.30": [{"naam": "Inne", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Inge", "pauze": false}, {"naam": "Karolien", "pauze": false}], "Do_11.30\u201312.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Ruth", "pauze": true}, {"naam": "Ilse", "pauze": true}, {"naam": "Inne", "pauze": true}, {"naam": "Inge", "pauze": false}], "Vr_11.30\u201312.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Ruth", "pauze": true}, {"naam": "Ilse", "pauze": true}, {"naam": "Inne", "pauze": true}, {"naam": "Inge", "pauze": false}], "Ma_12.30\u201313.30": [{"naam": "Karolien", "pauze": true}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Cindy", "pauze": true}, {"naam": "Ilse", "pauze": true}], "Di_12.30\u201313.30": [{"naam": "Karolien", "pauze": true}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ilse", "pauze": true}, {"naam": "Ruth", "pauze": false}], "Wo_12.30\u201313.30": [], "Do_12.30\u201313.30": [{"naam": "Karolien", "pauze": true}, {"naam": "Dirk C", "pauze": true}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Inge", "pauze": true}], "Vr_12.30\u201313.30": [{"naam": "Karolien", "pauze": true}, {"naam": "Ruth", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Dirk C", "pauze": true}, {"naam": "Inge", "pauze": true}], "Ma_13.30\u201314.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Cindy", "pauze": false}], "Di_13.30\u201314.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ruth", "pauze": false}], "Wo_13.30\u201314.30": [], "Do_13.30\u201314.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Inge", "pauze": false}], "Vr_13.30\u201314.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Inge", "pauze": false}], "Ma_14.30\u201315.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Cindy", "pauze": false}], "Di_14.30\u201315.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": false}], "Wo_14.30\u201315.30": [], "Do_14.30\u201315.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Ruth", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Inge", "pauze": false}], "Vr_14.30\u201315.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Ilse", "pauze": false}], "Ma_15.30\u201316.30": [{"naam": "Ilse", "pauze": false}, {"naam": "Dirk", "pauze": false}, {"naam": "Karolien", "pauze": false}, {"naam": "Inne", "pauze": false}, {"naam": "Cindy", "pauze": false}], "Di_15.30\u201316.30": [{"naam": "Inne", "pauze": false}, {"naam": "Ilse", "pauze": false}, {"naam": "Karolien", "pauze": false}, {"naam": "Ruth", "pauze": false}], "Wo_15.30\u201316.30": [], "Do_15.30\u201316.30": [{"naam": "Karolien", "pauze": false}, {"naam": "Dirk C", "pauze": false}, {"naam": "Inne", "pauze": false}], "Vr_15.30\u201316.30": []};</script>
+  <script>
+    const tijden = [
+      "08.00–08.30", "08.30–09.30", "09.30–10.30", "10.30–11.30",
+      "11.30–12.30", "12.30–13.30", "13.30–14.30", "14.30–15.30", "15.30–16.30"
+    ];
+    const blokWaarde = [0.5, 1, 1, 1, 1, 1, 1, 1, 1];
+    const dagen = ["Ma", "Di", "Wo", "Do", "Vr"];
+    const medewerkers = ["Karolien", "Inne", "Ilse", "Dirk C", "Dirk", "Inge", "Cindy", "Ruth"];
+    const kleuren = {
+      "Karolien": "#5084C2", "Inne": "#0C8464", "Ilse": "#ED4E13", "Dirk C": "#2B2243",
+      "Dirk": "#5698B2", "Inge": "#E399BB", "Cindy": "#F0B94E", "Ruth": "#E5A021"
+    };
+    const statuten = {
+      "Karolien": 1, "Inne": 1, "Ilse": 1, "Dirk C": 0.5, "Dirk": 0.5, "Inge": 0.5, "Cindy": 0.5, "Ruth": 0.8
+    };
+    const roosterData = {};
+
+    function generateRooster() {
+      const tbody = document.getElementById("rooster-body");
+      tijden.forEach((tijd, tijdIndex) => {
+        const row = document.createElement("tr");
+        const tijdCel = document.createElement("td");
+        tijdCel.textContent = tijd;
+        row.appendChild(tijdCel);
+        dagen.forEach((dag) => {
+          const key = `${dag}_${tijd}`;
+          const cel = document.createElement("td");
+          cel.dataset.key = key;
+          cel.ondragover = e => e.preventDefault();
+          cel.ondrop = e => handleDrop(e, key);
+          roosterData[key] = [];
+          row.appendChild(cel);
+        });
+        tbody.appendChild(row);
+      });
+    }
+
+    function generateBlokjes() {
+      const container = document.getElementById("blokjes");
+      medewerkers.forEach(naam => {
+        const werkblok = document.createElement("div");
+        werkblok.textContent = naam;
+        werkblok.className = "blokje";
+        werkblok.style.backgroundColor = kleuren[naam];
+        werkblok.draggable = true;
+        werkblok.ondragstart = e => {
+          e.dataTransfer.setData("text/plain", naam);
+          e.dataTransfer.setData("pauze", "false");
+        };
+        container.appendChild(werkblok);
+
+        const pauzeblok = document.createElement("div");
+        pauzeblok.textContent = naam;
+        pauzeblok.className = "blokje pauze-blok";
+        pauzeblok.draggable = true;
+        pauzeblok.ondragstart = e => {
+          e.dataTransfer.setData("text/plain", naam);
+          e.dataTransfer.setData("pauze", "true");
+        };
+        container.appendChild(pauzeblok);
+      });
+    }
+
+    function handleDrop(e, key) {
+      const naam = e.dataTransfer.getData("text/plain");
+      const isPauze = e.dataTransfer.getData("pauze") === "true";
+      if (!roosterData[key].some(entry => entry.naam === naam)) {
+        roosterData[key].push({ naam, pauze: isPauze });
+        updateCel(key);
+        calculateUren();
+      }
+    }
+
+    function updateCel(key) {
+      const cel = document.querySelector(`[data-key='${key}']`);
+      cel.innerHTML = "";
+      roosterData[key].forEach((entry, index) => {
+        const blok = document.createElement("div");
+        blok.textContent = entry.naam;
+        blok.className = entry.pauze ? "blokje pauze-blok" : "blokje";
+        blok.style.backgroundColor = entry.pauze ? "#cccccc" : kleuren[entry.naam];
+        blok.draggable = true;
+        blok.ondragstart = e => {
+          e.dataTransfer.setData("text/plain", entry.naam);
+          e.dataTransfer.setData("pauze", entry.pauze);
+        };
+        blok.onclick = () => {
+          roosterData[key].splice(index, 1);
+          updateCel(key);
+          calculateUren();
+        };
+        cel.appendChild(blok);
+      });
+    }
+
+    function calculateUren() {
+      const ftTarget = parseFloat(document.getElementById("ft-target").value);
+      const uren = {}, pauzes = {};
+      medewerkers.forEach(m => {
+        uren[m] = 0;
+        pauzes[m] = 0;
+      });
+      Object.entries(roosterData).forEach(([key, entries]) => {
+        const tijdslot = key.split("_")[1];
+        const index = tijden.indexOf(tijdslot);
+        entries.forEach(entry => {
+          if (entry.pauze) {
+            pauzes[entry.naam] += blokWaarde[index];
+          } else {
+            uren[entry.naam] += blokWaarde[index];
+          }
+        });
+      });
+      const output = Object.entries(uren).map(([naam, totaal]) => {
+        const target = Math.round(statuten[naam] * ftTarget);
+        const verschil = totaal - target;
+        const verschilText = verschil === 0 ? "✅" : verschil > 0 ? `+${verschil}u` : `${verschil}u`;
+        return `<li><strong>${naam}</strong>: ${totaal}u (${verschilText}) – pauze: ${pauzes[naam]}u</li>`;
+      }).join("");
+      document.getElementById("result").innerHTML = `<h2>Uren per medewerker</h2><ul>${output}</ul>`;
+    }
+
+    function exportRooster() {
+      const filename = document.getElementById("filename").value || "lessenrooster";
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(roosterData));
+      const downloadAnchorNode = document.createElement("a");
+      downloadAnchorNode.setAttribute("href", dataStr);
+      downloadAnchorNode.setAttribute("download", filename + ".json");
+      document.body.appendChild(downloadAnchorNode);
+      downloadAnchorNode.click();
+      downloadAnchorNode.remove();
+    }
+
+    function importRooster(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const importedData = JSON.parse(e.target.result);
+        Object.keys(roosterData).forEach(key => {
+          roosterData[key] = importedData[key] || [];
+          updateCel(key);
+        });
+        calculateUren();
+      };
+      reader.readAsText(file);
+    }
+
+    generateRooster();
+    generateBlokjes();
+    Object.keys(voorafIngeladenRooster).forEach(key => {
+      roosterData[key] = voorafIngeladenRooster[key];
+      updateCel(key);
+    });
+    calculateUren();
+  </script>
+</body>
+</html>
