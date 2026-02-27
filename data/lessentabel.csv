@@ -1156,74 +1156,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 4ZW,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,5
 4ZW,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
 4ZW,Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
-1AFLEX,Godsdienst en Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-1AFLEX,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-1AFLEX,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
-1AFLEX,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
-1AFLEX,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
-1AFLEX,Muzikale opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1AFLEX,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,5
-1AFLEX,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1AFLEX,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-1AFLEX,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-1AFLEX,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-1AFLEX,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,5
-1AFLEX,Digitale Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
-1AFLEX,Flex (1),basisoptie,vak,ONWAAR,ONWAAR,4
-1ASPO,Godsdienst en Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPO,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPO,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
-1ASPO,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPO,Muzikale opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,5
-1ASPO,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPO,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPO,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPO,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPO,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,5
-1ASPO,Digitale Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPO,Sport omni,basisoptie,vak,ONWAAR,ONWAAR,4
-1ASPV,Godsdienst en Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPV,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPV,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPV,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
-1ASPV,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPV,Muzikale opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPV,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,5
-1ASPV,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPV,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPV,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPV,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPV,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,5
-1ASPV,Digitale Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPV,Sport voetbal,basisoptie,vak,ONWAAR,ONWAAR,4
-1ASPEV,Godsdienst en Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPEV,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPEV,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
-1ASPEV,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPEV,Muzikale opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPEV,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,5
-1ASPEV,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPEV,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPEV,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPEV,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPEV,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,5
-1ASPEV,Digitale Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPEV,Sport elite voetbal,basisoptie,vak,ONWAAR,ONWAAR,7
-1ATOP,Godsdienst en Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-1ATOP,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
-1ATOP,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
-1ATOP,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
-1ATOP,Muzikale opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1ATOP,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,5
-1ATOP,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1ATOP,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-1ATOP,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-1ATOP,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-1ATOP,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,5
-1ATOP,Digitale Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
-1ATOP,Topsport,basisoptie,vak,ONWAAR,ONWAAR,7
 1B,Project Algemene Vakken (PAV) (1),basisvorming,vak,ONWAAR,ONWAAR,10
 1B,Wiskunde-Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 1B,Onthaal en planning,basisvorming,vak,ONWAAR,ONWAAR,1
@@ -1233,70 +1165,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 1B,Kunst en Cultuur,basisvorming,vak,ONWAAR,ONWAAR,3
 1B,Techniek,basisvorming,vak,ONWAAR,ONWAAR,6
 1B,Project (2),basisoptie,vak,ONWAAR,ONWAAR,4
-2ASPOMNI,Godsdienst / Zedenleer (1),basisvorming,vak,ONWAAR,ONWAAR,2
-2ASPOMNI,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-2ASPOMNI,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
-2ASPOMNI,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
-2ASPOMNI,Geschiedenis (1),basisvorming,vak,ONWAAR,ONWAAR,2
-2ASPOMNI,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,5
-2ASPOMNI,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-2ASPOMNI,Financiële geletterdheid (1),basisvorming,vak,ONWAAR,ONWAAR,1
-2ASPOMNI,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
-2ASPOMNI,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
-2ASPOMNI,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-2ASPOMNI,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,5
-2ASPOMNI,SPORT omni of voetbal of elite voetbal (2),basisoptie,vak,ONWAAR,ONWAAR,5
-2ASTEM,Godsdienst / Zedenleer (1),basisvorming,vak,ONWAAR,ONWAAR,2
-2ASTEM,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-2ASTEM,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
-2ASTEM,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
-2ASTEM,Geschiedenis (1),basisvorming,vak,ONWAAR,ONWAAR,2
-2ASTEM,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,5
-2ASTEM,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-2ASTEM,Financiële geletterdheid (1),basisvorming,vak,ONWAAR,ONWAAR,1
-2ASTEM,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
-2ASTEM,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
-2ASTEM,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-2ASTEM,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,5
-2ASTEM,STEM (3),basisoptie,vak,ONWAAR,ONWAAR,5
-2AEO,Godsdienst / Zedenleer (1),basisvorming,vak,ONWAAR,ONWAAR,2
-2AEO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-2AEO,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
-2AEO,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
-2AEO,Geschiedenis (1),basisvorming,vak,ONWAAR,ONWAAR,2
-2AEO,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,5
-2AEO,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-2AEO,Financiële geletterdheid (1),basisvorming,vak,ONWAAR,ONWAAR,1
-2AEO,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
-2AEO,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
-2AEO,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-2AEO,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,5
-2AEO,ECONOMIE & ORGANISATIE,basisoptie,vak,ONWAAR,ONWAAR,5
-2AMW,Godsdienst / Zedenleer (1),basisvorming,vak,ONWAAR,ONWAAR,2
-2AMW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
-2AMW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
-2AMW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
-2AMW,Geschiedenis (1),basisvorming,vak,ONWAAR,ONWAAR,2
-2AMW,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,5
-2AMW,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-2AMW,Financiële geletterdheid (1),basisvorming,vak,ONWAAR,ONWAAR,1
-2AMW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
-2AMW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
-2AMW,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-2AMW,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,5
-2AMW,MAATSCHAPPIJ & WELZIJN,basisoptie,vak,ONWAAR,ONWAAR,5
-2ATOP,Godsdienst / Zedenleer (1),basisvorming,vak,ONWAAR,ONWAAR,2
-2ATOP,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
-2ATOP,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
-2ATOP,Geschiedenis (1),basisvorming,vak,ONWAAR,ONWAAR,2
-2ATOP,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,4
-2ATOP,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-2ATOP,Financiële geletterdheid (1),basisvorming,vak,ONWAAR,ONWAAR,1
-2ATOP,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
-2ATOP,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
-2ATOP,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-2ATOP,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,4
-2ATOP,Topsport,basisoptie,vak,ONWAAR,ONWAAR,9
 2BSTEM,Projecten Algemene Vakken (PAV) (1),basisvorming,vak,ONWAAR,ONWAAR,10
 2BSTEM,Wiskunde-Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 2BSTEM,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
@@ -1335,30 +1203,191 @@ klascode,vak,categorie,type,subvak,optie,uren
 2BEOMW,Digitale Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
 2BEOMW,ECONOMIE & ORGANISATIE,basisoptie,vak,ONWAAR,ONWAAR,5
 2BEOMW,MAATSCHAPPIJ & WELZIJN,basisoptie,vak,ONWAAR,ONWAAR,5
-1ASPT,Godsdienst en Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
+1AFLEX,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+1AFLEX,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+1AFLEX,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+1AFLEX,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+1AFLEX,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+1AFLEX,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+1AFLEX,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+1AFLEX,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+1AFLEX,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+1AFLEX,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+1AFLEX,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+1AFLEX,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+1AFLEX,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+1AFLEX,Flex (1),basisoptie,vak,ONWAAR,ONWAAR,4
+1ASPO,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPO,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+1ASPO,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPO,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+1ASPO,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPO,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+1ASPO,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPO,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPO,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPO,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPO,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPO,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPO,Sport omni,basisoptie,vak,ONWAAR,ONWAAR,4
+1ASPV,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPV,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPV,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+1ASPV,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPV,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+1ASPV,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPV,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+1ASPV,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPV,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPV,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPV,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPV,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPV,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPV,Sport voetbal,basisoptie,vak,ONWAAR,ONWAAR,4
+1ASPEV,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPEV,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPEV,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+1ASPEV,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPEV,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+1ASPEV,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPEV,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+1ASPEV,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPEV,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPEV,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPEV,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPEV,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPEV,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPEV,Sport elite voetbal,basisoptie,vak,ONWAAR,ONWAAR,4
+1ASPT,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
 1ASPT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPT,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
 1ASPT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 1ASPT,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+1ASPT,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPT,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+1ASPT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPT,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+1ASPT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
 1ASPT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPT,Muzikale opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,5
-1ASPT,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-1ASPT,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-1ASPT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,5
-1ASPT,Digitale Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+1ASPT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 1ASPT,Sport padel & tennis,basisoptie,vak,ONWAAR,ONWAAR,4
-2ASPT,Godsdienst / Zedenleer (1),basisvorming,vak,ONWAAR,ONWAAR,2
+1ATOP,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+1ATOP,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+1ATOP,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+1ATOP,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+1ATOP,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+1ATOP,Toegepaste informatica,basisvorming,vak,ONWAAR,ONWAAR,1
+1ATOP,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+1ATOP,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
+1ATOP,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+1ATOP,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+1ATOP,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
+1ATOP,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+1ATOP,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+1ATOP,Topsport,basisoptie,vak,ONWAAR,ONWAAR,4
+2ASPOMNI,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPOMNI,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPOMNI,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2ASPOMNI,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPOMNI,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+2ASPOMNI,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2ASPOMNI,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPOMNI,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPOMNI,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPOMNI,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPOMNI,Eco. Fin. Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPOMNI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPOMNI,SPORT omni of voetbal of elite voetbal (2),basisoptie,vak,ONWAAR,ONWAAR,4
+2ASPV,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPV,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPV,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2ASPV,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPV,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+2ASPV,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2ASPV,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPV,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPV,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPV,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPV,Eco. Fin. Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPV,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPV,Basisoptie,basisoptie,vak,ONWAAR,ONWAAR,4
+2ASPEV,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPEV,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPEV,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2ASPEV,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPEV,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+2ASPEV,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2ASPEV,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPEV,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPEV,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPEV,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPEV,Eco. Fin. Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPEV,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPEV,Basisoptie,basisoptie,vak,ONWAAR,ONWAAR,4
+2ASPT,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
 2ASPT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPT,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
 2ASPT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 2ASPT,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
-2ASPT,Geschiedenis (1),basisvorming,vak,ONWAAR,ONWAAR,2
-2ASPT,Nederlands (1),basisvorming,vak,ONWAAR,ONWAAR,5
-2ASPT,Plastische opvoeding,basisvorming,vak,ONWAAR,ONWAAR,1
-2ASPT,Financiële geletterdheid (1),basisvorming,vak,ONWAAR,ONWAAR,1
-2ASPT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
-2ASPT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,2
-2ASPT,Techniek,basisvorming,vak,ONWAAR,ONWAAR,2
-2ASPT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,5
-2ASPT,Sport padel & tennis,basisoptie,vak,ONWAAR,ONWAAR,5
+2ASPT,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2ASPT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPT,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASPT,Eco. Fin. Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASPT,Sport padel & tennis,basisoptie,vak,ONWAAR,ONWAAR,4
+2ASTEM,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASTEM,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASTEM,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2ASTEM,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASTEM,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+2ASTEM,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2ASTEM,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASTEM,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASTEM,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASTEM,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+2ASTEM,Eco. Fin. Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASTEM,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ASTEM,STEM (3),basisoptie,vak,ONWAAR,ONWAAR,4
+2AEO,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+2AEO,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+2AEO,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2AEO,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+2AEO,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+2AEO,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2AEO,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+2AEO,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+2AEO,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+2AEO,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+2AEO,Eco. Fin. Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
+2AEO,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+2AEO,ECONOMIE & ORGANISATIE,basisoptie,vak,ONWAAR,ONWAAR,4
+2AMW,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+2AMW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+2AMW,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2AMW,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+2AMW,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+2AMW,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2AMW,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+2AMW,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+2AMW,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+2AMW,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+2AMW,Eco. Fin. Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
+2AMW,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+2AMW,MAATSCHAPPIJ & WELZIJN,basisoptie,vak,ONWAAR,ONWAAR,4
+2ATOP,Levensbeschouwing,basisvorming,vak,ONWAAR,ONWAAR,2
+2ATOP,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+2ATOP,Nederlands (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2ATOP,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
+2ATOP,Frans,basisvorming,vak,ONWAAR,ONWAAR,3
+2ATOP,Wiskunde (+rem),basisvorming,vak,ONWAAR,ONWAAR,5
+2ATOP,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
+2ATOP,Techniek STEM,basisvorming,vak,ONWAAR,ONWAAR,2
+2ATOP,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,2
+2ATOP,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+2ATOP,Eco. Fin. Competentie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ATOP,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+2ATOP,Topsport,basisoptie,vak,ONWAAR,ONWAAR,4
