@@ -1,16 +1,16 @@
 klascode,vak,categorie,type,subvak,optie,uren
 5APDA,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-5APDA,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5APDA,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 5APDA,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 5APDA,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 5APDA,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 5APDA,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
 5APDA,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 5APDA,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
-5APDA,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
-5APDA,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
-5APDA,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
-5APDA,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5APDA,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+5APDA,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+5APDA,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+5APDA,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
 5APDA,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5APDA,Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,4
 5APDA,Digitaal ondersteuner,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -24,9 +24,9 @@ klascode,vak,categorie,type,subvak,optie,uren
 6APDA,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 6APDA,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 6APDA,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-6APDA,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-6APDA,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
-6APDA,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
+6APDA,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+6APDA,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
+6APDA,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
 6APDA,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 6APDA,Informaticawetenschappen,specifiek gedeelte,vak,WAAR,ONWAAR,4
 6APDA,Digitaal ondersteuner,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -115,7 +115,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 4BO,Frans (wisseluur),specifiek gedeelte,vak,WAAR,ONWAAR,0.5
 4BO,Engels (wisseluur),specifiek gedeelte,vak,WAAR,ONWAAR,0.5
 5BO,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-5BO,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5BO,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 5BO,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 5BO,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 5BO,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
@@ -123,9 +123,9 @@ klascode,vak,categorie,type,subvak,optie,uren
 5BO,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 5BO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 5BO,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-5BO,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
-5BO,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
-5BO,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
+5BO,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+5BO,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
+5BO,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 5BO,Bedrijfsorganisatie,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 5BO,Engels (wisseluur),specifiek gedeelte,vak,WAAR,ONWAAR,0.5
 5BO,Frans (wisseluur),specifiek gedeelte,vak,WAAR,ONWAAR,0.5
@@ -142,9 +142,9 @@ klascode,vak,categorie,type,subvak,optie,uren
 6BO,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 6BO,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 6BO,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-6BO,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-6BO,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
-6BO,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+6BO,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+6BO,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+6BO,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 6BO,Bedrijfsorganisatie,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 6BO,Engels (wisseluur),specifiek gedeelte,vak,WAAR,ONWAAR,0.5
 6BO,Frans (wisseluur),specifiek gedeelte,vak,WAAR,ONWAAR,0.5
@@ -481,17 +481,17 @@ klascode,vak,categorie,type,subvak,optie,uren
 4EMT,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 4EMT,Elektromechanische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,8
 5EMT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-5EMT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5EMT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 5EMT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 5EMT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 5EMT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
 5EMT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 5EMT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 5EMT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
-5EMT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
-5EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
-5EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
-5EMT,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5EMT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+5EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+5EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+5EMT,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
 5EMT,Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5EMT,Mechanica,specifiek gedeelte,vak,WAAR,ONWAAR,2
 5EMT,Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
@@ -507,9 +507,9 @@ klascode,vak,categorie,type,subvak,optie,uren
 6EMT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 6EMT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 6EMT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-6EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-6EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
-6EMT,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
+6EMT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+6EMT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
+6EMT,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
 6EMT,Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6EMT,Mechanica,specifiek gedeelte,vak,WAAR,ONWAAR,2
 6EMT,Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,2
@@ -517,17 +517,17 @@ klascode,vak,categorie,type,subvak,optie,uren
 6EMT,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 6EMT,Elektromechanische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,8
 5GRAFI,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-5GRAFI,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5GRAFI,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 5GRAFI,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 5GRAFI,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 5GRAFI,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
 5GRAFI,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 5GRAFI,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 5GRAFI,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
-5GRAFI,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
-5GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
-5GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
-5GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5GRAFI,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
+5GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+5GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+5GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
 5GRAFI,Wiskunde,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5GRAFI,Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
 5GRAFI,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -541,9 +541,9 @@ klascode,vak,categorie,type,subvak,optie,uren
 6GRAFI,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 6GRAFI,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 6GRAFI,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-6GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-6GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
-6GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
+6GRAFI,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+6GRAFI,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
+6GRAFI,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
 6GRAFI,Wiskunde,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 6GRAFI,Kunstbeschouwing,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6GRAFI,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -765,17 +765,17 @@ klascode,vak,categorie,type,subvak,optie,uren
 6DUA-OOS,"Onthaal, organisatie en sales",specifiek gedeelte,vak,ONWAAR,ONWAAR,3
 6DUA-OOS,Werkplekleren,specifiek gedeelte,vak,ONWAAR,ONWAAR,20
 5OB,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-5OB,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5OB,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 5OB,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 5OB,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 5OB,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
 5OB,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 5OB,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
-5OB,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,3
+5OB,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 5OB,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-5OB,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
-5OB,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
-5OB,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
+5OB,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+5OB,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
+5OB,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
 5OB,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5OB,Pedagogiek,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5OB,Opvoeding en begeleiding,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -792,9 +792,9 @@ klascode,vak,categorie,type,subvak,optie,uren
 6OB,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 6OB,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 6OB,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-6OB,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-6OB,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
-6OB,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+6OB,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+6OB,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+6OB,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
 6OB,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 6OB,Pedagogiek,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 6OB,Opvoeding en begeleiding,specifiek gedeelte,vak,ONWAAR,ONWAAR,
@@ -891,16 +891,17 @@ klascode,vak,categorie,type,subvak,optie,uren
 4SPORT,Toegepaste Biologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,-
 4SPORT,Toegepaste Psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,2
 5SPORT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-5SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5SPORT,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 5SPORT,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 5SPORT,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 5SPORT,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
 5SPORT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 5SPORT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 5SPORT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-5SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
-5SPORT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
-5SPORT,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+5SPORT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+5SPORT,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
+5SPORT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 5SPORT,Sportgebeleiding,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 5SPORT,Bewegingswetenschappen Toepassingen,specifiek gedeelte,vak,WAAR,ONWAAR,3
 5SPORT,Bewegingswetenschappen theorie,specifiek gedeelte,vak,WAAR,ONWAAR,1
@@ -917,9 +918,10 @@ klascode,vak,categorie,type,subvak,optie,uren
 6SPORT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 6SPORT,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
 6SPORT,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
-6SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-6SPORT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
-6SPORT,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
+6SPORT,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+6SPORT,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
+6SPORT,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+6SPORT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 6SPORT,Sportgebeleiding,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 6SPORT,Bewegingswetenschappen Toepassingen,specifiek gedeelte,vak,WAAR,ONWAAR,2
 6SPORT,Bewegingswetenschappen theorie,specifiek gedeelte,vak,WAAR,ONWAAR,2
@@ -993,7 +995,7 @@ klascode,vak,categorie,type,subvak,optie,uren
 6SPW,Algemene LO (1),specifiek gedeelte,vak,WAAR,ONWAAR,2
 6SPW,Theorie,specifiek gedeelte,vak,WAAR,ONWAAR,2
 5TOE,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-5TOE,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOE,Aardrijkskunde,basisvorming,vak,ONWAAR,ONWAAR,-
 5TOE,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
 5TOE,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 5TOE,Geschiedenis,basisvorming,vak,ONWAAR,ONWAAR,1
@@ -1001,9 +1003,9 @@ klascode,vak,categorie,type,subvak,optie,uren
 5TOE,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 5TOE,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 5TOE,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-5TOE,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
-5TOE,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
-5TOE,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOE,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOE,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
+5TOE,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
 5TOE,Toerisme ,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 5TOE,Engels,specifiek gedeelte,vak,WAAR,ONWAAR,2
 5TOE,Frans,specifiek gedeelte,vak,WAAR,ONWAAR,2
@@ -1018,9 +1020,9 @@ klascode,vak,categorie,type,subvak,optie,uren
 6TOE,Natuurwetenschappen,basisvorming,vak,ONWAAR,ONWAAR,1
 6TOE,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,3
 6TOE,Wiskunde,basisvorming,vak,ONWAAR,ONWAAR,2
-6TOE,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,1
-6TOE,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,1
-6TOE,Economie,basisvorming,vak,ONWAAR,ONWAAR,-
+6TOE,Burgerschap,basisvorming,vak,ONWAAR,ONWAAR,-
+6TOE,Artistieke expressie,basisvorming,vak,ONWAAR,ONWAAR,-
+6TOE,Economie,basisvorming,vak,ONWAAR,ONWAAR,1
 6TOE,Toerisme ,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 6TOE,Engels,specifiek gedeelte,vak,WAAR,WAAR,2
 6TOE,Frans,specifiek gedeelte,vak,WAAR,WAAR,2
@@ -1182,10 +1184,6 @@ klascode,vak,categorie,type,subvak,optie,uren
 4ZW,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,5
 4ZW,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
 4ZW,Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
-
-
-
-
 1AFLEX,Godsdienst en Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 1AFLEX,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
 1AFLEX,Engels,basisvorming,vak,ONWAAR,ONWAAR,2
