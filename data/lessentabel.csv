@@ -405,23 +405,21 @@ klascode,vak,categorie,type,subvak,optie,uren
 7DUA-SHPAAR,Kapper-stylist,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 7DUA-SHPAAR,Werkplekleren,specifiek gedeelte,vak,WAAR,ONWAAR,38
 3ELEK,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-3ELEK,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
-3ELEK,STEM (1),basisvorming,vak,WAAR,ONWAAR,
-3ELEK,MTC (2),basisvorming,vak,WAAR,ONWAAR,
-3ELEK,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3ELEK,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 3ELEK,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
 3ELEK,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3ELEK,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+3ELEK,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 3ELEK,STEM Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 3ELEK,Basis,specifiek gedeelte,vak,WAAR,ONWAAR,8
 3ELEK,Auto,specifiek gedeelte,vak,WAAR,ONWAAR,5
 3ELEK,Elektriciteit,specifiek gedeelte,vak,WAAR,ONWAAR,6
 4ELEK,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-4ELEK,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
-4ELEK,STEM (1),basisvorming,vak,WAAR,ONWAAR,
-4ELEK,MTC (2),basisvorming,vak,WAAR,ONWAAR,
-4ELEK,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4ELEK,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 4ELEK,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
 4ELEK,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4ELEK,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+4ELEK,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 4ELEK,STEM Elektriciteit,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 4ELEK,Basis,specifiek gedeelte,vak,WAAR,ONWAAR,8
 4ELEK,Auto,specifiek gedeelte,vak,WAAR,ONWAAR,5
@@ -549,22 +547,20 @@ klascode,vak,categorie,type,subvak,optie,uren
 6GRAFI,STEM,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 6GRAFI,Grafische technieken,specifiek gedeelte,vak,WAAR,ONWAAR,12
 3HSZ,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-3HSZ,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
-3HSZ,STEM (1),basisvorming,vak,WAAR,ONWAAR,
-3HSZ,MTC (2),basisvorming,vak,WAAR,ONWAAR,
-3HSZ,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3HSZ,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 3HSZ,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
 3HSZ,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3HSZ,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+3HSZ,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 3HSZ,Haar- en schoonheidsverzorging (19u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
 3HSZ,Haarverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,14
 3HSZ,Schoonheidsverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,5
 4HSZ,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-4HSZ,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
-4HSZ,STEM (1),basisvorming,vak,WAAR,ONWAAR,
-4HSZ,MTC (2),basisvorming,vak,WAAR,ONWAAR,
-4HSZ,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4HSZ,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 4HSZ,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
 4HSZ,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4HSZ,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+4HSZ,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 4HSZ,Haar- en schoonheidsverzorging (19u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
 4HSZ,Haarverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,14
 4HSZ,Schoonheidsverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,5
@@ -591,20 +587,18 @@ klascode,vak,categorie,type,subvak,optie,uren
 6HZ,Schoonheidsverzorging,specifiek gedeelte,vak,WAAR,ONWAAR,1
 6HZ,Contactuur stage,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 3HOUT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-3HOUT,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
-3HOUT,STEM (1),basisvorming,vak,WAAR,ONWAAR,
-3HOUT,MTC (2),basisvorming,vak,WAAR,ONWAAR,
-3HOUT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3HOUT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 3HOUT,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
 3HOUT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3HOUT,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+3HOUT,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 3HOUT,Hout,specifiek gedeelte,vak,ONWAAR,ONWAAR,19
 4HOUT,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-4HOUT,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
-4HOUT,STEM (1),basisvorming,vak,WAAR,ONWAAR,
-4HOUT,MTC (2),basisvorming,vak,WAAR,ONWAAR,
-4HOUT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4HOUT,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 4HOUT,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
 4HOUT,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4HOUT,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+4HOUT,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 4HOUT,Hout,specifiek gedeelte,vak,ONWAAR,ONWAAR,19
 5KW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
 5KW,PAV,basisvorming,vak,ONWAAR,ONWAAR,
@@ -625,24 +619,22 @@ klascode,vak,categorie,type,subvak,optie,uren
 6KW,Koetswerk,specifiek gedeelte,vak,ONWAAR,ONWAAR,16
 6KW,Contactuur stage,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 3MECH,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-3MECH,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
-3MECH,STEM (1),basisvorming,vak,WAAR,ONWAAR,
-3MECH,MTC (2),basisvorming,vak,WAAR,ONWAAR,
-3MECH,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3MECH,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 3MECH,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 3MECH,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3MECH,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+3MECH,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 3MECH,STEM Mechanica,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 3MECH,Lassen,specifiek gedeelte,vak,WAAR,ONWAAR,6
 3MECH,Machines,specifiek gedeelte,vak,WAAR,ONWAAR,6
 3MECH,Plaatwerk,specifiek gedeelte,vak,WAAR,ONWAAR,6
 3MECH,Montage/Demontage,specifiek gedeelte,vak,WAAR,ONWAAR,1
 4MECH,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-4MECH,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
-4MECH,STEM (1),basisvorming,vak,WAAR,ONWAAR,
-4MECH,MTC (2),basisvorming,vak,WAAR,ONWAAR,
-4MECH,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4MECH,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 4MECH,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 4MECH,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4MECH,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+4MECH,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 4MECH,STEM Mechanica,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 4MECH,Lassen,specifiek gedeelte,vak,WAAR,ONWAAR,6
 4MECH,Machines,specifiek gedeelte,vak,WAAR,ONWAAR,6
@@ -803,12 +795,11 @@ klascode,vak,categorie,type,subvak,optie,uren
 6OB,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,7
 6OB,Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,1
 3OL,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,ONWAAR,2
-3OL,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
-3OL,STEM (1),basisvorming,vak,WAAR,ONWAAR,
-3OL,MTC (2),basisvorming,vak,WAAR,ONWAAR,
-3OL,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3OL,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 3OL,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 3OL,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3OL,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+3OL,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 3OL,Toegepaste Economie,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 3OL,TEC_Economie_logistiek,specifiek gedeelte,vak,WAAR,ONWAAR,5
 3OL,TEC_Economie_organisatie/Toeg. Inform.,specifiek gedeelte,vak,WAAR,ONWAAR,9
@@ -816,12 +807,11 @@ klascode,vak,categorie,type,subvak,optie,uren
 3OL,Engels,specifiek gedeelte,vak,WAAR,ONWAAR,2
 3OL,Nederlands,specifiek gedeelte,vak,WAAR,ONWAAR,2
 4OL,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-4OL,PAV,basisvorming,vak,ONWAAR,ONWAAR,7
-4OL,STEM (1),basisvorming,vak,WAAR,ONWAAR,
-4OL,MTC (2),basisvorming,vak,WAAR,ONWAAR,
-4OL,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4OL,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 4OL,Frans,basisvorming,vak,ONWAAR,ONWAAR,2
 4OL,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4OL,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+4OL,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 4OL,Toegepaste Economie,specifiek gedeelte,vak,ONWAAR,ONWAAR,
 4OL,TEC_Economie_logistiek,specifiek gedeelte,vak,WAAR,ONWAAR,6
 4OL,TEC_Economie_organisatie/Toeg. Inform.,specifiek gedeelte,vak,WAAR,ONWAAR,8
@@ -1161,24 +1151,22 @@ klascode,vak,categorie,type,subvak,optie,uren
 6TS,Toegepaste biologie en bewegingswetenschappen,specifiek gedeelte,vak,ONWAAR,ONWAAR,4
 6TS,Toegepaste psychologie,specifiek gedeelte,vak,ONWAAR,ONWAAR,1
 3ZW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-3ZW,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
-3ZW,STEM (1),basisvorming,vak,ONWAAR,ONWAAR,
-3ZW,MTC (2),basisvorming,vak,ONWAAR,ONWAAR,
-3ZW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+3ZW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 3ZW,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
 3ZW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+3ZW,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+3ZW,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 3ZW,Zorg en welzijn (19u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
 3ZW,Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,5
 3ZW,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,5
 3ZW,Opvoedkunde,specifiek gedeelte,vak,WAAR,ONWAAR,6
 3ZW,Verzorging,specifiek gedeelte,vak,WAAR,ONWAAR,3
 4ZW,Godsdienst / Zedenleer,basisvorming,vak,ONWAAR,WAAR,2
-4ZW,Project Algemene Vakken,basisvorming,vak,ONWAAR,ONWAAR,7
-4ZW,STEM (1),basisvorming,vak,ONWAAR,ONWAAR,
-4ZW,MTC (2),basisvorming,vak,ONWAAR,ONWAAR,
-4ZW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,2
+4ZW,Nederlands,basisvorming,vak,ONWAAR,ONWAAR,1
 4ZW,Frans (MVT),basisvorming,vak,ONWAAR,ONWAAR,2
 4ZW,Lichamelijke opvoeding,basisvorming,vak,ONWAAR,ONWAAR,2
+4ZW,PAV MTC,basisvorming,vak,ONWAAR,ONWAAR,4
+4ZW,PAV STEM,basisvorming,vak,ONWAAR,ONWAAR,4
 4ZW,Zorg en welzijn (19u),specifiek gedeelte,vak,ONWAAR,ONWAAR,
 4ZW,Indirecte zorg,specifiek gedeelte,vak,WAAR,ONWAAR,5
 4ZW,Voeding,specifiek gedeelte,vak,WAAR,ONWAAR,5
